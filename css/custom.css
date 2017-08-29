@@ -1,0 +1,24 @@
+.background-top {
+    height: 400px;
+    border: solid;
+    background-image: url('https://static.pexels.com/photos/546819/pexels-photo-546819.jpeg');
+    background-size: 100% 200%;
+    margin-top: -20px;
+    padding-top: 10%;
+}
+
+.background-top span.border {
+	background-color: #111;
+	color: #fff;
+	padding: 18px;
+	font-size: 25px;
+	letter-spacing: 10px;
+}
+
+p.text {
+	letter-spacing: 5px;
+	text-transform: uppercase;
+	font: 16px "Lato", sans-serif;
+	color: #fff;
+	margin-top: 40px;
+}
