@@ -120,81 +120,9 @@ p.text {
     padding-bottom: 0;
 }
 
-.newsletter-box input#appendedInputButton {
-    background: #ffffff;
-    display: inline-block;
-    float: left;
-    height: 30px;
-    clear: both;
-    width: 100%;
-}
-
-.newsletter-box .btn {
-    border: medium none;
-    -webkit-border-radius: 3px;
-       -moz-border-radius: 3px;
-         -o-border-radius: 3px;
-        -ms-border-radius: 3px;
-            border-radius: 3px;
-    display: inline-block;
-    height: 40px;
-    padding: 0;
-    width: 100%;
-    color: #ffffff;
-}
-
-.newsletter-box {
-    overflow: hidden;
-}
-
 .bg-gray {
     background-image: -moz-linear-gradient(center bottom, #bbbbbb 0%, #f0f0f0 100%);
     box-shadow: 0 1px 0 #b4b3b3;
-}
-
-.social li {
-    background: none repeat scroll 0 0 #b5b5b5;
-    border: 2px solid #b5b5b5;
-    -webkit-border-radius: 50%;
-       -moz-border-radius: 50%;
-         -o-border-radius: 50%;
-        -ms-border-radius: 50%;
-            border-radius: 50%;
-    float: left;
-    height: 36px;
-    line-height: 36px;
-    margin: 0 8px 0 0;
-    padding: 0;
-    text-align: center;
-    width: 36px;
-            transition: all .5s ease 0s;
-       -moz-transition: all .5s ease 0s;
-    -webkit-transition: all .5s ease 0s;
-        -ms-transition: all .5s ease 0s;
-         -o-transition: all .5s ease 0s;
-}
-
-.social li:hover {
-            transform: scale(1.15) rotate(360deg);
-    -webkit-transform: scale(1.1) rotate(360deg);
-       -moz-transform: scale(1.1) rotate(360deg);
-        -ms-transform: scale(1.1) rotate(360deg);
-         -o-transform: scale(1.1) rotate(360deg);
-}
-
-.social li a {
-    color: #edeff1;
-}
-
-.social li:hover {
-    border: 2px solid #2c3e50;
-    background: #2c3e50;
-}
-
-.social li a i {
-    font-size: 16px;
-    margin: 0 0 0 5px;
-    color: #edeff1 !important;
 }
 
 .footer-bottom {
@@ -206,10 +134,6 @@ p.text {
 
 .footer-bottom p.pull-left {
     padding-top: 6px;
-}
-
-.payments {
-    font-size: 1.5em;
 }
 
 .navbar.transparent.navbar-inverse .navbar-inner {
@@ -225,4 +149,12 @@ p.text {
 .repositories {
     display: flex;
     flex-wrap: wrap;
+}
+
+.desc-repository {
+    min-height: 150px;
+}
+
+.desc-repository p {
+    margin-top: 15px;
 }

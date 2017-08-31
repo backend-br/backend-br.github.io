@@ -3,7 +3,7 @@ import React from 'react';
 export default props => (
     <div className="col-md-3">
         <div className="panel panel-default">
-            <div className="panel-body">
+            <div className="panel-body desc-repository">
                 <b>{ props.name }</b>
                 <p>{ props.description }</p>
             </div>
