@@ -15,7 +15,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <Repositories org="backend-br" />
-        <Newsletter />
+        {/* <Newsletter /> */}
         <Members org="backend-br" />
         <Footer />
       </div>
