@@ -1,0 +1,51 @@
+.repository {
+    padding: 20px;
+    margin: 0;
+    list-style: none;
+    color: #ffffff;
+    height: 100%;
+    background: #67b26f;
+    background: linear-gradient(to bottom, #4ca2cd, #67b26f);
+    min-height: 300px;
+    transition: all .25s linear;
+}
+
+.repository:hover {
+    box-shadow: 0 14px 28px rgba(76,162,205,.25), 0 10px 10px rgba(103,178,110,.22);
+}
+
+.repository__link {
+    color: #ffffff;
+    text-decoration: none;
+    overflow: hidden;
+    justify-content: space-between;
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    flex-direction: column;
+}
+
+.repository__link:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.repository__title {
+    font-size: 32px;
+    margin: 0;
+}
+
+.repository__star {
+    background: rgba(255,255,255,.3);
+    padding: 5px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    color: #ffffff;
+    height: 33px;
+}
+
+.repository__star__icon_star {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+}
