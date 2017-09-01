@@ -1,0 +1,28 @@
+.repositories {
+    margin: 0 0 50px;
+    padding: 0 0;
+}
+
+.repositories__title {
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #ffffff;
+    font-size: 22px;
+    border-left: 22px solid #ffffff;
+    letter-spacing: 2px;
+    padding-left: 20px;
+}
+.repositories__list {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px 0 -10px;
+    padding: 0;
+}
+
+.repositories__list > div {
+    margin-bottom: 30px;
+}
+
+.repositories__list > div {
+    margin-bottom: 30px;
+}
