@@ -1,0 +1,24 @@
+.header {
+    margin: 0 0 30px;
+    height: 200px;
+    background-size: 100%;
+}
+
+.header__logo {
+    background-color: #ffffff;
+    color: #000000;
+    padding: 18px;
+    font-size: 25px;
+    display: inline-block;
+    margin-top: 50px;
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+.header__description {
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    font: 16px sans-serif;
+    color: #ffffff;
+    margin-top: 20px;
+}
