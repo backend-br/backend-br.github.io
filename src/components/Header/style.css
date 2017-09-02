@@ -4,6 +4,12 @@
     background-size: 100%;
 }
 
+.header__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .header__logo {
     background-color: #ffffff;
     color: #000000;
