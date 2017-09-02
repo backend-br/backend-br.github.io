@@ -14,7 +14,10 @@
     box-shadow: 0 14px 28px rgba(76,162,205,.25), 0 10px 10px rgba(103,178,110,.22);
 }
 
-.repository__link {
+.repository__link,
+.repository__link:visited,
+.repository__link:active,
+.repository__link:link {
     color: #ffffff;
     text-decoration: none;
     overflow: hidden;
@@ -39,9 +42,10 @@
     background: rgba(255,255,255,.3);
     padding: 5px 10px;
     border-radius: 20px;
-    display: inline-block;
+    display: flex;
     color: #ffffff;
     height: 33px;
+    align-items: center;
 }
 
 .repository__star__icon_star {
