@@ -9,7 +9,7 @@ export default props => (
         <div className="container">
             <div className="header__content">
                 <div className="header__branding">
-                    <div className="header__logo">BackEnd Brasil</div>
+                    <a href="https://github.com/backend-br" className="header__logo">BackEnd Brasil</a>
                     <p className="header__description">A maior comunidade de BackEnd do Brasil</p>
                 </div>
                 <SlackButton />
