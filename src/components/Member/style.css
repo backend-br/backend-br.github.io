@@ -1,8 +1,8 @@
 .member {
     list-style: none;
     margin: 10px;
-    height: 145px;
-    width: 145px;
+    height: 27vw;
+    width: 27vw;
 }
 
 .member__link {
@@ -10,8 +10,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 145px;
-    width: 145px;
+    height: 27vw;
+    width: 27vw;
     text-decoration: none;
     overflow: hidden;
 }
@@ -21,8 +21,8 @@
 }
 
 .member__avatar {
-    height: 145px;
-    width: 145px;
+    height: 27vw;
+    width: 27vw;
     display: block;
     position: absolute;
     top: 0;
@@ -41,4 +41,13 @@
     font-weight: 600;
     overflow: hidden;
     text-decoration: none;
+}
+
+@media (min-width: 750px) {
+    .member,
+    .member__link,
+    .member__avatar {
+        height: 145px;
+        width: 145px;
+    }
 }

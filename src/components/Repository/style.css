@@ -6,7 +6,6 @@
     height: 100%;
     background: #67b26f;
     background: linear-gradient(to bottom, #4ca2cd, #67b26f);
-    min-height: 300px;
     transition: all .25s linear;
 }
 
@@ -52,4 +51,10 @@
     width: 16px;
     height: 16px;
     margin-right: 5px;
+}
+
+@media (min-width: 750px) {
+    .repository {
+        min-height: 300px;
+    }
 }
