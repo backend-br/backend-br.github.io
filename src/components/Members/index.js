@@ -12,7 +12,7 @@ class Members extends Component
     {
         this.state = { members: [] };
 
-        getMembers(this.props.org).then(response => this.setState({ members: response.data }));
+        getMembers(this.props.org).then(response => this.setState({ members: response }));
     }
 
     renderMembers()
