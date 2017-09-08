@@ -4,7 +4,7 @@ import './style.css';
 
 import SlackButton from '../SlackButton';
 
-export default props => (
+export default () => (
   <nav className="header">
     <div className="container">
       <div className="row">

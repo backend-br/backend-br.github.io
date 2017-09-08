@@ -36,6 +36,12 @@
     border-bottom: 1px dashed #ffffff;
 }
 
+.repositories__filter__item > button {
+    background: transparent;
+    border: 0;
+    outline: none;
+}
+
 .repositories__list {
     display: flex;
     flex-wrap: wrap;
@@ -50,4 +56,3 @@
 .repositories__list > div {
     margin-bottom: 30px;
 }
-

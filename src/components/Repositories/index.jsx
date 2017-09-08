@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Repository from '../Repository';
 
@@ -13,12 +14,12 @@ class Repositories extends Component {
     getRepositories(this.props.org).then(response => this.setState({ repos: response }));
   }
 
-  renderRepositories() {
-    return this.state.repos.map(repo => <Repository key={repo.id} {...repo} />);
-  }
-
   orderRepositories(filter) {
     this.setState({ ...this.state, repos: this.state.repos.sort(filter) });
+  }
+
+  renderRepositories() {
+    return this.state.repos.map(repo => <Repository key={repo.id} {...repo} />);
   }
 
   render() {
@@ -30,8 +31,16 @@ class Repositories extends Component {
               <div className="repositories__header">
                 <h1 className="repositories__title">Repositórios</h1>
                 <ul className="repositories__filter">
-                  <li className="repositories__filter__item" onClick={() => this.orderRepositories(filterRepositoriesByName)}>Por Nome</li>
-                  <li className="repositories__filter__item" onClick={() => this.orderRepositories(filterRepositoriesByStars)}>Por Popularidade</li>
+                  <li className="repositories__filter__item">
+                    <button onClick={() => this.orderRepositories(filterRepositoriesByName)}>
+                      Por Nome
+                    </button>
+                  </li>
+                  <li className="repositories__filter__item">
+                    <button onClick={() => this.orderRepositories(filterRepositoriesByStars)}>
+                      Por Popularidade
+                    </button>
+                  </li>
                 </ul>
               </div>
               <ul className="repositories__list row">
@@ -44,5 +53,9 @@ class Repositories extends Component {
     );
   }
 }
+
+Repositories.propTypes = {
+  org: PropTypes.string.isRequired,
+};
 
 export default Repositories;

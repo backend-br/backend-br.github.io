@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import Member from '../Member';
 
@@ -30,5 +31,9 @@ class Members extends Component {
     );
   }
 }
+
+Members.propTypes = {
+  org: PropTypes.string.isRequired,
+};
 
 export default Members;
