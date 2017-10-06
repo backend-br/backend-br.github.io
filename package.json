@@ -5,10 +5,8 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
-    "bootstrap": "3",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
-    "react-bootstrap": "^0.31.2",
     "react-dom": "^15.6.1",
     "react-emoji-render": "^0.4.2",
     "react-scripts": "1.0.12"
