@@ -1,0 +1,27 @@
+.button__link {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000000;
+    display: inline-block;
+    transition: all .25s linear;
+}
+
+.button__link:link,
+.button__link:hover,
+.button__link:active,
+.button__link:visited {
+    text-decoration: none;
+    color: #000000;
+}
+
+.button__link:hover {
+    transform: scale(1.1);
+}
+
+.button__icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+}
