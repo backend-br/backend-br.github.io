@@ -5,32 +5,3 @@
 .slack-button__description {
     color: #ffffff;
 }
-
-.slack-button__link {
-    background: #ffffff;
-    border-radius: 20px;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #000000;
-    display: inline-block;
-    transition: all .25s linear;
-}
-
-.slack-button__link:link,
-.slack-button__link:hover,
-.slack-button__link:active,
-.slack-button__link:visited {
-    text-decoration: none;
-    color: #000000;
-}
-
-.slack-button__link:hover {
-    transform: scale(1.1);
-}
-
-.slack-button__icon {
-    width: 16px;
-    height: 16px;
-    margin-right: 10px;
-}
-
