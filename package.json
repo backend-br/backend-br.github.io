@@ -5,20 +5,18 @@
   "private": true,
   "dependencies": {
     "axios": "^0.16.2",
-    "bootstrap": "3",
-    "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-bootstrap": "^0.31.2",
-    "react-dom": "^15.6.1",
+    "prop-types": "^15.6.0",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
     "react-emoji-render": "^0.4.2",
-    "react-scripts": "1.0.12"
+    "react-scripts": "^1.0.14"
   },
   "devDependencies": {
-    "eslint": "^4.6.1",
-    "eslint-config-airbnb": "^15.1.0",
+    "eslint": "^4.8.0",
+    "eslint-config-airbnb": "^16.0.0",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-jsx-a11y": "^5.1.1",
-    "eslint-plugin-react": "^7.3.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.4.0",
     "gh-pages": "^1.0.0"
   },
   "scripts": {
@@ -28,6 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "eslint": "eslint src --ext .js --ext .jsx"
+    "eslint": "eslint src --ext .js --ext .jsx",
+    "eslint:fix": "eslint src --fix --ext .js --ext .jsx"
   }
 }

@@ -8,7 +8,9 @@ import { getMembers } from '../../services/github';
 import './style.css';
 
 class Members extends Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+
     this.state = { members: [] };
 
     getMembers(this.props.org).then(response => this.setState({ members: response }));
