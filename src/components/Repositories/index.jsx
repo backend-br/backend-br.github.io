@@ -8,7 +8,9 @@ import { getRepositories, filterRepositoriesByName, filterRepositoriesByStars } 
 import './style.css';
 
 class Repositories extends Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+
     this.state = { repos: [] };
 
     getRepositories(this.props.org).then(response => this.setState({ repos: response }));
