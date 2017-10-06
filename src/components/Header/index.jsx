@@ -2,7 +2,7 @@ import React from 'react';
 
 import './style.css';
 
-import SlackButton from '../SlackButton';
+import TwitterButton from '../TwitterButton';
 
 export default () => (
   <nav className="header">
@@ -16,7 +16,7 @@ export default () => (
         </div>
         <div className="col-xs-12 col-sm-4">
           <div className="header__button">
-            <SlackButton />
+            <TwitterButton />
           </div>
         </div>
       </div>
