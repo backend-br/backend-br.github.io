@@ -26,6 +26,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "eslint": "eslint src --ext .js --ext .jsx"
+    "eslint": "eslint src --ext .js --ext .jsx",
+    "eslint:fix": "eslint src --fix --ext .js --ext .jsx"
   }
 }
