@@ -2,7 +2,11 @@ import React from 'react';
 
 import './style.css';
 
-import TwitterButton from '../TwitterButton';
+import Button from '../Button';
+
+import twitterIcon from './icons/twitter.svg';
+
+const twitterLink = 'https://twitter.com/BackendBrasil';
 
 export default () => (
   <nav className="header">
@@ -15,9 +19,13 @@ export default () => (
           </div>
         </div>
         <div className="col-xs-12 col-sm-4">
-          <div className="header__button">
-            <TwitterButton />
-          </div>
+        <div className="header__twitter-button">
+          <p className="header__twitter-button__description">
+            Acompanhe todas as issues do
+            <br />Backend Brasil no Twitter
+          </p>
+          <Button icon={twitterIcon} iconAlt="Logo do Twitter" link={twitterLink} label="@BackendBrasil" />
+        </div>
         </div>
       </div>
     </div>

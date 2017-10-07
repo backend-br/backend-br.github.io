@@ -31,11 +31,18 @@
     margin-top: 5.63vw;
 }
 
-.header__button {
+.header__twitter-button {
+    text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 15.63vw 0;
+    margin: 15.63vw 0 0;
+    flex-direction: column;
+}
+
+.header__twitter-button__description {
+    color: #ffffff;
+    font-size: 4.38vw;
 }
 
 @media (min-width: 750px) {
@@ -65,8 +72,14 @@
         margin-top: 20px;
     }
 
-    .header__button {
+    .header__twitter-button {
+        text-align: right;
         justify-content: flex-end;
+        align-items: flex-end;
         margin: auto;
+    }
+
+    .header__twitter-button__description {
+        font-size: 14px;
     }
 }
