@@ -1,6 +1,5 @@
 .header {
-    margin: 50px 0 30px;
-    min-height: 120px;
+    margin: 15.63vw 0 9.38vw;
     background-size: 100%;
 }
 
@@ -14,32 +13,38 @@
 .header__logo:active {
     background-color: #ffffff;
     color: #000000;
-    padding: 18px;
-    font-size: 25px;
+    padding: 5.63vw;
+    font-size: 5.63vw;
     display: inline-block;
     font-weight: 900;
     text-transform: uppercase;
     text-decoration: none;
-    width: 140px;
-    margin-right: 20px;
+    width: 35.63vw;
+    margin-right: 6.25vw;
 }
 
 .header__description {
-    letter-spacing: 5px;
+    letter-spacing: 1.56vw;
     text-transform: uppercase;
-    font: 16px sans-serif;
+    font: 3.75vw sans-serif;
     color: #ffffff;
-    margin-top: 20px;
+    margin-top: 5.63vw;
 }
 
 .header__button {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 30px 0;
+    margin: 15.63vw 0;
 }
 
 @media (min-width: 750px) {
+    .header {
+        margin: 50px 0 30px;
+        min-height: 120px;
+        background-size: 100%;
+    }
+
     .header__branding {
         display: block;
     }
@@ -49,6 +54,15 @@
     .header__logo:visited,
     .header__logo:active {
         width: auto;
+        padding: 18px;
+        font-size: 25px;
+        margin-right: 20px;
+    }
+
+    .header__description {
+        letter-spacing: 5px;
+        font-size: 16px;
+        margin-top: 20px;
     }
 
     .header__button {
