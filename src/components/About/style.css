@@ -1,0 +1,30 @@
+.about {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    color: #ffffff;
+    height: 100%;
+    background: #67b26f;
+    background: linear-gradient(to bottom, #4ca2cd, #67b26f);
+    transition: all .25s linear;
+    text-align: center;
+    height: 300px;
+}
+
+
+.about__buttons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 10px 0;
+}
+
+.about__buttons .button {
+    margin: 0 10px;
+}
+
+@media (min-width: 750px) {
+    .about {
+        padding: 20px 200px;
+    }
+}
