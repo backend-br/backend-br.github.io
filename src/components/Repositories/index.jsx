@@ -31,7 +31,7 @@ class Repositories extends Component {
           <div className="repositories">
             <div className="container">
               <div className="repositories__header">
-                <h1 className="repositories__title">Repositórios</h1>
+                <h1 className="repositories__title">Projetos</h1>
                 <ul className="repositories__filter">
                   <li className="repositories__filter__item">
                     <button onClick={() => this.orderRepositories(filterRepositoriesByName)}>
