@@ -1,6 +1,6 @@
 .about {
-    padding: 0 20px;
-    margin: 0;
+    padding: 20px 200px;
+    height: 300px;
     list-style: none;
     color: #ffffff;
     height: 100%;
@@ -22,8 +22,6 @@
 
 @media (min-width: 750px) {
     .about {
-        padding: 20px 200px;
-        height: 300px;
         display: block;
     }
 }
