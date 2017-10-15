@@ -52,10 +52,6 @@
         background-size: 100%;
     }
 
-    .header__branding {
-        display: block;
-    }
-
     .header__logo,
     .header__logo:link,
     .header__logo:visited,
