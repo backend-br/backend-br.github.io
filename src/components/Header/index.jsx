@@ -24,7 +24,12 @@ export default () => (
             Acompanhe todas as issues do
             <br />Backend Brasil no Twitter
             </p>
-            <Button icon={twitterIcon} iconAlt="Logo do Twitter" link={twitterLink} label="@BackendBrasil" />
+            <Button
+              icon={twitterIcon}
+              iconAlt="Logo do Twitter"
+              link={twitterLink}
+              label="@BackendBrasil"
+            />
           </div>
         </div>
       </div>
