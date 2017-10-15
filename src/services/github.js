@@ -1,11 +1,16 @@
 import Axios from 'axios';
 
-export const getRepositories = org => Axios.get(`https://api.github.com/orgs/${org}/repos?per_page=100&page=1`)
-  .then(response => response.data.filter(repo => repo.name !== 'backend-br.github.io'));
 
-export const getMembers = org => Axios.get(`https://api.github.com/orgs/${org}/public_members?page=1&per_page=100`)
-  .then(response => response.data);
+const getGithub = async (org, endpoint) => {
+  const env = process.env.NODE_ENV;
+  const url = (env === 'development') ? `./sample_api/${endpoint}.json` : `https://api.github.com/orgs/${org}/${endpoint}?per_page=100&page=1`;
+  const response = await Axios.get(url);
 
+  return response.data;
+};
+
+export const getRepositories = org => getGithub(org, 'repos');
+export const getMembers = org => getGithub(org, 'public_members');
 
 export const filterRepositoriesByName = (a, b) => {
   if (a.name > b.name) return 1;
