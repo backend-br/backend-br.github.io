@@ -1,5 +1,5 @@
 .repositories {
-    margin: 0 0 50px;
+    margin: 0 0 15.63vw;
     padding: 0 0;
 }
 
@@ -13,15 +13,15 @@
     font-weight: 600;
     text-transform: uppercase;
     color: #ffffff;
-    font-size: 22px;
-    border-left: 30px solid #ffffff;
-    letter-spacing: 2px;
-    padding-left: 20px;
+    font-size: 6.88vw;
+    border-left: 9.38vw solid #ffffff;
+    letter-spacing: .63vw;
+    padding-left: 6.25vw;
 }
 
 .repositories__filter {
-    display: flex;
     align-self: flex-end;
+    display: none;
 }
 
 .repositories__filter__item {
@@ -40,19 +40,50 @@
     background: transparent;
     border: 0;
     outline: none;
+    font-size: 14px;
 }
 
 .repositories__list {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -10px 0 -10px;
+    margin: 0 -3.13vw 0 -3.13vw;
     padding: 0;
 }
 
 .repositories__list > div {
-    margin-bottom: 30px;
+    margin-bottom: 9.38vw;
 }
 
 .repositories__list > div {
-    margin-bottom: 30px;
+    margin-bottom: 9.38vw;
+}
+
+
+@media (min-width: 750px) {
+    .repositories {
+        margin: 0 0 50px;
+    }
+
+    .repositories__title {
+        font-size: 22px;
+        border-left: 30px solid #ffffff;
+        letter-spacing: 2px;
+        padding-left: 20px;
+    }
+
+    .repositories__filter {
+        display: flex;
+    }
+
+    .repositories__list {
+        margin: 0 -10px 0 -10px;
+    }
+
+    .repositories__list > div {
+        margin-bottom: 30px;
+    }
+
+    .repositories__list > div {
+        margin-bottom: 30px;
+    }
 }

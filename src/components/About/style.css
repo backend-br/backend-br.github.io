@@ -1,0 +1,27 @@
+.about {
+    padding: 20px 200px;
+    height: 300px;
+    list-style: none;
+    color: #ffffff;
+    height: 100%;
+    text-align: center;
+    display: none;
+}
+
+
+.about__buttons {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin: 30px 0;
+}
+
+.about__buttons .button {
+    margin: 0 10px;
+}
+
+@media (min-width: 750px) {
+    .about {
+        display: block;
+    }
+}

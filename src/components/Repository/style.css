@@ -1,5 +1,5 @@
 .repository {
-    padding: 20px;
+    padding: 6.25vw;
     margin: 0;
     list-style: none;
     color: #ffffff;
@@ -33,34 +33,63 @@
 }
 
 .repository__title {
-    font-size: 32px;
+    font-size: 8.75vw;
     margin: 0;
+}
+
+.repository__description {
+    font-size: 4.38vw;
 }
 
 .repository__icons {
     background: rgba(255,255,255,.3);
-    padding: 5px 10px;
-    border-radius: 20px;
+    padding: 1.56vw 3.13vw;
+    border-radius: 6.25vw;
     display: flex;
     color: #ffffff;
-    height: 33px;
+    height: 10.31vw;
     align-items: center;
 }
 
 .repository__icons__icon {
-    margin-right: 20px;
+    margin-right: 6.25vw;
     display: flex;
     align-items: center;
 }
 
 .repository__icons__icon__image {
-    width: 16px;
-    height: 16px;
-    margin-right: 5px;
+    width: 5.00vw;
+    height: 5.00vw;
+    margin-right: 1.56vw;
 }
+
 
 @media (min-width: 750px) {
     .repository {
-        min-height: 300px;
+        padding: 20px;
+    }
+
+    .repository__title {
+        font-size: 28px;
+    }
+
+    .repository__description {
+        font-size: 14px;
+    }
+
+    .repository__icons {
+        padding: 5px 10px;
+        border-radius: 20px;
+        height: 33px;
+    }
+
+    .repository__icons__icon {
+        margin-right: 20px;
+    }
+
+    .repository__icons__icon__image {
+        width: 16px;
+        height: 16px;
+        margin-right: 5px;
     }
 }

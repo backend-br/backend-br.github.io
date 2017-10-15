@@ -13,7 +13,7 @@ const Repository = props => (
       <a href={props.html_url} className="repository__link">
         <div className="repository__body">
           <p className="repository__title">/{ props.name }</p>
-          <p><Emoji text={props.description} /></p>
+          <p className="repository__description"><Emoji text={props.description} /></p>
         </div>
         <div className="repository__icons">
           <div className="repository__icons__icon">
