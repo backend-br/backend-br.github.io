@@ -19,13 +19,13 @@ export default () => (
           </div>
         </div>
         <div className="col-xs-12 col-sm-4">
-        <div className="header__twitter-button">
-          <p className="header__twitter-button__description">
+          <div className="header__twitter-button">
+            <p className="header__twitter-button__description">
             Acompanhe todas as issues do
             <br />Backend Brasil no Twitter
-          </p>
-          <Button icon={twitterIcon} iconAlt="Logo do Twitter" link={twitterLink} label="@BackendBrasil" />
-        </div>
+            </p>
+            <Button icon={twitterIcon} iconAlt="Logo do Twitter" link={twitterLink} label="@BackendBrasil" />
+          </div>
         </div>
       </div>
     </div>
