@@ -5,6 +5,7 @@
     color: #ffffff;
     height: 100%;
     text-align: center;
+    display: none;
 }
 
 
@@ -23,5 +24,6 @@
     .about {
         padding: 20px 200px;
         height: 300px;
+        display: block;
     }
 }
