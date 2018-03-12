@@ -31,8 +31,8 @@ Event.propTypes = {
   local_time: PropTypes.string.isRequired,
   local_date: PropTypes.string.isRequired,
   venue: PropTypes.object.isRequired,
-  rsvp_limit: PropTypes.string.isRequired,
-  yes_rsvp_count: PropTypes.string.isRequired,
+  rsvp_limit: PropTypes.number.isRequired,
+  yes_rsvp_count: PropTypes.number.isRequired,
 };
 
 export default Event;
