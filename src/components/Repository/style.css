@@ -51,6 +51,21 @@
     align-items: center;
 }
 
+.repository__city {
+  font-size: 22px;
+  margin: 0;
+}
+
+.repository__meetup {
+  border-top: 5px solid #f13a59;
+}
+
+.repository__meetup a {
+  color: #fff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .repository__icons__icon {
     margin-right: 6.25vw;
     display: flex;

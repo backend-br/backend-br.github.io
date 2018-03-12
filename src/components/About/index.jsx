@@ -7,7 +7,7 @@ import Button from '../Button';
 import slackIcon from './icons/slack.svg';
 import githubIcon from './icons/github.svg';
 
-const slackInviteUrl = 'https://backend-br.slack.com/join/shared_invite/MjI2MTM2MjMwNjI4LTE1MDI2Nzg0NjYtNDFjNjc4MTg2Mg';
+const slackInviteUrl = 'https://join.slack.com/t/backend-br/shared_invite/enQtMjQyOTM1MjQ5OTcyLTA1NTJiODM5YTA2YzYyZDUyMGRiNTc1NjAwODNhYTQ3OTlkYjE2ZDllMTc2MzlmNzFmOTI4Mzc2NWFhNzE2OTg';
 const githubProfileUrl = 'https://github.com/backend-br';
 
 export default () => (
