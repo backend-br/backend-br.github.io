@@ -1,8 +1,7 @@
 import Axios from 'axios';
 
 const getGithub = async (org, endpoint) => {
-  const env = process.env.NODE_ENV;
-  const url = (env === 'development') ? `./sample_api/${endpoint}.json` : `https://api.github.com/orgs/${org}/${endpoint}?per_page=100&page=1`;
+  const url = `https://api.github.com/orgs/${org}/${endpoint}?per_page=100&page=1`;
   const response = await Axios.get(url);
 
   return response.data;
