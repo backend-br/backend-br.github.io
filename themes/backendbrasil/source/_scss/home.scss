@@ -12,15 +12,16 @@
 }
 
 .home-projects {
+  $color: darken($secondary, 18%);
   padding-left: 5rem;
   transform: translateY(-3rem);
-  $color: darken($secondary, 18%);
 
   > article {
-    padding: 1rem;
     border: 2px solid $color;
-    color: darken($color, 10%);
     background-color: $secondary;
+    color: darken($color, 10%);
+    margin-right: 2rem;
+    padding: 1rem;
   }
 
   &--p {

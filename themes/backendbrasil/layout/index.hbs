@@ -31,32 +31,35 @@
 </section>
 
 <section class="tile is-ancestor home-projects">
-  <article class="tile is-2 is-vertical has-text-left">
-    <div class="tile">
-      <span class="is-size-4 has-text-weight-bold">
-        <i class="fas fa-code"></i>
-        /vagas
-      </span>
-    </div>
-
-    <div class="tile home-projects--p">
-      <p>teste</p>
-    </div>
-
-    <div class="tile">
+  {{#each site.data.repos}}
+    <article class="tile is-3 is-vertical has-text-left" data-repo="{{repo}}">
       <div class="tile">
-        <span class="icon">
-          <i class="fas fa-star"></i>
+        <span class="is-size-4 has-text-weight-bold">
+          <i class="fas {{title.icon}}"></i>
+          {{title.label}}
         </span>
-        683
+      </div>
+
+      <div class="tile home-projects--p">
+        <p>{{description}}</p>
       </div>
 
       <div class="tile">
-        <span class="icon">
-          <i class="fas fa-star"></i>
-        </span>
-        683
+        <div class="tile">
+          <span class="icon">
+            <i class="fas fa-star"></i>
+          </span>
+          {{stargazers}}
+        </div>
+
+        <div class="tile">
+          <span class="icon">
+            <i class="fas fa-star"></i>
+          </span>
+          {{issues}}
+        </div>
       </div>
-    </div>
-  </article>
+    </article>
+  {{/each}}
 </section>
+
