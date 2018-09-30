@@ -1,0 +1,22 @@
+.be--navbar {
+  border-bottom: 2px solid rgba($bg, 0.07);
+  .navbar-item.is-uppercase {
+    font-size: 0.85rem;
+  }
+
+  &-item {
+    &--logo {
+      color: $primary;
+      padding-left: 2rem;
+    }
+
+    &--join {
+      background-color: $primary;
+      color: #fff;
+      border-radius: 3px;
+      padding-left: 1.75rem;
+
+      span { padding-right: 1.25rem; }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+.home-header {
+  background-color: $bg;
+  padding-bottom: 3rem;
+
+  p { margin-bottom: 1rem; }
+
+  .button {
+    margin-right: 1rem;
+
+    i { padding-right: 0.5rem; }
+  }
+}
+
+.home-projects {
+  padding-left: 5rem;
+  transform: translateY(-3rem);
+  $color: darken($secondary, 18%);
+
+  > article {
+    padding: 1rem;
+    border: 2px solid $color;
+    color: darken($color, 10%);
+    background-color: $secondary;
+  }
+
+  &--p {
+    padding: 0.75rem 0;
+  }
+}
