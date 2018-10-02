@@ -13,6 +13,7 @@
 
 .home-projects {
   $color: darken($secondary, 18%);
+  overflow-x: auto;
   padding-left: 5rem;
   transform: translateY(-3rem);
 

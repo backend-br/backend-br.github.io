@@ -12,6 +12,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.1.0",
     "bulma": "^0.7.1",
+    "gulp-sass": "^4.0.1",
     "hexo": "^3.2.0",
     "hexo-generator-archive": "^0.1.4",
     "hexo-generator-category": "^0.1.3",

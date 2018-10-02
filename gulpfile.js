@@ -4,6 +4,7 @@ const concat = require('gulp-concat')
 const plumber = require('gulp-plumber')
 const uglify = require('gulp-uglify')
 const babel = require('gulp-babel')
+const sass = require('gulp-sass')
 const fs = require('fs')
 const path = require('path')
 const unlink = f => new Promise((res, rej) => fs.unlink(f, e => e ? rej(e) : res()))
@@ -50,7 +51,7 @@ gulp.task('clear-js-files', function () {
 gulp.task('process-js', ['clear-js-files'], function () {
   return gulp.src('./themes/backendbrasil/source/*.js')
     .pipe(plumber())
-    .pipe(concat('main.min.js'))
+    .pipe(concat('all.min.js'))
     .pipe(babel({
       presets: ['@babel/env']
     }))
@@ -59,6 +60,35 @@ gulp.task('process-js', ['clear-js-files'], function () {
 })
 
 gulp.task('js', ['process-js'], function (cb) {
+  browserSync.reload()
+  cb()
+})
+
+/**
+ * Clear CSS files from ./public
+ */
+gulp.task('clear-css-files', function () {
+  return readDir('./public')
+    .then(files => {
+      files = files
+        .filter(f => f.match(/\.css/g))
+        .map(f => path.resolve(process.cwd(), 'public', f))
+
+      return Promise.all(files.map(unlink))
+    })
+})
+
+/**
+ * Process main file from the theme folder
+ */
+gulp.task('process-css', ['clear-css-files'], function () {
+  return gulp.src('./themes/backendbrasil/source/main.scss')
+    .pipe(plumber())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(gulp.dest('public'))
+})
+
+gulp.task('css', ['process-css'], function (cb) {
   browserSync.reload()
   cb()
 })
@@ -75,8 +105,8 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/layout/**/*.hbs', ['hexo'])
 
   // SCSS Files
-  gulp.watch('./themes/backendbrasil/source/*.scss', ['hexo'])
-  gulp.watch('./themes/backendbrasil/source/**/*.scss', ['hexo'])
+  gulp.watch('./themes/backendbrasil/source/*.scss', ['css'])
+  gulp.watch('./themes/backendbrasil/source/**/*.scss', ['css'])
 
   // Image Files
   gulp.watch('./themes/backendbrasil/source/*.{jpg,gif,png}', ['hexo'])
@@ -86,5 +116,4 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/source/**/*.js', ['js'])
 })
 
-gulp.task('default', ['hexo', 'js', 'server'])
-//gulp.task('default', ['js'])
+gulp.task('default', ['hexo', 'js', 'css', 'server'])
