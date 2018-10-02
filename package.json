@@ -5,7 +5,12 @@
   "hexo": {
     "version": "3.7.1"
   },
+  "browserslist": [
+    "last 3 version",
+    "> 1%"
+  ],
   "dependencies": {
+    "@babel/preset-env": "^7.1.0",
     "bulma": "^0.7.1",
     "hexo": "^3.2.0",
     "hexo-generator-archive": "^0.1.4",
@@ -20,9 +25,12 @@
     "uglify-js": "^3.4.9"
   },
   "devDependencies": {
+    "@babel/core": "^7.1.2",
     "browser-sync": "^2.24.7",
     "gulp": "^3.9.1",
+    "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
+    "gulp-plumber": "^1.2.0",
     "gulp-uglify": "^3.0.1"
   },
   "scripts": {

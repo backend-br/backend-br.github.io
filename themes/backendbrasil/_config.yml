@@ -3,4 +3,5 @@ language:
   - en
 
 node_sass:
+  outputStyle: compressed
 
