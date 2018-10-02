@@ -16,7 +16,8 @@
     "hexo-renderer-handlebars": "^2.0.2",
     "hexo-renderer-marked": "^0.3.0",
     "hexo-renderer-sass": "^0.3.2",
-    "hexo-server": "^0.2.0"
+    "hexo-server": "^0.2.0",
+    "uglify-js": "^3.4.9"
   },
   "devDependencies": {
     "browser-sync": "^2.24.7",
