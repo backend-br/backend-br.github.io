@@ -5,46 +5,38 @@
       "label": "/vagas"
     },
     "description": "Espaço para divulgação de vagas para backenders",
-    "repo": "vagas"
+    "repo": "vagas",
+    "stargazers": 5,
+    "issues": 22
   },
   {
     "title": {
-      "icon": "fa-code",
-      "label": "/vagas"
+      "icon": "fa-comments",
+      "label": "/fórum"
     },
     "description": "Espaço para divulgação de vagas para backenders",
-    "repo": "vagas"
+    "repo": "forum",
+    "stargazers": 5,
+    "issues": 22
   },
   {
     "title": {
-      "icon": "fa-code",
-      "label": "/vagas"
+      "icon": "fa-calendar",
+      "label": "/eventos"
     },
     "description": "Espaço para divulgação de vagas para backenders",
-    "repo": "vagas"
+    "repo": "eventos",
+    "stargazers": 5,
+    "issues": 22
   },
-  {
+  { 
     "title": {
-      "icon": "fa-code",
-      "label": "/vagas"
+      "icon": "fa-users",
+      "label": "/colaboradores"
     },
     "description": "Espaço para divulgação de vagas para backenders",
-    "repo": "vagas"
-  },
-  {
-    "title": {
-      "icon": "fa-code",
-      "label": "/vagas"
-    },
-    "description": "Espaço para divulgação de vagas para backenders",
-    "repo": "vagas"
-  },
-  {
-    "title": {
-      "icon": "fa-code",
-      "label": "/vagas"
-    },
-    "description": "Espaço para divulgação de vagas para backenders",
-    "repo": "vagas"
+    "repo": "colaboradores",
+    "stargazers": 5,
+    "issues": 22
   }
 ]

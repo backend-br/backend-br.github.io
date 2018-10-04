@@ -1,22 +1,22 @@
-.be--navbar {
-  border-bottom: 2px solid rgba($bg, 0.07);
-  .navbar-item.is-uppercase {
-    font-size: 0.85rem;
+.navbar {
+  box-shadow: 0 0 5px rgba(0,0,0, .2);
+
+  &-menu {
+    font-size: .85rem;
+
+    a:hover {
+      color: $green;
+    }
   }
 
-  &-item {
-    &--logo {
-      color: $primary;
-      padding-left: 2rem;
-    }
+  .be--navbar-item--join {
+    background-color: $green;
+    color: $light-color;
+    transition: all .2s;
 
-    &--join {
-      background-color: $primary;
-      color: #fff;
-      border-radius: 3px;
-      padding-left: 1.75rem;
-
-      span { padding-right: 1.25rem; }
+    &:hover {
+      background-color: $yellow;
+      color: #000;
     }
   }
 }

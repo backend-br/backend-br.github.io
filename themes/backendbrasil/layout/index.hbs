@@ -1,29 +1,29 @@
-<section class="columns is-centered is-vcentered home-header">
+<section class="columns is-centered is-vcentered home-header has-background-black-bis">
   <article class="column is-two-fifths has-text-right">
     <img src="/logo-horizontal.png" alt="Logo BackEndBrasil"/>
   </article>
 
   <article class="column is-two-fifths">
-    <p>
+    <p class="home-header-resume">
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
     </p>
 
-    <a class="button" href="">
+    <a class="button twitter" href="">
       <i class="fab fa-twitter"></i>
       Twitter
     </a>
 
-    <a class="button" href="">
+    <a class="button slack" href="">
       <i class="fab fa-slack"></i>
       Slack
     </a>
 
-    <a class="button" href="">
+    <a class="button github" href="">
       <i class="fab fa-github"></i>
       Github
     </a>
 
-    <a class="button" href="">
+    <a class="button meetup" href="">
       <i class="fab fa-meetup"></i>
       Meetup
     </a>
@@ -33,30 +33,30 @@
 <section class="tile is-ancestor home-projects">
   {{#each site.data.repos}}
     <article class="tile is-3 is-vertical has-text-left" data-repo="{{repo}}">
-      <div class="tile">
-        <span class="is-size-4 has-text-weight-bold">
-          <i class="fas {{title.icon}}"></i>
-          {{title.label}}
-        </span>
-      </div>
+      <div class="card">
+        <div class="card-content">
+          <h3 class="is-size-5">
+            <i class="fas {{title.icon}}"></i>
+            {{title.label}}
+          </h3>
 
-      <div class="tile home-projects--p">
-        <p>{{description}}</p>
-      </div>
+          <p>{{description}}</p>
 
-      <div class="tile">
-        <div class="tile">
-          <span class="icon">
-            <i class="fas fa-star"></i>
-          </span>
-          {{stargazers}}
-        </div>
+          <div class="card-footer">
+            <div class="tile">
+              <span class="icon">
+                <i class="fas fa-star"></i>
+              </span>
+              {{stargazers}}
+            </div>
 
-        <div class="tile">
-          <span class="icon">
-            <i class="fas fa-star"></i>
-          </span>
-          {{issues}}
+            <div>
+              <span class="icon">
+                <i class="fas fa-bullhorn"></i>
+              </span>
+              {{issues}}
+            </div>
+          </div>
         </div>
       </div>
     </article>

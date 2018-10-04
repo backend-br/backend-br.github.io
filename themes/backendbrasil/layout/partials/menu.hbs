@@ -1,23 +1,46 @@
-<nav class="navbar be--navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item be--navbar-item--logo has-text-weight-bold is-size-5" href="#">backend &lt;brasil&gt;</a>
-
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navMenu">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-
-  <div class="navbar-menu" id="navMenu">
-    <div class="navbar-end">
-      <a href="http://www.url.com" class="navbar-item has-text-weight-semibold is-uppercase">{{__ 'menu.about'}}</a>
-      <a href="http://www.url.com" class="navbar-item has-text-weight-semibold is-uppercase">{{__ 'menu.jobs'}}</a>
-      <a href="http://www.url.com" class="navbar-item has-text-weight-semibold is-uppercase">{{__ 'menu.blog'}}</a>
-      <a href="http://www.url.com" class="navbar-item has-text-weight-semibold be--navbar-item--join">
-        <span class="icon"><i class="fab fa-github fa-lg"></i></span>
-        {{__ 'menu.join'}}
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://bulma.io">
+        <img src="/logo-texto.png" alt="BackEnd Brasil">
       </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div class="navbar-end">
+      <div id="navbarMain" class="navbar-menu">
+        <div class="navbar-start">
+          <a href="http://www.url.com" 
+             class="navbar-item has-text-weight-semibold is-uppercase">
+            {{__ 'menu.about'}}
+          </a>
+
+          <a href="http://www.url.com" 
+             class="navbar-item has-text-weight-semibold is-uppercase">
+            {{__ 'menu.jobs'}}
+          </a>
+
+          <a href="http://www.url.com"
+             class="navbar-item has-text-weight-semibold is-uppercase">
+            {{__ 'menu.blog'}}
+          </a>
+
+          <a href="http://www.url.com" 
+             class="navbar-item be--navbar-item--join">
+            <span class="icon">
+              <i class="fab fa-github fa-lg"></i>
+            </span>
+            <span class="has-text-weight-semibold">
+              {{__ 'menu.join'}}
+            </span>
+      </a>
+          </div>
+        </div>      
     </div>
   </div>
 </nav>
