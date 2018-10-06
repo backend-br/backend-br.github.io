@@ -34,9 +34,7 @@
   {{#each site.data.repos}}
     <article class="
       tile is-flex-one-fifth is-child has-text-left
-      {{#gt @index 5}}
-        is-hidden
-      {{/gt}}
+      {{gt @index 5 "is-hidden"}}
     " data-repo="{{repo}}">
       <div>
         <span class="is-size-4 has-text-weight-bold">
