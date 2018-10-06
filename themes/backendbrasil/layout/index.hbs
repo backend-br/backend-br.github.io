@@ -30,11 +30,13 @@
   </article>
 </section>
 
-<section class="tile is-ancestor home-projects">
+<section class="tile tile-is-flexible is-ancestor home-projects has-default-padding">
   {{#each site.data.repos}}
     <article class="
-      tile is-flex-one-fifth is-child has-text-left
-      {{gt @index 5 "is-hidden"}}
+      tile block is-flex-one-fifth is-child has-text-left
+      {{#gt @index 4}}
+        is-hidden
+      {{/gt}}
     " data-repo="{{repo}}">
       <div>
         <span class="is-size-4 has-text-weight-bold">
@@ -66,7 +68,54 @@
   {{/each}}
 
   <div class="container has-text-right">
-    <a href="http://www.url.com" class="button">Mostrar Mais</a>
+    <a href="http://www.url.com" class="button">{{__ 'show.more'}}</a>
   </div>
+</section>
+
+<section class="events tile-is-flexible tile is-ancestor has-default-padding">
+  <article class="tile is-parent is-12">
+    <h2 class="title">{{__ 'events'}}</h2>
+  </article>
+
+  <section class="tile tile-is-flexible is-parent events">
+    {{#each site.data.events}}
+      <article class="
+        tile block block-transparent is-flex-half is-child has-text-left
+        {{#gt @index 1}}
+          is-hidden
+        {{/gt}}
+      ">
+        <h4 class="is-size-4 has-text-weight-bold">
+          {{title}}
+        </h4>
+
+        <p>
+          <ul>
+            {{#each flags}}
+              <span class="flag">
+                <i class="fas fa-{{icon}}"></i>
+                {{_p ['events', flag]}}
+              </span>
+            {{/each}}
+          </ul>
+        </p>
+
+        <p>
+          <i class="fas fa-calendar"></i>
+          {{date}}
+        </p>
+
+        <p>
+          <i class="fas fa-map"></i>
+          {{address}}
+        </p>
+
+        <p>
+          <i class="fas fa-users"></i>
+          {{participants.current}} / {{participants.max}}
+        </p>
+      </article>
+    {{/each}}
+  </section>
 </section>
 

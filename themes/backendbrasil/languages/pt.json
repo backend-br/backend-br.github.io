@@ -1,8 +1,16 @@
 {
+  "events": {
+    "title": "Eventos",
+    "begginners": "Iniciantes"
+  },
   "menu": {
     "about": "Quem Somos",
     "jobs": "Vagas",
     "blog": "Blog",
     "join": "Participe"
+  },
+  "show": {
+    "more": "Mostrar mais",
+    "less": "Mostrar menos"
   }
 }

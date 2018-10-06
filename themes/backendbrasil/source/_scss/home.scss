@@ -12,21 +12,26 @@
 }
 
 .home-projects {
-  $color: darken($secondary, 18%);
-  flex-flow: wrap row;
-  justify-content: space-between;
-  padding: 3rem;
-  transform: translateY(-5rem);
-
   > .tile {
-    border: 2px solid $color;
-    background-color: $secondary;
-    color: darken($color, 10%);
-    padding: 1rem;
     margin-bottom: 2rem !important;
   }
 
   &--p {
     padding: 0.75rem 0;
+  }
+}
+
+.events {
+  p {
+    padding: 0.75rem 0;
+  }
+
+  article {
+    padding: 2rem;
+
+    i {
+      font-size: 1.2rem;
+      padding-right: 0.5rem;
+    }
   }
 }
