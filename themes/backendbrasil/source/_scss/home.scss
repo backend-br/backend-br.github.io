@@ -13,21 +13,17 @@
 
 .home-projects {
   $color: darken($secondary, 18%);
-  overflow-x: auto;
+  flex-flow: wrap row;
+  justify-content: space-between;
+  padding: 3rem;
+  transform: translateY(-5rem);
 
-  &::-webkit-scrollbar { 
-    display: none; 
-  }
-
-  padding-left: 5rem;
-  transform: translateY(-3rem);
-
-  > article {
+  > .tile {
     border: 2px solid $color;
     background-color: $secondary;
     color: darken($color, 10%);
-    margin-right: 2rem;
     padding: 1rem;
+    margin-bottom: 2rem !important;
   }
 
   &--p {

@@ -23,6 +23,9 @@ gulp.task('hexo', function (cb) {
       return cb(err)
     }
 
+    console.log(stdout)
+    console.log(stderr)
+
     browserSync.reload()
     cb()
   })

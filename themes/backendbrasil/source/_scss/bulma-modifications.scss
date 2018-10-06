@@ -1,0 +1,6 @@
+.tile {
+  .is-flex-one-fifth {
+    width: initial;
+    flex: 0 0 calc(20% - 1.5rem);
+  }
+}

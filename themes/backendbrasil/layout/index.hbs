@@ -32,34 +32,43 @@
 
 <section class="tile is-ancestor home-projects">
   {{#each site.data.repos}}
-    <article class="tile is-3 is-vertical has-text-left" data-repo="{{repo}}">
-      <div class="tile">
+    <article class="
+      tile is-flex-one-fifth is-child has-text-left
+      {{#gt @index 5}}
+        is-hidden
+      {{/gt}}
+    " data-repo="{{repo}}">
+      <div>
         <span class="is-size-4 has-text-weight-bold">
           <i class="fas {{title.icon}}"></i>
           {{title.label}}
         </span>
       </div>
 
-      <div class="tile home-projects--p">
+      <div class="home-projects--p">
         <p>{{description}}</p>
       </div>
 
-      <div class="tile">
-        <div class="tile">
+      <div>
+        <span>
           <span class="icon">
             <i class="fas fa-star"></i>
           </span>
           {{stargazers}}
-        </div>
+        </span>
 
-        <div class="tile">
+        <span>
           <span class="icon">
             <i class="fas fa-star"></i>
           </span>
           {{issues}}
-        </div>
+        </span>
       </div>
     </article>
   {{/each}}
+
+  <div class="container has-text-right">
+    <a href="http://www.url.com" class="button">Mostrar Mais</a>
+  </div>
 </section>
 
