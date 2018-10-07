@@ -1,4 +1,4 @@
-<section class="columns is-centered is-vcentered home-header">
+<section class="home-header columns is-centered is-vcentered">
   <article class="column is-two-fifths has-text-right">
     <img src="/logo-horizontal.png" alt="Logo BackEndBrasil"/>
   </article>
@@ -30,7 +30,7 @@
   </article>
 </section>
 
-<section class="tile tile-is-flexible is-ancestor home-projects has-default-padding">
+<section class="home-projects tile tile-is-flexible is-ancestor has-default-padding">
   {{#each site.data.repos}}
     <article class="
       tile block is-flex-one-fifth is-child has-text-left
@@ -114,6 +114,39 @@
         </p>
 
         <a href="http://www.url.com" class="button">{{__ 'events.confirm'}}</a>
+      </article>
+    {{/each}}
+  </section>
+</section>
+
+<section class="posts tile-is-flexible tile is-ancestor has-default-padding">
+  <article class="tile is-parent is-12">
+    <h2 class="title">{{_p 'follow_blog'}}</h2>
+  </article>
+
+  <section class="tile tile-is-flexible is-parent posts">
+    {{#each site.posts.data}}
+      <article class="
+        tile is-flex-one-third is-child has-text-left
+        {{#gt @index 2}}
+          is-hidden
+        {{/gt}}
+      ">
+        <div class="posts--thumbnail">
+          <img src="{{thumbnail}}" alt=""/>
+        </div>
+
+        <ul class="posts--categories">
+          {{#each categories.data}}
+            <li>{{name}}</li>
+          {{/each}}
+        </ul>
+
+        <h4 class="posts--title has-text-weight-semibold is-size-5">
+          {{title}}
+        </h4>
+
+        <p>{{description}}</p>
       </article>
     {{/each}}
   </section>
