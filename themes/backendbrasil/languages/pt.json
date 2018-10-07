@@ -1,6 +1,7 @@
 {
   "events": {
     "title": "Eventos",
+    "confirm": "Comparecer",
     "begginners": "Iniciantes"
   },
   "menu": {

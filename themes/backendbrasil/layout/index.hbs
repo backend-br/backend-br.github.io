@@ -74,7 +74,7 @@
 
 <section class="events tile-is-flexible tile is-ancestor has-default-padding">
   <article class="tile is-parent is-12">
-    <h2 class="title">{{__ 'events'}}</h2>
+    <h2 class="title">{{_p 'events.title'}}</h2>
   </article>
 
   <section class="tile tile-is-flexible is-parent events">
@@ -89,16 +89,14 @@
           {{title}}
         </h4>
 
-        <p>
-          <ul>
-            {{#each flags}}
-              <span class="flag">
-                <i class="fas fa-{{icon}}"></i>
-                {{_p ['events', flag]}}
-              </span>
-            {{/each}}
-          </ul>
-        </p>
+        <ul>
+          {{#each flags}}
+            <li class="flag">
+              <i class="fas fa-{{icon}}"></i>
+              {{_p 'events' flag}}
+            </li>
+          {{/each}}
+        </ul>
 
         <p>
           <i class="fas fa-calendar"></i>
@@ -114,6 +112,8 @@
           <i class="fas fa-users"></i>
           {{participants.current}} / {{participants.max}}
         </p>
+
+        <a href="http://www.url.com" class="button">{{__ 'events.confirm'}}</a>
       </article>
     {{/each}}
   </section>

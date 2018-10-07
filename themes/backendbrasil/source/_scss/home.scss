@@ -26,12 +26,37 @@
     padding: 0.75rem 0;
   }
 
-  article {
+  .tile.block {
+    margin-bottom: 2rem !important;
     padding: 2rem;
 
-    i {
-      font-size: 1.2rem;
-      padding-right: 0.5rem;
+    p {
+      color: #333;
+
+      i {
+        color: $primary;
+        font-size: 1.2rem;
+        padding-right: 0.5rem;
+      }
+    }
+
+    .button {
+      background-color: $primary;
+      color: #fff;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+  }
+
+  ul {
+    padding-top: 0.75rem;
+
+    li.flag {
+      border: 2px solid rgba($primary, 0.3);
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      margin-right: 0.5rem;
+      margin-bottom: 0.75rem;
     }
   }
 }

@@ -1,10 +1,92 @@
 [
   {
     "title": "Meetup #6",
-    "flags": [{
-      "icon": "wheelchair",
-      "flag": "begginners"
-    }],
+    "flags": [
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      }
+    ],
+    "date": "2018-10-09 19:30:00",
+    "address": "Rua Prestes Maia, 200",
+    "participants": {
+      "current": 10,
+      "max": 60
+    },
+    "link": "https://google.com"
+  },
+  {
+    "title": "Meetup #6",
+    "flags": [
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      },
+      {
+        "icon": "wheelchair",
+        "flag": "begginners"
+      }
+    ],
     "date": "2018-10-09 19:30:00",
     "address": "Rua Prestes Maia, 200",
     "participants": {
