@@ -153,24 +153,31 @@
 </section>
 
 <section class="partners tile is-ancestor has-default-padding">
-  <section class="tile is-parent is-vertical is-6">
-    <article class="tile is-child is-12">
-      <h2 class="is-size-2">Patrocinadores</h2>
+  <section class="tile tile-is-flexible is-parent is-6">
+    <article class="tile is-child is-flex-full">
+      <h2 class="is-size-2">{{_p 'sponsors'}}</h2>
     </article>
 
-    <article class="tile is-child is-horizontal is-3">
-      <img src="/capivara.jpg" alt=""/>
-    </article>
-
-    <article class="tile is-child is-horizontal is-3">
-      <img src="/capivara.jpg" alt=""/>
-    </article>
-
-    <article class="tile is-child is-horizontal is-3">
-      <img src="/capivara.jpg" alt=""/>
-    </article>
+    {{#each site.data.partners_sponsors.sponsors}}
+      <article class="tile is-child is-flex-one-third">
+        <a href="{{url}}" title="{{name}}" target="_blank">
+          <img src="{{imgsrc image}}" alt="{{image_description}}"/>
+        </a>
+      </article>
+    {{/each}}
   </section>
 
   <section class="tile is-parent is-vertical is-6">
+    <article class="tile is-child is-flex-full">
+      <h2 class="is-size-2">{{_p 'partners'}}</h2>
+    </article>
+
+    {{#each site.data.partners_sponsors.partners}}
+      <article class="tile is-child is-flex-one-third">
+        <a href="{{url}}" title="{{name}}" target="_blank">
+          <img src="{{imgsrc image}}" alt="{{image_description}}"/>
+        </a>
+      </article>
+    {{/each}}
   </section>
 </section>

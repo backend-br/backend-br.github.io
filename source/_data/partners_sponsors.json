@@ -1,0 +1,19 @@
+{
+  "partners": [
+    {
+      "name": "CodamosClub",
+      "description": "",
+      "url": "https://codamos.club",
+      "image": "capivara.jpg"
+    }
+  ],
+  "sponsors": [
+    {
+      "name": "Binds.co",
+      "description": "",
+      "url": "https://binds.co",
+      "image": "capivara.jpg",
+      "image_description": "Uma capivara andando pela terra"
+    }
+  ]
+}
