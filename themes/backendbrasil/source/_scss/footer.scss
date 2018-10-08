@@ -1,0 +1,15 @@
+.newsletter {
+  background-color: $bg;
+
+  .level-left div {
+    i {
+      font-size: 4.75rem;
+      padding-right: 1rem;
+      padding-top: 0.02rem;
+    }
+  }
+
+  .level-right {
+    div.select { margin-right: 1.5rem; }
+  }
+}

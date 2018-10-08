@@ -1,4 +1,10 @@
 {
+  "sign": "Assinar",
+  "email_placeholder": "Digite seu e-mail",
+  "categories": {
+    "all": "Todas as Categorias",
+    "js": "JavaScript"
+  },
   "events": {
     "title": "Eventos",
     "confirm": "Comparecer",
@@ -13,6 +19,10 @@
   "show": {
     "more": "Mostrar mais",
     "less": "Mostrar menos"
+  },
+  "newsletter": {
+    "title": "Assine nossa newsletter",
+    "subtitle": "E saiba as últimas da comunidade!"
   },
   "follow_blog": "Acompanhe nosso blog",
   "partners": "Parceiros",

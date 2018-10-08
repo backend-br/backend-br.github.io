@@ -24,9 +24,12 @@ const imgsrc = str => {
   return `/${str}`
 }
 
+const logme = data => console.log(Object.keys(data))
+
 module.exports = hexo => ({
   __: (...key) => i18n.__()(stringify(key)),
   _p: (...key) => i18n._p()(stringify(key)),
   imgsrc,
+  logme,
   ...helpers
 })

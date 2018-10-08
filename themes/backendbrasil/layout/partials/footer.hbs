@@ -1,2 +1,43 @@
+<section class="newsletter level has-default-padding">
+  <article class="level-left">
+    <div>
+      <i class="fas fa-envelope"></i>
+    </div>
+
+    <div>
+      <h4 class="is-size-3 has-text-weight-bold">
+        {{__ 'newsletter.title'}}
+      </h4>
+
+      <p class="is-size-5">{{__ 'newsletter.subtitle'}}</p>
+    </div>
+  </article>
+
+  <article class="level-right">
+    <div class="field is-grouped">
+      <p class="control is-expanded">
+        <input class="input is-medium" type="text" placeholder="{{__ 'email_placeholder'}}">
+      </p>
+
+      <p class="control is-expanded">
+        <div class="select is-medium">
+          <select>
+            <option value="all">{{__ 'categories.all'}}</option>
+            {{#each site.categories.data}}
+              <option value="{{name}}">{{name}}</option>
+            {{/each}}
+          </select>
+        </div>
+      </p>
+
+      <p class="control">
+        <a class="button is-info is-medium">
+          {{__ 'sign'}}
+        </a>
+      </p>
+    </div>
+  </article>
+</section>
+
 <script charset="utf-8" src="/all.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
