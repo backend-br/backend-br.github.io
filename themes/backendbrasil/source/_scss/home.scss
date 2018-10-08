@@ -85,3 +85,21 @@
     }
   }
 }
+
+.partners {
+  .tile.is-flex-one-quarter {
+    flex-grow: 0;
+    flex-shrink: 0;
+
+    a {
+      width: 100%;
+      height: auto;
+      display: block;
+      
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
