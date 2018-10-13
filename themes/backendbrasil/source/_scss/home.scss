@@ -1,10 +1,30 @@
+%home-bg {
+  $bg-start-color: rgba(80,52,155,1);
+  $bg-middle-color: rgba(88,100,225,1);
+  $bg-end-color: rgba(91,115,249,1);
+  background: $bg-start-color;
+  background: -moz-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, $bg-start-color), color-stop(59%, $bg-middle-color), color-stop(100%, $bg-end-color));
+  background: -webkit-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  background: -o-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  background: -ms-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  background: linear-gradient(to right, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#50349b', endColorstr='#5b73f9', GradientType=1 );
+}
+
+%home-bg-clip {
+  $right-bottom: 100% 25%;
+  $left-bottom: 0% 60%;
+  -webkit-clip-path: polygon(0 0, 100% 0, $right-bottom, $left-bottom);
+  clip-path: polygon(0 0, 100% 0, $right-bottom, $left-bottom);
+}
+
 .home-header {
   @extend %has-default-padding;
+  @extend %home-bg;
   background-color: transparent;
-  position: relative;
-  overflow: hidden;
   padding-top: 6rem;
-  padding-bottom: 14rem;
+  padding-bottom: 4rem;
   align-items: center;
   justify-content: center;
 
@@ -31,47 +51,54 @@
       padding-left: 2rem;
     }
   }
-
-  &:before {
-    // Misc
-    content: "";
-
-    // Magic
-    $bg-start-color: rgba(80,52,155,1);
-    $bg-middle-color: rgba(88,100,225,1);
-    $bg-end-color: rgba(91,115,249,1);
-    background: $bg-start-color;
-    background: -moz-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
-    background: -webkit-gradient(left top, right top, color-stop(0%, $bg-start-color), color-stop(59%, $bg-middle-color), color-stop(100%, $bg-end-color));
-    background: -webkit-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
-    background: -o-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
-    background: -ms-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
-    background: linear-gradient(to right, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#50349b', endColorstr='#5b73f9', GradientType=1 );
-    -webkit-clip-path: polygon(0 0, 100% 0, 100% 88%, 0% 100%);
-    clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%);
-
-    // Position and size stuff
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -10;
-  }
 }
 
 .home-projects {
   @extend %has-default-padding;
-  transform: translateY(-12rem);
+  position: relative;
+  overflow: hidden;
 
-  > .tile {
+  &:before {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -10;
+
+    @extend %home-bg;
+    @extend %home-bg-clip;
+  }
+
+  > article.tile {
     margin-bottom: 2rem !important;
     box-shadow: 0 9px 11px rgba(#000,0.05), 0 9px 10px rgba(#000,0.075);
+
+    @media screen and (min-width: $tablet) {
+      margin-bottom: 0 !important;
+    }
   }
 
   &--p {
     padding: 0.75rem 0;
+  }
+
+  > div.tile {
+    justify-content: center;
+    padding-top: 1rem;
+    text-align: center;
+    
+    .button {
+      border: none;
+      color: $primary;
+      @extend .is-uppercase;
+      @extend .has-text-weight-bold;
+    }
+
+    @media screen and (min-width: $tablet) {
+      justify-content: flex-end;
+    }
   }
 }
 
