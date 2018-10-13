@@ -1,12 +1,11 @@
-<section class="home-header columns is-centered is-vcentered">
-  <article class="column is-two-fifths has-text-right">
+<section class="home-header tile tile-is-flexible">
+  <article class="tile is-flex-two-fifths has-text-right home-header--logo">
     <img src="/logo-horizontal.png" alt="Logo BackEndBrasil"/>
   </article>
 
-  <article class="column is-two-fifths">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-    </p>
+  <article class="tile is-flex-three-fifths home-header--intro">
+    <h3 class="is-size-3">{{__ 'home.header.title'}}<strong>{{__ 'home.header.subtitle'}}</strong></h3>
+    <p>{{__ 'home.header.description'}}</p>
 
     {{> buttons}}
   </article>

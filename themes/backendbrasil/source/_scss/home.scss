@@ -2,10 +2,28 @@
   background-color: transparent;
   position: relative;
   overflow: hidden;
-  padding-top: 3rem;
-  padding-bottom: 8rem;
+  padding-top: 6rem;
+  padding-bottom: 14rem;
+  align-items: center;
+  justify-content: center;
 
-  p { margin-bottom: 1rem; }
+  &--logo {
+    justify-content: flex-end;
+  }
+
+  &--intro {
+    flex-flow: column;
+    padding-left: 2rem;
+    padding-right: 8rem;
+
+    p, h3, h3 > strong { color: #fff; }
+
+    p { margin-bottom: 1rem; }
+
+    .social-buttons a {
+      color: $primary;
+    }
+  }
 
   &:before {
     // Misc
@@ -38,7 +56,7 @@
 
 .home-projects {
   @extend %has-default-padding;
-  transform: translateY(-11rem);
+  transform: translateY(-12rem);
 
   > .tile {
     margin-bottom: 2rem !important;

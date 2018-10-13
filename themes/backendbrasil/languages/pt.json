@@ -1,4 +1,11 @@
 {
+  "home": {
+    "header": {
+      "title": "Olá mundo! Somos ",
+      "subtitle": "a maior comunidade de back-end no Brasil.",
+      "description": "Temos como objetivo unir pessoas desenvolvedoras back-end em qualquer nível de conhecimento para discutir, trazer suas dúvidas e trocar experiências entre si."
+    }
+  },
   "sign": "Assinar",
   "email_placeholder": "Digite seu e-mail",
   "categories": {
