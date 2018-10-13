@@ -1,4 +1,33 @@
+@mixin tile($current-size) {
+  flex-basis: $current-size;
+
+  &-mobile {
+    @media screen and (min-width: $tablet) {
+      flex-basis: $current-size;
+    }
+  }
+
+  &-desktop {
+    @media screen and (min-width: $desktop) {
+      flex-basis: $current-size;
+    }
+  }
+
+  &-widescreen {
+    @media screen and (min-width: $widescreen) {
+      flex-basis: $current-size;
+    }
+  }
+
+  &-fullhd {
+    @media screen and (min-width: $fullhd) {
+      flex-basis: $current-size;
+    }
+  }
+}
+
 .tile {
+  // -mobile -tablet -desktop -widescreen -fullhd
   &-is-flexible {
     flex-flow: wrap row;
     justify-content: space-between;
@@ -6,43 +35,43 @@
 
   .is-flex {
     &-full {
-      flex-basis: 100%;
+      @include tile(100%);
     }
 
     &-four-fifths {
-      flex-basis: calc(80% - 1.5rem);
+      @include tile(calc(80% - 1.5rem));
     }
 
     &-three-quarters {
-      flex-basis: calc(75% - 1.5rem);
+      @include tile(calc(75% - 1.5rem));
     }
 
     &-two-thirds {
-      flex-basis: calc(((100% / 3) * 2) - 1.5rem);
+      @include tile(calc(((100% / 3) * 2) - 1.5rem));
     }
 
     &-three-fifths {
-      flex-basis: calc(60% - 1.5rem);
+      @include tile(calc(60% - 1.5rem));
     }
 
     &-half {
-      flex-basis: calc(50% - 1.5rem);
+      @include tile(calc(50% - 1.5rem));
     }
 
     &-two-fifths {
-      flex-basis: calc(40% - 1.5rem);
+      @include tile(calc(40% - 1.5rem));
     }
 
     &-one-third {
-      flex-basis: calc((100% / 3) - 1.5rem);
+      @include tile(calc((100% / 3) - 1.5rem));
     }
 
     &-one-quarter {
-      flex-basis: calc(25% - 1.5rem);
+      @include tile(calc(25% - 1.5rem));
     }
 
     &-one-fifth {
-      flex-basis: calc(20% - 1.5rem);
+      @include tile(calc(20% - 1.5rem));
     }
   }
 }
