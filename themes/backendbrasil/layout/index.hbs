@@ -8,29 +8,11 @@
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation
     </p>
 
-    <a class="button" href="">
-      <i class="fab fa-twitter"></i>
-      Twitter
-    </a>
-
-    <a class="button" href="">
-      <i class="fab fa-slack"></i>
-      Slack
-    </a>
-
-    <a class="button" href="">
-      <i class="fab fa-github"></i>
-      Github
-    </a>
-
-    <a class="button" href="">
-      <i class="fab fa-meetup"></i>
-      Meetup
-    </a>
+    {{> buttons}}
   </article>
 </section>
 
-<section class="home-projects tile tile-is-flexible is-ancestor has-default-padding">
+<section class="home-projects tile tile-is-flexible is-ancestor">
   {{#each site.data.repos}}
     <article class="
       tile block is-flex-one-fifth is-child has-text-left
@@ -72,7 +54,7 @@
   </div>
 </section>
 
-<section class="events tile-is-flexible tile is-ancestor has-default-padding">
+<section class="events tile-is-flexible tile is-ancestor">
   <article class="tile is-parent is-12">
     <h2 class="title">{{_p 'events.title'}}</h2>
   </article>
@@ -119,7 +101,7 @@
   </section>
 </section>
 
-<section class="posts tile-is-flexible tile is-ancestor has-default-padding">
+<section class="posts tile-is-flexible tile is-ancestor">
   <article class="tile is-parent is-12">
     <h2 class="title">{{_p 'follow_blog'}}</h2>
   </article>
@@ -152,7 +134,7 @@
   </section>
 </section>
 
-<section class="partners tile is-ancestor has-default-padding">
+<section class="partners tile is-ancestor">
   <section class="tile tile-is-flexible is-parent is-6">
     <article class="tile is-child is-flex-full">
       <h2 class="is-size-2">{{_p 'sponsors'}}</h2>

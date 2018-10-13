@@ -1,22 +1,42 @@
 .be--navbar {
-  border-bottom: 2px solid rgba($bg, 0.07);
-  .navbar-item.is-uppercase {
-    font-size: 0.85rem;
+  @extend %has-default-padding;
+  background-color: transparent;
+  padding-top: 0;
+  padding-bottom: 0;
+  position: absolute;
+  width: 100%;
+  top: 0.7rem;
+  left: 0;
+
+  .navbar-item {
+    color: #fff;
+
+    &.is-uppercase {
+      font-size: 0.85rem;
+    }
   }
 
   &-item {
     &--logo {
       color: $primary;
-      padding-left: 2rem;
     }
 
     &--join {
-      background-color: $primary;
-      color: #fff;
+      background-color: #fff;
+      color: $primary !important;
       border-radius: 3px;
-      padding-left: 1.75rem;
+      padding: 0.4rem 1.75rem 0.4rem calc(1.75rem + 0.75rem);
+      margin-left: 4rem !important;
 
       span { padding-right: 1.25rem; }
+    }
+  }
+
+  .navbar-end { 
+    align-items: center; 
+
+    .navbar-item {
+      margin-left: 1.5rem;
     }
   }
 }

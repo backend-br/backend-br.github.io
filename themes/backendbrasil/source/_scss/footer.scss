@@ -13,3 +13,24 @@
     div.select { margin-right: 1.5rem; }
   }
 }
+
+.footer {
+  .level-left {
+    flex-flow: column;
+    align-items: flex-start;
+  }
+
+  .level-right {
+    flex-flow: column;
+    align-items: flex-end;
+
+    .footer-links {
+      a {
+        background-color: #fafafa;
+      }
+    }
+
+    .footer-buttons {
+    }
+  }
+}

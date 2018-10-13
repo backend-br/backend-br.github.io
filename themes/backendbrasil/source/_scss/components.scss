@@ -9,6 +9,11 @@
   }
 }
 
-.has-default-padding {
+%has-default-padding {
   padding: 3rem;
+}
+
+%backendbr-styled-title {
+  font-weight: bold;
+  color: $text;
 }
