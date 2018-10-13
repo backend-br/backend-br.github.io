@@ -32,46 +32,49 @@
     flex-flow: wrap row;
     justify-content: space-between;
   }
+}
 
-  .is-flex {
-    &-full {
-      @include tile(100%);
-    }
+.no-shrink { flex-shrink: 0; }
+.no-grow { flex-grow: 0; }
 
-    &-four-fifths {
-      @include tile(calc(80% - 1.5rem));
-    }
+.is-flex {
+  &-full {
+    @include tile(100%);
+  }
 
-    &-three-quarters {
-      @include tile(calc(75% - 1.5rem));
-    }
+  &-four-fifths {
+    @include tile(calc(80% - 1.5rem));
+  }
 
-    &-two-thirds {
-      @include tile(calc(((100% / 3) * 2) - 1.5rem));
-    }
+  &-three-quarters {
+    @include tile(calc(75% - 1.5rem));
+  }
 
-    &-three-fifths {
-      @include tile(calc(60% - 1.5rem));
-    }
+  &-two-thirds {
+    @include tile(calc(((100% / 3) * 2) - 1.5rem));
+  }
 
-    &-half {
-      @include tile(calc(50% - 1.5rem));
-    }
+  &-three-fifths {
+    @include tile(calc(60% - 1.5rem));
+  }
 
-    &-two-fifths {
-      @include tile(calc(40% - 1.5rem));
-    }
+  &-half {
+    @include tile(calc(50% - 1.5rem));
+  }
 
-    &-one-third {
-      @include tile(calc((100% / 3) - 1.5rem));
-    }
+  &-two-fifths {
+    @include tile(calc(40% - 1.5rem));
+  }
 
-    &-one-quarter {
-      @include tile(calc(25% - 1.5rem));
-    }
+  &-one-third {
+    @include tile(calc((100% / 3) - 1.5rem));
+  }
 
-    &-one-fifth {
-      @include tile(calc(20% - 1.5rem));
-    }
+  &-one-quarter {
+    @include tile(calc(25% - 1.5rem));
+  }
+
+  &-one-fifth {
+    @include tile(calc(20% - 1.5rem));
   }
 }

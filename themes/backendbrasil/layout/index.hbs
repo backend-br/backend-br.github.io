@@ -17,7 +17,7 @@
 <section class="home-projects tile tile-is-flexible is-ancestor">
   {{#each site.data.repos}}
     <article class="
-      tile block is-flex-one-quarter is-child has-text-left
+      tile block is-flex-one-quarter-desktop is-flex-half-mobile is-flex-full no-shrink no-grow is-child has-text-left
       {{#gt @index 4}}
         is-hidden
       {{/gt}}
