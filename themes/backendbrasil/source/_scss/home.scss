@@ -73,7 +73,6 @@
 
   > article.tile {
     margin-bottom: 2rem !important;
-    box-shadow: 0 9px 11px rgba(#000,0.05), 0 9px 10px rgba(#000,0.075);
 
     @media screen and (min-width: $tablet) {
       margin-bottom: 0 !important;
@@ -104,12 +103,13 @@
 
 .events {
   @extend %has-default-padding;
+  justify-content: flex-start;
 
   p {
     padding: 0.75rem 0;
   }
 
-  .tile.block {
+  article.tile {
     margin-bottom: 2rem !important;
     padding: 2rem;
 

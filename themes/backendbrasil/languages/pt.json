@@ -13,6 +13,7 @@
     "js": "JavaScript"
   },
   "events": {
+    "next_events": "Próximos eventos",
     "title": "Eventos",
     "confirm": "Comparecer",
     "begginners": "Iniciantes"
