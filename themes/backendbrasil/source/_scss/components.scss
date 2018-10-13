@@ -1,12 +1,9 @@
 .block {
   $color: darken($secondary, 18%);
-  border: 2px solid $color;
   color: darken($color, 10%);
   padding: 1rem;
-
-  &:not(.block-transparent) {
-    background-color: $secondary;
-  }
+  border-radius: $radius;
+  background-color: #fff;
 }
 
 %has-default-padding {

@@ -1,4 +1,5 @@
 .home-header {
+  @extend %has-default-padding;
   background-color: transparent;
   position: relative;
   overflow: hidden;
@@ -8,13 +9,15 @@
   justify-content: center;
 
   &--logo {
-    justify-content: flex-end;
+    text-align: center;
+
+    @media screen and (min-width: $tablet) {
+      text-align: right;
+    }
   }
 
   &--intro {
     flex-flow: column;
-    padding-left: 2rem;
-    padding-right: 8rem;
 
     p, h3, h3 > strong { color: #fff; }
 
@@ -22,6 +25,10 @@
 
     .social-buttons a {
       color: $primary;
+    }
+
+    @media screen and (min-width: $tablet) {
+      padding-left: 2rem;
     }
   }
 

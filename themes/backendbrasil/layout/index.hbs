@@ -1,10 +1,13 @@
 <section class="home-header tile tile-is-flexible">
-  <article class="tile is-flex-two-fifths has-text-right home-header--logo">
+  <article class="tile is-child is-flex-full is-flex-two-fifths-mobile home-header--logo">
     <img src="/logo-horizontal.png" alt="Logo BackEndBrasil"/>
   </article>
 
-  <article class="tile is-flex-three-fifths home-header--intro">
-    <h3 class="is-size-3">{{__ 'home.header.title'}}<strong>{{__ 'home.header.subtitle'}}</strong></h3>
+  <article class="tile is-flex-full is-flex-three-fifths-mobile home-header--intro">
+    <h3 class="is-size-3">
+      {{__ 'home.header.title'}}
+      <strong>{{__ 'home.header.subtitle'}}</strong>
+    </h3>
     <p>{{__ 'home.header.description'}}</p>
 
     {{> buttons}}
@@ -14,7 +17,7 @@
 <section class="home-projects tile tile-is-flexible is-ancestor">
   {{#each site.data.repos}}
     <article class="
-      tile block is-flex-one-fifth is-child has-text-left
+      tile block is-flex-one-quarter is-child has-text-left
       {{#gt @index 4}}
         is-hidden
       {{/gt}}
