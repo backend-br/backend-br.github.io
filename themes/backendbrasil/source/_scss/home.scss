@@ -171,6 +171,8 @@
 
 .posts {
   @extend %has-default-padding;
+  @extend %inter-section-margin;
+  justify-content: flex-start;
 
   &--title {
     text-transform: uppercase;

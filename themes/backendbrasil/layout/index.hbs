@@ -108,10 +108,10 @@
     <h2 class="title">{{_p 'follow_blog'}}</h2>
   </article>
 
-  <section class="tile tile-is-flexible is-parent posts">
+  <section class="tile tile-is-flexible is-parent">
     {{#each site.posts.data}}
       <article class="
-        tile is-flex-one-third is-child has-text-left
+        tile is-flex-full-mobile is-flex-one-third is-child has-text-left
         {{#gt @index 2}}
           is-hidden
         {{/gt}}
