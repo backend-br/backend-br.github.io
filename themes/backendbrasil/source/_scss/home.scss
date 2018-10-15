@@ -104,23 +104,41 @@
 .events {
   @extend %has-default-padding;
   justify-content: flex-start;
+  $current-bg: rgba($primary, 0.2);
 
   p {
     padding: 0.75rem 0;
   }
 
   article.tile {
+    $block-padding: 2rem;
+    color: $text;
     margin-bottom: 2rem !important;
-    padding: 2rem;
+    padding: $block-padding 0;
+
+    h4, p, ul, > div {
+      padding-left: $block-padding;
+      padding-right: $block-padding;
+    }
 
     p {
       color: #333;
 
       i {
+        @extend %basic-shadow;
         color: $primary;
-        font-size: 1.2rem;
-        padding-right: 0.5rem;
+        display: inline-block;
+        background-color: #fff;
+        border-radius: $radius-rounded;
+        font-size: 1rem;
+        padding: 0.5rem;
       }
+    }
+
+    > div {
+      border-top: 1px solid $current-bg;
+      padding-top: 2rem;
+      margin-top: 1rem;
     }
 
     .button {
@@ -131,6 +149,7 @@
     }
 
     @media screen and (min-width: $tablet) {
+      margin-right: 2rem !important;
       margin-bottom: 0 !important;
     }
   }
@@ -138,10 +157,12 @@
   ul {
     padding-top: 0.75rem;
 
-    li.flag {
-      border: 2px solid rgba($primary, 0.3);
+    li.chip {
+      color: darken($primary, 5%);
+      background-color: $current-bg;
+      border-radius: $radius-rounded;
       display: inline-block;
-      padding: 0.25rem 0.5rem;
+      padding: 0.3rem 0.85rem;
       margin-right: 0.5rem;
       margin-bottom: 0.75rem;
     }

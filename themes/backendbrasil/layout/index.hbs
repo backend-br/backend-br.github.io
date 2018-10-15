@@ -63,18 +63,18 @@
 
   {{#each site.data.events}}
     <article class="
-      tile block block-transparent is-flex-one-third no-grow is-child
+      tile block block-transparent is-flex-full-mobile is-flex-one-third no-grow is-child
       {{#gt @index 1}}
         is-hidden
       {{/gt}}
     ">
-      <h4 class="is-size-4 has-text-weight-bold">
+      <h4 class="is-size-4">
         {{title}}
       </h4>
 
       <ul>
         {{#each flags}}
-          <li class="flag">
+          <li class="chip">
             <i class="fas fa-{{icon}}"></i>
             {{_p 'events' flag}}
           </li>
@@ -96,7 +96,9 @@
         {{participants.current}} / {{participants.max}}
       </p>
 
-      <a href="http://www.url.com" class="button">{{__ 'events.confirm'}}</a>
+      <div>
+        <a href="http://www.url.com" class="button">{{__ 'events.confirm'}}</a>
+      </div>
     </article>
   {{/each}}
 </section>
