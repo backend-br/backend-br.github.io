@@ -20,7 +20,7 @@
     "hexo-generator-index": "^0.2.0",
     "hexo-generator-tag": "^0.2.0",
     "hexo-i18n": "^0.2.1",
-    "hexo-renderer-handlebars": "git@github.com:onhernandes/hexo-renderer-handlebars.git",
+    "hexo-renderer-handlebars": "git+https://git@github.com/onhernandes/hexo-renderer-handlebars.git",
     "hexo-renderer-marked": "^0.3.0",
     "hexo-renderer-sass": "^0.3.2",
     "hexo-server": "^0.2.0",
