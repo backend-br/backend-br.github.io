@@ -119,4 +119,6 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/source/**/*.js', ['js'])
 })
 
+gulp.task('build', ['hexo', 'js', 'css'])
+
 gulp.task('default', ['hexo', 'js', 'css', 'server'])

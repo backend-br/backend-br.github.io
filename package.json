@@ -36,6 +36,7 @@
     "gulp-uglify": "^3.0.1"
   },
   "scripts": {
-    "dev": "./node_modules/.bin/gulp"
+    "dev": "./node_modules/.bin/gulp",
+    "build": "./node_modules/.bin/gulp build"
   }
 }
