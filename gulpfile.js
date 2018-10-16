@@ -7,6 +7,7 @@ const babel = require('gulp-babel')
 const sass = require('gulp-sass')
 const fs = require('fs')
 const path = require('path')
+const runSequence = require('run-sequence')
 const unlink = f => new Promise((res, rej) => fs.unlink(f, e => e ? rej(e) : res()))
 const readDir = f => new Promise((res, rej) => fs.readdir(f, (e, files) => e ? rej(e) : res(files)))
 const { exec } = require('child_process')
@@ -119,6 +120,8 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/source/**/*.js', ['js'])
 })
 
-gulp.task('build', ['hexo', 'js', 'css'], process.exit(0))
+gulp.task('build', () => {
+  runSequence('hexo', 'js', 'css', () => process.exit(0))
+})
 
 gulp.task('default', ['hexo', 'js', 'css', 'server'])
