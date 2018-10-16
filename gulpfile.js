@@ -119,6 +119,6 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/source/**/*.js', ['js'])
 })
 
-gulp.task('build', ['hexo', 'js', 'css'])
+gulp.task('build', ['hexo', 'js', 'css'], process.exit(0))
 
 gulp.task('default', ['hexo', 'js', 'css', 'server'])
