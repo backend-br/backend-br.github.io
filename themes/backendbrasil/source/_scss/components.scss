@@ -15,6 +15,10 @@
   color: $text;
 }
 
+%color-inherit {
+  color: inherit !important;
+}
+
 .block {
   $color: darken($secondary, 18%);
   color: darken($color, 10%);

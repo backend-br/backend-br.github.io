@@ -1,4 +1,7 @@
 {
+  "blog": {
+    "latest": "Últimas do blog"
+  },
   "home": {
     "header": {
       "title": "Olá mundo! Somos ",
