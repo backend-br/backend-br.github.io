@@ -1,11 +1,7 @@
-<section class="newsletter level has-default-padding">
-  <article class="level-left">
+<section class="newsletter tile is-ancestor tile-is-flexible">
+  <article class="tile is-flex-half is-flex-full-mobile">
     <div>
-      <i class="fas fa-envelope"></i>
-    </div>
-
-    <div>
-      <h4 class="is-size-3 has-text-weight-bold">
+      <h4 class="is-size-4 has-text-weight-bold">
         {{__ 'newsletter.title'}}
       </h4>
 
@@ -13,14 +9,14 @@
     </div>
   </article>
 
-  <article class="level-right">
+  <article class="tile is-flex-half is-flex-full-mobile">
     <div class="field is-grouped">
-      <p class="control is-expanded">
-        <input class="input is-medium" type="text" placeholder="{{__ 'email_placeholder'}}">
+      <p class="control no-grow no-shrink is-expanded">
+        <input class="input" type="text" placeholder="{{__ 'email_placeholder'}}">
       </p>
 
-      <p class="control is-expanded">
-        <div class="select is-medium">
+      <p class="control no-grow no-shrink is-expanded">
+        <div class="select">
           <select>
             <option value="all">{{__ 'categories.all'}}</option>
             {{#each site.categories.data}}
@@ -30,8 +26,8 @@
         </div>
       </p>
 
-      <p class="control">
-        <a class="button is-info is-medium">
+      <p class="control no-grow no-shrink ">
+        <a class="button has-text-weight-bold is-info">
           {{__ 'sign'}}
         </a>
       </p>

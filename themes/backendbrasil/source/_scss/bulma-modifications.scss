@@ -34,8 +34,8 @@
   }
 }
 
-.no-shrink { flex-shrink: 0; }
-.no-grow { flex-grow: 0; }
+.no-shrink { flex-shrink: 0 !important; }
+.no-grow { flex-grow: 0 !important; }
 
 .is-flex {
   &-full {

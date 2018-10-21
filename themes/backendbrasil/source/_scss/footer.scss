@@ -1,17 +1,25 @@
 .newsletter {
-  background-color: $bg;
+  @extend %home-bg;
+  padding: 5rem;
+  align-items: center;
+  text-align: center;
 
-  .level-left div {
-    i {
-      font-size: 4.75rem;
-      padding-right: 1rem;
-      padding-top: 0.02rem;
-    }
+  @media screen and (min-width: $tablet) {
+    text-align: left;
   }
 
-  .level-right {
-    div.select { margin-right: 1.5rem; }
+  p, h4 { color: #fff; }
+
+  h4 {
+    padding-bottom: 0.75rem;
   }
+
+  a.button {
+    color: #5b73ff;
+    background-color: #fcde00;
+  }
+
+  div.select { margin-right: 1.5rem; }
 }
 
 .footer {
