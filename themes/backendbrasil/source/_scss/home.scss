@@ -219,7 +219,13 @@
 }
 
 .partners {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
   @extend %has-default-padding;
+
+  .title {
+    padding-bottom: 1rem;
+  }
 
   .tile.is-flex-one-quarter {
     flex-grow: 0;
