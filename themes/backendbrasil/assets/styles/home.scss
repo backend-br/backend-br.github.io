@@ -23,16 +23,21 @@
   @extend %has-default-padding;
   @extend %home-bg;
   background-color: transparent;
-  padding-top: 6rem;
-  padding-bottom: 4rem;
-  align-items: center;
+  padding-top: 7rem;
+  padding-bottom: 5rem;
+  align-items: flex-end;
   justify-content: center;
 
   &--logo {
     text-align: center;
 
+    img {
+      height: 14rem;
+      padding-bottom: 0.5rem;
+    }
+
     @media screen and (min-width: $tablet) {
-      text-align: right;
+      text-align: left;
     }
   }
 

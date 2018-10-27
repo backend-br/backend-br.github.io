@@ -76,15 +76,15 @@ gulp.task('css', ['process-css'], function (cb) {
 gulp.task('images', function () {
   return gulp
     .src([
-      './themes/backendbrasil/assets/*.{jpg,gif,png}',
-      './themes/backendbrasil/assets/**/*.{jpg,gif,png}'
+      './themes/backendbrasil/assets/*.{jpg,gif,png,svg}',
+      './themes/backendbrasil/assets/img/*.{jpg,gif,png,svg}'
     ])
     .pipe(plumber())
     .pipe(imagemin())
     .pipe(gulp.dest('./public/'))
 })
 
-gulp.task('svg', function () {
+gulp.task('icons', function () {
   return gulp.src('./themes/backendbrasil/assets/icons/*.svg')
     .pipe(plumber())
     .pipe(svgMin({
@@ -92,7 +92,10 @@ gulp.task('svg', function () {
     }))
     .pipe(svgSymbols({
       templates: ['default-svg'],
-      svgAttrs: { class: 'svg-icon-lib' }
+      svgAttrs: {
+        class: 'svg-icon-lib',
+        'aria-hidden': true
+      }
     }))
     .pipe(rename('icons.hbs'))
     .pipe(gulp.dest('./themes/backendbrasil/layout/partials'))
@@ -114,12 +117,11 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/assets/**/*.scss', ['css'])
 
   // Image Files
-  gulp.watch('./themes/backendbrasil/assets/*.{jpg,gif,png}', ['images'])
-  gulp.watch('./themes/backendbrasil/assets/**/*.{jpg,gif,png}', ['images'])
+  gulp.watch('./themes/backendbrasil/assets/*.{jpg,gif,png,svg}', ['images'])
+  gulp.watch('./themes/backendbrasil/assets/img/*.{jpg,gif,png,svg}', ['images'])
 
   // Icons
-  gulp.watch('./themes/backendbrasil/assets/*.svg', ['svg'])
-  gulp.watch('./themes/backendbrasil/assets/**/*.svg', ['svg'])
+  gulp.watch('./themes/backendbrasil/assets/icons/*.svg', ['icons'])
 
   // JS Files
   gulp.watch('./themes/backendbrasil/assets/*.js', ['js'])
@@ -127,11 +129,11 @@ gulp.task('server', function () {
 })
 
 gulp.task('build', () => {
-  runSequence('svg', 'hexo', 'js', 'css', 'images', () => process.exit(0))
+  runSequence('icons', 'hexo', 'js', 'css', 'images', () => process.exit(0))
 })
 
 gulp.task('sequential-server', () => {
-  runSequence('svg', 'hexo', 'js', 'css', 'images', 'server')
+  runSequence('icons', 'hexo', 'js', 'css', 'images', 'server')
 })
 
 gulp.task('default', ['sequential-server'])

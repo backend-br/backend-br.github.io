@@ -19,6 +19,9 @@
   &-item {
     &--logo {
       color: $primary;
+      font-size: 5rem;
+
+      svg { height: 0.5em; }
     }
 
     &--join {

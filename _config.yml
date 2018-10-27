@@ -3,12 +3,18 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: BackEndBrasil
 subtitle:
 description:
-author: John Doe
-language:
-timezone:
+author: BackEndBrasil
+language: pt-br
+timezone: -03:00
+
+twitter: BackEndBrasil
+github: backend-br
+meetup: BackEndBr
+instagram: BackEndBrasil
+slack: https://join.slack.com/t/backend-br/shared_invite/enQtMjQyOTM1MjQ5OTcyLTA1NTJiODM5YTA2YzYyZDUyMGRiNTc1NjAwODNhYTQ3OTlkYjE2ZDllMTc2MzlmNzFmOTI4Mzc2NWFhNzE2OTg
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
