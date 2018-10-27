@@ -57,22 +57,43 @@
 }
 
 .footer {
-  .level-left {
+  @extend %has-default-padding;
+  padding-top: 3rem;
+  padding-bottom: 2rem;
+  align-content: center;
+  align-items: center;
+
+  article {
     flex-flow: column;
-    align-items: flex-start;
   }
 
-  .level-right {
-    flex-flow: column;
+  article:first-child {
+    align-items: flex-start;
+    text-align: center;
+    
+    p { padding-top: 2rem; }
+
+    @media screen and (min-width: $tablet) {
+      text-align: left;
+    }
+  }
+
+  article:last-child {
     align-items: flex-end;
+    text-align: center;
 
     .footer-links {
       a {
+        text-transform: uppercase;
         background-color: #fafafa;
       }
     }
 
     .footer-buttons {
+    }
+
+    @media screen and (min-width: $tablet) {
+      text-align: right;
     }
   }
 }

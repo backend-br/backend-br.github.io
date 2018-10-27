@@ -1,4 +1,10 @@
 {
+  "footer": {
+    "copyright": "Produzido com <3 pela comunidade",
+    "about": "Quem Somos",
+    "jobs": "Vagas",
+    "blog": "Blog"
+  },
   "blog": {
     "latest": "Últimas do blog"
   },
