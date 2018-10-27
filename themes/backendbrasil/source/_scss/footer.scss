@@ -1,11 +1,45 @@
 .newsletter {
   @extend %home-bg;
-  padding: 5rem;
+  padding: 3rem;
   align-items: center;
   text-align: center;
 
+  article > .field.is-grouped {
+    flex-flow: column;
+    padding-top: 2rem;
+
+    .control,
+    .select, 
+    .select > select, 
+    .control > a {
+      width: 100%;
+    }
+
+    .select {
+      margin-top: 0.75rem;
+      margin-bottom: 0.75rem;
+    }
+
+    @media screen and (min-width: $tablet) {
+      padding-top: 0;
+      flex-flow: initial;
+
+      .control,
+      .select, 
+      .control > a {
+        width: initial;
+      }
+
+      .select {
+        margin-top: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+
   @media screen and (min-width: $tablet) {
     text-align: left;
+    padding: 5rem;
   }
 
   p, h4 { color: #fff; }
