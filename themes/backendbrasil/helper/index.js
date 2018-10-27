@@ -21,7 +21,7 @@ const imgsrc = str => {
     return str
   }
 
-  return `/${str}`
+  return `/img/${str}`
 }
 
 const logme = data => console.log(Object.keys(data))

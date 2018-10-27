@@ -5,12 +5,12 @@ const plumber = require('gulp-plumber')
 const uglify = require('gulp-uglify')
 const babel = require('gulp-babel')
 const sass = require('gulp-sass')
-const fs = require('fs')
-const path = require('path')
 const runSequence = require('run-sequence')
-const unlink = f => new Promise((res, rej) => fs.unlink(f, e => e ? rej(e) : res()))
-const readDir = f => new Promise((res, rej) => fs.readdir(f, (e, files) => e ? rej(e) : res(files)))
 const { exec } = require('child_process')
+const svgSymbols = require('gulp-svg-symbols')
+const svgMin = require('gulp-svgmin')
+const rename = require('gulp-rename')
+const imagemin = require('gulp-imagemin')
 
 /**
  * Use hexo to generate files
@@ -33,27 +33,17 @@ gulp.task('hexo', function (cb) {
 })
 
 /**
- * Clear JS files from ./public
- */
-gulp.task('clear-js-files', function () {
-  return readDir('./public')
-    .then(files => {
-      files = files
-        .filter(f => f.match(/\.js/g))
-        .map(f => path.resolve(process.cwd(), 'public', f))
-
-      return Promise.all(files.map(unlink))
-    })
-})
-
-/**
  * Process JS files
  * Match files from the theme folder
  * concat them, transpile to ES5
  * and uglify them
  */
-gulp.task('process-js', ['clear-js-files'], function () {
-  return gulp.src('./themes/backendbrasil/source/*.js')
+gulp.task('process-js', function () {
+  return gulp
+    .src([
+      './themes/backendbrasil/assets/*.js',
+      './themes/backendbrasil/assets/**/*.js'
+    ])
     .pipe(plumber())
     .pipe(concat('all.min.js'))
     .pipe(babel({
@@ -69,24 +59,10 @@ gulp.task('js', ['process-js'], function (cb) {
 })
 
 /**
- * Clear CSS files from ./public
- */
-gulp.task('clear-css-files', function () {
-  return readDir('./public')
-    .then(files => {
-      files = files
-        .filter(f => f.match(/\.css/g))
-        .map(f => path.resolve(process.cwd(), 'public', f))
-
-      return Promise.all(files.map(unlink))
-    })
-})
-
-/**
  * Process main file from the theme folder
  */
-gulp.task('process-css', ['clear-css-files'], function () {
-  return gulp.src('./themes/backendbrasil/source/main.scss')
+gulp.task('process-css', function () {
+  return gulp.src('./themes/backendbrasil/assets/main.scss')
     .pipe(plumber())
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('public'))
@@ -95,6 +71,31 @@ gulp.task('process-css', ['clear-css-files'], function () {
 gulp.task('css', ['process-css'], function (cb) {
   browserSync.reload()
   cb()
+})
+
+gulp.task('images', function () {
+  return gulp
+    .src([
+      './themes/backendbrasil/assets/*.{jpg,gif,png}',
+      './themes/backendbrasil/assets/**/*.{jpg,gif,png}'
+    ])
+    .pipe(plumber())
+    .pipe(imagemin())
+    .pipe(gulp.dest('./public/'))
+})
+
+gulp.task('svg', function () {
+  return gulp.src('./themes/backendbrasil/assets/icons/*.svg')
+    .pipe(plumber())
+    .pipe(svgMin({
+      plugins: [{ removeViewBox: false }]
+    }))
+    .pipe(svgSymbols({
+      templates: ['default-svg'],
+      svgAttrs: { class: 'svg-icon-lib' }
+    }))
+    .pipe(rename('icons.hbs'))
+    .pipe(gulp.dest('./themes/backendbrasil/layout/partials'))
 })
 
 gulp.task('server', function () {
@@ -109,19 +110,28 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/layout/**/*.hbs', ['hexo'])
 
   // SCSS Files
-  gulp.watch('./themes/backendbrasil/source/*.scss', ['css'])
-  gulp.watch('./themes/backendbrasil/source/**/*.scss', ['css'])
+  gulp.watch('./themes/backendbrasil/assets/*.scss', ['css'])
+  gulp.watch('./themes/backendbrasil/assets/**/*.scss', ['css'])
 
   // Image Files
-  gulp.watch('./themes/backendbrasil/source/*.{jpg,gif,png}', ['hexo'])
+  gulp.watch('./themes/backendbrasil/assets/*.{jpg,gif,png}', ['images'])
+  gulp.watch('./themes/backendbrasil/assets/**/*.{jpg,gif,png}', ['images'])
+
+  // Icons
+  gulp.watch('./themes/backendbrasil/assets/*.svg', ['svg'])
+  gulp.watch('./themes/backendbrasil/assets/**/*.svg', ['svg'])
 
   // JS Files
-  gulp.watch('./themes/backendbrasil/source/*.js', ['js'])
-  gulp.watch('./themes/backendbrasil/source/**/*.js', ['js'])
+  gulp.watch('./themes/backendbrasil/assets/*.js', ['js'])
+  gulp.watch('./themes/backendbrasil/assets/**/*.js', ['js'])
 })
 
 gulp.task('build', () => {
-  runSequence('hexo', 'js', 'css', () => process.exit(0))
+  runSequence('svg', 'hexo', 'js', 'css', 'images', () => process.exit(0))
 })
 
-gulp.task('default', ['hexo', 'js', 'css', 'server'])
+gulp.task('sequential-server', () => {
+  runSequence('svg', 'hexo', 'js', 'css', 'images', 'server')
+})
+
+gulp.task('default', ['sequential-server'])
