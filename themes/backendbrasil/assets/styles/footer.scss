@@ -86,13 +86,13 @@
     .footer-links {
       a {
         text-transform: uppercase;
+        color: $text;
         background-color: #fafafa;
         font-size: 0.85rem;
       }
     }
 
-    .footer-buttons {
-    }
+    .social-buttons a { color: $primary; }
 
     @media screen and (min-width: $tablet) {
       text-align: right;
