@@ -183,6 +183,7 @@
         border-radius: $radius-rounded;
         font-size: 1rem;
         padding: 0.5rem;
+        margin-right: 1rem;
       }
     }
 
@@ -216,6 +217,10 @@
       padding: 0.3rem 0.85rem;
       margin-right: 0.5rem;
       margin-bottom: 0.75rem;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+
+      i { padding-right: 0.5rem; }
     }
   }
 }

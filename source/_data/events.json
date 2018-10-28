@@ -1,34 +1,14 @@
 [
   {
-    "title": "Meetup #6",
-    "flags": [
-      {
-        "icon": "wheelchair",
-        "flag": "begginners"
-      }
-    ],
-    "date": "2018-10-09 19:30:00",
-    "address": "Rua Prestes Maia, 200",
+    "title": "BackEnd BR #7 + NerdGirlz",
+    "date": "2018-11-08 19:30",
+    "address": "Rua Haddock Lobo, 595 - Cerqueira César, São Paulo - SP, 01414-001, Sétimo andar",
     "participants": {
-      "current": 10,
-      "max": 60
+      "current": 46,
+      "max": 32
     },
-    "link": "https://google.com"
-  },
-  {
-    "title": "Meetup #6",
-    "flags": [
-      {
-        "icon": "wheelchair",
-        "flag": "begginners"
-      }
-    ],
-    "date": "2018-10-09 19:30:00",
-    "address": "Rua Prestes Maia, 200",
-    "participants": {
-      "current": 10,
-      "max": 60
-    },
-    "link": "https://google.com"
+    "link": "https://www.meetup.com/BackEndBr/events/255244862/",
+    "flags": []
   }
 ]
+

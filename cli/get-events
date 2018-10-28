@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+const axios = require('axios')
+const fs = require('fs-extra')
+const path = require('path')
+const key = process.env && process.env.MEETUP_APIKEY
+
+const exec = async () => {
+  try {
+    const filepath = path.resolve(process.cwd(), 'source/_data/events.json')
+
+    let { data: events } = await axios.get(`https://api.meetup.com/BackEndBr/events?key=${key}`)
+
+    if (!Array.isArray(events)) {
+      throw new Error('Response from Meetup API is not an array!')
+    }
+
+    events = events
+      .filter(e => e.visibility === 'public')
+      .map(e => ({
+        title: e.name,
+        date: `${e.local_date} ${e.local_time}`,
+        address: e.venue && e.venue.address_1,
+        participants: {
+          current: e.yes_rsvp_count,
+          max: e.rsvp_limit
+        },
+        link: e.link,
+        flags: []
+      }))
+
+    await fs.outputJson(filepath, events)
+
+    console.log('Done!')
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+exec()
