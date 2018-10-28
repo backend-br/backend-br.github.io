@@ -48,7 +48,8 @@
     padding-bottom: 0.75rem;
   }
 
-  a.button {
+  .button,
+  .button:hover {
     color: #5b73ff;
     background-color: #fcde00;
   }
