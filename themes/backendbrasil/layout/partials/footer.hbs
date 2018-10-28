@@ -10,14 +10,14 @@
   </article>
 
   <article class="tile is-flex-half is-flex-full-mobile">
-    <form class="field is-grouped">
+    <form action="https://backendbrasil.us19.list-manage.com/subscribe/post?u=95332e1cc29906df595faebdf&amp;id=bdac6264e8" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate class="field is-grouped">
       <p class="control no-grow no-shrink is-expanded">
-        <input class="input" type="text" placeholder="{{__ 'email_placeholder'}}">
+        <input class="input" type="text" placeholder="{{__ 'email_placeholder'}}" name="EMAIL">
       </p>
 
       <p class="control no-grow no-shrink is-expanded">
         <div class="select">
-          <select>
+          <select name="category">
             <option value="all">{{__ 'categories.all'}}</option>
             {{#each site.categories.data}}
               <option value="{{name}}">{{name}}</option>
@@ -26,14 +26,14 @@
         </div>
       </p>
 
-      <p class="control no-grow no-shrink ">
-        <a class="button has-text-weight-bold is-info">
-          {{__ 'sign'}}
-        </a>
+      <p class="control no-grow no-shrink">
+        <input type="submit" value="{{__ 'sign'}}" class="button has-text-weight-bold is-info">
       </p>
     </form>
   </article>
 </section>
+
+ 
 
 <footer class="footer tile is-ancestor tile-is-flexible has-default-padding">
   <article class="tile is-flex-half is-flex-full-mobile">
