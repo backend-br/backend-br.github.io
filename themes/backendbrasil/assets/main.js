@@ -16,4 +16,16 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     })
   }
+
+  $('#showAllRepositories').on('click', e => {
+    $('.home-projects .project').removeClass('is-hidden')
+    $('.home-projects #showAllRepositories').toggleClass('is-hidden')
+    $('.home-projects #showLessRepositories').toggleClass('is-hidden')
+  })
+
+  $('#showLessRepositories').on('click', e => {
+    $('.home-projects .project.is-extra-child').addClass('is-hidden')
+    $('.home-projects #showAllRepositories').toggleClass('is-hidden')
+    $('.home-projects #showLessRepositories').toggleClass('is-hidden')
+  })
 })

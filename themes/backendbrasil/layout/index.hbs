@@ -17,9 +17,14 @@
 <section class="home-projects tile tile-is-flexible is-ancestor">
   {{#each site.data.repos}}
     <article class="
-      tile block is-flex-one-quarter-desktop is-flex-half-mobile is-flex-full no-shrink no-grow is-child has-text-left project tile-is-flexible
+      tile block 
+      is-flex-one-quarter-desktop 
+      is-flex-half-mobile is-flex-full 
+      no-shrink no-grow is-child 
+      has-text-left project tile-is-flexible
       {{#gt @index 3}}
         is-hidden
+        is-extra-child
       {{/gt}}
     ">
       <a href="https://github.com/{{@root.config.github}}/{{repo}}" title="{{title.label}}" target="_blank" class="project--title">
@@ -57,7 +62,8 @@
   {{/each}}
 
   <div class="tile is-flex-full">
-    <a href="javascript:void(0);" class="button">{{__ 'show.all'}}</a>
+    <a href="javascript:void(0);" class="button" id="showAllRepositories">{{__ 'show.all'}}</a>
+    <a href="javascript:void(0);" class="button is-hidden" id="showLessRepositories">{{__ 'show.less'}}</a>
   </div>
 </section>
 

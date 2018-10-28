@@ -76,6 +76,8 @@
     @extend %home-bg-clip;
   }
 
+  .is-extra-child { margin-top: 2rem !important; }
+
   .project {
     margin-bottom: 2rem !important;
     align-content: stretch;
