@@ -15,6 +15,10 @@ const stringify = data => {
 }
 
 const imgsrc = str => {
+  if (!str) {
+    return str
+  }
+
   const parsed = url.parse(str)
 
   if (parsed.hostname) {

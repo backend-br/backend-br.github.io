@@ -81,7 +81,7 @@ gulp.task('images', function () {
     ])
     .pipe(plumber())
     .pipe(imagemin())
-    .pipe(gulp.dest('./public/'))
+    .pipe(gulp.dest('./public/img/'))
 })
 
 gulp.task('icons', function () {

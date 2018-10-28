@@ -150,6 +150,10 @@
         <p><a href="{{path}}" title="{{description}}">{{description}}</a></p>
       </article>
     {{/each}}
+
+    {{#eq site.posts.data.length 0}}
+      <span>{{__ 'blog.no_posts'}}</span>
+    {{/eq}}
   </section>
 </section>
 
@@ -175,7 +179,7 @@
 
     {{#each site.data.partners_sponsors.partners}}
       <article class="tile is-child is-flex-one-quarter no-grow no-shrink">
-        <a href="{{url}}" title="{{name}}" target="_blank">
+        <a href="{{url}}" title="{{description}}" target="_blank">
           <img src="{{imgsrc image}}" alt="{{image_description}}"/>
         </a>
       </article>

@@ -2,18 +2,10 @@
   "partners": [
     {
       "name": "CodamosClub",
-      "description": "",
+      "description": "O Codamos une eventos com inclusão, diversidade, palestrantes, informações de workshops, cursos e oportunidades de networking em TI para todos em todo o Brasil.",
       "url": "https://codamos.club",
-      "image": "capivara.jpg"
+      "image": "codamos_club.jpg"
     }
   ],
-  "sponsors": [
-    {
-      "name": "Binds.co",
-      "description": "",
-      "url": "https://binds.co",
-      "image": "capivara.jpg",
-      "image_description": "Uma capivara andando pela terra"
-    }
-  ]
+  "sponsors": []
 }

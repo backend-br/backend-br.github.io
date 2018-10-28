@@ -6,7 +6,8 @@
     "blog": "Blog"
   },
   "blog": {
-    "latest": "Últimas do blog"
+    "latest": "Últimas do blog",
+    "no_posts": "Ainda não temos nenhuma publicação"
   },
   "home": {
     "header": {
