@@ -1,0 +1,13 @@
+.about--header {
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  background-color: darken($primary, 30%);
+  text-align: center;
+  padding: 9rem 3rem 6rem;
+  color: #fff;
+
+  strong { color: inherit; }
+
+  p { padding-top: 1rem; }
+}
