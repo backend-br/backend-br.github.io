@@ -1,0 +1,51 @@
+#!/usr/bin/env node
+
+const axios = require('axios')
+const fs = require('fs-extra')
+const path = require('path')
+
+const exec = async () => {
+  try {
+    const filepath = path.resolve(process.cwd(), 'source/_data/repos.json')
+
+    const { data: repos } = await axios.get('https://api.github.com/orgs/backend-br/repos')
+
+    if (!Array.isArray(repos)) {
+      throw new Error('Response from Github API is not an array!')
+    }
+
+    const currentRepos = await fs.readJson(filepath)
+
+    repos.forEach(r => {
+      const found = currentRepos.filter(cr => cr.repo === r.name).shift()
+
+      if (found) {
+        currentRepos.forEach((item, index) => {
+          if (item.repo !== r.name) {
+            return
+          }
+
+          currentRepos[index].stargazers = r.stargazers_count
+        })
+      } else {
+        currentRepos.push({
+          title: {
+            icon: 'fa-code',
+            label: `/${r.name}`
+          },
+          description: r.description,
+          repo: r.name,
+          stargazers: r.stargazers
+        })
+      }
+    })
+
+    await fs.outputJson(filepath, currentRepos)
+
+    console.log('Done!')
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+exec()

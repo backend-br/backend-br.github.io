@@ -11,7 +11,9 @@
   ],
   "dependencies": {
     "@babel/preset-env": "^7.1.0",
+    "axios": "^0.18.0",
     "bulma": "^0.7.1",
+    "fs-extra": "^7.0.0",
     "gulp-imagemin": "^4.1.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.1",
