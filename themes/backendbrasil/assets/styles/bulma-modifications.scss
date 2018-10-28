@@ -27,8 +27,8 @@
 }
 
 .tile {
-  // -mobile -tablet -desktop -widescreen -fullhd
   &-is-flexible {
+    display: flex;
     flex-flow: wrap row;
     justify-content: space-between;
   }

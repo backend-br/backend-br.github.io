@@ -88,7 +88,10 @@ gulp.task('icons', function () {
   return gulp.src('./themes/backendbrasil/assets/icons/*.svg')
     .pipe(plumber())
     .pipe(svgMin({
-      plugins: [{ removeViewBox: false }]
+      plugins: [
+        { removeViewBox: false },
+        { removeAttrs: { attrs: 'fill' } }
+      ]
     }))
     .pipe(svgSymbols({
       templates: ['default-svg'],

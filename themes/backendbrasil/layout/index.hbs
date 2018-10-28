@@ -17,33 +17,38 @@
 <section class="home-projects tile tile-is-flexible is-ancestor">
   {{#each site.data.repos}}
     <article class="
-      tile block is-flex-one-quarter-desktop is-flex-half-mobile is-flex-full no-shrink no-grow is-child has-text-left
-      {{#gt @index 4}}
+      tile block is-flex-one-quarter-desktop is-flex-half-mobile is-flex-full no-shrink no-grow is-child has-text-left project tile-is-flexible
+      {{#gt @index 3}}
         is-hidden
       {{/gt}}
-    " data-repo="{{repo}}">
-      <div>
-        <span class="is-size-4 has-text-weight-bold">
+    ">
+      <div title="{{title.label}}" class="project--title">
+        {{#if title.isSvg}}
+          <i class="project--icon-svg">{{> svg title.icon}}</i>
+        {{else}}
           <i class="fas {{title.icon}}"></i>
+        {{/if}}
+
+        <span class="is-size-4 has-text-weight-bold">
           {{title.label}}
         </span>
       </div>
 
-      <div class="home-projects--p">
+      <div class="project--p" title="{{ description }}">
         <p>{{description}}</p>
       </div>
 
-      <div>
+      <div class="project--star">
         <span>
           <span class="icon">
-            <i class="fas fa-star"></i>
+            {{> svg '#icon_star'}}
           </span>
           {{stargazers}}
         </span>
 
         <span>
           <span class="icon">
-            <i class="fas fa-star"></i>
+            {{> svg '#icon_megaphone'}}
           </span>
           {{issues}}
         </span>

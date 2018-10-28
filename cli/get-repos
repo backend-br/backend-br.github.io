@@ -25,7 +25,8 @@ const exec = async () => {
             return
           }
 
-          currentRepos[index].stargazers = r.stargazers_count
+          currentRepos[index].stargazers = r.stargazers_count || 0
+          currentRepos[index].issues = r.open_issues_count || 0
         })
       } else {
         currentRepos.push({
@@ -35,7 +36,8 @@ const exec = async () => {
           },
           description: r.description,
           repo: r.name,
-          stargazers: r.stargazers
+          stargazers: r.stargazers || 0,
+          issues: r.open_issues_count || 0
         })
       }
     })

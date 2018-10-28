@@ -76,16 +76,59 @@
     @extend %home-bg-clip;
   }
 
-  > article.tile {
+  .project {
     margin-bottom: 2rem !important;
+    align-content: stretch;
+    flex-flow: column;
+
+    > a { display: inline-flex; }
 
     @media screen and (min-width: $tablet) {
       margin-bottom: 0 !important;
     }
-  }
 
-  &--p {
-    padding: 0.75rem 0;
+    &--p {
+      padding: 0.75rem 0;
+      color: $text;
+    }
+
+    &--title {
+      display: flex;
+      align-items: center;
+      vertical-align: middle;
+
+      span {
+        color: $primary;
+      }
+    }
+
+    &--icon-svg {
+      background-color: rgba($primary, 0.15);
+      border-radius: $radius-rounded;
+      font-size: 1.25rem;
+      flex-basis: 3rem;
+      height: 3rem;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      margin-right: 0.5rem;
+      color: #fff;
+    }
+
+    &--star > span {
+      color: $text;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+
+      &:first-child { margin-right: 1rem; }
+
+      span {
+        color: $primary;
+        margin-right: 0.25rem;
+        font-size: 1.5rem;
+      }
+    }
   }
 
   > div.tile {
