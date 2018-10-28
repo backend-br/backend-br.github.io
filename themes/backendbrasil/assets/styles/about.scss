@@ -11,3 +11,28 @@
 
   p { padding-top: 1rem; }
 }
+
+.about--believe {
+  justify-content: space-between;
+  @extend %has-default-padding;
+  @extend %inter-section-margin;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+
+  > .is-flex-full {
+    padding-bottom: 2rem;
+  }
+
+  .is-flex-one-third {
+    @extend %basic-shadow;
+    padding: 1rem;
+
+    h5 {
+      font-weight: bold;
+      color: $primary;
+      padding-bottom: 1rem;
+    }
+
+    p { font-size: 0.90rem; }
+  }
+}

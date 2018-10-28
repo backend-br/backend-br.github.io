@@ -23,6 +23,21 @@
     "header": {
       "title": "Bem-vindo(a) à maior comunidade<br><strong>de back-end do Brasil ;)</strong>",
       "text": "Nossa comunidade Back-End BR tem como objetivo unir desenvolvedore(a)s Back-End, que tenham qualquer conhecimento, para discutir, trazer suas dúvidas e trocar conhecimento entre si."
+    },
+    "we_believe": {
+      "title": "Acreditamos em",
+      "respect": {
+        "title": "Respeito",
+        "text": "Ser direto e não desrespeitar diante de um ponto de vista ou de terceiros."
+      },
+      "inclusion": {
+        "title": "Inclusão",
+        "text": "Ser inclusivo gera pontos de vista diferentes e diversificados."
+      },
+      "partnership": {
+        "title": "Parceria",
+        "text": "Para obter e gerar conhecimento, a tecnologia só chegou até onde está hoje pois o conhecimento foi repassado."
+      }
     }
   },
   "sign": "Assinar",
