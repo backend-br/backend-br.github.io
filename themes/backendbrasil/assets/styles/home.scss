@@ -111,7 +111,7 @@
       display: inline-flex;
       justify-content: center;
       align-items: center;
-      margin-right: 0.5rem;
+      margin-right: 0.75rem;
       color: #fff;
     }
 
@@ -121,11 +121,11 @@
       display: inline-flex;
       align-items: center;
 
-      &:first-child { margin-right: 1rem; }
+      &:first-child { margin-right: 1.75rem; }
 
       span {
         color: $primary;
-        margin-right: 0.25rem;
+        margin-right: 0.5rem;
         font-size: 1.5rem;
       }
     }
@@ -137,6 +137,7 @@
     text-align: center;
     
     .button {
+      font-size: 0.90rem;
       border: none;
       color: $primary;
       @extend .is-uppercase;

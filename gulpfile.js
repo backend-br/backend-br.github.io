@@ -114,6 +114,8 @@ gulp.task('server', function () {
   // Handlebars Files
   gulp.watch('./themes/backendbrasil/layout/*.hbs', ['hexo'])
   gulp.watch('./themes/backendbrasil/layout/**/*.hbs', ['hexo'])
+  gulp.watch('./themes/backendbrasil/source/*', ['hexo'])
+  gulp.watch('./themes/backendbrasil/source/**/*', ['hexo'])
 
   // SCSS Files
   gulp.watch('./themes/backendbrasil/assets/*.scss', ['css'])

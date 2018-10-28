@@ -22,7 +22,7 @@
         is-hidden
       {{/gt}}
     ">
-      <div title="{{title.label}}" class="project--title">
+      <a href="https://github.com/{{@root.config.github}}/{{repo}}" title="{{title.label}}" target="_blank" class="project--title">
         {{#if title.isSvg}}
           <i class="project--icon-svg">{{> svg title.icon}}</i>
         {{else}}
@@ -32,13 +32,13 @@
         <span class="is-size-4 has-text-weight-bold">
           {{title.label}}
         </span>
-      </div>
+      </a>
 
-      <div class="project--p" title="{{ description }}">
+      <a class="project--p" title="{{description}}" target="_blank" href="https://github.com/{{@root.config.github}}/{{repo}}">
         <p>{{description}}</p>
-      </div>
+      </a>
 
-      <div class="project--star">
+      <a class="project--star" target="_blank" href="https://github.com/{{@root.config.github}}/{{repo}}" title="{{title.label}}">
         <span>
           <span class="icon">
             {{> svg '#icon_star'}}
@@ -52,12 +52,12 @@
           </span>
           {{issues}}
         </span>
-      </div>
+      </a>
     </article>
   {{/each}}
 
   <div class="tile is-flex-full">
-    <a href="http://www.url.com" class="button">{{__ 'show.all'}}</a>
+    <a href="javascript:void(0);" class="button">{{__ 'show.all'}}</a>
   </div>
 </section>
 
