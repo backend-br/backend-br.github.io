@@ -1,0 +1,19 @@
+.blog--themes {
+  @extend %has-default-padding;
+  margin: 3rem 0 !important;
+
+  .title { margin-bottom: 2rem; }
+
+  &-list {
+    li {
+      display: inline-block;
+      padding: 0.5rem 0.75rem;
+      color: $primary;
+      border: 2px solid $primary;
+      border-radius: 0.25rem;
+      margin-right: 0.5rem;
+
+      a { color: inherit; }
+    }
+  }
+}

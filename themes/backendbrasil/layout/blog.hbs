@@ -1,0 +1,13 @@
+<section class="blog--themes tile tile-is-flexible is-ancestor">
+  <article class="tile is-child is-flex-full">
+    <h2 class="title">{{__ 'blog.search_by_categories'}}</h2>
+  </article>
+
+  <article class="tile is-child is-flex-full">
+    <ul class="blog--themes-list">
+      {{#each site.categories}}
+        <li><a href="{{path}}" title="{{name}}">{{name}}</a></li>
+      {{/each}}
+    </ul>
+  </article>
+</section>
