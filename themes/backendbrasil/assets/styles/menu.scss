@@ -1,15 +1,15 @@
 .be--navbar {
   @extend %has-default-padding;
-  background-color: transparent;
   padding-top: 0;
   padding-bottom: 0;
   position: absolute;
   width: 100%;
-  top: 0.7rem;
+  top: 0;
   left: 0;
+  border-bottom: 3px solid #868686;
 
   .navbar-item {
-    color: #fff;
+    color: #222;
 
     &.is-uppercase {
       font-size: 0.85rem;
@@ -25,7 +25,6 @@
     }
 
     &--join {
-      background-color: #fff;
       color: $primary !important;
       border-radius: 3px;
       padding: 0.4rem 1.75rem 0.4rem calc(1.75rem + 0.75rem);
