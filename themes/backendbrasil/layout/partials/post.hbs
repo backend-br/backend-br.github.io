@@ -1,19 +1,22 @@
-<article class="
-  tile 
-  is-flex-full 
-  is-flex-one-third-desktop
-  is-flex-half-mobile
-  no-grow no-shrink 
-  is-child 
-  has-text-left 
-  {{classes}}
+<article
+  data-categories="{{slugifyCategories categories.data}}"
+  class="
+    tile 
+    is-flex-full 
+    is-flex-one-third-desktop
+    is-flex-half-mobile
+    no-grow no-shrink 
+    is-child 
+    has-text-left 
+    {{classes}}
 
-  {{#gt index 2}}
-    {{#isTruthy hide_extra}}
-      is-hidden
-    {{/isTruthy}}
-  {{/gt}}
-">
+    {{#gt index 2}}
+      {{#isTruthy hide_extra}}
+        is-hidden
+      {{/isTruthy}}
+    {{/gt}}
+  "
+  >
   <div class="posts--thumbnail">
     <a href="{{path}}" title="{{title}}">
       <img src="{{thumb path thumbnail}}" alt="{{thumbnail_alt}}"/>
@@ -34,5 +37,5 @@
     </a>
   </h4>
 
-  <p><a href="{{path}}" title="{{description}}">{{description}}</a></p>
+  <p class="posts--p"><a href="{{path}}" title="{{description}}">{{description}}</a></p>
 </article>

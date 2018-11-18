@@ -1,6 +1,8 @@
+.category-filter-is-hidden { @extend .is-hidden; }
+
 .blog--themes {
   @extend %has-default-padding;
-  margin: 3rem 0 !important;
+  margin-top: 3rem !important;
 
   .title { margin-bottom: 1rem; }
 
@@ -20,8 +22,25 @@
 }
 
 .blog--highlights {
+  @extend %has-default-padding;
   position: relative;
   padding-bottom: 3rem;
+  $side-padding: 1rem;
+  $top-padding: 1rem;
+
+  .posts--title,
+  .posts--p {
+    padding: 0 $side-padding;
+  }
+
+  .posts--p {
+    padding-bottom: $top-padding; 
+  }
+
+  .posts--categories {
+    padding-left: $side-padding;
+    padding-right: $side-padding;
+  }
 
   &:after {
     content: "";
@@ -36,5 +55,6 @@
 }
 
 .blog--posts {
+  @extend %has-default-padding;
   margin-bottom: 3rem !important;
 }

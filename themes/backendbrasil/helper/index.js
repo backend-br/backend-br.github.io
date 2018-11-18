@@ -59,7 +59,21 @@ const imgsrc = str => {
 
 const logme = data => console.log(JSON.stringify(data, null, 2))
 
-const slugify = str => encodeURIComponent(helpers.dashcase(str))
+const slugify = str => helpers.dashcase(str)
+
+const slugifyCategories = data => data
+  .map(it => typeof it !== 'string' ? it.name || '' : '')
+  .filter(it => typeof it === 'string')
+  .join(' ')
+
+const getPageDescription = key => {
+  if (!key) {
+    return ''
+  }
+
+  const str = i18n.__()(stringify(key))
+  return str.length > 0 ? ` / ${str}` : str
+}
 
 module.exports = hexo => ({
   __: (...key) => i18n.__()(stringify(key)),
@@ -68,5 +82,7 @@ module.exports = hexo => ({
   thumb,
   logme,
   slugify,
+  slugifyCategories,
+  getPageDescription,
   ...helpers
 })

@@ -8,6 +8,11 @@
       {{#each site.categories.data}}
         <li><a href="javascript:void(0);" data-slug="{{dashcase name}}" title="{{name}}">{{name}}</a></li>
       {{/each}}
+
+      <li class="is-hidden">
+        <a href="javascript:void();" id="deactivateCategoryFilter">{{__ 'blog.show_all'}}
+        </a>
+      </li>
     </ul>
   </article>
 </section>

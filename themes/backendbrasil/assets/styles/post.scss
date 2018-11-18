@@ -14,10 +14,10 @@
 .posts {
   @extend %has-default-padding;
   @extend %inter-section-margin;
+  justify-content: flex-start;
   $side-padding: 1rem;
   $top-padding: 1rem;
   $bottom-padding: 0.5rem;
-  justify-content: flex-start;
 
   > section { justify-content: initial; }
 
@@ -32,15 +32,14 @@
 
   &--title, p {
     color: $text;
-    padding: 0 $side-padding;
     
     a { 
       @extend %color-inherit;
     }
   }
 
-  p {
-    padding-bottom: $top-padding;
+  .posts--p {
+    padding-bottom: $top-padding; 
   }
 
   .title {
@@ -68,7 +67,8 @@
   }
 
   &--categories {
-    padding: $top-padding $side-padding $bottom-padding;
+    padding-top: $top-padding;
+    padding-bottom: $bottom-padding;
 
     li {
       border-radius: 0.25rem;

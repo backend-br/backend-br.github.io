@@ -9,7 +9,9 @@
     "latest": "Últimas do blog",
     "no_posts": "Ainda não temos nenhuma publicação",
     "search_by_categories": "Navegue por temas",
-    "highlights": "Destaques"
+    "highlights": "Destaques",
+    "show_all": "Mostrar todos",
+    "breadcrumb": "As últimas do blog"
   },
   "home": {
     "header": {

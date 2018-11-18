@@ -3,17 +3,37 @@
   background-color: transparent;
   padding-top: 0;
   padding-bottom: 0;
-  position: absolute;
   width: 100%;
-  top: 0.7rem;
-  left: 0;
 
   .navbar-item {
-    color: #fff;
+    color: $text;
 
     &.is-uppercase {
       font-size: 0.85rem;
     }
+  }
+
+  .navbar--breadcrumb {
+    display: none;
+    align-items: center;
+    padding-left: 3rem;
+    
+    strong {
+      color: $primary;
+      text-transform: uppercase;
+    }
+
+    @media screen and (min-width: $tablet) {
+      display: flex;
+    }
+  }
+
+  &-home {
+    left: 0;
+    position: absolute;
+    top: 0.7rem;
+
+    .navbar-item { color: #fff; }
   }
 
   &-item {
