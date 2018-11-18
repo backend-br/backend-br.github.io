@@ -28,8 +28,9 @@
       "title": "Bem-vindo(a) à maior comunidade<br><strong>de back-end do Brasil ;)</strong>",
       "text": "Nossa comunidade Back-End BR tem como objetivo unir desenvolvedore(a)s Back-End, que tenham qualquer conhecimento, para discutir, trazer suas dúvidas e trocar conhecimento entre si."
     },
-    "we_team": {
-      "title": "Nosso time"
+    "our_team": {
+      "title": "Nosso time",
+      "description": "Nosso time reune uma equipe de backenders, designers e simpatizantes da computação de peso."
     },
     "we_believe": {
       "title": "Acreditamos em",
@@ -45,7 +46,8 @@
         "title": "Parceria",
         "text": "Para obter e gerar conhecimento, a tecnologia só chegou até onde está hoje pois o conhecimento foi repassado."
       }
-    }
+    },
+    "things_we_do": "Acima de tudo, é fundamental ressaltar que o início da atividade geral de formação de atitudes talvez venha a ressaltar a relatividade do investimento em reciclagem técnica."
   },
   "sign": "Assinar",
   "email_placeholder": "Digite seu e-mail",

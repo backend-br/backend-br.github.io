@@ -1,49 +1,38 @@
-.about--header {
+.body--quem-somos .be--navbar .navbar-item:not(.be--navbar-item--join),
+.navbar--breadcrumb { 
+  color: #fff !important; 
+}
 
+.about--header {
   align-content: center;
   align-items: center;
+  position: relative;
+  background-color: rgba(#000, 0.5);
   justify-content: center;
-  background-color: #fff;
   text-align: center;
-  padding: 15rem 3rem 10rem;
-  color: $text;
+  color: #fff;
+  padding-top: 7rem;
 
   strong { color: inherit; }
 
+  article {
+    padding: 4rem 0;
+  }
+
   p { 
-    padding-top: 1rem;
-    font-size: 20px;
+    padding: 1rem 5rem;
   }
 
-  h4 {
-    font-size: 44px;
-    font-weight: 700;
-  }
-
-}
-
-.about-image-group {
-  background-image: url('../img/meetup0.jpg');
-  width: 100%;
-  height: 400px;
-  background-position: 0px -435px;
-  background-size: 100%;
-}
-
-.about--team {
-
-  justify-content: space-between;
-  @extend %has-default-padding;
-  @extend %inter-section-margin;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-
-  p { font-size: 1.3333rem; }
-
-  h2 {
-    font-weight: 700;
-    color: $text;
-    text-transform: uppercase;
+  &:before {
+    content: "";
+    background-image: url('/img/meetup0.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -9999;
   }
 }
 
@@ -75,37 +64,92 @@
       color: $primary;
       padding-bottom: 1rem;
     }
-
-    p { font-size: 1.3333rem; }
   }
 }
 
-.things-us-do {
-  border: solid 2px #ebebeb;
-  width: 100%;
-  height: 29rem;
-  margin-bottom: 10rem;
+.things-we-do {
+  @extend %has-default-padding;
+  @extend %inter-section-margin;
+  align-content: center;
+  align-items: center;
+  background-color: lighten($text, 70%);
+  $pad-bg: 5rem;
+  padding-top: $pad-bg;
+  padding-bottom: $pad-bg;
 
   div {
-
-    p {    
-      width: 60%;
-      float: left;
-      padding: 1.5rem;
-      font-size: 1.2rem;
-    }
-
-  }
-
-  picture {
-    width: 40%;
-    float: left;
+    width: 100%;
+    height: 17rem;
 
     img {
       width: 100%;
-      height: 28.5rem;
-      padding: 5px 5px 0px 0px;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+.about--team {
+  @extend %has-default-padding;
+  @extend %inter-section-margin;
+  justify-content: space-between;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  $photo-height: 10rem;
+
+  > article > h2 {
+    @extend %backendbr-styled-title;
+  }
+
+  &-member {
+    position: relative;
+    min-height: $photo-height + 10rem;
+
+    @media screen and (max-width: $tablet) {
+      padding-bottom: 2rem;
     }
   }
 
+  &-photo {
+    width: 50%;
+    height: $photo-height;
+    z-index: 10;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    @media screen and (max-width: 400px) {
+      width: 100% !important;
+    }
+  }
+
+  &-description {
+    position: absolute;
+    top: 8rem;
+    right: 0;
+    width: 80%;
+    height: auto;
+    z-index: 20;
+    background-color: #fff;
+    padding: 1rem;
+    @extend %basic-shadow;
+
+    p {
+      padding: 1rem 0;
+    }
+
+    ul li {
+      display: inline-block;
+      padding-right: 1rem;
+    }
+
+    @media screen and (max-width: 400px) {
+      position: static !important;
+      top: 0 !important;
+      width: 100% !important;
+    }
+  }
 }
