@@ -1,0 +1,68 @@
+<section class="blog--themes tile tile-is-flexible is-ancestor">
+  <article class="tile is-child is-flex-full">
+    <h2 class="title">{{__ 'blog.search_by_categories'}}</h2>
+  </article>
+
+  <article class="tile is-child is-flex-full">
+    <ul class="blog--themes-list">
+      {{#each site.categories.data}}
+        <li><a href="javascript:void(0);" data-slug="{{dashcase name}}" title="{{name}}">{{name}}</a></li>
+      {{/each}}
+
+      <li class="is-hidden">
+        <a href="javascript:void();" id="deactivateCategoryFilter">{{__ 'blog.show_all'}}
+        </a>
+      </li>
+    </ul>
+  </article>
+</section>
+
+<section class="blog--highlights posts tile-is-flexible tile is-ancestor">
+  <article class="tile is-flex-full">
+    <h2 class="title">{{_p 'blog.highlights'}}</h2>
+  </article>
+
+  <section class="tile tile-is-flexible is-flex-full">
+    {{#each site.posts.data}}
+      {{> post 
+        index=@index 
+        path=path 
+        description=description 
+        title=title 
+        thumbnail=thumbnail 
+        thumbnail_alt=thumbnail_alt 
+        categories=categories
+        hide_extra=true
+      }}
+    {{/each}}
+
+    {{#eq site.posts.data.length 0}}
+      <span>{{__ 'blog.no_posts'}}</span>
+    {{/eq}}
+  </section>
+</section>
+
+<section class="blog--posts posts tile-is-flexible tile is-ancestor">
+  <article class="tile is-flex-full">
+    <h2 class="title">{{_p 'blog.latest'}}</h2>
+  </article>
+
+  <section class="tile tile-is-flexible is-flex-full">
+    {{#each site.posts.data}}
+      {{> post 
+        index=@index 
+        path=path 
+        description=description 
+        title=title 
+        thumbnail=thumbnail 
+        thumbnail_alt=thumbnail_alt 
+        categories=categories
+        hide_extra=false
+      }}
+    {{/each}}
+
+    {{#eq site.posts.data.length 0}}
+      <span>{{__ 'blog.no_posts'}}</span>
+    {{/eq}}
+  </section>
+</section>

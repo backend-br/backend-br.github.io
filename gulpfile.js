@@ -116,6 +116,11 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/layout/**/*.hbs', ['hexo'])
   gulp.watch('./themes/backendbrasil/source/*', ['hexo'])
   gulp.watch('./themes/backendbrasil/source/**/*', ['hexo'])
+  gulp.watch('./themes/backendbrasil/helper/*', ['hexo'])
+  gulp.watch('./source/*', ['hexo'])
+  gulp.watch('./source/**/*', ['hexo'])
+  gulp.watch('./scaffolds/*', ['hexo'])
+  gulp.watch('./scaffolds/**/*', ['hexo'])
 
   // SCSS Files
   gulp.watch('./themes/backendbrasil/assets/*.scss', ['css'])
