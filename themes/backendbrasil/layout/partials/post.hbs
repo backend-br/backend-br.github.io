@@ -1,7 +1,17 @@
 <article class="
-  tile is-flex-full-mobile no-grow no-shrink is-flex-one-third is-child has-text-left
+  tile 
+  is-flex-full 
+  is-flex-one-third-desktop
+  is-flex-half-mobile
+  no-grow no-shrink 
+  is-child 
+  has-text-left 
+  {{classes}}
+
   {{#gt index 2}}
-    is-hidden
+    {{#isTruthy hide_extra}}
+      is-hidden
+    {{/isTruthy}}
   {{/gt}}
 ">
   <div class="posts--thumbnail">

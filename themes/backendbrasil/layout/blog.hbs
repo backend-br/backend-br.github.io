@@ -19,7 +19,41 @@
 
   <section class="tile tile-is-flexible is-flex-full">
     {{#each site.posts.data}}
-      {{> post index=@index path=path description=description title=title thumbnail=thumbnail thumbnail_alt=thumbnail_alt categories=categories}}
+      {{> post 
+        index=@index 
+        path=path 
+        description=description 
+        title=title 
+        thumbnail=thumbnail 
+        thumbnail_alt=thumbnail_alt 
+        categories=categories
+        hide_extra=true
+      }}
+    {{/each}}
+
+    {{#eq site.posts.data.length 0}}
+      <span>{{__ 'blog.no_posts'}}</span>
+    {{/eq}}
+  </section>
+</section>
+
+<section class="blog--posts posts tile-is-flexible tile is-ancestor">
+  <article class="tile is-flex-full">
+    <h2 class="title">{{_p 'blog.latest'}}</h2>
+  </article>
+
+  <section class="tile tile-is-flexible is-flex-full">
+    {{#each site.posts.data}}
+      {{> post 
+        index=@index 
+        path=path 
+        description=description 
+        title=title 
+        thumbnail=thumbnail 
+        thumbnail_alt=thumbnail_alt 
+        categories=categories
+        hide_extra=false
+      }}
     {{/each}}
 
     {{#eq site.posts.data.length 0}}

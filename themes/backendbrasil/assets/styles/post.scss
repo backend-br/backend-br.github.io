@@ -1,3 +1,16 @@
+@mixin generate-post-margin($start, $divisible) {
+  @media screen and (min-width: $start) {
+    margin-right: 2rem !important;
+
+    @for $i from 1 through 999 {
+      @if $i % $divisible != 0 {
+        &:nth-child(#{$i}) { margin-right: 2rem !important; }
+      } @else {
+        &:nth-child(#{$i}) { margin-right: 0 !important; }
+      }
+    }
+  }
+}
 .posts {
   @extend %has-default-padding;
   @extend %inter-section-margin;
@@ -6,13 +19,15 @@
   $bottom-padding: 0.5rem;
   justify-content: flex-start;
 
+  > section { justify-content: initial; }
+
   section > article.tile {
     background-color: #fff;
     margin-bottom: 2rem !important;
+    margin-right: 0 !important;
 
-    @media screen and (min-width: $tablet) {
-      margin-bottom: 0 !important;
-    }
+    @include generate-post-margin($tablet, 2);
+    @include generate-post-margin($desktop, 3);
   }
 
   &--title, p {

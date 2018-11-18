@@ -22,7 +22,6 @@
 .blog--highlights {
   position: relative;
   padding-bottom: 3rem;
-  margin-bottom: 6rem !important;
 
   &:after {
     content: "";
@@ -34,4 +33,8 @@
     position: absolute;
     z-index: -10;
   }
+}
+
+.blog--posts {
+  margin-bottom: 3rem !important;
 }
