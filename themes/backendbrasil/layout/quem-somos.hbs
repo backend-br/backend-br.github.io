@@ -1,13 +1,13 @@
 <section class="about--header tile is-ancestor tile-is-flexible">
   <article class="tile is-child is-flex-two-thirds no-grow no-shrink">
-    <h4 class="is-size-4">{{{__ 'about.header.title'}}}</h4>
+    <h4 class="is-size-4 has-text-weight-bold">{{{__ 'about.header.title'}}}</h4>
     <p>{{__ 'about.header.text'}}</p>
   </article>
 </section>
 
 <section class="about--believe tile is-ancestor tile-is-flexible">
   <article class="tile is-child is-flex-full no-grow no-shrink">
-    <h2 class="title">{{__ 'about.we_believe.title'}}</h2>
+    <h2 class="is-size-4">{{__ 'about.we_believe.title'}}</h2>
   </article>
 
   <article class="tile is-child is-flex-one-third is-flex-full-mobile no-grow no-shrink">
@@ -24,4 +24,59 @@
     <h5 class="is-size-5">{{__ 'about.we_believe.partnership.title'}}</h5>
     <p>{{__ 'about.we_believe.partnership.text'}}</p>
   </article>
+</section>
+
+<section class="things-we-do tile is-ancestor tile-is-flexible">
+  <article class="
+    tile is-child is-flex-half-desktop is-flex-full
+    no-shrink no-grow
+  ">
+    <p>{{__ 'about.things_we_do'}}</p>
+  </article>
+
+  <article class="
+    tile is-child is-flex-half-desktop is-flex-full
+    no-shrink no-grow
+  ">
+    <div>
+      <img src="/img/meetup6.jpg" alt=""/>
+    </div>
+  </article>
+</section>
+
+
+<section class="about--team tile is-ancestor tile-is-flexible">
+  <article class="tile is-child is-flex-one-third is-flex-full-mobile no-grow no-shrink">
+    <h2 class="is-size-4">{{__ 'about.our_team.title'}}</h2>
+
+    <p class="text-paragraph">{{__ 'about.our_team.description'}}</p>
+  </article>
+
+  {{#each site.data.github_members}}
+    <article class="tile about--team-member is-child is-flex-half-mobile is-flex-one-third-desktop is-flex-full no-grow no-shrink">
+      <div class="about--team-photo">
+        <img src="{{avatar}}" alt="{{description}}"/>
+      </div>
+
+      <div class="about--team-description">
+        <strong class="is-size-5">@{{login}}</strong>
+
+        <p>{{work_as}}</p>
+
+        <ul>
+          <li>
+            <a href="{{profile_url}}" target="_blank">
+              <i target="_blank" class="fab fa-github"></i>
+            </a>
+          </li>
+
+          <li>
+            <a href="{{twitter}}" target="_blank">
+              <i target="_blank" class="fab fa-twitter"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </article>
+  {{/each}}
 </section>

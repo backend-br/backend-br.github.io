@@ -1,0 +1,50 @@
+#!/usr/bin/env node
+
+const axios = require('axios')
+const fs = require('fs-extra')
+const path = require('path')
+
+const exec = async () => {
+  try {
+    const filepath = path.resolve(process.cwd(), 'source/_data/github_members.json')
+
+    const { data: members } = await axios.get('https://api.github.com/orgs/backend-br/members')
+
+    if (!Array.isArray(members)) {
+      throw new Error('Response from Github API is not an array!')
+    }
+
+    const currentMembers = await fs.readJson(filepath)
+
+    members.forEach(member => {
+      const found = currentMembers.filter(cm => cm.login === member.login).shift()
+
+      if (found) {
+        currentMembers.forEach((item, index) => {
+          if (item.login !== member.login) {
+            return
+          }
+
+          currentMembers[index].avatar = member.avatar_url || ''
+          currentMembers[index].profile_url = member.html_url || ''
+        })
+      } else {
+        currentMembers.push({
+          work_as: '',
+          login: member.login,
+          avatar: member.avatar_url || '',
+          profile_url: member.html_url || '',
+          twitter: ''
+        })
+      }
+    })
+
+    await fs.outputJson(filepath, currentMembers)
+
+    console.log('Done!')
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+exec()

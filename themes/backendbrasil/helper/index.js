@@ -59,7 +59,7 @@ const imgsrc = str => {
 
 const logme = data => console.log(JSON.stringify(data, null, 2))
 
-const slugify = str => helpers.dashcase(str)
+const slugify = str => helpers.dashcase(str).replace(/\//g, '')
 
 const slugifyCategories = data => data
   .map(it => typeof it !== 'string' ? it.name || '' : '')
