@@ -1,11 +1,11 @@
 .be--navbar {
   @extend %has-default-padding;
+  background-color: transparent;
   padding-top: 0;
   padding-bottom: 0;
   width: 100%;
   top: 0;
   left: 0;
-  border-bottom: 3px solid #868686;
 
   .navbar-item {
     color: $text;
