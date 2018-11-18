@@ -2,18 +2,36 @@
   @extend %has-default-padding;
   margin: 3rem 0 !important;
 
-  .title { margin-bottom: 2rem; }
+  .title { margin-bottom: 1rem; }
 
   &-list {
     li {
       display: inline-block;
       padding: 0.5rem 0.75rem;
-      color: $primary;
+      color: #fff;
+      background-color: $primary;
       border: 2px solid $primary;
       border-radius: 0.25rem;
       margin-right: 0.5rem;
 
       a { color: inherit; }
     }
+  }
+}
+
+.blog--highlights {
+  position: relative;
+  padding-bottom: 3rem;
+  margin-bottom: 6rem !important;
+
+  &:after {
+    content: "";
+    background-color: $primary;
+    width: 100%;
+    height: calc(100% - 18.72rem);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    z-index: -10;
   }
 }

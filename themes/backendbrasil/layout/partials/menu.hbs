@@ -1,4 +1,9 @@
-<nav class="navbar be--navbar" role="navigation" aria-label="main navigation">
+<nav class="
+    navbar be--navbar
+    {{#eq page.layout "index"}}
+      be--navbar-home
+    {{/eq}}
+  " role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item be--navbar-item--logo" href="#">
       {{> svg '#white-logo'}}

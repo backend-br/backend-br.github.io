@@ -1,6 +1,7 @@
 ---
 title: Primeiro post
-categories: js php dev misc
+categories:
+  - js
 thumbnail:
 description: sit voluptatem ea explicabo voluptas dolores numquam
 ---

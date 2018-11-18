@@ -1,0 +1,76 @@
+.posts {
+  @extend %has-default-padding;
+  @extend %inter-section-margin;
+  $side-padding: 1rem;
+  $top-padding: 1rem;
+  $bottom-padding: 0.5rem;
+  justify-content: flex-start;
+
+  section > article.tile {
+    background-color: #fff;
+    margin-bottom: 2rem !important;
+
+    @media screen and (min-width: $tablet) {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  &--title, p {
+    color: $text;
+    padding: 0 $side-padding;
+    
+    a { 
+      @extend %color-inherit;
+    }
+  }
+
+  p {
+    padding-bottom: $top-padding;
+  }
+
+  .title {
+    padding: 3rem 0 1.5rem;
+  }
+
+  &--thumbnail {
+    width: 100%;
+    height: 12rem;
+    display: block;
+
+    a {
+      width: inherit;
+      height: inherit;
+      display: block;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      max-width: initial;
+    }
+  }
+
+  &--categories {
+    padding: $top-padding $side-padding $bottom-padding;
+
+    li {
+      border-radius: 0.25rem;
+      color: #fff;
+      display: inline-block;
+      background-color: $primary;
+      padding: 0.25rem 0.5rem;
+      margin-right: 0.25rem;
+      margin-bottom: 0.5rem;
+
+      a { 
+        @extend %color-inherit;
+      }
+
+      @media screen and (min-width: $tablet) {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

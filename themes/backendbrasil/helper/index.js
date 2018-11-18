@@ -14,6 +14,31 @@ const stringify = data => {
   return data
 }
 
+const thumb = (path, image) => {
+  path = path.replace(/\/$/g, '')
+  const args = [path, image]
+
+  if (args.length === 0) {
+    return ''
+  }
+
+  let str = args
+    .filter(path => typeof path === 'string')
+    .join('/')
+
+  const parsed = url.parse(str)
+
+  if (parsed && parsed.hostname) {
+    return str
+  }
+
+  if (str.length === 0 || str === path) {
+    str = 'img/no-image.jpg'
+  }
+
+  return `/${str.replace(/\/$/g, '')}`
+}
+
 const imgsrc = str => {
   if (!str) {
     return str
@@ -21,19 +46,27 @@ const imgsrc = str => {
 
   const parsed = url.parse(str)
 
-  if (parsed.hostname) {
+  if (parsed && parsed.hostname) {
     return str
+  }
+
+  if (str.length === 0) {
+    str = 'no-image.jpg'
   }
 
   return `/img/${str}`
 }
 
-const logme = data => console.log(Object.keys(data))
+const logme = data => console.log(JSON.stringify(data, null, 2))
+
+const slugify = str => encodeURIComponent(helpers.dashcase(str))
 
 module.exports = hexo => ({
   __: (...key) => i18n.__()(stringify(key)),
   _p: (...key) => i18n._p()(stringify(key)),
   imgsrc,
+  thumb,
   logme,
+  slugify,
   ...helpers
 })

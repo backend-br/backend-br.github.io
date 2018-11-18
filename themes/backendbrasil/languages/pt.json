@@ -8,7 +8,8 @@
   "blog": {
     "latest": "Últimas do blog",
     "no_posts": "Ainda não temos nenhuma publicação",
-    "search_by_categories": "Navegue por temas"
+    "search_by_categories": "Navegue por temas",
+    "highlights": "Destaques"
   },
   "home": {
     "header": {

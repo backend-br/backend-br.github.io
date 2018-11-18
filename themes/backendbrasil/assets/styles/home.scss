@@ -225,55 +225,6 @@
   }
 }
 
-.posts {
-  @extend %has-default-padding;
-  @extend %inter-section-margin;
-  justify-content: flex-start;
-
-  section > article.tile {
-    margin-bottom: 2rem !important;
-
-    @media screen and (min-width: $tablet) {
-      margin-bottom: 0 !important;
-    }
-  }
-
-  &--title, p {
-    color: $text;
-    
-    a { 
-      @extend %color-inherit;
-    }
-  }
-
-  .title {
-    padding: 3rem 0 1.5rem;
-  }
-
-  &--thumbnail img {
-    width: 100%;
-    height: auto;
-  }
-
-  &--categories {
-    padding-top: 0.5rem;
-
-    li {
-      border-radius: 0.25rem;
-      color: #fff;
-      display: inline-block;
-      background-color: $primary;
-      padding: 0.25rem 0.5rem;
-      margin-right: 0.25rem;
-      margin-bottom: 0.5rem;
-
-      a { 
-        @extend %color-inherit;
-      }
-    }
-  }
-}
-
 .partners {
   padding-top: 3rem;
   padding-bottom: 3rem;

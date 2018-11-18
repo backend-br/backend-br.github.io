@@ -1,0 +1,28 @@
+<article class="
+  tile is-flex-full-mobile no-grow no-shrink is-flex-one-third is-child has-text-left
+  {{#gt index 2}}
+    is-hidden
+  {{/gt}}
+">
+  <div class="posts--thumbnail">
+    <a href="{{path}}" title="{{title}}">
+      <img src="{{thumb path thumbnail}}" alt="{{thumbnail_alt}}"/>
+    </a>
+  </div>
+
+  <ul class="posts--categories">
+    {{#each categories.data}}
+      <li>
+        <a href="{{path}}" title="{{name}}">{{name}}</a>
+      </li>
+    {{/each}}
+  </ul>
+
+  <h4 class="posts--title has-text-weight-semibold is-size-5">
+    <a href="{{path}}" title="{{title}}">
+      {{title}}
+    </a>
+  </h4>
+
+  <p><a href="{{path}}" title="{{description}}">{{description}}</a></p>
+</article>

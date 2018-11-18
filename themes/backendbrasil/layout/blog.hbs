@@ -5,48 +5,21 @@
 
   <article class="tile is-child is-flex-full">
     <ul class="blog--themes-list">
-      {{#each site.categories}}
-        <li><a href="{{path}}" title="{{name}}">{{name}}</a></li>
+      {{#each site.categories.data}}
+        <li><a href="javascript:void(0);" data-slug="{{dashcase name}}" title="{{name}}">{{name}}</a></li>
       {{/each}}
     </ul>
   </article>
 </section>
 
-<section class="posts tile-is-flexible tile is-ancestor">
+<section class="blog--highlights posts tile-is-flexible tile is-ancestor">
   <article class="tile is-flex-full">
-    <h2 class="title">{{_p 'home.follow_blog'}}</h2>
+    <h2 class="title">{{_p 'blog.highlights'}}</h2>
   </article>
 
   <section class="tile tile-is-flexible is-flex-full">
     {{#each site.posts.data}}
-      <article class="
-        tile is-flex-full-mobile no-grow no-shrink is-flex-one-third is-child has-text-left
-        {{#gt @index 2}}
-          is-hidden
-        {{/gt}}
-      ">
-        <div class="posts--thumbnail">
-          <a href="{{path}}" title="{{title}}">
-            <img src="{{path}}/{{thumbnail}}" alt="{{thumbnail_alt}}"/>
-          </a>
-        </div>
-
-        <ul class="posts--categories">
-          {{#each categories.data}}
-            <li>
-              <a href="{{path}}" title="{{name}}">{{name}}</a>
-            </li>
-          {{/each}}
-        </ul>
-
-        <h4 class="posts--title has-text-weight-semibold is-size-5">
-          <a href="{{path}}" title="{{title}}">
-            {{title}}
-          </a>
-        </h4>
-
-        <p><a href="{{path}}" title="{{description}}">{{description}}</a></p>
-      </article>
+      {{> post index=@index path=path description=description title=title thumbnail=thumbnail thumbnail_alt=thumbnail_alt categories=categories}}
     {{/each}}
 
     {{#eq site.posts.data.length 0}}
