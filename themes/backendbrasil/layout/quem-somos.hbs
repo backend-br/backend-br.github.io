@@ -64,17 +64,21 @@
         <p>{{work_as}}</p>
 
         <ul>
-          <li>
-            <a href="{{profile_url}}" target="_blank">
-              <i target="_blank" class="fab fa-github"></i>
-            </a>
-          </li>
+          {{#isTruthy profile_url.length}}
+            <li>
+              <a href="{{profile_url}}" target="_blank">
+                <i target="_blank" class="fab fa-github"></i>
+              </a>
+            </li>
+          {{/isTruthy}}
 
-          <li>
-            <a href="{{twitter}}" target="_blank">
-              <i target="_blank" class="fab fa-twitter"></i>
-            </a>
-          </li>
+          {{#isTruthy twitter.length}}
+            <li>
+              <a href="{{twitter}}" target="_blank">
+                <i target="_blank" class="fab fa-twitter"></i>
+              </a>
+            </li>
+          {{/isTruthy}}
         </ul>
       </div>
     </article>
