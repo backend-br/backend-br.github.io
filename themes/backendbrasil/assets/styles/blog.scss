@@ -1,0 +1,60 @@
+.category-filter-is-hidden { @extend .is-hidden; }
+
+.blog--themes {
+  @extend %has-default-padding;
+  margin-top: 3rem !important;
+
+  .title { margin-bottom: 1rem; }
+
+  &-list {
+    li {
+      display: inline-block;
+      padding: 0.5rem 0.75rem;
+      color: #fff;
+      background-color: $primary;
+      border: 2px solid $primary;
+      border-radius: 0.25rem;
+      margin-right: 0.5rem;
+
+      a { color: inherit; }
+    }
+  }
+}
+
+.blog--highlights {
+  @extend %has-default-padding;
+  position: relative;
+  padding-bottom: 3rem;
+  $side-padding: 1rem;
+  $top-padding: 1rem;
+
+  .posts--title,
+  .posts--p {
+    padding: 0 $side-padding;
+  }
+
+  .posts--p {
+    padding-bottom: $top-padding; 
+  }
+
+  .posts--categories {
+    padding-left: $side-padding;
+    padding-right: $side-padding;
+  }
+
+  &:after {
+    content: "";
+    background-color: $primary;
+    width: 100%;
+    height: calc(100% - 18.72rem);
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    z-index: -10;
+  }
+}
+
+.blog--posts {
+  @extend %has-default-padding;
+  margin-bottom: 3rem !important;
+}

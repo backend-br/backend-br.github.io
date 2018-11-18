@@ -1,0 +1,41 @@
+<article
+  data-categories="{{slugifyCategories categories.data}}"
+  class="
+    tile 
+    is-flex-full 
+    is-flex-one-third-desktop
+    is-flex-half-mobile
+    no-grow no-shrink 
+    is-child 
+    has-text-left 
+    {{classes}}
+
+    {{#gt index 2}}
+      {{#isTruthy hide_extra}}
+        is-hidden
+      {{/isTruthy}}
+    {{/gt}}
+  "
+  >
+  <div class="posts--thumbnail">
+    <a href="{{path}}" title="{{title}}">
+      <img src="{{thumb path thumbnail}}" alt="{{thumbnail_alt}}"/>
+    </a>
+  </div>
+
+  <ul class="posts--categories">
+    {{#each categories.data}}
+      <li>
+        <a href="{{path}}" title="{{name}}">{{name}}</a>
+      </li>
+    {{/each}}
+  </ul>
+
+  <h4 class="posts--title has-text-weight-semibold is-size-5">
+    <a href="{{path}}" title="{{title}}">
+      {{title}}
+    </a>
+  </h4>
+
+  <p class="posts--p"><a href="{{path}}" title="{{description}}">{{description}}</a></p>
+</article>

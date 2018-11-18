@@ -1,6 +1,12 @@
-<nav class="navbar be--navbar" role="navigation" aria-label="main navigation">
+<nav class="
+    navbar be--navbar
+    {{#eq page.path "index.html"}}
+      be--navbar-home
+    {{/eq}}
+  " role="navigation" aria-label="main navigation">
+
   <div class="navbar-brand">
-    <a class="navbar-item be--navbar-item--logo" href="#">
+    <a class="navbar-item be--navbar-item--logo" href="/">
       {{> svg '#white-logo'}}
     </a>
 
@@ -10,6 +16,20 @@
       <span aria-hidden="true"></span>
     </a>
   </div>
+
+  {{#if page.id}}
+    <div class="
+        navbar--breadcrumb
+        {{#eq page.path "index.html"}}
+          is-hidden
+        {{/eq}}
+      ">
+      <span>
+        <strong>{{page.title}}</strong>
+        <i>{{getPageDescription page.id}}</i>
+      </span>
+    </div>
+  {{/if}}
 
   <div class="navbar-menu" id="mainMenu">
     <div class="navbar-end">
