@@ -87,6 +87,14 @@
       object-fit: cover;
     }
   }
+
+  p {
+    padding-bottom: 2rem;
+
+    @media screen and (min-width: $desktop) {
+      padding-bottom: 0;
+    }
+  }
 }
 
 .about--team {
