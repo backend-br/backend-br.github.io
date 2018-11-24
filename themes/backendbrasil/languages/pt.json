@@ -49,6 +49,12 @@
     },
     "things_we_do": "Mensalmente fazemos um Meetup que reúne grandes nomes do universo de desenvolvimento para palestras, networking para todos, apoiando como podemos para conseguir o primeiro emprego ou a mudança com o repositório (me-contrate), cedendo espaço para empresas anunciar vagas aos membros da comunidade (vagas) e tirando dúvidas através do repositório (fórum) ou através do Slack. "
   },
+  "jobs": {
+    "header": {
+      "title": "Vagas disponíveis de back-end",
+      "text": ""
+    }
+  },
   "sign": "Assinar",
   "email_placeholder": "Digite seu e-mail",
   "categories": {
