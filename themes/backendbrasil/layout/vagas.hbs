@@ -1,9 +1,91 @@
 <section class="jobs--header tile is-ancestor tile-is-flexible">
   <article class="tile is-child is-flex-two-thirds no-grow no-shrink">
-    <h4 class="is-size-4 has-text-weight-bold">{{{__ 'jobs.header.title'}}}</h4>
+    <h4 class="is-size-3 has-text-weight-bold">{{{__ 'jobs.header.title'}}}</h4>
   </article>
 </section>
 
-<section class="">
-  
+<section class="jobs--description tile is-ancestor tile-is-flexible">
+  <article class="tile is-child is-flex-full no-grow no-shrink">
+    <p>
+      {{__ 'jobs.header.description' }}
+      <a href="{{config.github_jobs_issues}}" target="_blank">
+        {{__ 'jobs.header.here' }}
+      </a>
+    </p>
+  </article>
+</section>
+
+<section class="jobs--form tile is-ancestor tile-is-flexible">
+  <article class="tile tile-is-flexible is-child is-flex-full no-grow no-shrink">
+    <div class="select">
+      <select name="state" id="state">
+        {{#each theme.states}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="select">
+      <select name="language" id="language">
+        {{#each theme.languages}}
+        <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="control has-icons-left">
+      <input type="text" name="keyword" placeholder="{{__ 'jobs.form.search'}}" id="keyword"/>
+
+      <span class="icon is-small is-left">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
+  </article>
+</section>
+
+<section class="jobs--listing tile-is-flexible tile is-ancestor">
+  <article class="jobs--listing-title tile is-child is-flex-full">
+    <h2 class="title">{{_p 'jobs.opened_jobs'}}</h2>
+  </article>
+
+  {{#each site.posts}}
+    <article class="
+      jobs--listing-item 
+      no-grow 
+      no-shrink 
+      is-child tile 
+      is-flex-one-quarter-desktop
+      is-flex-half-mobile
+      is-flex-full
+    ">
+      <a href="http://www.url.com" target="_blank">
+        <h4 class="is-size-5">Desenvolvedor NodeJS</h4>
+
+        <ul class="jobs--flags">
+          <li>Pleno</li>
+          <li>CLT</li>
+          <li>Remoto</li>
+        </ul>
+
+        <p>
+          <span class="fas fa-place"></span>
+          <span>Curitiba / SP</span>
+        </p>
+      </a>
+    </article>
+  {{/each}}
+</section>
+
+<section class="jobs--partners tile-is-flexible tile is-ancestor">
+  <article class="jobs--partners-title tile is-child is-flex-full">
+    <h2 class="title">{{_p 'jobs.partners'}}</h2>
+  </article>
+
+  <article class="tile is-child is-flex-full">
+    <ul class="jobs--flags">
+      {{#each site.data.jobs_repos}}
+        <li><a href="{{link}}" target="_blank">{{name}}</a></li>
+      {{/each}}
+    </ul>
+  </article>
 </section>

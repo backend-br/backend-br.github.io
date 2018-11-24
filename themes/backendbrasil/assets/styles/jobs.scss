@@ -35,3 +35,121 @@
     z-index: -9999;
   }
 }
+
+.jobs--description {
+  background-color: rgba($primary, 0.15);
+
+  article p {
+    padding: 3rem;
+  }
+}
+
+.jobs--form {
+  @extend %inter-section-margin;
+  @extend %has-default-padding;
+
+  article {
+    padding: 3rem 0 0;
+    justify-content: flex-start;
+
+    div {
+      $border-color: rgba($primary, 0.4);
+      border-color: $border-color;
+      flex: 0 0 100%;
+
+      select {
+        border-color: inherit;
+      }
+
+      input {
+        width: 15rem;
+        height: 100%;
+        border-radius: $radius;
+        border: solid $border-color 0.1rem;
+        padding-left: 2.5rem;
+      }
+
+      @media screen and (min-width: $tablet) {
+        flex-basis: auto;
+
+        &:nth-child(2) {
+          margin: 0 1rem;
+        }
+      }
+
+      &.control span { color: $primary !important; }
+    }
+  }
+}
+
+.jobs--listing {
+  @extend %has-default-padding;
+  @extend %inter-section-margin;
+  justify-content: flex-start;
+
+  &-title h2 {
+    @extend %backendbr-styled-title;
+    padding-bottom: 2rem;
+  }
+
+  &-item {
+    @include generate-shadow(darken($primary, 80%));
+    @include generate-post-margin($tablet, 2);
+    @include generate-post-margin($desktop, 3);
+    color: $primary;
+    margin-bottom: 2rem !important;
+    margin-right: 0 !important;
+    padding: 1.5rem 1rem;
+
+    a:hover li,
+    a:hover h4 { 
+      color: $primary !important;
+    }
+
+    h4 {
+      font-weight: bold;
+    }
+
+    ul {
+      padding: 1rem 0;
+
+      li {
+        background-color: lighten($primary, 30%);
+        border-radius: $radius;
+        display: inline-block;
+        padding: 0.5rem 0.75rem;
+        font-size: 0.75rem;
+        margin-right: 0.15rem;
+      }
+    }
+
+    p > span:not(.fas) {
+      color: $text;
+      font-size: 0.85rem;;
+    }
+  }
+}
+
+.jobs--partners {
+  @extend %has-default-padding;
+  @extend %inter-section-margin;
+  margin-bottom: 4rem !important;
+
+  &-title h2 {
+    @extend %backendbr-styled-title;
+    padding-bottom: 2rem;
+  }
+
+  ul li {
+    display: inline-block;
+    color: #fff;
+
+    a {
+      background-color: $primary;
+      border-radius: $radius;
+      padding: 0.5rem 1rem;
+      margin-right: 0.15rem;
+      color: inherit !important;
+    }
+  }
+}

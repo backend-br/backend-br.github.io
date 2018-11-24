@@ -5,3 +5,10 @@ language:
 node_sass:
   outputStyle: compressed
 
+states:
+  - SP
+
+languages:
+  - JS
+  - PHP
+
