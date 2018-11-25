@@ -59,7 +59,11 @@
       "search": "Pesquise por palavra-chave"
     },
     "opened_jobs": "Vagas abertas",
-    "partners": "Outros repositórios de vagas"
+    "partners": "Outros repositórios de vagas",
+    "load": {
+      "more": "Carregar mais",
+      "empty": "Não tem mais vagas!"
+    }
   },
   "sign": "Assinar",
   "email_placeholder": "Digite seu e-mail",

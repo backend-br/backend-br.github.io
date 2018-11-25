@@ -48,32 +48,47 @@
     <h2 class="title">{{_p 'jobs.opened_jobs'}}</h2>
   </article>
 
-  {{#each site.posts}}
-    <article class="
-      jobs--listing-item 
-      no-grow 
-      no-shrink 
-      is-child tile 
-      is-flex-one-quarter-desktop
-      is-flex-half-mobile
-      is-flex-full
-    ">
-      <a href="http://www.url.com" target="_blank">
-        <h4 class="is-size-5">Desenvolvedor NodeJS</h4>
+  <article id="jobsListingWrapper" class="tile is-flex-full tile-is-flexible is-parent jobs--listing-wrapper">
+    {{#each site.posts}}
+      <article class="
+        jobs--listing-item 
+        no-grow 
+        no-shrink 
+        is-child tile 
+        is-flex-one-quarter-desktop
+        is-flex-half-mobile
+        is-flex-full
+      ">
+        <a href="http://www.url.com" target="_blank">
+          <h4 class="is-size-5">Desenvolvedor NodeJS</h4>
 
-        <ul class="jobs--flags">
-          <li>Pleno</li>
-          <li>CLT</li>
-          <li>Remoto</li>
-        </ul>
+          <ul class="jobs--flags">
+            <li>Pleno</li>
+            <li>CLT</li>
+            <li>Remoto</li>
+          </ul>
 
-        <p>
-          <span class="fas fa-place"></span>
-          <span>Curitiba / SP</span>
-        </p>
-      </a>
-    </article>
-  {{/each}}
+          <p>
+            <span class="fas fa-place"></span>
+            <span>Curitiba / SP</span>
+          </p>
+        </a>
+      </article>
+    {{/each}}
+  </article>
+
+  <article class="tile is-flex-full jobs--listing-load">
+    <a 
+      href="javascript:void(0);" 
+      data-is-empty="{{__ 'jobs.load.empty'}}" 
+      data-load-more="{{__ 'jobs.load.more'}}" 
+      data-next="" 
+      class="button"
+      id="loadMoreJobs"
+    >
+      {{__ 'jobs.load.more'}}
+    </a>
+  </article>
 </section>
 
 <section class="jobs--partners tile-is-flexible tile is-ancestor">

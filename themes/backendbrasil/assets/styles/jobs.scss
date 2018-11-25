@@ -87,6 +87,8 @@
   @extend %inter-section-margin;
   justify-content: flex-start;
 
+  .jobs--listing-wrapper { justify-content: inherit; }
+
   &-title h2 {
     @extend %backendbr-styled-title;
     padding-bottom: 2rem;
@@ -126,6 +128,17 @@
     p > span:not(.fas) {
       color: $text;
       font-size: 0.85rem;;
+    }
+  }
+
+  &-load {
+    padding: 4rem 0 2rem;
+    
+    a {
+      margin: 0 auto;
+      background-color: $primary;
+      border-color: transparent;
+      color: #fff;
     }
   }
 }
