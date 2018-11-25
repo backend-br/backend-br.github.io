@@ -4,15 +4,28 @@
   background-repeat: no-repeat;
   background-position: center center;
   z-index: 0;
+  min-height: 100vh;
+  align-content: center;
+  text-align: center;
 
   article {
     z-index: 10;
-    padding: 10rem 5rem;
-    text-align: center;
+    padding: 0 5rem;
+    color: #fff;
+
+    * { display: block; }
 
     h2 {
-      color: #fff;
       font-weight: bold;
+    }
+
+    time {
+      padding: 1rem 0;
+    }
+
+    span {
+      display: block;
+      font-style: italic;
     }
   }
 
@@ -37,7 +50,41 @@
   }
 }
 
-.article--content {}
-.article--share {}
-.article--comments {}
-.article--related {}
+.article--content {
+  padding-top: 1rem;
+
+  @for $i from 1 through 6 {
+    h#{$i} {
+      @extend .is-size-#{$i};
+      padding-top: 1rem;
+      font-weight: bold;
+    }
+  }
+
+  blockquote {
+    border-left: 3px solid rgba($primary, 0.25);
+    padding: 1rem;
+    color: rgba($text, 0.7);
+    font-style: italic;
+  }
+
+  pre[class="language-*"] {
+      margin: 1.5rem 0 !important;
+  }
+}
+
+.article--share {
+  text-align: center;
+  padding: 2rem 0;
+
+  a {
+    font-size: 3rem;
+    padding-right: 1rem;
+
+    &:last-child { padding-right: 0; }
+  }
+}
+
+.article--comments {
+  padding-bottom: 3rem;
+}

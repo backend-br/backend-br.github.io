@@ -11,6 +11,7 @@ const svgSymbols = require('gulp-svg-symbols')
 const svgMin = require('gulp-svgmin')
 const rename = require('gulp-rename')
 const imagemin = require('gulp-imagemin')
+const fs = require('fs')
 
 /**
  * Use hexo to generate files
@@ -62,7 +63,11 @@ gulp.task('js', ['process-js'], function (cb) {
  * Process main file from the theme folder
  */
 gulp.task('process-css', function () {
-  return gulp.src('./themes/backendbrasil/assets/main.scss')
+  return gulp
+    .src([
+      './themes/backendbrasil/assets/main.scss',
+      './public/css/*.css'
+    ])
     .pipe(plumber())
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('public'))
@@ -138,8 +143,12 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/assets/**/*.js', ['js'])
 })
 
+gulp.task('clear-trash', function (cb) {
+  fs.unlink('./public/css', cb)
+})
+
 gulp.task('build', () => {
-  runSequence('icons', 'hexo', 'js', 'css', 'images', () => process.exit(0))
+  runSequence('icons', 'hexo', 'process-js', 'process-css', 'images', 'clear-trash', () => process.exit(0))
 })
 
 gulp.task('sequential-server', () => {

@@ -75,5 +75,8 @@
   "newsletter": {
     "title": "Assine nossa newsletter",
     "subtitle": "Fique por dentro de tudo o que acontece na comunidade!"
+  },
+  "article": {
+    "by": "por"
   }
 }
