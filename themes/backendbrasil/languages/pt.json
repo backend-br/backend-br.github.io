@@ -56,7 +56,10 @@
       "here": "aqui"
     },
     "form": {
-      "search": "Pesquise por palavra-chave"
+      "search": "Pesquise por palavra-chave",
+      "clear": "Limpar filtro",
+      "state": "Selecione um estado",
+      "lang": "Selecione uma linguagem"
     },
     "opened_jobs": "Vagas abertas",
     "partners": "Outros repositórios de vagas",

@@ -57,8 +57,14 @@
       border-color: $border-color;
       flex: 0 0 100%;
 
-      select {
+      select, a {
         border-color: inherit;
+      }
+
+      a { 
+        margin-left: 1rem;
+
+        &:hover { border-color: $border-color; }
       }
 
       input {
@@ -89,6 +95,8 @@
 
   .jobs--listing-wrapper { justify-content: inherit; }
 
+  &-hidden { display: none; }
+
   &-title h2 {
     @extend %backendbr-styled-title;
     padding-bottom: 2rem;
@@ -96,14 +104,15 @@
 
   &-item {
     @include generate-shadow(darken($primary, 80%));
-    @include generate-post-margin($tablet, 2);
-    @include generate-post-margin($desktop, 3);
+    @include generate-post-margin($tablet, 3);
+    @include generate-post-margin($desktop, 4);
     color: $primary;
     margin-bottom: 2rem !important;
     margin-right: 0 !important;
     padding: 1.5rem 1rem;
 
     a:hover li,
+    a:hover p .fas,
     a:hover h4 { 
       color: $primary !important;
     }
@@ -113,7 +122,7 @@
     }
 
     ul {
-      padding: 1rem 0;
+      padding-top: 1rem;
 
       li {
         background-color: lighten($primary, 30%);
@@ -122,12 +131,17 @@
         padding: 0.5rem 0.75rem;
         font-size: 0.75rem;
         margin-right: 0.15rem;
+        margin-bottom: 0.25rem;
       }
     }
+    
+    p {
+      padding-top: 1rem;
 
-    p > span:not(.fas) {
-      color: $text;
-      font-size: 0.85rem;;
+      & > span:not(.fas) {
+        color: $text;
+        font-size: 0.85rem;;
+      }
     }
   }
 
@@ -139,6 +153,20 @@
       background-color: $primary;
       border-color: transparent;
       color: #fff;
+
+      &:hover,
+      &:active,
+      &:visited {
+        color: #fff;
+        border-color: transparent;
+      }
+
+      &[disabled] {
+        background-color: $primary !important;
+        border-color: transparent !important;
+        box-shadow: none;
+        opacity: 1 !important;
+      }
     }
   }
 }

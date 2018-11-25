@@ -7,8 +7,9 @@ node_sass:
 
 states:
   - SP
+  - Brasília
 
 languages:
-  - JS
   - PHP
+  - JavaScript
 

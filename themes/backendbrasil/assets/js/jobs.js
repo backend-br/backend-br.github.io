@@ -4,7 +4,7 @@ const generateLabels = labels => {
   labels = labels.filter(label => label.length)
 
   labels = labels.map(label => `<li>${label}</li>`)
-  labels = labels.join()
+  labels = labels.join('')
 
   if (!labels.length) {
     return ''
@@ -49,6 +49,9 @@ const generateJob = ({ id, url, title, labels, location }) => `
     "
 
     data-id="${id}"
+    data-labels="${labels.filter(label => label.length).join(',')}"
+    data-location="${location}"
+    data-title="${title.replace(/^\[(.*?)\]\s?/g, '')}"
   >
     <a href="${url}" target="_blank">
       <h4 class="is-size-5">${title.replace(/^\[(.*?)\]\s?/g, '')}</h4>
@@ -59,6 +62,44 @@ const generateJob = ({ id, url, title, labels, location }) => `
     </a>
   </article>
 `
+
+const filterJobs = ({ key, value }) => {
+  const hideClass = 'jobs--listing-hidden'
+  const setClass = job => {
+    job = $(job)
+
+    if (!job.hasClass(hideClass)) {
+      job.addClass(hideClass)
+    }
+  };
+
+  if (value === 'clear') {
+    return $(`.jobs--listing-item[data-${key}]`)
+      .removeClass(hideClass)
+  }
+
+  $('.jobs--listing-item').forEach(job => {
+    const dataset = job.dataset
+
+    if (
+      !dataset || 
+      !dataset[key] || 
+      !dataset[key].length ||
+      typeof dataset[key] !== 'string'
+    ) {
+      return setClass(job)
+    }
+
+    const found = dataset[key]
+      .match(new RegExp(value, 'gi'))
+
+    if (!found || !found.length) {
+      return setClass(job)
+    }
+
+    $(job).removeClass('jobs--listing-hidden')
+  })
+}
 
 const getPaginators = link => {
   const result = { next: false, last: false }
@@ -109,7 +150,7 @@ const loadIssues = (url) => $.getJSON(
       .map(generateJob)
       
     if (issues.length) {
-      $('#jobsListingWrapper').append(issues.join())
+      $('#jobsListingWrapper').append(issues.join(''))
     }
 
     const { next, last } = getPaginators(xhr.getResponseHeader('Link'))
@@ -131,16 +172,55 @@ const loadIssues = (url) => $.getJSON(
   }
 )
 
-
 document.addEventListener('DOMContentLoaded', () => {
-  if ($('#state').length) {
-    const githubIssuesUrl = 'https://api.github.com/repos/backend-br/vagas/issues'
-    loadIssues(githubIssuesUrl)
-
-    $('#loadMoreJobs').on('click', e => {
-      const loadBtn = $('#loadMoreJobs')
-      const currentNextUrl = loadBtn.attr('data-next')
-      loadIssues(currentNextUrl)
-    })
+  if (!$('#state').length) {
+    return
   }
+
+  const githubIssuesUrl = 'https://api.github.com/repos/backend-br/vagas/issues'
+  loadIssues(githubIssuesUrl)
+  const toWatch = [
+    {
+      htmlId: 'state',
+      filterKey: ['location'],
+      clearValue: 'clear'
+    },
+    {
+      htmlId: 'language',
+      filterKey: ['labels'],
+      clearValue: 'clear'
+    },
+    {
+      htmlId: 'keyword',
+      filterKey: ['labels', 'location', 'title'],
+      event: 'input'
+    }
+  ]
+
+  toWatch.forEach(item => {
+    $(`#${item.htmlId}`).on(item.event || 'change', e => {
+      const value = $(`#${item.htmlId}`).val()
+      item
+        .filterKey
+        .forEach(
+          key => filterJobs({ key, value })
+        )
+    })
+  })
+
+  $('#clearFilter').on('click', e => {
+    $('.jobs--listing-hidden') 
+      .removeClass('jobs--listing-hidden')
+
+    toWatch
+      .forEach(
+        item => $(`#${item.htmlId}`).val(item.clearValue || '')
+      )
+  })
+
+  $('#loadMoreJobs').on('click', e => {
+    const loadBtn = $('#loadMoreJobs')
+    const currentNextUrl = loadBtn.attr('data-next')
+    loadIssues(currentNextUrl)
+  })
 })
