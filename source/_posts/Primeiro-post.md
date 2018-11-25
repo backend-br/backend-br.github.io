@@ -2,8 +2,9 @@
 title: Primeiro post
 categories:
   - js
-thumbnail:
+thumbnail: capivara.jpg
 description: sit voluptatem ea explicabo voluptas dolores numquam
+layout: article
 ---
 
 # culpa voluptatem 
