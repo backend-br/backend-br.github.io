@@ -1,1 +1,15 @@
+.article--header {}
 
+.article {
+  &--content,
+  &--share,
+  &--comments,
+  &--related {
+    justify-content: center;
+  }
+}
+
+.article--content {}
+.article--share {}
+.article--comments {}
+.article--related {}
