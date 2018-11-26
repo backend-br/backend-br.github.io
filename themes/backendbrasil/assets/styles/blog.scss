@@ -1,8 +1,10 @@
 .category-filter-is-hidden { @extend .is-hidden; }
 
+@include dark-navbar('body--blog-breadcrumb');
+
 .blog--themes {
   @extend %has-default-padding;
-  margin-top: 3rem !important;
+  margin-top: 6rem !important;
 
   .title { margin-bottom: 1rem; }
 

@@ -1,15 +1,43 @@
+%dark-navbar {
+  .navbar--breadcrumb *,
+  .navbar-item:not(.be--navbar-item--logo):not(.be--navbar-item--join) {
+    color: $text !important;
+  }
+
+
+  .be {
+    &--navbar-item--logo {
+      color: $primary !important;
+
+      &:hover {
+        color: $primary !important;
+      }
+    }
+
+    &--navbar-item--join {
+      background-color: $primary !important;
+      color: #fff !important;
+    }
+  }
+}
+
+@mixin dark-navbar($selector) {
+  .#{$selector} {
+    @extend %dark-navbar;
+  } 
+}
+
 .be--navbar {
   @extend %has-default-padding;
   background-color: transparent;
   position: absolute;
-  padding-top: 0;
-  padding-bottom: 0;
   width: 100%;
-  top: 0;
+  top: 0.7rem;
   left: 0;
+  padding: 0 2rem;
 
   .navbar-item {
-    color: $text;
+    color: #fff;
 
     &.is-uppercase {
       font-size: 0.85rem;
@@ -21,8 +49,11 @@
     align-items: center;
     padding-left: 3rem;
     
+    * {
+      color: #fff;
+    }
+    
     strong {
-      color: $primary;
       text-transform: uppercase;
     }
 
@@ -31,20 +62,14 @@
     }
   }
 
-  &-home {
-    left: 0;
-    position: absolute;
-    top: 0.7rem;
-
-    .navbar-item { color: #fff; }
-  }
-
   &-item {
     &--logo {
-      color: $primary;
+      color: #fff;
       font-size: 5rem;
 
       svg { height: 0.5em; }
+
+      &:hover { color: #fff !important; }
     }
 
     &--join {
