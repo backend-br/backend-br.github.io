@@ -1,9 +1,13 @@
+@mixin generate-shadow($shadow-color: #000) {
+  box-shadow: 0 9px 11px rgba($shadow-color, 0.025), 0 9px 10px rgba($shadow-color, 0.05);
+}
+
 %basic-shadow {
   box-shadow: 0 9px 11px rgba(#000,0.025), 0 9px 10px rgba(#000,0.05);
 }
 
 %inter-section-margin {
-  margin-top: 2rem;
+  margin-top: 2rem !important;
 }
 
 %has-default-padding {
