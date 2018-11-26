@@ -11,8 +11,13 @@
 }
 
 %backendbr-styled-title {
+  text-align: center;
   font-weight: bold;
   color: $text;
+
+  @media screen and (min-width: $tablet) {
+    text-align: left;
+  }
 }
 
 %color-inherit {

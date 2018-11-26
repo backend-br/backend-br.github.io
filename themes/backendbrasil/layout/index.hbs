@@ -74,7 +74,14 @@
 
   {{#each site.data.events}}
     <article class="
-      tile block block-transparent is-flex-full-mobile is-flex-one-third no-grow is-child
+      tile 
+      block 
+      block-transparent 
+      is-flex-full 
+      is-flex-one-third-mobile 
+      no-grow 
+      no-shrink 
+      is-child
       {{#gt @index 1}}
         is-hidden
       {{/gt}}
