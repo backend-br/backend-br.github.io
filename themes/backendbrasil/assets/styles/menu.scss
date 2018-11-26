@@ -4,6 +4,7 @@
     color: $text !important;
   }
 
+  .navbar--burger { color: $primary !important; }
 
   .be {
     &--navbar-item--logo {
@@ -35,6 +36,8 @@
   top: 0.7rem;
   left: 0;
   padding: 0 2rem;
+
+  .navbar-burger { color: #fff; }
 
   .navbar-item {
     color: #fff;
@@ -76,10 +79,19 @@
       background-color: #fff;
       color: $primary !important;
       border-radius: 3px;
-      padding: 0.4rem 1.75rem 0.4rem calc(1.75rem + 0.75rem);
-      margin-left: 4rem !important;
+      padding: 0.4rem 1.75rem 0.4rem;
 
-      span { padding-right: 1.25rem; }
+      span {
+        display: inline-block;
+        vertical-align: middle;
+
+      }
+
+      @media screen and (min-width: $tablet) {
+        margin-left: 4rem !important;
+
+        span:last-child { padding-left: 0.5rem; }
+      }
     }
   }
 
@@ -87,7 +99,28 @@
     align-items: center; 
 
     .navbar-item {
-      margin-left: 1.5rem;
+      color: #000;
+      text-align: center;
+
+      &:not(.be--navbar-item--join) {
+        border-bottom: 1px solid rgba(#000, 0.05);
+      }
+
+      @media screen and (min-width: $tablet) {
+        margin-left: 1.5rem;
+        border-bottom: none !important;
+        color: #fff;
+      }
+    }
+  }
+
+  .navbar-menu {
+    padding: 0;
+  }
+
+  @media screen and (min-width: $tablet) {
+    .navbar-menu {
+      padding: 0.5rem 0;
     }
   }
 }
