@@ -32,8 +32,15 @@
     text-align: center;
 
     img {
-      height: 14rem;
-      padding-bottom: 0.5rem;
+      width: 100%;
+      height: auto;
+      padding-bottom: 2rem;
+
+      @media screen and (min-width: $tablet) {
+        width: auto;
+        height: 14rem;
+        padding-bottom: 0.5rem;
+      }
     }
 
     @media screen and (min-width: $tablet) {
@@ -46,7 +53,13 @@
 
     p, h3, h3 > strong { color: #fff; }
 
-    p { margin-bottom: 1rem; }
+    p { 
+      margin: 1rem 0 2rem; 
+
+      @media screen and (min-width: $tablet) {
+        margin-bottom: 1rem;
+      }
+    }
 
     .social-buttons a {
       color: $primary;
@@ -157,6 +170,8 @@
   justify-content: flex-start;
   $current-bg: rgba($primary, 0.2);
 
+  .title { @extend %backendbr-styled-title; }
+
   p {
     padding: 0.75rem 0;
   }
@@ -196,8 +211,15 @@
     .button {
       background-color: $primary;
       color: #fff;
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding: 1.5rem 1rem;
+      width: 100%;
+
+      &:hover { border-color: $primary; }
+
+      @media screen and (min-width: $tablet) {
+        padding: 1rem;
+        width: auto;
+      }
     }
 
     @media screen and (min-width: $tablet) {
@@ -231,6 +253,7 @@
   @extend %has-default-padding;
 
   .title {
+    @extend %backendbr-styled-title;
     padding-bottom: 1rem;
   }
 

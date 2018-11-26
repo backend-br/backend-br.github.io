@@ -21,6 +21,10 @@
 
   > section { justify-content: initial; }
 
+  .title {
+    @extend %backendbr-styled-title;
+  }
+
   section > article.tile {
     background-color: #fff;
     margin-bottom: 2rem !important;
