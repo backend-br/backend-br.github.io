@@ -4,6 +4,11 @@
     color: $text !important;
   }
 
+  .navbar-item:not(.be--navbar-item--logo):not(.be--navbar-item--join):hover {
+    background-color: $primary !important;
+    color: #fff !important;
+  }
+
   .navbar--burger { color: $primary !important; }
 
   .be {
@@ -45,6 +50,8 @@
     &.is-uppercase {
       font-size: 0.85rem;
     }
+
+    &:hover { color: $primary !important; }
   }
 
   .navbar--breadcrumb {
