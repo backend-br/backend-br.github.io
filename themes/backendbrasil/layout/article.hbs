@@ -1,0 +1,77 @@
+<section class="article--header tile tile-is-flexible is-ancestor" style="background-image: url({{page.thumbnail}});">
+  <article class="article--header-title is-child tile is-flex-full">
+    <h2 class="is-size-2">{{page.title}}</h2>
+    <time datetime="{{date page.date config.date_format}}">
+      {{date page.date config.date_format}}
+    </time>
+    <span>
+      {{__ 'article.by'}}
+      {{page.author}}
+    </span>
+  </article>
+</section>
+
+<section class="article--content tile tile-is-flexible is-ancestor">
+  <article class="
+    is-child tile 
+    no-grow no-shrink
+    is-flex-full
+    is-flex-half-mobile
+    is-flex-two-thirds-desktop
+  ">
+    {{{page.content}}}
+  </article>
+</section>
+
+<section class="article--share tile tile-is-flexible is-ancestor">
+  <article class="
+    is-child tile 
+    no-grow no-shrink
+    is-flex-full
+    is-flex-half-mobile
+    is-flex-two-thirds-desktop
+  ">
+    <a target="_blank" href="https://twitter.com/{{config.twitter}}">
+      <i target="_blank" class="fab fa-twitter"></i>
+    </a>
+
+    <a target="_blank" href="{{config.slack}}">
+      <i target="_blank" class="fab fa-slack"></i>
+    </a>
+
+    <a target="_blank" href="https://github.com/{{config.github}}">
+      <i target="_blank" class="fab fa-github"></i>
+    </a>
+
+    <a target="_blank" href="https://meetup.com/pt-BR/{{config.meetup}}">
+      <i target="_blank" class="fab fa-meetup"></i>
+    </a>
+  </article>
+</section>
+
+<section class="article--comments tile tile-is-flexible is-ancestor">
+  <article class="
+    is-child tile 
+    no-grow no-shrink
+    is-flex-full
+    is-flex-half-mobile
+    is-flex-two-thirds-desktop
+  ">
+    <div id="disqus_thread"></div>
+    <script>
+      var disqus_config = function () {
+        this.page.url = '{{page.permalink}}';  // Replace PAGE_URL with your page's canonical URL variable
+        this.page.identifier = '{{slugify page.title}}'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      };
+
+      (function() { // DON'T EDIT BELOW THIS LINE
+        var d = document, s = d.createElement('script');
+        s.src = 'https://backendbrasil.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+      })();
+    </script>
+    <noscript>{{__ 'article.enable_js'}}</noscript>
+                            
+  </article>
+</section>

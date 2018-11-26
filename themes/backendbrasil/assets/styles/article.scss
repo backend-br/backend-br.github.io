@@ -1,0 +1,90 @@
+.article--header {
+  position: relative;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  z-index: 0;
+  min-height: 100vh;
+  align-content: center;
+  text-align: center;
+
+  article {
+    z-index: 10;
+    padding: 0 5rem;
+    color: #fff;
+
+    * { display: block; }
+
+    h2 {
+      font-weight: bold;
+    }
+
+    time {
+      padding: 1rem 0;
+    }
+
+    span {
+      display: block;
+      font-style: italic;
+    }
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 5;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000, 0.5);
+  }
+}
+
+.article {
+  &--content,
+  &--share,
+  &--comments,
+  &--related {
+    justify-content: center;
+  }
+}
+
+.article--content {
+  padding-top: 1rem;
+
+  @for $i from 1 through 6 {
+    h#{$i} {
+      @extend .is-size-#{$i};
+      padding-top: 1rem;
+      font-weight: bold;
+    }
+  }
+
+  blockquote {
+    border-left: 3px solid rgba($primary, 0.25);
+    padding: 1rem;
+    color: rgba($text, 0.7);
+    font-style: italic;
+  }
+
+  pre[class="language-*"] {
+      margin: 1.5rem 0 !important;
+  }
+}
+
+.article--share {
+  text-align: center;
+  padding: 2rem 0;
+
+  a {
+    font-size: 3rem;
+    padding-right: 1rem;
+
+    &:last-child { padding-right: 0; }
+  }
+}
+
+.article--comments {
+  padding-bottom: 3rem;
+}
