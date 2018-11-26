@@ -5,3 +5,11 @@ language:
 node_sass:
   outputStyle: compressed
 
+states:
+  - SP
+  - Brasília
+
+languages:
+  - PHP
+  - JavaScript
+

@@ -49,6 +49,25 @@
     },
     "things_we_do": "Mensalmente fazemos um Meetup que reúne grandes nomes do universo de desenvolvimento para palestras, networking para todos, apoiando como podemos para conseguir o primeiro emprego ou a mudança com o repositório (me-contrate), cedendo espaço para empresas anunciar vagas aos membros da comunidade (vagas) e tirando dúvidas através do repositório (fórum) ou através do Slack. "
   },
+  "jobs": {
+    "header": {
+      "title": "Vagas disponíveis de back-end",
+      "description": "Espaço para a divulgação de vagas para desenvolvedores via issues do Github. Para maiores informações de como cadastrar vagas nesse espaço, acesse ",
+      "here": "aqui"
+    },
+    "form": {
+      "search": "Pesquise por palavra-chave",
+      "clear": "Limpar filtro",
+      "state": "Selecione um estado",
+      "lang": "Selecione uma linguagem"
+    },
+    "opened_jobs": "Vagas abertas",
+    "partners": "Outros repositórios de vagas",
+    "load": {
+      "more": "Carregar mais",
+      "empty": "Não tem mais vagas!"
+    }
+  },
   "sign": "Assinar",
   "email_placeholder": "Digite seu e-mail",
   "categories": {

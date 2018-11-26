@@ -1,0 +1,88 @@
+<section class="jobs--header tile is-ancestor tile-is-flexible">
+  <article class="tile is-child is-flex-two-thirds no-grow no-shrink">
+    <h4 class="is-size-3 has-text-weight-bold">{{{__ 'jobs.header.title'}}}</h4>
+  </article>
+</section>
+
+<section class="jobs--description tile is-ancestor tile-is-flexible">
+  <article class="tile is-child is-flex-full no-grow no-shrink">
+    <p>
+      {{__ 'jobs.header.description' }}
+      <a href="{{config.github_jobs_issues}}" target="_blank">
+        {{__ 'jobs.header.here' }}
+      </a>
+    </p>
+  </article>
+</section>
+
+<section class="jobs--form tile is-ancestor tile-is-flexible">
+  <article class="tile tile-is-flexible is-child is-flex-full no-grow no-shrink">
+    <div class="select">
+      <select name="state" id="state">
+        <option value="clear">{{__ 'jobs.form.state'}}</option>
+        {{#each theme.states}}
+          <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="select">
+      <select name="language" id="language">
+        <option value="clear">{{__ 'jobs.form.lang'}}</option>
+        {{#each theme.languages}}
+          <option value="{{this}}">{{this}}</option>
+        {{/each}}
+      </select>
+    </div>
+
+    <div class="control has-icons-left">
+      <input type="text" name="keyword" placeholder="{{__ 'jobs.form.search'}}" id="keyword"/>
+
+      <span class="icon is-small is-left">
+        <i class="fas fa-search"></i>
+      </span>
+    </div>
+
+    <div class="control">
+      <a href="javascript:void(0);" id="clearFilter" class="jobs--form-clear button">
+        {{__ 'jobs.form.clear'}}
+      </a>
+    </div>
+  </article>
+</section>
+
+<section class="jobs--listing tile-is-flexible tile is-ancestor">
+  <article class="jobs--listing-title tile is-child is-flex-full">
+    <h2 class="title">{{_p 'jobs.opened_jobs'}}</h2>
+  </article>
+
+  <article id="jobsListingWrapper" class="tile is-flex-full tile-is-flexible is-parent jobs--listing-wrapper">
+  </article>
+
+  <article class="tile is-flex-full jobs--listing-load">
+    <a 
+      href="javascript:void(0);" 
+      data-is-empty="{{__ 'jobs.load.empty'}}" 
+      data-load-more="{{__ 'jobs.load.more'}}" 
+      data-next="" 
+      class="button"
+      id="loadMoreJobs"
+    >
+      {{__ 'jobs.load.more'}}
+    </a>
+  </article>
+</section>
+
+<section class="jobs--partners tile-is-flexible tile is-ancestor">
+  <article class="jobs--partners-title tile is-child is-flex-full">
+    <h2 class="title">{{_p 'jobs.partners'}}</h2>
+  </article>
+
+  <article class="tile is-child is-flex-full">
+    <ul class="jobs--flags">
+      {{#each site.data.jobs_repos}}
+        <li><a href="{{link}}" target="_blank">{{name}}</a></li>
+      {{/each}}
+    </ul>
+  </article>
+</section>
