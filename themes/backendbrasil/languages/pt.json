@@ -51,7 +51,8 @@
   },
   "jobs": {
     "header": {
-      "title": "Vagas disponíveis de back-end",
+      "title": "Vagas disponíveis de ",
+      "strong": "back-end",
       "description": "Espaço para a divulgação de vagas para desenvolvedores via issues do Github. Para maiores informações de como cadastrar vagas nesse espaço, acesse ",
       "here": "aqui"
     },
