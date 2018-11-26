@@ -1,10 +1,10 @@
-@mixin generate-post-margin($start, $divisible) {
+@mixin generate-post-margin($start, $divisible, $margin: 2rem) {
   @media screen and (min-width: $start) {
-    margin-right: 2rem !important;
+    margin-right: $margin !important;
 
     @for $i from 1 through 999 {
       @if $i % $divisible != 0 {
-        &:nth-child(#{$i}) { margin-right: 2rem !important; }
+        &:nth-child(#{$i}) { margin-right: $margin !important; }
       } @else {
         &:nth-child(#{$i}) { margin-right: 0 !important; }
       }
