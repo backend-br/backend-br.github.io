@@ -2,10 +2,10 @@
   .button {
     margin-right: 1rem;
     margin-bottom: 1rem;
-    border-color: transparent;
+    border-color: $primary;
 
     i { padding-right: 0.5rem; }
 
-    &:hover { border-color: transparent !important; }
+    &:hover { border-color: $primary !important; }
   }
 }
