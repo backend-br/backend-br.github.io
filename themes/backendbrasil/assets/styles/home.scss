@@ -1,8 +1,10 @@
 %home-bg-clip {
-  $right-bottom: 100% 25%;
-  $left-bottom: 0% 60%;
-  -webkit-clip-path: polygon(0 0, 100% 0, $right-bottom, $left-bottom);
-  clip-path: polygon(0 0, 100% 0, $right-bottom, $left-bottom);
+  @media screen and (min-width: $tablet) {
+    $right-bottom: 100% 25%;
+    $left-bottom: 0% 60%;
+    -webkit-clip-path: polygon(0 0, 100% 0, $right-bottom, $left-bottom);
+    clip-path: polygon(0 0, 100% 0, $right-bottom, $left-bottom);
+  }
 }
 
 .home-header {
@@ -73,6 +75,10 @@
 
     @extend %gradient-bg;
     @extend %home-bg-clip;
+  }
+
+  @media screen and (max-width: $tablet) {
+    padding-bottom: 3rem;
   }
 
   .is-extra-child { margin-top: 2rem !important; }
