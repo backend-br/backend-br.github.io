@@ -81,17 +81,20 @@
     padding-bottom: 3rem;
   }
 
-  .is-extra-child { margin-top: 2rem !important; }
+  @media screen and (min-width: $tablet) {
+    .is-extra-child {
+      margin-top: 2rem !important;
+    }
+  }
 
   .project {
-    margin-bottom: 2rem !important;
     align-content: stretch;
     flex-flow: column;
 
     > a { display: inline-flex; }
 
-    @media screen and (min-width: $tablet) {
-      margin-bottom: 0 !important;
+    @media screen and (max-width: $tablet) {
+      margin-bottom: 2rem !important;
     }
 
     &--p {
