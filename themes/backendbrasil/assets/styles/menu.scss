@@ -1,8 +1,10 @@
 %dark-navbar {
-  .navbar--breadcrumb *,
+  .navbar--breadcrumb i,
   .navbar-item:not(.be--navbar-item--logo):not(.be--navbar-item--join) {
     color: $text !important;
   }
+
+  .navbar--breadcrumb strong { color: $primary !important; }
 
   .navbar-item:not(.be--navbar-item--logo):not(.be--navbar-item--join):hover {
     background-color: $primary !important;
