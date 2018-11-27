@@ -4,3 +4,17 @@ $bg: #DFE7ED;
 $shadow: #000;
 
 $text: #2a3944; 
+
+%gradient-bg {
+  $bg-start-color: rgba(80,52,155,1);
+  $bg-middle-color: rgba(88,100,225,1);
+  $bg-end-color: rgba(91,115,249,1);
+  background: $bg-start-color;
+  background: -moz-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  background: -webkit-gradient(left top, right top, color-stop(0%, $bg-start-color), color-stop(59%, $bg-middle-color), color-stop(100%, $bg-end-color));
+  background: -webkit-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  background: -o-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  background: -ms-linear-gradient(left, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  background: linear-gradient(to right, $bg-start-color 0%, $bg-middle-color 59%, $bg-end-color 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#50349b', endColorstr='#5b73f9', GradientType=1 );
+}

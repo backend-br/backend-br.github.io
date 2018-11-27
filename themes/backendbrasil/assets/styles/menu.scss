@@ -13,16 +13,22 @@
 
   .navbar--burger { color: $primary !important; }
 
-  .be {
-    &--navbar-item--logo {
-      color: $primary !important;
+  .navbar-brand {
+    @extend %gradient-bg;
+
+    &:hover { color: #fff !important; }
+  }
+
+  .be--navbar {
+    &-item--logo {
+      color: #fff !important;
 
       &:hover {
-        color: $primary !important;
+        color: #fff !important;
       }
     }
 
-    &--navbar-item--join {
+    &-item--join {
       background-color: $primary !important;
       color: #fff !important;
     }
@@ -53,7 +59,7 @@
       font-size: 0.85rem;
     }
 
-    &:hover { color: $primary !important; }
+    &:hover { color: $primary; }
   }
 
   .navbar--breadcrumb {
@@ -81,7 +87,7 @@
 
       svg { height: 0.5em; }
 
-      &:hover { color: #fff !important; }
+      &:hover { color: $primary; }
     }
 
     &--join {
@@ -119,9 +125,13 @@
         margin-left: 1.5rem;
         border-bottom: none !important;
         color: #fff;
+
+        &:hover { color: $primary; }
       }
     }
   }
+
+  .navbar-brand .navbar-item:hover { color: #fff; }
 
   .navbar-menu {
     padding: 0;
