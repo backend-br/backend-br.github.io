@@ -108,6 +108,7 @@
     @include generate-shadow(darken($primary, 80%));
     @include generate-post-margin($tablet, 3);
     @include generate-post-margin($desktop, 4);
+    border-radius: $radius * 2;
     color: $primary;
     margin-bottom: 2rem !important;
     margin-right: 0 !important;
