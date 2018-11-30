@@ -187,11 +187,17 @@
 
     p {
       color: #333;
+      display: flex;
+      align-content: center;
+      align-items: center;
+
+      span, i {
+        display: inline-block;
+      }
 
       i {
         @extend %basic-shadow;
         color: $primary;
-        display: inline-block;
         background-color: #fff;
         border-radius: $radius-rounded;
         font-size: 1rem;
