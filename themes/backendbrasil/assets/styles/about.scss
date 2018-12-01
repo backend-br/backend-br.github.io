@@ -13,12 +13,20 @@
   strong { color: inherit; }
 
   article {
-    padding: 4rem 0;
+    padding: 4rem 3rem;
     z-index: 2;
+
+    @media screen and (min-width: $tablet) {
+      padding: 4rem 0;
+    }
   }
 
   p { 
-    padding: 1rem 5rem;
+    padding: 1rem 2rem;
+
+    @media screen and (min-width: $tablet) {
+      padding: 1rem 5rem;
+    }
   }
 
   &:before {
@@ -52,7 +60,7 @@
     text-transform: uppercase;
   }
 
-  .is-flex-one-third {
+  article:not(.about--believe-title) {
     @extend %basic-shadow;
     padding: 1rem;
     box-shadow: none;
@@ -108,13 +116,13 @@
     @extend %backendbr-styled-title;
   }
 
+  @media screen and (max-width: $tablet) {
+    article { padding-bottom: 2rem; }
+  }
+
   &-member {
     position: relative;
     min-height: $photo-height + 10rem;
-
-    @media screen and (max-width: $tablet) {
-      padding-bottom: 2rem;
-    }
   }
 
   &-photo {
