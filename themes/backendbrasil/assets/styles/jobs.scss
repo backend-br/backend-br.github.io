@@ -169,6 +169,10 @@
 
   &-load {
     padding: 4rem 0 2rem;
+
+    @media screen and (max-width: $tablet) {
+      text-align: center;
+    }
     
     a {
       margin: 0 auto;
@@ -203,16 +207,22 @@
     padding-bottom: 2rem;
   }
 
-  ul li {
-    display: inline-block;
-    color: #fff;
+  ul {
+    li {
+      display: inline-block;
+      color: #fff;
 
-    a {
-      background-color: $primary;
-      border-radius: $radius;
-      padding: 0.5rem 1rem;
-      margin-right: 0.15rem;
-      color: inherit !important;
+      a {
+        background-color: $primary;
+        border-radius: $radius;
+        padding: 0.5rem 1rem;
+        margin-right: 0.15rem;
+        color: inherit !important;
+      }
+    }
+
+    @media screen and (max-width: $tablet) {
+      text-align: center;
     }
   }
 }
