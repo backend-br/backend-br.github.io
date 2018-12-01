@@ -12,7 +12,7 @@
   }
 }
 .posts {
-  @extend %inter-section-margin;
+  @extend %section-margin;
   justify-content: flex-start;
   $side-padding: 1rem;
   $top-padding: 1rem;
@@ -20,7 +20,7 @@
 
   > section { justify-content: initial; }
 
-  .title {
+  > article > h2 {
     @extend %backendbr-styled-title;
   }
 
@@ -43,10 +43,6 @@
 
   .posts--p {
     padding-bottom: $top-padding; 
-  }
-
-  .title {
-    padding: 3rem 0 1.5rem;
   }
 
   &--thumbnail {

@@ -1,9 +1,10 @@
 // Margin and padding
-$backendbr-margin: 2rem;
+$backendbr-margin: 3rem;
 $backendbr-padding: 3rem;
 
 %section-margin {
-  margin-bottom: $backendbr-margin;
+  padding-top: $backendbr-margin !important;
+  padding-bottom: $backendbr-margin !important;
 }
 
 %inter-section-margin {
@@ -11,8 +12,8 @@ $backendbr-padding: 3rem;
 }
 
 %default-padding {
-  padding-left: $backendbr-padding;
-  padding-right: $backendbr-padding;
+  padding-left: $backendbr-padding !important;
+  padding-right: $backendbr-padding !important;
 }
 
 %has-default-padding {
@@ -33,6 +34,8 @@ $backendbr-padding: 3rem;
   text-align: center;
   font-weight: bold;
   color: $text;
+  @extend .is-size-3;
+  padding-bottom: 1rem;
 
   @media screen and (min-width: $tablet) {
     text-align: left;

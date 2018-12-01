@@ -5,7 +5,7 @@
 .blog--themes {
   margin-top: 6rem !important;
 
-  .title { margin-bottom: 1rem; }
+  &-title h2 { @extend %backendbr-styled-title; }
 
   &-list {
     li {
@@ -24,7 +24,10 @@
 
 .blog--highlights {
   position: relative;
-  padding-bottom: 3rem;
+  @extend %section-margin;
+
+  &-title h2 { @extend %backendbr-styled-title; }
+
   $side-padding: 1rem;
   $top-padding: 1rem;
 

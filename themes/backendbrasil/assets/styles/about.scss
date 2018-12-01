@@ -45,18 +45,10 @@
 
 .about--believe {
   justify-content: space-between;
-  @extend %inter-section-margin;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  @extend %section-margin;
 
-  > .is-flex-full {
-    padding-bottom: 2rem;
-  }
-
-  h2 {
-    font-weight: 700;
-    color: $text;
-    text-transform: uppercase;
+  &-title h2 {
+    @extend %backendbr-styled-title;
   }
 
   article:not(.about--believe-title) {
@@ -64,6 +56,7 @@
     padding: 1rem;
     box-shadow: none;
     border: solid 2px #ebebeb;
+    padding-bottom: 2rem;
 
     h5 {
       font-weight: bold;
@@ -78,13 +71,17 @@
 }
 
 .things-we-do {
-  @extend %inter-section-margin;
+  @extend %section-margin;
   align-content: center;
   align-items: center;
   background-color: lighten($text, 70%);
-  $pad-bg: 5rem;
-  padding-top: $pad-bg;
-  padding-bottom: $pad-bg;
+
+  @media screen and (min-width: $tablet) {
+    margin: $backendbr-margin 0 !important;
+    $pad-bg: 5rem;
+    padding-top: $pad-bg !important;
+    padding-bottom: $pad-bg !important;
+  }
 
   div {
     width: 100%;
@@ -107,13 +104,11 @@
 }
 
 .about--team {
-  @extend %inter-section-margin;
+  @extend %section-margin;
   justify-content: space-between;
-  padding-top: 3rem;
-  padding-bottom: 3rem;
   $photo-height: 10rem;
 
-  > article > h2 {
+  &-title {
     @extend %backendbr-styled-title;
   }
 

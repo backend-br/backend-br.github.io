@@ -8,7 +8,8 @@ $family-sans-serif: "Open Sans", BlinkMacSystemFont, -apple-system, "Segoe UI", 
 @import 'styles/components.scss';
 @import 'styles/buttons.scss';
 
-body > section {
+body > section,
+body > footer {
   @extend %default-padding;
 }
 

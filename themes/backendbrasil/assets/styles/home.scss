@@ -62,6 +62,8 @@
   position: relative;
   overflow: hidden;
   justify-content: flex-start;
+  @extend %section-margin;
+  padding-top: 0 !important;
 
   &:before {
     content: "";
@@ -162,6 +164,7 @@
 }
 
 .events {
+  @extend %section-margin;
   justify-content: flex-start;
   $current-bg: rgba($primary, 0.2);
 
@@ -171,7 +174,7 @@
     padding: 1rem 0;
   }
 
-  article.tile {
+  .block {
     $block-padding: 2rem;
     color: $text;
     margin-bottom: 2rem !important;
@@ -249,10 +252,9 @@
 }
 
 .partners {
-  padding-top: 3rem;
-  padding-bottom: 3rem;
+  @extend %section-margin;
 
-  .title {
+  h2 {
     @extend %backendbr-styled-title;
     padding-bottom: 1rem;
   }
