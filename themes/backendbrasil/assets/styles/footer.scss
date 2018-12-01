@@ -4,6 +4,15 @@
   align-items: center;
   text-align: center;
 
+  @media screen and (min-width: $tablet) {
+    text-align: left;
+    padding: 5rem;
+  }
+
+  @media screen and (max-width: $tablet) {
+    &--btn { text-align: center; }
+  }
+
   article > .field.is-grouped {
     flex-flow: column;
     padding-top: 2rem;
@@ -35,11 +44,6 @@
         margin-bottom: 0;
       }
     }
-  }
-
-  @media screen and (min-width: $tablet) {
-    text-align: left;
-    padding: 5rem;
   }
 
   p, h4 { color: #fff; }
