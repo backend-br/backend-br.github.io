@@ -47,6 +47,11 @@
   &--comments,
   &--related {
     justify-content: center;
+
+    @media screen and (max-width: $tablet) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
   }
 }
 
