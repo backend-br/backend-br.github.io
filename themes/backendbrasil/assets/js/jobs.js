@@ -42,7 +42,7 @@ const generateJob = ({ id, url, title, labels, location }) => `
       jobs--listing-item 
       no-grow 
       no-shrink 
-      is-child tile 
+      tile 
       is-flex-one-quarter-desktop
       is-flex-half-mobile
       is-flex-full
