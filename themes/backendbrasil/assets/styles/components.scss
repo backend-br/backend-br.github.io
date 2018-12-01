@@ -1,3 +1,25 @@
+// Margin and padding
+$backendbr-margin: 2rem;
+$backendbr-padding: 3rem;
+
+%section-margin {
+  margin-bottom: $backendbr-margin;
+}
+
+%inter-section-margin {
+  margin-top: $backendbr-margin !important;
+}
+
+%default-padding {
+  padding-left: $backendbr-padding;
+  padding-right: $backendbr-padding;
+}
+
+%has-default-padding {
+  padding: 0 $backendbr-padding;
+}
+
+// Shadow
 @mixin generate-shadow($shadow-color: #000) {
   box-shadow: 0 9px 11px rgba($shadow-color, 0.025), 0 9px 10px rgba($shadow-color, 0.035);
 }
@@ -6,14 +28,7 @@
   box-shadow: 0 9px 11px rgba(#000,0.025), 0 9px 10px rgba(#000,0.05);
 }
 
-%inter-section-margin {
-  margin-top: 2rem !important;
-}
-
-%has-default-padding {
-  padding: 0 3rem;
-}
-
+// Title
 %backendbr-styled-title {
   text-align: center;
   font-weight: bold;
@@ -37,6 +52,7 @@
   @extend %basic-shadow;
 }
 
+// icon
 .svgicon {
   fill: currentColor;
   width: 1em;

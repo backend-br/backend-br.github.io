@@ -3,7 +3,6 @@
 @include dark-navbar('body--blog-breadcrumb');
 
 .blog--themes {
-  @extend %has-default-padding;
   margin-top: 6rem !important;
 
   .title { margin-bottom: 1rem; }
@@ -24,7 +23,6 @@
 }
 
 .blog--highlights {
-  @extend %has-default-padding;
   position: relative;
   padding-bottom: 3rem;
   $side-padding: 1rem;
@@ -57,6 +55,5 @@
 }
 
 .blog--posts {
-  @extend %has-default-padding;
   margin-bottom: 3rem !important;
 }

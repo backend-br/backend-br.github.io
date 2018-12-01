@@ -12,7 +12,6 @@
   }
 }
 .posts {
-  @extend %has-default-padding;
   @extend %inter-section-margin;
   justify-content: flex-start;
   $side-padding: 1rem;

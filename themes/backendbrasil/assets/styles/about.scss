@@ -45,7 +45,6 @@
 
 .about--believe {
   justify-content: space-between;
-  @extend %has-default-padding;
   @extend %inter-section-margin;
   padding-top: 3rem;
   padding-bottom: 3rem;
@@ -79,7 +78,6 @@
 }
 
 .things-we-do {
-  @extend %has-default-padding;
   @extend %inter-section-margin;
   align-content: center;
   align-items: center;
@@ -109,7 +107,6 @@
 }
 
 .about--team {
-  @extend %has-default-padding;
   @extend %inter-section-margin;
   justify-content: space-between;
   padding-top: 3rem;

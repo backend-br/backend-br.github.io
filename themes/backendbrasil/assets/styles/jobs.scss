@@ -50,7 +50,6 @@
 
 .jobs--form {
   @extend %inter-section-margin;
-  @extend %has-default-padding;
 
   article {
     justify-content: flex-start;
@@ -110,7 +109,6 @@
 }
 
 .jobs--listing {
-  @extend %has-default-padding;
   @extend %inter-section-margin;
   justify-content: flex-start;
 
@@ -198,7 +196,6 @@
 }
 
 .jobs--partners {
-  @extend %has-default-padding;
   @extend %inter-section-margin;
   margin-bottom: 4rem !important;
 

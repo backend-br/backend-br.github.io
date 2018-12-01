@@ -7,6 +7,11 @@ $family-sans-serif: "Open Sans", BlinkMacSystemFont, -apple-system, "Segoe UI", 
 @import 'styles/bulma-modifications.scss';
 @import 'styles/components.scss';
 @import 'styles/buttons.scss';
+
+body > section {
+  @extend %default-padding;
+}
+
 @import 'styles/post.scss';
 @import 'styles/menu.scss';
 @import 'styles/home.scss';

@@ -8,7 +8,6 @@
 }
 
 .home-header {
-  @extend %has-default-padding;
   @extend %gradient-bg;
   background-color: transparent;
   padding-top: 7rem;
@@ -60,7 +59,6 @@
 }
 
 .home-projects {
-  @extend %has-default-padding;
   position: relative;
   overflow: hidden;
   justify-content: flex-start;
@@ -164,7 +162,6 @@
 }
 
 .events {
-  @extend %has-default-padding;
   justify-content: flex-start;
   $current-bg: rgba($primary, 0.2);
 
@@ -254,7 +251,6 @@
 .partners {
   padding-top: 3rem;
   padding-bottom: 3rem;
-  @extend %has-default-padding;
 
   .title {
     @extend %backendbr-styled-title;
