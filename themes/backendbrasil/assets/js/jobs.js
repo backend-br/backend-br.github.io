@@ -44,7 +44,7 @@ const generateJob = ({ id, url, title, labels, location }) => `
       no-shrink 
       tile 
       is-flex-one-quarter-desktop
-      is-flex-half-mobile
+      is-flex-one-third-mobile
       is-flex-full
     "
 
