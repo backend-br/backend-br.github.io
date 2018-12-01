@@ -63,19 +63,20 @@ const generateJob = ({ id, url, title, labels, location }) => `
   </article>
 `
 
+const jobHideClass = 'jobs--listing-hidden'
+const setClass = job => {
+  job = $(job)
+
+  if (!job.hasClass(jobHideClass)) {
+    job.addClass(jobHideClass)
+  }
+};
+
 const filterJobs = ({ key, value }) => {
-  const hideClass = 'jobs--listing-hidden'
-  const setClass = job => {
-    job = $(job)
-
-    if (!job.hasClass(hideClass)) {
-      job.addClass(hideClass)
-    }
-  };
-
   if (value === 'clear') {
+    console.log(`clear`);
     return $(`.jobs--listing-item[data-${key}]`)
-      .removeClass(hideClass)
+      .removeClass(jobHideClass)
   }
 
   $('.jobs--listing-item').forEach(job => {
@@ -189,22 +190,65 @@ document.addEventListener('DOMContentLoaded', () => {
       htmlId: 'language',
       filterKey: ['labels'],
       clearValue: 'clear'
-    },
-    {
-      htmlId: 'keyword',
-      filterKey: ['labels', 'location', 'title'],
-      event: 'input'
     }
   ]
 
   toWatch.forEach(item => {
-    $(`#${item.htmlId}`).on(item.event || 'change', e => {
+    $(`#${item.htmlId}`).on('change', e => {
       const value = $(`#${item.htmlId}`).val()
       item
         .filterKey
         .forEach(
           key => filterJobs({ key, value })
         )
+    })
+  })
+
+  $('#keyword').on('input', e => {
+    const value = $('#keyword').val()
+
+    $('.jobs--listing-item').forEach(job => {
+      const filterKeys = ['labels', 'location', 'title']
+      const dataset = job.dataset
+      const keys = filterKeys.map(k => k);
+
+      if (!dataset) {
+        return setClass(job)
+      }
+
+      let keep = false
+
+      while (keys.length) {
+        const key = keys.shift()
+
+        if (dataset[key]) {
+          keep = true
+          break;
+        }
+      }
+
+      if (!keep) {
+        return setClass(job)
+      }
+
+      let show = false
+
+      while (filterKeys.length) {
+        const key = filterKeys.shift()
+        const found = dataset[key]
+          .match(new RegExp(value, 'gi'))
+
+        if (found && found.length) {
+          show = true
+          break;
+        }
+      }
+
+      if (!show) {
+        return setClass(job)
+      }
+
+      $(job).removeClass('jobs--listing-hidden')
     })
   })
 

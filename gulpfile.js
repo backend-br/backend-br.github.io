@@ -69,7 +69,7 @@ gulp.task('process-css', function () {
       './public/css/*.css'
     ])
     .pipe(plumber())
-    .pipe(sass().on('error', sass.logError))
+    .pipe(sass({ outputStyle: 'compressed' }).on('error', sass.logError))
     .pipe(gulp.dest('public'))
 })
 
@@ -122,6 +122,8 @@ gulp.task('server', function () {
   gulp.watch('./themes/backendbrasil/source/*', ['hexo'])
   gulp.watch('./themes/backendbrasil/source/**/*', ['hexo'])
   gulp.watch('./themes/backendbrasil/helper/*', ['hexo'])
+  gulp.watch('./themes/backendbrasil/languages/*', ['hexo'])
+  gulp.watch('./themes/backendbrasil/*.yml', ['hexo'])
   gulp.watch('./source/*', ['hexo'])
   gulp.watch('./source/**/*', ['hexo'])
   gulp.watch('./scaffolds/*', ['hexo'])

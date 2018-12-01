@@ -109,7 +109,7 @@
 
   .jobs--listing-wrapper { justify-content: inherit; }
 
-  &-hidden { display: none; }
+  &-hidden { display: none !important; }
 
   &-title h2 {
     @extend %backendbr-styled-title;
