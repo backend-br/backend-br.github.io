@@ -73,7 +73,7 @@
     }
 
     @media screen and (max-width: $tablet) {
-      margin-bottom: 2rem;
+      margin-bottom: 2rem !important;
     }
   }
 }
@@ -163,6 +163,8 @@
     ul li {
       display: inline-block;
       padding-right: 1rem;
+
+      a { font-size: 1.5rem; }
     }
 
     @media screen and (max-width: 400px) {
