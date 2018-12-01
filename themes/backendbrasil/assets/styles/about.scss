@@ -71,6 +71,10 @@
       color: $primary;
       padding-bottom: 1rem;
     }
+
+    @media screen and (max-width: $tablet) {
+      margin-bottom: 2rem;
+    }
   }
 }
 
