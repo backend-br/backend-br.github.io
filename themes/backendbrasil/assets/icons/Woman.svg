@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Woman</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M18.4650429,6.46995583 C18.4650429,12.7740968 19.9244444,13.4338325 21.458687,14.9365638 C19.4979372,15.4034366 17.4891501,15.6493777 15.4713987,15.6696035 L15.4713987,16.4026431 C15.4713987,17.1356828 15.3217165,18.6017621 19.0637717,19.3348017 C22.8058269,20.0678414 22.9555091,23 22.9555091,23 L2,23 C2,23 2,20.0678414 5.6672141,19.3348017 C9.3344282,18.6017621 9.4841104,17.1356828 9.4841104,16.4026431 L9.4841104,15.6696035 C7.46640292,15.64874 5.45768957,15.4028079 3.49682208,14.9365638 C5.03106471,13.4338325 6.49046624,12.7740968 6.49046624,6.46995583 C6.49046624,6.46995583 6.49046624,1.33867826 10.9809325,1.33867826 C10.9809325,1.33867826 18.4650429,-0.97039665 18.4650429,6.46995583 Z" id="path-1"></path>
+    </defs>
+    <g id="A-/-Icon-/-Woman" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="woman" fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

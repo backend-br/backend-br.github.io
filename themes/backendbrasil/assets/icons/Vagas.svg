@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Vagas</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="12" cy="12" r="12"></circle>
+    </defs>
+    <g id="A-/-Icon-/-Vagas" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Oval" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+        <path d="M10.4070473,14.813096 L7.6557589,12.0618076 L10.4070473,9.31051929 L9.56969863,8.47317066 L5.98106164,12.0618076 L9.56969863,15.6504446 L10.4070473,14.813096 Z M13.5171993,14.813096 L16.2684877,12.0618076 L13.5171993,9.31051929 L14.3545479,8.47317066 L17.9431849,12.0618076 L14.3545479,15.6504446 L13.5171993,14.813096 Z" id="icon_code" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)"></path>
+    </g>
+</svg>

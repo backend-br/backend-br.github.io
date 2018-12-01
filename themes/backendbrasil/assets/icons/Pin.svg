@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Pin</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M19.6,7.2 C19.6,3.228 16.372,0 12.4,0 C8.428,0 5.2,3.228 5.2,7.2 C5.2,12.6 12.4,20.4 12.4,20.4 C12.4,20.4 19.6,12.6 19.6,7.2 Z M10,7.2 C10,5.88 11.08,4.8 12.4,4.8 C13.72,4.8 14.8,5.88 14.8,7.2 C14.8,8.52 13.732,9.6 12.4,9.6 C11.08,9.6 10,8.52 10,7.2 Z M4,21.6 L4,24 L20.8,24 L20.8,21.6 L4,21.6 Z" id="path-1"></path>
+    </defs>
+    <g id="A-/-Icon-/-Pin" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="pin" fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

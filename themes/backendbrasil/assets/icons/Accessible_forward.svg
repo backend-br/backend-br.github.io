@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Accessible_forward</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M18.5,6 C17.1192881,6 16,4.88071187 16,3.5 C16,2.11928813 17.1192881,1 18.5,1 C19.8807119,1 21,2.11928813 21,3.5 C21,4.88071187 19.8807119,6 18.5,6 Z M15,17.5 C15,20.536 12.312,23 9,23 C5.688,23 3,20.536 3,17.5 C3,14.464 5.688,12 9,12 L9,14.2 C7.02,14.2 5.4,15.685 5.4,17.5 C5.4,19.315 7.02,20.8 9,20.8 C10.98,20.8 12.6,19.315 12.6,17.5 L15,17.5 Z M18.62309,12.9642857 C19.9303905,12.9642857 21,13.9285714 21,15.1071429 L21,21 L18.62309,21 L18.62309,15.6428571 L12.704584,15.6428571 C10.9694397,15.6428571 9.79286927,13.9607143 10.5059423,12.5357143 L12.6808149,8.14285714 L10.0543294,8.14285714 L9.28183362,9.78214286 L7,9.21428571 L7.79626486,7.28571429 C8.18845501,6.50357143 9.05602716,6 10.0186757,6 L16.1986418,6 C17.9575552,6 19.1222411,7.60714286 18.3972835,9.03214286 L16.4125637,12.9642857 L18.62309,12.9642857 Z" id="path-1"></path>
+    </defs>
+    <g id="A-/-Icon-/-Accessible_forward" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="A-/-Icon-/_accessible_forward" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

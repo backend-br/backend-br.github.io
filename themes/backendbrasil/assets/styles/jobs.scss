@@ -53,7 +53,6 @@
   @extend %has-default-padding;
 
   article {
-    padding: 3rem 0 0;
     justify-content: flex-start;
 
     div {
@@ -102,6 +101,10 @@
         
         &:last-child { text-align: center; }
       }
+    }
+
+    @media screen and (min-width: $tablet) {
+      padding: 3rem 0 0;
     }
   }
 }

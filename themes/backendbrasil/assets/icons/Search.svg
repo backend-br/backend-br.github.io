@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Search</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M11.014482,21.9082664 L11.014482,14.5210782 C8.12809725,14.129704 6,11.6591543 6,8.74830867 C6,5.54393235 8.6417759,3 11.8216913,3 C14.9771459,3 17.57,5.59285412 17.57,8.74830867 C17.57,11.6102326 15.4908245,14.1052431 12.6289006,14.5210782 L12.6289006,21.9082664 L11.014482,21.9082664 Z M15.9555814,8.74830867 C15.9555814,6.49790698 14.072093,4.6144186 11.8216913,4.6144186 C9.52236786,4.6144186 7.6144186,6.4489852 7.6144186,8.74830867 C7.6144186,11.072093 9.49790698,12.9555814 11.8216913,12.9555814 C14.1210148,12.9555814 15.9555814,11.0476321 15.9555814,8.74830867 Z" id="path-1"></path>
+    </defs>
+    <g id="A-/-Icon-/-Search" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="⚲" fill="#FFFFFF" transform="translate(11.785000, 12.454133) rotate(-330.000000) translate(-11.785000, -12.454133) " xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

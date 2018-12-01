@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Learn</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M12,4.98422091 L4,2 L4,15.7475345 L12,19 L12,4.98422091 Z M20,2 L20,15.6935167 L12,19 L12,5.03929273 L20,2 Z M22.3125,3 C22.6921958,3 23,3.30930242 23,3.69084629 L23,17.611399 C22.9955368,17.8819436 22.8343073,18.1249651 22.5875,18.2331606 L12.275,22.9309154 L12,23 L11.725,22.9309154 L1.4125,18.2331606 C1.16569275,18.1249651 1.00446319,17.8819436 1,17.611399 L1,3.69084629 C1,3.30930242 1.30780423,3 1.6875,3 C2.06719577,3 2.375,3.30930242 2.375,3.69084629 L2.375,17.1623489 L12,21.5837651 L21.625,17.1623489 L21.625,3.69084629 C21.625,3.30930242 21.9328042,3 22.3125,3 Z" id="path-1"></path>
+    </defs>
+    <g id="A-/-Icon-/-Learn" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="learn" fill="#202020" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

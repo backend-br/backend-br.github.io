@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="12" cy="12" r="12"></circle>
+    </defs>
+    <g id="A-/-Icon-/-Group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Oval" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+        <path d="M10,11.6923077 L8.5,11.6923077 L8.5,10.0769231 L7.5,10.0769231 L7.5,11.6923077 L6,11.6923077 L6,12.7692308 L7.5,12.7692308 L7.5,14.3846154 L8.5,14.3846154 L8.5,12.7692308 L10,12.7692308 L10,11.6923077 Z M15,12.2307692 C15.83,12.2307692 16.495,11.5092308 16.495,10.6153846 C16.495,9.72153846 15.83,9 15,9 C14.84,9 14.685,9.02692308 14.545,9.07538462 C14.83,9.51153846 14.995,10.0392308 14.995,10.6153846 C14.995,11.1915385 14.825,11.7138462 14.545,12.1553846 C14.685,12.2038462 14.84,12.2307692 15,12.2307692 Z M12.5,12.2307692 C13.33,12.2307692 13.995,11.5092308 13.995,10.6153846 C13.995,9.72153846 13.33,9 12.5,9 C11.67,9 11,9.72153846 11,10.6153846 C11,11.5092308 11.67,12.2307692 12.5,12.2307692 Z M15.81,13.3938462 C16.225,13.7869231 16.5,14.2876923 16.5,14.9230769 L16.5,16 L18,16 L18,14.9230769 C18,14.0938462 16.815,13.5823077 15.81,13.3938462 Z M12.5,13.3076923 C11.5,13.3076923 9.5,13.8461538 9.5,14.9230769 L9.5,16 L15.5,16 L15.5,14.9230769 C15.5,13.8461538 13.5,13.3076923 12.5,13.3076923 Z" id="icon_group" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)"></path>
+    </g>
+</svg>

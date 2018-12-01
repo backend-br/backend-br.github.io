@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / User_check</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M7.33333333,18 L11,14.08 C10.5233333,14.0266667 10.1688889,14 9.77777778,14 C6.51444444,14 0,15.7866667 0,19.3333333 L0,22 L11,22 L7.33333333,18 Z M10,12 C7.2375,12 5,9.7625 5,7 C5,4.2375 7.2375,2 10,2 C12.7625,2 15,4.2375 15,7 C15,9.7625 12.7625,12 10,12 Z M15.511,23 L11,18.625 L12.82,16.8625 L15.511,19.4625 L22.18,13 L24,14.7625 L15.511,23 Z" id="path-1"></path>
+    </defs>
+    <g id="A-/-Icon-/-User_check" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="user_check" fill="#FFFFFF" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

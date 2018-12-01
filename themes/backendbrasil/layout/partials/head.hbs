@@ -22,3 +22,37 @@
     width: 1px !important;
   }
 </style>
+
+<!-- markup for twitter -->
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="{{page.title}}"/>
+<meta name="twitter:url" content="{{page.permalink}}"/>
+<meta name="twitter:description" content="{{page.description}}"/>
+<meta name="twitter:creator" content="@{{config.twitter}}"/>
+<meta name="twitter:image" content="{{page.thumbnail}}"/>
+
+<meta name="description" content="{{page.description}}"/>
+<meta name="author" content="{{page.author}}"/>
+<link rel="base" href="{{config.url}}"/>
+<link rel="canonical" href="{{config.url}}"/>
+<meta name="robots" content="index/follow"/>
+<meta name="googlebot" content="index/follow"/>
+{{#if config.color}}
+  <meta name="theme-color" content="{{config.color}}"/>
+  <meta name="msapplication-navbutton-color" content="{{config.color}}"/>
+  <meta name="apple-mobile-web-app-status-bar-style" content="{{config.color}}"/>
+{{/if}}
+
+<!-- Schema.org markup for Google+ -->
+<meta itemprop="name" content="{{page.title}}"/>
+<meta itemprop="description" content="{{page.description}}"/>
+<meta rel="canonical" itemprop="image" content="{{page.thumbnail}}"/>
+
+<!-- markup for facebook -->
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="{{page.title}}"/>
+<meta property="og:url" content="{{page.permalink}}"/>
+<meta property="og:site_name" content="{{config.title}}"/>
+<meta property="og:image" content="{{page.thumbnail}}"/>
+<meta property="og:description" content="{{page.description}}"/>
+<meta property="og:locale" content="pt_BR"/>

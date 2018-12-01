@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Arrows</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M11.555849,5.83 L14.7022633,9 L16.1017725,7.59 L11.555849,3 L7,7.59 L8.40943478,9 L11.555849,5.83 Z M11.555849,18.17 L8.40943478,15 L7.0099256,16.41 L11.555849,21 L16.1116981,16.41 L14.7022633,15 L11.555849,18.17 Z" id="path-1"></path>
+    </defs>
+    <g id="A-/-Icon-/-Arrows" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Arrows" fill="#888AAA" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Megaphone</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M20.8181818,8.04993426 L20.8181818,3 C17.6161983,5.23576619 13.823022,6.48998167 9.90909091,6.6070959 L7,6.6070959 L7,13.8212877 C7,16.0216162 7,19.3762154 11.1090909,20.9994085 L11.3636364,20.9994085 C11.726523,21.0138992 12.0445622,20.7606131 12.1087231,20.406022 C12.1728841,20.051431 11.9634973,19.7042406 11.6181818,19.5926411 C8.45454545,18.3662285 8.45454545,15.9494743 8.45454545,13.8212877 L9.90909091,13.8212877 C13.8414003,13.8316024 17.6660953,15.0962395 20.8181818,17.4283836 L20.8181818,12.3784493 C22.0231667,12.3784493 23,11.4094782 23,10.2141918 C23,9.01890537 22.0231667,8.04993426 20.8181818,8.04993426 Z M1,9.1 L1,11.9 C1,13.059798 1.8954305,14 3,14 L5,14 L5,7 L3,7 C1.8954305,7 1,7.94020203 1,9.1 Z" id="path-1"></path>
+    </defs>
+    <g id="A-/-Icon-/-Megaphone" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="icon_megaphone" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+    </g>
+</svg>

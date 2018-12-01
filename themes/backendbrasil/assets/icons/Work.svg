@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>A / Icon / Work</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="12" cy="12" r="12"></circle>
+    </defs>
+    <g id="A-/-Icon-/-Work" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <mask id="mask-2" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+        <use id="Oval" fill="#000000" fill-rule="nonzero" xlink:href="#path-1"></use>
+        <g id="A-/-Color-/-Purple" mask="url(#mask-2)" fill="#6072FF" fill-rule="nonzero">
+            <rect id="Rectangle-2" x="0" y="0" width="24" height="24"></rect>
+        </g>
+        <path d="M16,9.10526316 L14,9.10526316 L14,8.05263158 C14,7.46842105 13.555,7 13,7 L11,7 C10.445,7 10,7.46842105 10,8.05263158 L10,9.10526316 L8,9.10526316 C7.445,9.10526316 7.005,9.57368421 7.005,10.1578947 L7,15.9473684 C7,16.5315789 7.445,17 8,17 L16,17 C16.555,17 17,16.5315789 17,15.9473684 L17,10.1578947 C17,9.57368421 16.555,9.10526316 16,9.10526316 Z M13,9.10526316 L11,9.10526316 L11,8.05263158 L13,8.05263158 L13,9.10526316 Z" id="icon_work" fill="#FFFFFF" fill-rule="nonzero" mask="url(#mask-2)"></path>
+    </g>
+</svg>
