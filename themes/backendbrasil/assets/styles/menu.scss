@@ -75,7 +75,7 @@
       text-transform: uppercase;
     }
 
-    @media screen and (min-width: $tablet) {
+    @media screen and (min-width: $desktop) {
       display: flex;
     }
   }
@@ -102,7 +102,7 @@
 
       }
 
-      @media screen and (min-width: $tablet) {
+      @media screen and (min-width: $desktop) {
         margin-left: 4rem !important;
 
         span:last-child { padding-left: 0.5rem; }
@@ -121,7 +121,7 @@
         border-bottom: 1px solid rgba(#000, 0.05);
       }
 
-      @media screen and (min-width: $tablet) {
+      @media screen and (min-width: $desktop) {
         margin-left: 1.5rem;
         border-bottom: none !important;
         color: #fff;
@@ -137,7 +137,7 @@
     padding: 0;
   }
 
-  @media screen and (min-width: $tablet) {
+  @media screen and (min-width: $desktop) {
     .navbar-menu {
       padding: 0.5rem 0;
     }
