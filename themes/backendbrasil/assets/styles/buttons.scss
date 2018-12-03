@@ -1,11 +1,19 @@
 .social-buttons {
-  .button {
-    margin-right: 1rem;
-    margin-bottom: 1rem;
+  &--line .button {
+    color: #fff;
+  }
+
+  &:not(.social-buttons--line) .button {
     border-color: $primary;
 
-    i { padding-right: 0.5rem; }
-
     &:hover { border-color: $primary !important; }
+  }
+
+  .button {
+    background-color: transparent;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+
+    i { padding-right: 0.5rem; }
   }
 }
