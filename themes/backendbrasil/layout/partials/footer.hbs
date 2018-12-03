@@ -15,16 +15,18 @@
         <input class="input" type="text" placeholder="{{__ 'email_placeholder'}}" name="EMAIL">
       </p>
 
-      <p class="control no-grow no-shrink is-expanded">
-        <div class="select">
-          <select name="category">
-            <option value="all">{{__ 'categories.all'}}</option>
-            {{#each site.categories.data}}
-              <option value="{{name}}">{{name}}</option>
-            {{/each}}
-          </select>
-        </div>
-      </p>
+      {{#if theme.newsletter_category}}
+        <p class="control no-grow no-shrink is-expanded">
+          <div class="select">
+            <select name="category">
+              <option value="all">{{__ 'categories.all'}}</option>
+              {{#each site.categories.data}}
+                <option value="{{name}}">{{name}}</option>
+              {{/each}}
+            </select>
+          </div>
+        </p>
+      {{/if}}
 
       <p class="control no-grow no-shrink newsletter--btn">
         <input type="submit" value="{{__ 'sign'}}" class="button has-text-weight-bold is-info">

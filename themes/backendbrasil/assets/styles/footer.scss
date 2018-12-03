@@ -4,13 +4,20 @@
   align-items: center;
   text-align: center;
 
+  > article {
+    justify-content: center;
+  }
+
   @media screen and (min-width: $tablet) {
     text-align: left;
     padding: 5rem;
   }
 
   @media screen and (max-width: $tablet) {
-    &--btn { text-align: center; }
+    &--btn {
+      text-align: center;
+      margin-top: 2rem;
+    }
   }
 
   article > .field.is-grouped {
