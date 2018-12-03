@@ -1,21 +1,23 @@
-<section class="blog--themes tile tile-is-flexible is-ancestor">
-  <article class="blog--themes-title tile is-child is-flex-full">
-    <h2>{{__ 'blog.search_by_categories'}}</h2>
-  </article>
+{{#if theme.config.blog_category_filter}}
+  <section class="blog--themes tile tile-is-flexible is-ancestor">
+    <article class="blog--themes-title tile is-child is-flex-full">
+      <h2>{{__ 'blog.search_by_categories'}}</h2>
+    </article>
 
-  <article class="tile is-child is-flex-full">
-    <ul class="blog--themes-list">
-      {{#each site.categories.data}}
-        <li><a href="javascript:void(0);" data-slug="{{dashcase name}}" title="{{name}}">{{name}}</a></li>
-      {{/each}}
+    <article class="tile is-child is-flex-full">
+      <ul class="blog--themes-list">
+        {{#each site.categories.data}}
+          <li><a href="javascript:void(0);" data-slug="{{dashcase name}}" title="{{name}}">{{name}}</a></li>
+        {{/each}}
 
-      <li class="is-hidden">
-        <a href="javascript:void();" id="deactivateCategoryFilter">{{__ 'blog.show_all'}}
-        </a>
-      </li>
-    </ul>
-  </article>
-</section>
+        <li class="is-hidden">
+          <a href="javascript:void();" id="deactivateCategoryFilter">{{__ 'blog.show_all'}}
+          </a>
+        </li>
+      </ul>
+    </article>
+  </section>
+{{/if}}
 
 {{#if theme.config.highlights}}
   <section class="blog--highlights posts tile-is-flexible tile is-ancestor">
