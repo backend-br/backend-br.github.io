@@ -31,6 +31,13 @@
 
     @include generate-post-margin($tablet, 2);
     @include generate-post-margin($desktop, 3);
+
+    > ul,
+    > h4,
+    > p {
+      padding-right: 0.75rem;
+      padding-left: 0.75rem;
+    }
   }
 
   &--title, p {
