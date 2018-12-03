@@ -259,6 +259,10 @@
     padding-bottom: 1rem;
   }
 
+  > section {
+    justify-content: flex-start;
+  }
+
   .tile.is-flex-one-quarter {
     flex-grow: 0;
     flex-shrink: 0;
