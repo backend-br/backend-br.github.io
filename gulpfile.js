@@ -11,7 +11,7 @@ const svgSymbols = require('gulp-svg-symbols')
 const svgMin = require('gulp-svgmin')
 const rename = require('gulp-rename')
 const imagemin = require('gulp-imagemin')
-const fs = require('fs')
+const fs = require('fs-extra')
 
 /**
  * Use hexo to generate files
@@ -78,11 +78,22 @@ gulp.task('css', ['process-css'], function (cb) {
   cb()
 })
 
-gulp.task('images', function () {
+gulp.task('favicon', function () {
+  const exts = '{jpg,gif,png,svg,ico}';
   return gulp
     .src([
-      './themes/backendbrasil/assets/*.{jpg,gif,png,svg}',
-      './themes/backendbrasil/assets/img/*.{jpg,gif,png,svg}'
+      `./themes/backendbrasil/assets/img/favicon/*.${exts}`
+    ])
+    .pipe(plumber())
+    .pipe(gulp.dest('./public/img/favicon/'))
+})
+
+gulp.task('images', function () {
+  const exts = '{jpg,gif,png,svg}';
+  return gulp
+    .src([
+      `./themes/backendbrasil/assets/*.${exts}`,
+      `./themes/backendbrasil/assets/img/*.${exts}`
     ])
     .pipe(plumber())
     .pipe(imagemin())
@@ -146,15 +157,15 @@ gulp.task('server', function () {
 })
 
 gulp.task('clear-trash', function (cb) {
-  fs.unlink('./public/css', cb)
+  fs.remove('./public/css', cb)
 })
 
 gulp.task('build', () => {
-  runSequence('icons', 'hexo', 'process-js', 'process-css', 'images', 'clear-trash', () => process.exit(0))
+  runSequence('icons', 'hexo', 'process-js', 'process-css', 'images', 'favicon', 'clear-trash', () => process.exit(0))
 })
 
 gulp.task('sequential-server', () => {
-  runSequence('icons', 'hexo', 'js', 'css', 'images', 'server')
+  runSequence('icons', 'hexo', 'js', 'css', 'images', 'favicon', 'server')
 })
 
 gulp.task('default', ['sequential-server'])
