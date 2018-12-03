@@ -7,5 +7,12 @@
       "image": "codamos_club.jpg"
     }
   ],
-  "sponsors": []
+  "sponsors": [
+    {
+      "name": "Binds.co",
+      "description": "",
+      "url": "https://binds.co",
+      "image": "binds.jpg"
+    }
+  ]
 }
