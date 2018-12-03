@@ -91,7 +91,7 @@
     }
   }
 
-  article:last-child {
+  article:nth-child(2) {
     align-items: flex-end;
     text-align: center;
 
@@ -109,5 +109,10 @@
     @media screen and (min-width: $tablet) {
       text-align: right;
     }
+  }
+
+  article:last-child {
+    text-align: center;
+    margin-top: 2rem;
   }
 }
