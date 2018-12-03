@@ -67,86 +67,90 @@
   </div>
 </section>
 
-<section class="events tile-is-flexible tile is-ancestor">
-  <article class="tile is-flex-full">
-    <h2 class="title">{{_p 'events.next_events'}}</h2>
-  </article>
-
-  {{#each site.data.events}}
-    <article class="
-      tile 
-      block 
-      block-transparent 
-      is-flex-full 
-      is-flex-one-third-mobile 
-      no-grow 
-      no-shrink 
-      is-child
-      {{#gt @index 1}}
-        is-hidden
-      {{/gt}}
-    ">
-      <h4 class="is-size-4">
-        {{title}}
-      </h4>
-
-      <ul>
-        {{#each flags}}
-          <li class="chip">
-            <i class="fas fa-{{icon}}"></i>
-            {{_p 'events' flag}}
-          </li>
-        {{/each}}
-      </ul>
-
-      <p>
-        <i class="fas fa-calendar"></i>
-        {{date}}
-      </p>
-
-      <p>
-        <i class="fas fa-map"></i>
-        <span>
-          {{address}}
-        </span>
-      </p>
-
-      <p>
-        <i class="fas fa-users"></i>
-        {{participants.current}} / {{participants.max}}
-      </p>
-
-      <div>
-        <a href="{{link}}" target="_blank" class="button">{{__ 'events.confirm'}}</a>
-      </div>
+{{#if site.data.events.length}}
+  <section class="events tile-is-flexible tile is-ancestor">
+    <article class="tile is-flex-full">
+      <h2 class="title">{{_p 'events.next_events'}}</h2>
     </article>
-  {{/each}}
-</section>
 
-<section class="posts tile-is-flexible tile is-ancestor">
-  <article class="tile is-flex-full">
-    <h2>{{_p 'home.follow_blog'}}</h2>
-  </article>
+    {{#each site.data.events}}
+      <article class="
+        tile 
+        block 
+        block-transparent 
+        is-flex-full 
+        is-flex-one-third-mobile 
+        no-grow 
+        no-shrink 
+        is-child
+        {{#gt @index 1}}
+          is-hidden
+        {{/gt}}
+      ">
+        <h4 class="is-size-4">
+          {{title}}
+        </h4>
 
-  <section class="tile tile-is-flexible is-flex-full">
-    {{#each site.posts.data}}
-      {{> post 
-        index=@index 
-        path=path 
-        description=description 
-        title=title 
-        thumbnail=thumbnail 
-        thumbnail_alt=thumbnail_alt 
-        categories=categories
-        hide_extra=true
-      }}
+        <ul>
+          {{#each flags}}
+            <li class="chip">
+              <i class="fas fa-{{icon}}"></i>
+              {{_p 'events' flag}}
+            </li>
+          {{/each}}
+        </ul>
+
+        <p>
+          <i class="fas fa-calendar"></i>
+          {{date}}
+        </p>
+
+        <p>
+          <i class="fas fa-map"></i>
+          <span>
+            {{address}}
+          </span>
+        </p>
+
+        <p>
+          <i class="fas fa-users"></i>
+          {{participants.current}} / {{participants.max}}
+        </p>
+
+        <div>
+          <a href="{{link}}" target="_blank" class="button">{{__ 'events.confirm'}}</a>
+        </div>
+      </article>
     {{/each}}
-
-    {{#eq site.posts.data.length 0}}
-      <span>{{__ 'blog.no_posts'}}</span>
-    {{/eq}}
   </section>
-</section>
+{{/if}}
+
+{{#if site.posts.data.length}}
+  <section class="posts tile-is-flexible tile is-ancestor">
+    <article class="tile is-flex-full">
+      <h2>{{_p 'home.follow_blog'}}</h2>
+    </article>
+
+    <section class="tile tile-is-flexible is-flex-full">
+      {{#each site.posts.data}}
+        {{> post 
+          index=@index 
+          path=path 
+          description=description 
+          title=title 
+          thumbnail=thumbnail 
+          thumbnail_alt=thumbnail_alt 
+          categories=categories
+          hide_extra=true
+        }}
+      {{/each}}
+
+      {{#eq site.posts.data.length 0}}
+        <span>{{__ 'blog.no_posts'}}</span>
+      {{/eq}}
+    </section>
+  </section>
+{{/if}}
 
 <section class="partners tile tile-is-flexible is-ancestor">
   <section class="tile tile-is-flexible is-flex-half is-flex-full-mobile">
