@@ -175,6 +175,8 @@
     color: $text;
     margin-bottom: 2rem !important;
     padding: $block-padding 0;
+    @include generate-post-margin($tablet, 2);
+    @include generate-post-margin($desktop, 3);
 
     h4, p, ul, > div {
       padding-left: $block-padding;
@@ -223,7 +225,6 @@
     }
 
     @media screen and (min-width: $tablet) {
-      margin-right: 2rem !important;
       margin-bottom: 0 !important;
     }
   }
