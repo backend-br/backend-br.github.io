@@ -35,7 +35,9 @@
     <div class="navbar-end">
       <a href="/quem-somos" class="navbar-item has-text-weight-semibold is-uppercase">{{__ 'menu.about'}}</a>
       <a href="/vagas" class="navbar-item has-text-weight-semibold is-uppercase">{{__ 'menu.jobs'}}</a>
-      <a href="/blog" class="navbar-item has-text-weight-semibold is-uppercase">{{__ 'menu.blog'}}</a>
+      {{#gt site.posts.data.length 1}}
+        <a href="/blog" class="navbar-item has-text-weight-semibold is-uppercase">{{__ 'menu.blog'}}</a>
+      {{/gt}}
       <a href="http://github.com/{{config.github}}" target="_blank" class="navbar-item has-text-weight-semibold be--navbar-item--join">
         <span class="icon"><i class="fab fa-github fa-lg"></i></span>
         <span>
