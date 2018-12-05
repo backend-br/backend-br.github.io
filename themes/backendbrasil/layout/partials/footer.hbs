@@ -47,7 +47,9 @@
       <div class="navbar-menu">
         <a href="/quem-somos" class="has-text-weight-bold navbar-item">{{__ 'footer.about'}}</a>
         <a href="/vagas" class="has-text-weight-bold navbar-item">{{__ 'footer.jobs'}}</a>
-        <a href="/blog" class="has-text-weight-bold navbar-item">{{__ 'footer.blog'}}</a>
+        {{#gt site.posts.data.length 1}}
+          <a href="/blog" class="has-text-weight-bold navbar-item">{{__ 'footer.blog'}}</a>
+        {{/gt}}
       </div>
     </nav>
 
