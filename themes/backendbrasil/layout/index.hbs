@@ -126,7 +126,7 @@
   </section>
 {{/if}}
 
-{{#if site.posts.data.length}}
+{{#gt site.posts.data.length 1}}
   <section class="posts tile-is-flexible tile is-ancestor">
     <article class="tile is-flex-full">
       <h2>{{_p 'home.follow_blog'}}</h2>
@@ -151,7 +151,7 @@
       {{/eq}}
     </section>
   </section>
-{{/if}}
+{{/gt}}
 
 <section class="partners tile tile-is-flexible is-ancestor">
   <section class="tile tile-is-flexible is-flex-half is-flex-full-mobile">
