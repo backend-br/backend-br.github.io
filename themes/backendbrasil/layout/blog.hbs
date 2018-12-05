@@ -53,21 +53,23 @@
   </article>
 
   <section class="tile tile-is-flexible is-flex-full">
-    {{#each site.posts.data}}
-      {{> post 
-        index=@index 
-        path=path 
-        description=description 
-        title=title 
-        thumbnail=thumbnail 
-        thumbnail_alt=thumbnail_alt 
-        categories=categories
-        hide_extra=false
-      }}
-    {{/each}}
+    {{#gt site.posts.data.length 1}}
+      {{#each site.posts.data}}
+        {{> post 
+          index=@index 
+          path=path 
+          description=description 
+          title=title 
+          thumbnail=thumbnail 
+          thumbnail_alt=thumbnail_alt 
+          categories=categories
+          hide_extra=false
+        }}
+      {{/each}}
+    {{/gt}}
 
-    {{#eq site.posts.data.length 0}}
+    {{#gt site.posts.data.length 1}}
       <span>{{__ 'blog.no_posts'}}</span>
-    {{/eq}}
+    {{/gt}}
   </section>
 </section>
