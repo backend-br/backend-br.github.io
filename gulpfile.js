@@ -160,8 +160,8 @@ gulp.task('clear-trash', function (cb) {
   fs.remove('./public/css', cb)
 })
 
-gulp.task('build', () => {
-  runSequence('icons', 'hexo', 'process-js', 'process-css', 'images', 'favicon', 'clear-trash', () => process.exit(0))
+gulp.task('build', (cb) => {
+  runSequence('icons', 'hexo', 'process-js', 'process-css', 'images', 'favicon', cb)
 })
 
 gulp.task('sequential-server', () => {
