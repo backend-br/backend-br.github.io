@@ -3,7 +3,17 @@
     "work_as": "Designer",
     "login": "mahpiacesi",
     "avatar": "mahpiacesi.jpg",
-    "twitter": "mahpiacesi"
+    "twitter": "mahpiacesi",
+    "social": [
+      {
+        "icon": "fa-dribbble",
+        "url": "https://dribbble.com/mahpiacesi"
+      },
+      {
+        "icon": "fa-linkedin",
+        "url": "https://www.linkedin.com/in/mahpiacesi/"
+      }
+    ]
   },
   {
     "work_as": "Desenvolvedor",

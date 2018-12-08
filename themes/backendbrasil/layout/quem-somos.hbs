@@ -79,6 +79,14 @@
               </a>
             </li>
           {{/isTruthy}}
+
+          {{#each social}}
+            <li>
+              <a href="{{{url}}}" target="_blank">
+                <i target="_blank" class="fab {{{icon}}}"></i>
+              </a>
+            </li>
+          {{/each}}
         </ul>
       </div>
     </article>
