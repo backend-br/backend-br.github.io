@@ -1,5 +1,11 @@
 [
   {
+    "work_as": "Designer",
+    "login": "mahpiacesi",
+    "avatar": "mahpiacesi.jpg",
+    "twitter": "mahpiacesi"
+  },
+  {
     "work_as": "Desenvolvedor",
     "login": "alexandremjacques",
     "avatar": "https://avatars1.githubusercontent.com/u/1953298?v=4",
@@ -32,7 +38,7 @@
     "login": "khaueviana",
     "avatar": "https://avatars1.githubusercontent.com/u/5640331?v=4",
     "profile_url": "https://github.com/khaueviana",
-    "twitter": ""
+    "twitter": "Khaueviana"
   },
   {
     "work_as": "Desenvolvedor Back-End",
