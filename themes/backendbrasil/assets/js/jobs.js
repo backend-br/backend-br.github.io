@@ -36,6 +36,8 @@ const getLocation = title => {
   return ''
 }
 
+const jobTitle = title => title.slice ? title.slice(0, 60) : title;
+
 const generateJob = ({ id, url, title, labels, location }) => `
   <article 
     class="
@@ -54,7 +56,7 @@ const generateJob = ({ id, url, title, labels, location }) => `
     data-title="${title.replace(/^\[(.*?)\]\s?/g, '')}"
   >
     <a href="${url}" target="_blank">
-      <h4 class="is-size-5">${title.replace(/^\[(.*?)\]\s?/g, '')}</h4>
+      <h4 class="is-size-5">${jobTitle(title.replace(/^\[(.*?)\]\s?/g, ''))}</h4>
 
       ${generateLabels(labels)}
 
