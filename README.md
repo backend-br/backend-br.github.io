@@ -1,25 +1,25 @@
 # Website - BackEndBrasil
 
-Oi! Esse é o repositório com os arquivos do site do BackEndBrasil, você pode ver mais [aqui](https://backendbrasil.com.br)
-Ainda está em desenvolvimento.
+Oi! 
 
-## Páginas/Tarefas
+Esse é o repositório com os arquivos do site do BackEndBrasil, você pode ver mais [aqui](https://backendbrasil.com.br)
 
-- [] Misc
-  - [] Arrumar script de build
-    - Adicionar html/css/js minify
-  - [] Documentar o `gulpfile.js`
-- [] Home
-  - [] Menu
-  - [] Cabeçalho
-  - [] Lista de projetos
-  - [] Lista de eventos
-  - [] Lista de posts mais recentes
-  - [] Lista de patrocinadores/parceiros
-  - [] Formulário da newsletter
-    - [] Configurar a newsletter no mailchimp
-  - [] Rodapé
+## Escrevendo
+
+Quer escrever algum artigo no blog?
+
+Faça um fork do repositório, instale todas as dependências com `npm install` e execute `hexo new post "titulo do artigo"`.
+
+Isso vai gerar um arquivo e uma pasta, ambos com um `slug` gerado a partir do título especificado, estarão em `source/_posts/`.
+
+Lá você encontrará uma pasta, onde pode armazenar os arquivos que precisara para o artigo(como imagens), e o arquivo `.md` será onde você vai escrever.
+
+Depois é só abrir um Pull Request!
+
+## Problemas
+
+Encontrou algum bug? Abra uma issue [aqui](https://github.com/backend-br/backend-br.github.io/issues)!
 
 ## Executando localmente
 
-Depois de clonar o repositório, execute `npm i && npm start`, isso vai instalar tudo que é necessário e carregar o site no seu `localhost`.
+Depois de clonar o repositório, execute `npm i && npm run dev`, isso vai instalar tudo que é necessário e carregar o site no seu `localhost`.

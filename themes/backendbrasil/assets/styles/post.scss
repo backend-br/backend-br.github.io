@@ -1,4 +1,4 @@
-@mixin generate-post-margin($start, $divisible, $margin: 2rem) {
+@mixin generate-post-margin($start, $divisible, $margin: 1.5rem) {
   @media screen and (min-width: $start) {
     margin-right: $margin !important;
 
