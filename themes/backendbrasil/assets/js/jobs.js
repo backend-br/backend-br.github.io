@@ -76,7 +76,6 @@ const setClass = job => {
 
 const filterJobs = ({ key, value }) => {
   if (value === 'clear') {
-    console.log(`clear`);
     return $(`.jobs--listing-item[data-${key}]`)
       .removeClass(jobHideClass)
   }
@@ -137,7 +136,7 @@ const getPaginators = link => {
   return result
 }
 
-const loadIssues = (url) => $.getJSON(
+const loadIssues = (url, cb) => $.getJSON(
   url,
   (data, status, xhr) => {
     window.data = xhr
@@ -159,6 +158,10 @@ const loadIssues = (url) => $.getJSON(
     const { next, last } = getPaginators(xhr.getResponseHeader('Link'))
     const loadBtn = $('#loadMoreJobs')
     const currentNextUrl = loadBtn.attr('data-next')
+
+    if (cb) {
+      cb()
+    }
 
     if (
       (!next && currentNextUrl.length) ||
@@ -195,18 +198,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ]
 
-  toWatch.forEach(item => {
-    $(`#${item.htmlId}`).on('change', e => {
-      const value = $(`#${item.htmlId}`).val()
-      item
-        .filterKey
-        .forEach(
-          key => filterJobs({ key, value })
-        )
-    })
-  })
+  const applySelectFilter = item => {
+    const value = $(`#${item.htmlId}`).val()
+    item
+      .filterKey
+      .forEach(
+        key => filterJobs({ key, value })
+      )
+  };
 
-  $('#keyword').on('input', e => {
+  const applyTextFilter = () => {
     const value = $('#keyword').val()
 
     $('.jobs--listing-item').forEach(job => {
@@ -252,7 +253,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       $(job).removeClass('jobs--listing-hidden')
     })
+  };
+
+  toWatch.forEach(item => {
+    $(`#${item.htmlId}`).on('change', e => applySelectFilter(item))
   })
+
+  $('#keyword').on('input', e => applyTextFilter())
 
   $('#clearFilter').on('click', e => {
     $('.jobs--listing-hidden') 
@@ -267,6 +274,9 @@ document.addEventListener('DOMContentLoaded', () => {
   $('#loadMoreJobs').on('click', e => {
     const loadBtn = $('#loadMoreJobs')
     const currentNextUrl = loadBtn.attr('data-next')
-    loadIssues(currentNextUrl)
+    loadIssues(currentNextUrl, () => {
+      applyTextFilter()
+      toWatch.forEach(applySelectFilter)
+    })
   })
 })
