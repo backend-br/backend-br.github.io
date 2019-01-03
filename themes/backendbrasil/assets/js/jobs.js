@@ -200,11 +200,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const applySelectFilter = item => {
     const value = $(`#${item.htmlId}`).val()
-    item
-      .filterKey
-      .forEach(
-        key => filterJobs({ key, value })
-      )
+    
+    if(value) {
+      item
+        .filterKey
+        .forEach(
+          key => filterJobs({ key, value })
+        )
+    }
   };
 
   const applyTextFilter = () => {
