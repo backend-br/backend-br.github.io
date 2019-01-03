@@ -23,3 +23,19 @@ Encontrou algum bug? Abra uma issue [aqui](https://github.com/backend-br/backend
 ## Executando localmente
 
 Depois de clonar o repositório, execute `npm i && npm run dev`, isso vai instalar tudo que é necessário e carregar o site no seu `localhost`.
+
+## Arquivos
+
+O site é construído usando o [Hexo](https://hexo.io). Tudo está dentro da pasta `themes/backendbrasil`, lá você encontra os arquivos do tema.
+
+- `themes/backendbrasil/assets` contém os arquivos estáticos(JS, SCSS, Imagens, ícones, etc)
+  - `styles` contém todos os arquivos SCSS
+  - `img` contém todas as imagens, que são minificadas automaticamente
+  - `icons` contém alguns ícones, mas também temos o [font-awesome](https://fontawesome.com/)
+  - `main.scss` é o único arquivo renderizado, nele contém todas as importações do SCSS
+- `themes/backendbrasil/helper` contém funções aplicadas no `handlebars`
+  - também temos o [handlebars-helpers](https://github.com/helpers/handlebars-helpers)
+- `themes/backendbrasil/languages` contém os arquivos de traduções
+- `themes/backendbrasil/layout` contém todos os arquivos relacionados ao layout da página
+  - `themes/backendbrasil/layout/` contém templates de páginas na raiz
+  - `themes/backendbrasil/layout/partials` contém partes reutilizáveis
