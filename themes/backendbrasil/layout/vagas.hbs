@@ -23,8 +23,8 @@
     <div class="select">
       <select name="state" id="state">
         <option value="clear">{{__ 'jobs.form.state'}}</option>
-        {{#each theme.states}}
-          <option value="{{this}}">{{this}}</option>
+        {{#each theme.states as |state stateId|}}
+          <option value="{{stateId}}">{{state}}</option>
         {{/each}}
       </select>
     </div>
