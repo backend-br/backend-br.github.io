@@ -15,6 +15,10 @@
         is-hidden
       {{/isTruthy}}
     {{/gt}}
+
+    {{#eq title 'empty'}}
+      is-hidden
+    {{/eq}}
   "
   >
   <div class="posts--thumbnail">

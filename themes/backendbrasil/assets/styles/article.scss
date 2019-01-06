@@ -45,6 +45,7 @@
   &--content,
   &--share,
   &--comments,
+  &--sep,
   &--related {
     justify-content: center;
 
@@ -62,6 +63,7 @@
     h#{$i} {
       @extend .is-size-#{$i};
       padding-top: 1rem;
+      padding-bottom: 1.25rem;
       font-weight: bold;
     }
   }
@@ -75,6 +77,17 @@
 
   pre[class="language-*"] {
       margin: 1.5rem 0 !important;
+  }
+
+  p {
+    padding-bottom: 1rem;
+  }
+
+  ul {
+    list-style: disc;
+    padding: 1.5rem 1rem;
+    
+    li { padding-bottom: 0.75rem; }
   }
 }
 

@@ -10,7 +10,7 @@
     "> 1%"
   ],
   "engines": {
-    "node": "^8.15.0"
+    "node": "^10.15.0"
   },
   "dependencies": {
     "@babel/preset-env": "^7.1.0",

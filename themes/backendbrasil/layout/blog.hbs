@@ -68,8 +68,8 @@
       {{/each}}
     {{/gt}}
 
-    {{#gt site.posts.data.length 1}}
+    {{#eq site.posts.data.length 1}}
       <span>{{__ 'blog.no_posts'}}</span>
-    {{/gt}}
+    {{/eq}}
   </section>
 </section>
