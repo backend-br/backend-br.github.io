@@ -9,6 +9,9 @@
     "last 3 version",
     "> 1%"
   ],
+  "engines": {
+    "node": "^8.15.0"
+  },
   "dependencies": {
     "@babel/preset-env": "^7.1.0",
     "axios": "^0.18.0",
@@ -35,7 +38,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
-    "browser-sync": "^2.24.7",
+    "browser-sync": "^2.26.3",
     "gulp": "^3.9.1",
     "gulp-babel": "^8.0.0",
     "gulp-concat": "^2.6.1",
