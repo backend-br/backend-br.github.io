@@ -135,4 +135,4 @@ const clearFilters = () => {
     .removeClass("jobs--listing-hidden");
 };
 
-//getJobs();
+getJobs();
