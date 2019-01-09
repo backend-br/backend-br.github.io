@@ -49,7 +49,7 @@ Ainda temos muito para melhorar no site e em toda estrutura, acabamos de começa
 
 ## Meetups
 
-2018 foi um grande ano para o BackEndBrasil. Começamos a ter meetups mensais, começando [em março](https://www.meetup.com/pt-BR/BackEndBr/events/247616504/).
+2018 foi um grande ano para o BackEndBrasil. Começamos a ter meetups mensais, iniciando [em março](https://www.meetup.com/pt-BR/BackEndBr/events/247616504/).
 
 Talvez você tenha visto no [nosso Twitter](https://twitter.com/BackEndBrasil); entramos em um hiatus por alguns meses com os meetups. Estamos reorganizando a casa e logo voltamos com tudo!
 
