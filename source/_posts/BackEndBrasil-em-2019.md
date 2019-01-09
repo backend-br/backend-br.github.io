@@ -26,19 +26,10 @@ Foi aí que o [Diego Costa](https://github.com/diegocosta), que faz parte da org
 
 Então decidimos jogar no [Twitter](https://twitter.com/BackendBrasil/status/1021407625685192705) a ideia: procuramos por designers para criar um novo layout do zero.
 
-Depois de um tempo, conseguimos montar uma equipe:
+Depois de um tempo, conseguimos montar uma equipe(teve mais gente, porém não vamos exibir seus nomes e contato porque não recebemos autorização ainda):
 
-- [Lucas Miqueias](https://lucasmiqueias.com.br)
-- Vinícius Pereira
-- Guilherme Maggieri
-- Victor Nery Teixeira
-- Jhessiny Mattos
-- Brenda Xavier
-- Leticia Scotolo
-- Marianna Piacesi
-- Natasha Gilheta
-- Milena Cavalcanti
-- Cristiano Gonçalves
+- [Cristiano Gonçalves](https://twitter.com/Gonkristiano)
+- Marianna Piacesi: [Twitter](https://twitter.com/mahpiacesi), [Dribbble](https://dribbble.com/mahpiacesi), [LinkedIn](https://www.linkedin.com/in/mahpiacesi/)
 
 Tudo isso orquestrado pelo [Tuxu](http://tuxu.com.br/), que nos ajudou a organizar todo o projeto desde o começo.
 
@@ -50,11 +41,11 @@ Falando um pouco para a tecnologia em si agora, usamos o [Hexo](https://hexo.io)
 
 O site está atualmente hospedado no Netlify.
 
-A [Marianna]() nos ajudou na parte do desenvolvimento, enviando todo o layout final, refinado e estilizado. Tirando dúvidas e ajudando o projeto amadurecer até o estágio final.
+A [Marianna](https://twitter.com/mahpiacesi) nos ajudou na parte do desenvolvimento, enviando todo o layout final, refinado e estilizado. Tirando dúvidas e ajudando o projeto amadurecer até o estágio final.
 
 E aí está, o novo site, que você está lendo esse artigo, agora.
 
-Ainda temos muito para melhorar no site e em toda estrutura, acabamos de começar e vamos evoluindo aos poucos. Inclusive, se você encontrou algo de errado, ou quer dar alguma ideia, só abrir uma issue [aqui]() ou nos [enviar um e-mail](mailto:backendbr@gmail.com)!
+Ainda temos muito para melhorar no site e em toda estrutura, acabamos de começar e vamos evoluindo aos poucos. Inclusive, se você encontrou algo de errado, ou quer dar alguma ideia, só abrir uma issue [aqui](http://github.com/backend-br/backend-br.github.io/issues) ou nos [enviar um e-mail](mailto:backendbr@gmail.com)!
 
 ## Meetups
 
@@ -68,4 +59,8 @@ Temos muita coisa no papel e muita coisa que está caminhando para sair. O site 
 
 Não vou dar spoilers, mas posso garantir que nossa newsletter está prestes a sair, e também começamos outro projeto: o [como instalar XYZ](https://github.com/backend-br/como-instalar-xyz), um repositório cheio de tutoriais para instalar o que você precisar.
 
+Temos o [DevVagas](https://twitter.com/DevVagas) no Twitter, é uma conta que publica apenas vagas para desenvolvedores brasileiros, está disponível no [Github](https://github.com/apps/dev-vagas-br) como aplicativo.
+
 Temos muitos eventos para realizar, parcerias e muito mais!
+
+Então aproveita e se inscreve aí na nossa newsletter que logo saí a primeira edição. Segue a [gente](https://twitter.com/BackEndBrasil) no Twitter que sempre atualizamos lá sobre novidades, projetos e eventos =)
