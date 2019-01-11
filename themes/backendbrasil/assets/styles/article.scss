@@ -10,13 +10,16 @@
 
   article {
     z-index: 10;
-    padding: 0 5rem;
     color: #fff;
 
     * { display: block; }
 
     h2 {
       font-weight: bold;
+      
+      @media screen and (max-width: 360px) {
+        font-size: 1.5rem !important;
+      }
     }
 
     time {
@@ -26,6 +29,10 @@
     span {
       display: block;
       font-style: italic;
+    }
+
+    @media screen and (min-width: $tablet) {
+      padding: 0 5rem;
     }
   }
 
