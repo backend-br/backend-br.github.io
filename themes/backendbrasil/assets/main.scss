@@ -4,7 +4,7 @@
 $family-sans-serif: "Open Sans", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default
 @import '../../../node_modules/bulma/bulma.sass';
 @import 'styles/base/colors.scss';
-@import 'styles/base/bulma-modifications.scss';
+@import 'styles/base/flexbox-grid.scss';
 @import 'styles/base/components.scss';
 
 body > section,
