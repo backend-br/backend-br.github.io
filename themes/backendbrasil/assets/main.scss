@@ -3,21 +3,21 @@
 
 $family-sans-serif: "Open Sans", BlinkMacSystemFont, -apple-system, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif !default
 @import '../../../node_modules/bulma/bulma.sass';
-@import 'styles/colors.scss';
-@import 'styles/bulma-modifications.scss';
-@import 'styles/components.scss';
-@import 'styles/buttons.scss';
+@import 'styles/base/colors.scss';
+@import 'styles/base/bulma-modifications.scss';
+@import 'styles/base/components.scss';
 
 body > section,
 body > footer {
   @extend %default-padding;
 }
 
-@import 'styles/post.scss';
-@import 'styles/menu.scss';
-@import 'styles/home.scss';
-@import 'styles/about.scss';
-@import 'styles/blog.scss';
-@import 'styles/article.scss';
-@import 'styles/jobs.scss';
-@import 'styles/footer.scss';
+@import 'styles/components/buttons.scss';
+@import 'styles/components/menu.scss';
+@import 'styles/components/footer.scss';
+@import 'styles/components/post.scss';
+@import 'styles/pages/home.scss';
+@import 'styles/pages/about.scss';
+@import 'styles/pages/blog.scss';
+@import 'styles/pages/article.scss';
+@import 'styles/pages/jobs.scss';
