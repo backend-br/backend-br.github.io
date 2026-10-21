@@ -100,10 +100,10 @@ describe('the statement of a challenge', () => {
 
     // Then the file is linked on GitHub, the image is read as it is served, and the outside link stays
     expect(statement.body).toContain(
-      '[diagrama](https://github.com/backend-br/desafios/blob/master/url-shortener/docs/fluxo.md)',
+      '[diagrama](https://github.com/backend-br/desafios/blob/HEAD/url-shortener/docs/fluxo.md)',
     )
     expect(statement.body).toContain(
-      '![fluxo](https://raw.githubusercontent.com/backend-br/desafios/master/url-shortener/docs/fluxo.png)',
+      '![fluxo](https://raw.githubusercontent.com/backend-br/desafios/HEAD/url-shortener/docs/fluxo.png)',
     )
     expect(statement.body).toContain('[RFC](https://www.rfc-editor.org/rfc/rfc3986)')
   })
