@@ -30,13 +30,11 @@ function pages(directory) {
   })
 }
 
+/** The entities the build escapes in attributes, decoded in one pass so `&amp;lt;` stays `&lt;`. */
+const ENTITIES = { '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" }
+
 function decode(text) {
-  return text
-    .replace(/&amp;/g, '&')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, "'")
+  return text.replace(/&(?:amp|lt|gt|quot|#39);/g, (entity) => ENTITIES[entity])
 }
 
 function meta(html, attribute, name) {
