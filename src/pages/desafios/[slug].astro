@@ -1,0 +1,115 @@
+---
+/**
+ * One challenge: its statement, as `PROBLEM.md` writes it, then the solutions the community sent, grouped
+ * by language. The statement is what the search indexes, so a search finds a challenge by its problem.
+ */
+import type { GetStaticPaths } from 'astro'
+import { render } from 'astro:content'
+import Icon from '../../components/Icon.astro'
+import PageCover from '../../components/PageCover.astro'
+import { challenges } from '../../content'
+import { blobUrl } from '../../content/catalog'
+import { REPOSITORY } from '../../content/challenges'
+import { excerpt, LOCALE, MAIN_ID, TEXT } from '../../content/site'
+import { breadcrumbs, organizationId, websiteId } from '../../content/structured-data'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export const getStaticPaths = (async () =>
+  (await challenges()).map((challenge) => ({
+    params: { slug: challenge.data.slug },
+    props: { challenge },
+  }))) satisfies GetStaticPaths
+
+const { challenge } = Astro.props
+const { data } = challenge
+const { Content } = await render(challenge)
+const labels = TEXT.challenges
+const origin = Astro.site ?? Astro.url.origin
+const url = new URL(`/desafios/${data.slug}/`, origin).href
+const statement = blobUrl(REPOSITORY, `${data.slug}/PROBLEM.md`)
+const description = excerpt(data.summary)
+---
+
+<BaseLayout
+  title={labels.headlineOf(data.title)}
+  description={description}
+  path={`/desafios/${data.slug}/`}
+  kind="article"
+  structuredData={{
+    '@graph': [
+      breadcrumbs(origin, [
+        { name: labels.title, path: '/desafios/' },
+        { name: data.title, path: `/desafios/${data.slug}/` },
+      ]),
+      {
+        '@type': 'LearningResource',
+        name: data.title,
+        description,
+        url,
+        inLanguage: LOCALE,
+        learningResourceType: 'Desafio de programação',
+        isAccessibleForFree: true,
+        isBasedOn: statement,
+        isPartOf: { '@id': websiteId(origin) },
+        provider: { '@id': organizationId(origin) },
+      },
+    ],
+  }}
+>
+  <main id={MAIN_ID}>
+    <div data-pagefind-body>
+      <PageCover title={data.title} lede={data.summary} trail={[{ label: labels.title, href: '/desafios/' }]}>
+        <ul class="bb-facts" data-pagefind-ignore>
+          <li>{labels.solutions(data.solutionCount)}</li>
+          {data.languages.length > 0 && <li>{labels.languages(data.languages.length)}</li>}
+        </ul>
+        <div class="bb-actions" data-pagefind-ignore>
+          <a href={statement} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
+            {labels.statement}
+            <Icon name="external" size={16} />
+          </a>
+          <a href={labels.contributing} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
+            {labels.contribute}
+            <Icon name="external" size={16} />
+          </a>
+        </div>
+      </PageCover>
+      <div class="bb-wrap bb-main">
+        <article class="bb-article bb-md">
+          <Content />
+        </article>
+      </div>
+    </div>
+
+    <section class="bb-wrap bb-section" aria-labelledby="solucoes-title">
+      <header class="bb-section__head">
+        <h2 id="solucoes-title" class="bb-display bb-section__title">{labels.communitySolutions}</h2>
+      </header>
+      {
+        data.languages.length > 0 ? (
+          <ul class="bb-solutions">
+            {data.languages.map((group) => (
+              <li>
+                <h3>
+                  {group.language}
+                  <span>{group.repositories.length}</span>
+                </h3>
+                <ul>
+                  {group.repositories.map((repository) => (
+                    <li>
+                      <a href={repository} target="_blank" rel="noopener noreferrer">
+                        {repository.replace(/^https?:\/\/(www\.)?github\.com\//, '')}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p class="bb-empty">{labels.noSolutions}</p>
+        )
+      }
+    </section>
+  </main>
+</BaseLayout>

@@ -1,0 +1,18 @@
+---
+/**
+ * The lockup of the site: the capybara of the logo on the yellow of its wordmark, beside the wordmark
+ * itself, `backend` over `<brasil>`, set in text so each theme colors it.
+ */
+import { Image } from 'astro:assets'
+import capivara from '../assets/capivara.png'
+---
+
+<span class="bb-brand">
+  <span class="bb-brand__tile">
+    <Image src={capivara} alt="" width={38} height={38} densities={[1, 2]} loading="eager" />
+  </span>
+  <span class="bb-brand__word" aria-hidden="true">
+    <span>backend</span>
+    <span>‹brasil›</span>
+  </span>
+</span>

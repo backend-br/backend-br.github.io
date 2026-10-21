@@ -1,0 +1,65 @@
+name: Validate links
+
+on:
+  schedule:
+    - cron: '0 0 1 * *'
+  workflow_dispatch:
+
+concurrency:
+  group: validate-links-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  link-checker:
+    name: Link checker
+    runs-on: ubuntu-26.04
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v7
+        with:
+          cache: pnpm
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build site
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: pnpm build
+
+      - id: lychee
+        name: Check links
+        uses: lycheeverse/lychee-action@e7477775783ea5526144ba13e8db5eec57747ce8 # v2.9.0
+        with:
+          args: "--verbose --no-progress --root-dir ${{ github.workspace }}/dist './README.md' './dist/**/*.html'"
+          fail: false
+
+      - if: steps.lychee.outputs.exit_code != 0
+        name: Create issue
+        uses: peter-evans/create-issue-from-file@fca9117c27cdc29c6c4db3b86c48e4115a786710 # v6.0.0
+        with:
+          title: Link checker report
+          labels: 'report, automated-issue'
+          content-filepath: ./lychee/out.md
+
+      - if: steps.lychee.outputs.exit_code != 0
+        name: Assign issues
+        uses: gustavofreze/auto-assign@3c8ebe3f6f2cc5b92bb8969f13bc5886895f70e3 # 2.1.1
+        with:
+          assignees: '${{ vars.ASSIGNEES }}'
+          github_token: '${{ secrets.GITHUB_TOKEN }}'
+          allow_self_assign: 'true'
+          allow_no_assignees: 'true'
+          assignment_options: 'ISSUE'

@@ -1,0 +1,4 @@
+# github.com and packagist.org slow down a burst of parallel requests, so the checker keeps a few at a time.
+max_concurrency = 8
+max_retries = 5
+retry_wait_time = 5

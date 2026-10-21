@@ -1,0 +1,129 @@
+---
+/**
+ * The home: the wordmark of the community beside its figures answered in a terminal, then its
+ * repositories, its challenges and the latest openings.
+ */
+import { challenges as allChallenges, figures as allFigures, jobs as allJobs, repositories as allRepositories } from '../content'
+import { MAIN_ID, SITE, TEXT } from '../content/site'
+import { identity } from '../content/structured-data'
+import BaseLayout from '../layouts/BaseLayout.astro'
+import ChallengeRow from './ChallengeRow.astro'
+import Icon from './Icon.astro'
+import JobItem from './JobItem.astro'
+import Terminal from './Terminal.astro'
+
+/** How many of the latest openings the home shows before pointing to the page of all of them. */
+const LATEST_JOBS = 5
+
+const [repositories, challenges, jobs, read] = await Promise.all([
+  allRepositories(),
+  allChallenges(),
+  allJobs(),
+  allFigures(),
+])
+const response = TEXT.home.response
+const figures = [
+  { key: response.keys.jobs, label: response.names.jobs, value: read.jobs, href: '/vagas/' },
+  { key: response.keys.challenges, label: response.names.challenges, value: read.challenges, href: '/desafios/' },
+  { key: response.keys.projects, label: response.names.projects, value: read.projects, href: '/projetos/' },
+  { key: response.keys.stars, label: response.names.stars, value: read.stars, href: '#repositorios' },
+]
+const origin = Astro.site ?? Astro.url.origin
+---
+
+<BaseLayout
+  path="/"
+  structuredData={{ '@graph': identity(origin, new URL('/apple-touch-icon.png', origin).href) }}
+>
+  <main id={MAIN_ID}>
+    <section class="bb-hero" aria-labelledby="hero-title">
+      <div class="bb-wrap bb-hero__inner">
+        <div class="bb-hero__words">
+          <p class="bb-eyebrow">{TEXT.home.eyebrow}</p>
+          <h1 id="hero-title" class="bb-wordmark">
+            <span class="sr-only">{SITE.name}</span>
+            <span class="bb-wordmark__backend" aria-hidden="true">backend</span>
+            <span class="bb-wordmark__brasil" aria-hidden="true">‹brasil›</span>
+          </h1>
+          <p class="bb-hero__lede">{TEXT.home.lede}</p>
+          <div class="bb-actions">
+            <a href="/desafios/" class="bb-button bb-button--primary">
+              {TEXT.home.solve}
+              <Icon name="arrow-right" size={18} />
+            </a>
+            <a href="/vagas/" class="bb-button bb-button--ghost">{TEXT.home.jobs}</a>
+          </div>
+        </div>
+        <Terminal figures={figures} />
+      </div>
+    </section>
+
+    <div class="bb-wrap">
+      <section class="bb-section" id="repositorios" aria-labelledby="repositorios-title">
+        <header class="bb-section__head">
+          <h2 id="repositorios-title" class="bb-display bb-section__title">{TEXT.home.repositoriesTitle}</h2>
+          <p class="bb-section__lede">{TEXT.home.repositoriesLede}</p>
+        </header>
+        <ul class="bb-repos">
+          {
+            repositories.map(({ data }) => (
+              <li>
+                <article class="bb-repo">
+                  <h3 class="bb-repo__name">
+                    <span class="bb-repo__owner">backend-br/</span>
+                    <a href={data.url} target="_blank" rel="noopener noreferrer">
+                      {data.name}
+                    </a>
+                  </h3>
+                  <p class="bb-stars">
+                    <Icon name="star" size={14} />
+                    {TEXT.home.stars(data.stars)}
+                  </p>
+                  {data.description !== '' && <p class="bb-repo__summary">{data.description}</p>}
+                  {data.page !== null && (
+                    <a href={data.page.path} class="bb-link bb-repo__page">
+                      {data.page.label}
+                      <Icon name="arrow-right" size={14} />
+                    </a>
+                  )}
+                </article>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="bb-section" aria-labelledby="desafios-title">
+        <header class="bb-section__head">
+          <h2 id="desafios-title" class="bb-display bb-section__title">{TEXT.home.challengesTitle}</h2>
+          <p class="bb-section__lede">{TEXT.home.challengesLede}</p>
+        </header>
+        <ul class="bb-rows">
+          {challenges.map((challenge) => <ChallengeRow challenge={challenge} />)}
+        </ul>
+      </section>
+
+      <section class="bb-section" aria-labelledby="vagas-title">
+        <header class="bb-section__head">
+          <h2 id="vagas-title" class="bb-display bb-section__title">{TEXT.home.jobsTitle}</h2>
+          <p class="bb-section__lede">{TEXT.home.jobsLede}</p>
+        </header>
+        {
+          jobs.length > 0 ? (
+            <ul class="bb-rows">
+              {jobs.slice(0, LATEST_JOBS).map((job) => (
+                <JobItem job={job} />
+              ))}
+            </ul>
+          ) : (
+            <p class="bb-empty">{TEXT.jobs.empty}</p>
+          )
+        }
+        <a href="/vagas/" class="bb-link">
+          {TEXT.home.allJobs}
+          <Icon name="arrow-right" size={16} />
+        </a>
+      </section>
+    </div>
+  </main>
+</BaseLayout>

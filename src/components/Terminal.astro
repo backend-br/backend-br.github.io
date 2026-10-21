@@ -1,0 +1,85 @@
+---
+/**
+ * The community answered in a terminal: `curl -i` asks the site for `/comunidade.json`, and the response
+ * comes back with the figures of this build.
+ *
+ * The page is served with the whole session already printed, which is what a reader without scripts, a
+ * crawler and a reader who asked for reduced motion get. Where motion is welcome, the session is replayed
+ * in rounds while the terminal is in view: the command is typed, the response comes in line by line and
+ * each figure counts up to its value. Every line keeps its place while it waits, and each animated text is
+ * drawn over its final text, which reserves its room, so nothing moves around it.
+ *
+ * Only the figures are read aloud, as a list of names and values, each name a link to the page that lists
+ * it. The command, the status, the header and the punctuation are drawn for the eye alone, and so is every
+ * animated text, so a screen reader hears the final figures and nothing while a round plays.
+ */
+import { TEXT } from '../content/site'
+
+interface Figure {
+  readonly key: string
+  readonly label: string
+  readonly value: number
+  readonly href: string
+}
+
+interface Props {
+  figures: readonly Figure[]
+}
+const { figures } = Astro.props
+const labels = TEXT.home.response
+const command = `curl -i ${new URL(labels.path, Astro.site ?? Astro.url.origin).href}`
+---
+
+{/* Marks the session for replay before it is painted, so the printed session never flashes before the
+    replay hides it. If the replay never starts, the mark is dropped and the printed session is shown. */}
+<script is:inline>
+  try{var r=document.documentElement;matchMedia('(prefers-reduced-motion: reduce)').matches||(r.dataset.term='pending',setTimeout(function(){r.dataset.term==='pending'&&delete r.dataset.term},4e3))}catch(e){}
+</script>
+<section class="bb-term" aria-label={labels.label} data-terminal>
+  <p class="bb-term__line bb-term__command" aria-hidden="true">
+    <span class="bb-term__prompt">$</span>
+    <span class="bb-term__slot">
+      <span class="bb-term__final">{command}</span>
+      <span class="bb-term__live bb-term__live--typed" data-type={command}></span>
+    </span>
+  </p>
+  <p class="bb-term__line bb-term__status" aria-hidden="true" data-step>{labels.status}</p>
+  <p class="bb-term__line bb-term__header" aria-hidden="true" data-step>{labels.type}</p>
+  <p class="bb-term__line bb-term__brace" aria-hidden="true" data-step>{'{'}</p>
+  <dl class="bb-term__json">
+    {
+      figures.map((figure, index) => (
+        <div class="bb-term__line" data-step>
+          <dt>
+            <a href={figure.href} aria-label={figure.label}>
+              "{figure.key}"
+            </a>
+            <span class="bb-term__punctuation" aria-hidden="true">
+              :{' '}
+            </span>
+          </dt>
+          <dd>
+            <span class="bb-term__slot">
+              <span class="bb-term__final">{figure.value}</span>
+              <span class="bb-term__live" aria-hidden="true" data-count={figure.value}></span>
+            </span>
+            {index < figures.length - 1 && (
+              <span class="bb-term__punctuation" aria-hidden="true">
+                ,
+              </span>
+            )}
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+  <p class="bb-term__line bb-term__brace" aria-hidden="true" data-step>{'}'}</p>
+  <p class="bb-term__line bb-term__command" aria-hidden="true" data-step>
+    <span class="bb-term__prompt">$</span>
+    <span class="bb-term__caret"></span>
+  </p>
+</section>
+
+<script>
+  import '../scripts/terminal.ts'
+</script>

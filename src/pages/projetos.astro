@@ -1,0 +1,108 @@
+---
+/**
+ * The Brazilian open-source projects `opensource-br` lists, grouped by language in the order its table
+ * holds them, with an index of the languages on top.
+ */
+import Icon from '../components/Icon.astro'
+import PageCover from '../components/PageCover.astro'
+import { projects as allProjects } from '../content'
+import { repositoryUrl } from '../content/catalog'
+import { byLanguage, languageAnchor as anchor, REPOSITORY } from '../content/projects'
+import { MAIN_ID, TEXT } from '../content/site'
+import { breadcrumbs, collection } from '../content/structured-data'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const projects = await allProjects()
+const groups = byLanguage(projects.map((project) => project.data))
+const labels = TEXT.projects
+const origin = Astro.site ?? Astro.url.origin
+
+---
+
+<BaseLayout
+  title={labels.headline}
+  description={labels.lede}
+  path="/projetos/"
+  structuredData={{
+    '@graph': [
+      breadcrumbs(origin, [{ name: labels.title, path: '/projetos/' }]),
+      collection(
+        origin,
+        { path: '/projetos/', name: labels.headline, description: labels.lede },
+        projects.map((project) => ({ name: project.data.name, url: project.data.url })),
+      ),
+    ],
+  }}
+>
+  <main id={MAIN_ID}>
+    <PageCover title={labels.title} lede={labels.lede}>
+      <ul class="bb-facts">
+        <li>{labels.count(projects.length)}</li>
+      </ul>
+      <div class="bb-actions">
+        <a href={labels.addUrl} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
+          {labels.add}
+          <Icon name="external" size={16} />
+        </a>
+        <a href={repositoryUrl(REPOSITORY)} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
+          {labels.list}
+          <Icon name="external" size={16} />
+        </a>
+      </div>
+    </PageCover>
+    <div class="bb-wrap bb-main">
+      <nav aria-label={labels.languages}>
+        <ul class="bb-index">
+          {
+            groups.map((group) => (
+              <li>
+                <a href={`#${anchor(group.language)}`}>
+                  {group.language}
+                  <span>{group.projects.length}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      {
+        groups.map((group) => (
+          <section class="bb-group" id={anchor(group.language)} aria-labelledby={`${anchor(group.language)}-title`}>
+            <h2 id={`${anchor(group.language)}-title`} class="bb-display bb-group__title">
+              {group.language}
+              <span>{labels.count(group.projects.length)}</span>
+            </h2>
+            <ul class="bb-projects">
+              {group.projects.map((project) => (
+                <li class="bb-project">
+                  <h3 class="bb-project__name">
+                    <a href={project.url} target="_blank" rel="noopener noreferrer">
+                      {project.name}
+                    </a>
+                  </h3>
+                  <p class="bb-project__source">{project.source}</p>
+                  {project.links.length > 0 && (
+                    <ul class="bb-project__links">
+                      {project.links.map((link) => (
+                        <li>
+                          <a
+                            href={link.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            aria-label={labels.linkOf(link.label, project.name)}
+                          >
+                            {link.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>

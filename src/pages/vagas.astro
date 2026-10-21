@@ -1,0 +1,119 @@
+---
+/**
+ * The latest job openings of `vagas`, read again every day. The page lists the newest ones and leaves the
+ * rest, and the filtering, to GitHub, where every opening lives as an issue.
+ */
+import Icon from '../components/Icon.astro'
+import JobItem from '../components/JobItem.astro'
+import PageCover from '../components/PageCover.astro'
+import { jobs as allJobs } from '../content'
+import { repositoryUrl } from '../content/catalog'
+import { REPOSITORY } from '../content/jobs'
+import { LOCALE, MAIN_ID, TEXT } from '../content/site'
+import { breadcrumbs, collection } from '../content/structured-data'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+/** How many openings the page lists, the newest first, before pointing to GitHub for the rest. */
+const LISTED = 50
+
+const jobs = await allJobs()
+const listed = jobs.slice(0, LISTED)
+const labels = TEXT.jobs
+const origin = Astro.site ?? Astro.url.origin
+const issues = `${repositoryUrl(REPOSITORY)}/issues`
+
+/** Answers the address of the open issues of `vagas` that carry a label. */
+function filtered(label: string): string {
+  return `${issues}?${new URLSearchParams({ q: `is:issue is:open label:"${label}"` })}`
+}
+
+const facets = (['modality', 'level', 'contract'] as const)
+  .map((facet) => ({
+    title: labels.facets[facet],
+    terms: [...new Set(jobs.flatMap((job) => job.data[facet]))].sort((a, b) => a.localeCompare(b, LOCALE)),
+  }))
+  .filter((facet) => facet.terms.length > 0)
+---
+
+<BaseLayout
+  title={labels.headline}
+  description={labels.lede}
+  path="/vagas/"
+  structuredData={{
+    '@graph': [
+      breadcrumbs(origin, [{ name: labels.title, path: '/vagas/' }]),
+      collection(
+        origin,
+        { path: '/vagas/', name: labels.headline, description: labels.lede },
+        listed.map((job) => ({ name: job.data.title, url: job.data.url })),
+      ),
+    ],
+  }}
+>
+  <main id={MAIN_ID}>
+    <PageCover title={labels.title} lede={labels.lede}>
+      <ul class="bb-facts">
+        <li>{labels.count(jobs.length)}</li>
+      </ul>
+      <div class="bb-actions">
+        <a href={labels.postUrl} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
+          {labels.post}
+          <Icon name="external" size={16} />
+        </a>
+        <a href={issues} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
+          {labels.all}
+          <Icon name="external" size={16} />
+        </a>
+      </div>
+    </PageCover>
+    <div class="bb-wrap bb-main">
+      {
+        facets.length > 0 && (
+          <nav class="bb-filter" aria-labelledby="filtro-title">
+            <h2 id="filtro-title" class="bb-eyebrow">
+              {labels.filter}
+            </h2>
+            {facets.map((facet) => (
+              <div class="bb-filter__group">
+                <span class="bb-filter__label">{facet.title}</span>
+                <ul class="bb-filter__group">
+                  {facet.terms.map((term) => (
+                    <li>
+                      <a href={filtered(term)} target="_blank" rel="noopener noreferrer">
+                        {term}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </nav>
+        )
+      }
+      {
+        jobs.length > 0 ? (
+          <section class="bb-filter" aria-labelledby="lista-title">
+            <h2 id="lista-title" class="bb-eyebrow">
+              {labels.listed(listed.length, jobs.length)}
+            </h2>
+            <ul class="bb-rows">
+              {listed.map((job) => (
+                <JobItem job={job} />
+              ))}
+            </ul>
+          </section>
+        ) : (
+          <p class="bb-empty">{labels.empty}</p>
+        )
+      }
+      {
+        jobs.length > LISTED && (
+          <a href={issues} target="_blank" rel="noopener noreferrer" class="bb-link">
+            {labels.all}
+            <Icon name="external" size={16} />
+          </a>
+        )
+      }
+    </div>
+  </main>
+</BaseLayout>

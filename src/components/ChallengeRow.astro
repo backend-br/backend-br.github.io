@@ -1,0 +1,28 @@
+---
+/** One challenge in a list: its title and summary, and how many solutions in how many languages it has. */
+import type { Challenge } from '../content'
+import { TEXT } from '../content/site'
+import Icon from './Icon.astro'
+
+interface Props {
+  challenge: Challenge
+  /** The level of the title, which follows the heading of the list it sits in. */
+  level?: 'h2' | 'h3'
+}
+const { challenge, level: Heading = 'h3' } = Astro.props
+const { data } = challenge
+---
+
+<li>
+  <a href={`/desafios/${data.slug}/`} class="bb-row">
+    <div class="bb-row__main">
+      <Heading class="bb-row__title">{data.title}</Heading>
+      <p class="bb-row__summary">{data.summary}</p>
+      <p class="bb-row__meta">
+        <span>{TEXT.challenges.solutions(data.solutionCount)}</span>
+        {data.languages.length > 0 && <span>{TEXT.challenges.languages(data.languages.length)}</span>}
+      </p>
+    </div>
+    <span class="bb-row__arrow"><Icon name="arrow-right" size={22} /></span>
+  </a>
+</li>
