@@ -6,8 +6,8 @@
 
 export const ORGANIZATION = 'backend-br'
 
-/** The branch every repository of the organization publishes from. */
-export const BRANCH = 'master'
+/** The default branch of every repository, named by the reference GitHub resolves whatever the branch is called. */
+export const BRANCH = 'HEAD'
 
 /** A page of this site drawn from a repository, and what the link to it says. */
 export interface Page {
