@@ -1,4 +1,6 @@
+.idea
+.astro
+dist
 node_modules
-public
-themes/backendbrasil/layout/partials/icons.hbs
-db.json
+.pnpm-store
+site

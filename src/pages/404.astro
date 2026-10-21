@@ -1,0 +1,14 @@
+---
+/** The page GitHub Pages answers with for any address that publishes nothing, written as the status it is. */
+import { MAIN_ID, TEXT } from '../content/site'
+import BaseLayout from '../layouts/BaseLayout.astro'
+---
+
+<BaseLayout title={TEXT.notFound.title} description={TEXT.notFound.description} path={null}>
+  <main id={MAIN_ID} class="bb-wrap bb-lost">
+    <p class="bb-lost__code" aria-hidden="true">HTTP/1.1 <span>404 Not Found</span></p>
+    <h1 class="bb-display bb-cover__title">{TEXT.notFound.title}</h1>
+    <p class="bb-cover__lede">{TEXT.notFound.lede}</p>
+    <a href="/" class="bb-button bb-button--primary">{TEXT.notFound.back}</a>
+  </main>
+</BaseLayout>

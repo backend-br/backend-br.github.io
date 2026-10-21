@@ -1,0 +1,19 @@
+---
+import { SITE, TEXT } from '../content/site'
+import Icon from './Icon.astro'
+---
+
+<footer class="bb-footer">
+  <div class="bb-wrap bb-footer__inner">
+    <a
+      href={SITE.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="bb-tool"
+      aria-label={TEXT.nav.github}
+      title={TEXT.nav.github}
+    >
+      <Icon name="github" size={20} />
+    </a>
+  </div>
+</footer>

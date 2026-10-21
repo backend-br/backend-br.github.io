@@ -1,0 +1,64 @@
+---
+/**
+ * The search over the statements of the challenges.
+ *
+ * The index is built by Pagefind after the site, from the challenge pages only. The page ships the form and
+ * an empty list, and the script fetches the index the first time the reader types, so no other page pays
+ * for it.
+ */
+import Icon from '../components/Icon.astro'
+import PageCover from '../components/PageCover.astro'
+import { MAIN_ID, TEXT } from '../content/site'
+import { breadcrumbs } from '../content/structured-data'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const labels = TEXT.search
+const origin = Astro.site ?? Astro.url.origin
+---
+
+<BaseLayout
+  title={labels.title}
+  description={labels.lede}
+  path="/busca/"
+  noindex
+  structuredData={breadcrumbs(origin, [
+    { name: TEXT.challenges.title, path: '/desafios/' },
+    { name: labels.title, path: '/busca/' },
+  ])}
+>
+  <main id={MAIN_ID}>
+    <PageCover title={labels.title} lede={labels.lede} trail={[{ label: TEXT.challenges.title, href: '/desafios/' }]} />
+    <div class="bb-wrap bb-main">
+      <form
+        class="bb-search"
+        role="search"
+        data-search
+        data-idle={labels.idle}
+        data-loading={labels.loading}
+        data-empty={labels.empty}
+        data-unavailable={labels.unavailable}
+        data-count={labels.count}
+      >
+        <label for="search-term">{labels.label}</label>
+        <div class="bb-search__field">
+          <Icon name="search" size={20} />
+          <input
+            id="search-term"
+            name="q"
+            type="search"
+            inputmode="search"
+            autocomplete="off"
+            spellcheck="false"
+            placeholder={labels.placeholder}
+          />
+        </div>
+        <p class="bb-search__status" role="status" aria-live="polite" data-search-status>{labels.idle}</p>
+      </form>
+      <ol class="bb-results" data-search-results></ol>
+    </div>
+  </main>
+</BaseLayout>
+
+<script>
+  import '../scripts/search.ts'
+</script>

@@ -1,0 +1,60 @@
+---
+/** The catalog of challenges, in the order the README of `desafios` lists them. */
+import ChallengeRow from '../../components/ChallengeRow.astro'
+import Icon from '../../components/Icon.astro'
+import PageCover from '../../components/PageCover.astro'
+import { challenges as allChallenges } from '../../content'
+import { repositoryUrl } from '../../content/catalog'
+import { REPOSITORY } from '../../content/challenges'
+import { MAIN_ID, TEXT } from '../../content/site'
+import { breadcrumbs, collection } from '../../content/structured-data'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const challenges = await allChallenges()
+const labels = TEXT.challenges
+const solutions = challenges.reduce((total, challenge) => total + challenge.data.solutionCount, 0)
+const origin = Astro.site ?? Astro.url.origin
+---
+
+<BaseLayout
+  title={labels.headline}
+  description={labels.lede}
+  path="/desafios/"
+  structuredData={{
+    '@graph': [
+      breadcrumbs(origin, [{ name: labels.title, path: '/desafios/' }]),
+      collection(
+        origin,
+        { path: '/desafios/', name: labels.headline, description: labels.lede },
+        challenges.map((challenge) => ({
+          name: challenge.data.title,
+          url: new URL(`/desafios/${challenge.data.slug}/`, origin).href,
+        })),
+      ),
+    ],
+  }}
+>
+  <main id={MAIN_ID}>
+    <PageCover title={labels.title} lede={labels.lede}>
+      <ul class="bb-facts">
+        <li>{labels.count(challenges.length)}</li>
+        <li>{labels.solutions(solutions)}</li>
+      </ul>
+      <div class="bb-actions">
+        <a href="/busca/" class="bb-button bb-button--primary">
+          <Icon name="search" size={18} />
+          {TEXT.search.title}
+        </a>
+        <a href={repositoryUrl(REPOSITORY)} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
+          backend-br/{REPOSITORY}
+          <Icon name="external" size={16} />
+        </a>
+      </div>
+    </PageCover>
+    <div class="bb-wrap bb-main">
+      <ul class="bb-rows">
+        {challenges.map((challenge) => <ChallengeRow challenge={challenge} level="h2" />)}
+      </ul>
+    </div>
+  </main>
+</BaseLayout>

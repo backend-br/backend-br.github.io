@@ -1,0 +1,56 @@
+---
+/**
+ * The bar on top of every page: the brand that leads home, the three sections drawn from the repositories
+ * as the paths they answer at, the search over the challenges, the organization on GitHub and the theme
+ * control. The section the reader is in is marked as the current page.
+ */
+import { SITE, TEXT } from '../content/site'
+import BrandMark from './BrandMark.astro'
+import Icon from './Icon.astro'
+import ThemeToggle from './ThemeToggle.astro'
+
+const sections = [
+  { path: '/desafios/', label: 'desafios' },
+  { path: '/vagas/', label: 'vagas' },
+  { path: '/projetos/', label: 'projetos' },
+]
+const here = Astro.url.pathname
+---
+
+<header class="bb-bar">
+  <div class="bb-wrap bb-bar__inner">
+    <a href="/" class="bb-home" aria-label={TEXT.nav.homeLink}>
+      <BrandMark />
+    </a>
+    <nav class="bb-nav" aria-label={TEXT.nav.label}>
+      <ul>
+        {
+          sections.map((section) => (
+            <li>
+              <a href={section.path} aria-current={here.startsWith(section.path) ? 'page' : undefined}>
+                <span aria-hidden="true">/</span>
+                {section.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="bb-tools">
+      <a href="/busca/" class="bb-tool" aria-label={TEXT.nav.search} title={TEXT.nav.search}>
+        <Icon name="search" size={18} />
+      </a>
+      <a
+        href={SITE.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="bb-tool"
+        aria-label={TEXT.nav.github}
+        title={TEXT.nav.github}
+      >
+        <Icon name="github" size={18} />
+      </a>
+      <ThemeToggle theme={TEXT.theme} />
+    </div>
+  </div>
+</header>

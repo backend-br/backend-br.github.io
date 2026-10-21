@@ -1,0 +1,37 @@
+---
+/**
+ * One job opening: the day it was opened, its title linking to the issue, and its labels, those that say
+ * where, at which level and under which contract first, then the stack.
+ */
+import type { JobEntry } from '../content'
+import { day, TEXT } from '../content/site'
+
+interface Props {
+  job: JobEntry
+}
+const { data } = Astro.props.job
+const terms = [...data.modality, ...data.level, ...data.contract]
+---
+
+<li class="bb-job">
+  <p class="bb-job__day">
+    <span class="sr-only">{TEXT.jobs.opened} </span><time datetime={data.opened}>{day(data.opened)}</time>
+  </p>
+  <div class="bb-job__main">
+    <h3 class="bb-job__title">
+      <a href={data.url} target="_blank" rel="noopener noreferrer">{data.title}</a>
+    </h3>
+    {
+      terms.length + data.stack.length > 0 && (
+        <ul class="bb-chips">
+          {terms.map((term) => (
+            <li class="bb-chip bb-chip--strong">{term}</li>
+          ))}
+          {data.stack.map((term) => (
+            <li class="bb-chip">{term}</li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</li>
