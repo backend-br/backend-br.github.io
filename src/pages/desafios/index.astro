@@ -1,6 +1,6 @@
 ---
 /** The catalog of challenges, in the order the README of `desafios` lists them. */
-import ChallengeRow from '../../components/ChallengeRow.astro'
+import ChallengeCard from '../../components/ChallengeCard.astro'
 import Icon from '../../components/Icon.astro'
 import PageCover from '../../components/PageCover.astro'
 import { challenges as allChallenges } from '../../content'
@@ -26,10 +26,21 @@ const origin = Astro.site ?? Astro.url.origin
       collection(
         origin,
         { path: '/desafios/', name: labels.headline, description: labels.lede },
-        challenges.map((challenge) => ({
-          name: challenge.data.title,
-          url: new URL(`/desafios/${challenge.data.slug}/`, origin).href,
-        })),
+        challenges.map((challenge) => {
+          const url = new URL(`/desafios/${challenge.data.slug}/`, origin).href
+          return {
+            name: challenge.data.title,
+            url,
+            item: {
+              '@type': 'LearningResource',
+              name: challenge.data.title,
+              description: challenge.data.summary,
+              url,
+              learningResourceType: 'Desafio de programação',
+              isAccessibleForFree: true,
+            },
+          }
+        }),
       ),
     ],
   }}
@@ -52,8 +63,8 @@ const origin = Astro.site ?? Astro.url.origin
       </div>
     </PageCover>
     <div class="bb-wrap bb-main">
-      <ul class="bb-rows">
-        {challenges.map((challenge) => <ChallengeRow challenge={challenge} level="h2" />)}
+      <ul class="bb-cards bb-cards--wide">
+        {challenges.map((challenge) => <ChallengeCard challenge={challenge} level="h2" />)}
       </ul>
     </div>
   </main>

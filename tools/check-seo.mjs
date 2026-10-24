@@ -77,8 +77,11 @@ function checkStructuredData(html, page, problems) {
           continue
         }
         list.forEach((item, index) => {
-          const target = item.item ?? item.url
-          if (item.position !== index + 1 || typeof item.name !== 'string' || !/^https:\/\//.test(target ?? '')) {
+          // An entry is linked by its url, or by the thing it holds, given as its address or in full.
+          const held = typeof item.item === 'object' ? item.item : null
+          const target = held?.url ?? item.item ?? item.url
+          const name = held?.name ?? item.name
+          if (item.position !== index + 1 || typeof name !== 'string' || !/^https:\/\//.test(target ?? '')) {
             problems.push(`${node['@type']} item ${index + 1} is malformed`)
           }
         })

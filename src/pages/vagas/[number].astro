@@ -11,6 +11,7 @@ import Icon from '../../components/Icon.astro'
 import PageCover from '../../components/PageCover.astro'
 import { jobs } from '../../content'
 import { plainText } from '../../content/markdown'
+import { formFields, jobPosting } from '../../content/posting'
 import { day, excerpt, LOCALE, MAIN_ID, TEXT } from '../../content/site'
 import { breadcrumbs, organizationId, websiteId } from '../../content/structured-data'
 import BaseLayout from '../../layouts/BaseLayout.astro'
@@ -31,10 +32,10 @@ const author = data.author || labels.deleted
 const lede = labels.ledeOf(day(data.opened))
 /**
  * The text of the opening as plain words, its comments, its HTML and the marks of its headings, quotes and
- * rules left out.
+ * rules left out. An opening posted through the form is described by its description field.
  */
 const words = plainText(
-  (job.body ?? '')
+  (formFields(job.body ?? '').description ?? job.body ?? '')
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<[^>]+>/g, '')
     .replace(/^\s*(#+|>+|[-*_]{3,})\s*/gm, ''),
@@ -42,6 +43,7 @@ const words = plainText(
 // The title leads, since openings posted through the same platform often open on the same words.
 const description = excerpt(`${data.title}. ${words || lede}`)
 const terms = [...data.modality, ...data.level, ...data.contract]
+const posting = jobPosting({ ...data, body: job.body ?? '' }, job.rendered?.html ?? description, new URL(path, origin).href)
 ---
 
 <BaseLayout
@@ -66,6 +68,7 @@ const terms = [...data.modality, ...data.level, ...data.contract]
         isPartOf: { '@id': websiteId(origin) },
         publisher: { '@id': organizationId(origin) },
       },
+      ...(posting ? [posting] : []),
     ],
   }}
 >

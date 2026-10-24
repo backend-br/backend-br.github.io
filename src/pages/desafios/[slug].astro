@@ -1,17 +1,18 @@
 ---
 /**
- * One challenge: its statement, as `PROBLEM.md` writes it, then the solutions the community sent, grouped
- * by language. The statement is what the search indexes, so a search finds a challenge by its problem.
+ * One challenge: its statement, as `PROBLEM.md` writes it, then the solutions the community sent as cards,
+ * the first one sent ahead of the rest, grouped by language. The statement is what the search indexes, so a search finds a challenge by its problem.
  */
 import type { GetStaticPaths } from 'astro'
 import { render } from 'astro:content'
 import Icon from '../../components/Icon.astro'
 import PageCover from '../../components/PageCover.astro'
+import SolutionCard from '../../components/SolutionCard.astro'
 import { challenges } from '../../content'
 import { blobUrl } from '../../content/catalog'
 import { REPOSITORY } from '../../content/challenges'
 import { excerpt, LOCALE, MAIN_ID, TEXT } from '../../content/site'
-import { breadcrumbs, organizationId, websiteId } from '../../content/structured-data'
+import { breadcrumbs, itemList, organizationId, sourceCode, websiteId } from '../../content/structured-data'
 import BaseLayout from '../../layouts/BaseLayout.astro'
 
 export const getStaticPaths = (async () =>
@@ -52,6 +53,25 @@ const description = excerpt(data.summary)
         isBasedOn: statement,
         isPartOf: { '@id': websiteId(origin) },
         provider: { '@id': organizationId(origin) },
+        ...(data.languages.length > 0 ? { keywords: data.languages.map((group) => group.language).join(', ') } : {}),
+        ...(data.solutions.length > 0
+          ? {
+              workExample: itemList(
+                data.solutions.map((solution) => ({
+                  name: solution.name,
+                  url: solution.repository,
+                  item: sourceCode({
+                    name: `${solution.owner}/${solution.name}`,
+                    url: solution.repository,
+                    language: solution.language,
+                    owner: solution.owner,
+                    ...(solution.first ? { description: `${labels.first} de ${data.title}` } : {}),
+                  }),
+                })),
+                labels.communitySolutions,
+              ),
+            }
+          : {}),
       },
     ],
   }}
@@ -86,24 +106,10 @@ const description = excerpt(data.summary)
         <h2 id="solucoes-title" class="bb-display bb-section__title">{labels.communitySolutions}</h2>
       </header>
       {
-        data.languages.length > 0 ? (
-          <ul class="bb-solutions">
-            {data.languages.map((group) => (
-              <li>
-                <h3>
-                  {group.language}
-                  <span>{group.repositories.length}</span>
-                </h3>
-                <ul>
-                  {group.repositories.map((repository) => (
-                    <li>
-                      <a href={repository} target="_blank" rel="noopener noreferrer">
-                        {repository.replace(/^https?:\/\/(www\.)?github\.com\//, '')}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </li>
+        data.solutions.length > 0 ? (
+          <ul class="bb-cards">
+            {data.solutions.map((solution) => (
+              <SolutionCard solution={solution} />
             ))}
           </ul>
         ) : (

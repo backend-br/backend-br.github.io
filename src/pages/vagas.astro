@@ -61,7 +61,7 @@ const issues = `${repositoryUrl(REPOSITORY)}/issues`
             <h2 id="lista-title" class="bb-eyebrow">
               {labels.listed(listed.length, jobs.length)}
             </h2>
-            <ul class="bb-jobs">
+            <ul class="bb-cards">
               {listed.map((job) => (
                 <JobItem job={job} />
               ))}

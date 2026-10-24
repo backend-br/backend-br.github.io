@@ -15,24 +15,24 @@ const { data } = Astro.props.job
 const labels = [...data.modality, ...data.level, ...data.contract, ...data.stack]
 ---
 
-<li class="bb-job">
-  <div class="bb-job__head">
+<li class="bb-card">
+  <div class="bb-card__head">
     <Avatar url={data.avatar} size={28} />
-    <p class="bb-job__who">
-      <span class="bb-job__author">{data.author || TEXT.jobs.deleted}</span>
-      <span class="bb-job__when">
+    <p class="bb-card__who">
+      <span class="bb-card__author">{data.author || TEXT.jobs.deleted}</span>
+      <span class="bb-card__when">
         <span class="sr-only">{TEXT.jobs.opened} </span><time datetime={data.opened} title={day(data.opened)}
           >{since(data.opened)}</time
         >
       </span>
     </p>
   </div>
-  <h3 class="bb-job__title">
+  <h3 class="bb-card__title">
     <a href={`/vagas/${data.number}/`}>{data.title}</a>
   </h3>
   {
     labels.length > 0 && (
-      <ul class="bb-chips bb-job__tags">
+      <ul class="bb-chips bb-card__tags">
         {labels.map((term) => (
           <li class="bb-chip">{term}</li>
         ))}

@@ -33,6 +33,11 @@ export const CATALOG: readonly CatalogEntry[] = [
   { name: 'poste-mais' },
 ]
 
+/** The address of the avatar of a GitHub account, which `Avatar` asks for at the size it draws. */
+export function avatarOf(login: string): string {
+  return `https://avatars.githubusercontent.com/${encodeURIComponent(login)}`
+}
+
 export function repositoryUrl(name: string): string {
   return `https://github.com/${ORGANIZATION}/${name}`
 }

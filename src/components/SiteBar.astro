@@ -1,20 +1,23 @@
 ---
 /**
- * The bar on top of every page: the brand that leads home, the three sections drawn from the repositories
- * as the paths they answer at, the search over the challenges, the organization on GitHub and the theme
- * control. The section the reader is in is marked as the current page.
+ * The bar on top of every page: the brand that leads home, the three sections drawn from the repositories,
+ * the search, which opens as a dialog over the page and is a link to the search page where no script runs, the organization on GitHub and the theme control. The section the reader
+ * is in is lit. Where the bar is wide the sections sit in a pill in its middle; where it is narrow they fold
+ * into a menu that opens below the bar, which works with no script.
  */
 import { SITE, TEXT } from '../content/site'
 import BrandMark from './BrandMark.astro'
 import Icon from './Icon.astro'
+import SearchForm from './SearchForm.astro'
 import ThemeToggle from './ThemeToggle.astro'
 
 const sections = [
-  { path: '/desafios/', label: 'desafios' },
-  { path: '/vagas/', label: 'vagas' },
-  { path: '/projetos/', label: 'projetos' },
+  { path: '/desafios/', label: 'Desafios' },
+  { path: '/vagas/', label: 'Vagas' },
+  { path: '/projetos/', label: 'Projetos' },
 ]
 const here = Astro.url.pathname
+const current = (path: string): 'page' | undefined => (here.startsWith(path) ? 'page' : undefined)
 ---
 
 <header class="bb-bar">
@@ -27,8 +30,7 @@ const here = Astro.url.pathname
         {
           sections.map((section) => (
             <li>
-              <a href={section.path} aria-current={here.startsWith(section.path) ? 'page' : undefined}>
-                <span aria-hidden="true">/</span>
+              <a href={section.path} aria-current={current(section.path)}>
                 {section.label}
               </a>
             </li>
@@ -37,8 +39,17 @@ const here = Astro.url.pathname
       </ul>
     </nav>
     <div class="bb-tools">
-      <a href="/busca/" class="bb-tool" aria-label={TEXT.nav.search} title={TEXT.nav.search}>
+      <a
+        href="/busca/"
+        class="bb-tool bb-tool--search"
+        aria-label={TEXT.nav.search}
+        title={TEXT.nav.search}
+        aria-haspopup="dialog"
+        data-search-open
+      >
         <Icon name="search" size={18} />
+        <span aria-hidden="true">{TEXT.nav.searchShort}</span>
+        <kbd aria-hidden="true">{TEXT.search.shortcut}</kbd>
       </a>
       <a
         href={SITE.github}
@@ -51,6 +62,36 @@ const here = Astro.url.pathname
         <Icon name="github" size={18} />
       </a>
       <ThemeToggle theme={TEXT.theme} />
+      <details class="bb-menu">
+        <summary class="bb-tool" aria-label={TEXT.nav.menu} title={TEXT.nav.menu}>
+          <Icon name="menu" size={20} />
+        </summary>
+        <nav class="bb-menu__panel" aria-label={TEXT.nav.label}>
+          <ul>
+            {
+              sections.map((section) => (
+                <li>
+                  <a href={section.path} aria-current={current(section.path)}>
+                    {section.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </details>
     </div>
   </div>
 </header>
+
+<dialog class="bb-dialog" aria-label={TEXT.search.title} closedby="any" data-search-dialog>
+  <div class="bb-dialog__head">
+    <p class="bb-dialog__title">{TEXT.search.title}</p>
+    <form method="dialog">
+      <button type="submit" class="bb-tool" aria-label={TEXT.search.close} title={TEXT.search.close}>
+        <span aria-hidden="true">✕</span>
+      </button>
+    </form>
+  </div>
+  <SearchForm id="search-dialog-term" autofocus />
+</dialog>

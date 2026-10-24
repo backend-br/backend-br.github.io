@@ -1,13 +1,13 @@
 import type { APIRoute } from 'astro'
-import { challenges, repositories } from '../content'
+import { challenges, jobs, projects, repositories } from '../content'
 import { rawUrl } from '../content/catalog'
 import { REPOSITORY as CHALLENGES } from '../content/challenges'
 import { SITE, TEXT } from '../content/site'
 
 /**
  * The index of the site for language models, in the llms.txt format: what Back-End Brasil is, its pages,
- * its figures as JSON, its repositories, and every challenge with its page and the statement it is drawn
- * from, as plain Markdown.
+ * its figures as JSON, its repositories, every challenge with its page, the statement it is drawn from and
+ * its first solution, every open job and every open-source project, as plain Markdown.
  */
 export const GET: APIRoute = async ({ site, url }) => {
   const origin = site ?? new URL(url.origin)
@@ -35,9 +35,24 @@ export const GET: APIRoute = async ({ site, url }) => {
     '',
     '## Desafios',
     '',
-    ...(await challenges()).map(
-      (challenge) =>
-        `- [${challenge.data.title}](${page(`/desafios/${challenge.data.slug}/`)}): ${challenge.data.summary} Enunciado: ${rawUrl(CHALLENGES, `${challenge.data.slug}/PROBLEM.md`)}`,
+    ...(await challenges()).map((challenge) => {
+      const first = challenge.data.solutions.find((solution) => solution.first)
+      const solved = `${TEXT.challenges.solutions(challenge.data.solutionCount)}.${first ? ` ${TEXT.challenges.first}: ${first.repository}` : ''}`
+      return `- [${challenge.data.title}](${page(`/desafios/${challenge.data.slug}/`)}): ${challenge.data.summary} Enunciado: ${rawUrl(CHALLENGES, `${challenge.data.slug}/PROBLEM.md`)} ${solved}`
+    }),
+    '',
+    '## Vagas abertas',
+    '',
+    ...(await jobs()).map(
+      (job) =>
+        `- [${job.data.title}](${page(`/vagas/${job.data.number}/`)}): aberta em ${job.data.opened.slice(0, 10)}.`,
+    ),
+    '',
+    '## Projetos open-source',
+    '',
+    ...(await projects()).map(
+      (project) =>
+        `- [${project.data.name}](${project.data.url})${project.data.language ? `: ${project.data.language}` : ''}`,
     ),
     '',
   ]
