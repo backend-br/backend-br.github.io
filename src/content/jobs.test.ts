@@ -17,6 +17,8 @@ function issue(number: number, created: string, labels: readonly string[], extra
     created_at: created,
     locked: false,
     labels: labels.map((name) => ({ name })),
+    user: { login: 'recrutadora', avatar_url: 'https://avatars.githubusercontent.com/u/1?v=4' },
+    body: '\n### Descrição da vaga\n\nBackend em Python.\n',
     ...extra,
   }
 }
@@ -74,14 +76,28 @@ describe('the openings among the open issues', () => {
       level: ['Sênior'],
       contract: ['PJ'],
       stack: ['Python', 'Rust'],
+      author: 'recrutadora',
+      avatar: 'https://avatars.githubusercontent.com/u/1?v=4',
+      body: '### Descrição da vaga\n\nBackend em Python.',
     })
+  })
+
+  it('reads an opening whose author GitHub deleted and whose issue has no text', () => {
+    // Given an opening with no user and no body
+    const issues = [issue(11, '2026-10-22T10:00:00Z', [], { user: null, body: null })]
+
+    // When the openings are read
+    const [job] = openings(issues, LABELS)
+
+    // Then it has no author, no avatar and an empty text
+    expect([job?.author, job?.avatar, job?.body]).toEqual(['', '', ''])
   })
 
   it('leaves out an opening the triage refused and hides the labels of the triage', () => {
     // Given an opening the triage refused and others it verified or still holds in review
     const issues = [
       issue(8, '2026-10-21T10:00:00Z', ['Python', 'triagem-recusada']),
-      issue(9, '2026-10-21T11:00:00Z', ['Python', 'verificada', 'revisada']),
+      issue(9, '2026-10-21T11:00:00Z', ['Python', 'verificada', 'revisada', 'link-quebrado', 'formato-sugerido']),
       issue(10, '2026-10-21T12:00:00Z', ['em-triagem', 'Remoto']),
     ]
 

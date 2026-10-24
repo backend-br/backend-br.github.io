@@ -1,7 +1,7 @@
 ---
 /**
  * The latest job openings of `vagas`, read again every day. The page lists the newest ones and leaves the
- * rest, and the filtering, to GitHub, where every opening lives as an issue.
+ * rest to GitHub, where every opening lives as an issue.
  */
 import Icon from '../components/Icon.astro'
 import JobItem from '../components/JobItem.astro'
@@ -9,7 +9,7 @@ import PageCover from '../components/PageCover.astro'
 import { jobs as allJobs } from '../content'
 import { repositoryUrl } from '../content/catalog'
 import { REPOSITORY } from '../content/jobs'
-import { LOCALE, MAIN_ID, TEXT } from '../content/site'
+import { MAIN_ID, TEXT } from '../content/site'
 import { breadcrumbs, collection } from '../content/structured-data'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
@@ -21,18 +21,6 @@ const listed = jobs.slice(0, LISTED)
 const labels = TEXT.jobs
 const origin = Astro.site ?? Astro.url.origin
 const issues = `${repositoryUrl(REPOSITORY)}/issues`
-
-/** Answers the address of the open issues of `vagas` that carry a label. */
-function filtered(label: string): string {
-  return `${issues}?${new URLSearchParams({ q: `is:issue is:open label:"${label}"` })}`
-}
-
-const facets = (['modality', 'level', 'contract'] as const)
-  .map((facet) => ({
-    title: labels.facets[facet],
-    terms: [...new Set(jobs.flatMap((job) => job.data[facet]))].sort((a, b) => a.localeCompare(b, LOCALE)),
-  }))
-  .filter((facet) => facet.terms.length > 0)
 ---
 
 <BaseLayout
@@ -68,35 +56,12 @@ const facets = (['modality', 'level', 'contract'] as const)
     </PageCover>
     <div class="bb-wrap bb-main">
       {
-        facets.length > 0 && (
-          <nav class="bb-filter" aria-labelledby="filtro-title">
-            <h2 id="filtro-title" class="bb-eyebrow">
-              {labels.filter}
-            </h2>
-            {facets.map((facet) => (
-              <div class="bb-filter__group">
-                <span class="bb-filter__label">{facet.title}</span>
-                <ul class="bb-filter__group">
-                  {facet.terms.map((term) => (
-                    <li>
-                      <a href={filtered(term)} target="_blank" rel="noopener noreferrer">
-                        {term}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </nav>
-        )
-      }
-      {
         jobs.length > 0 ? (
-          <section class="bb-filter" aria-labelledby="lista-title">
+          <section class="bb-listing" aria-labelledby="lista-title">
             <h2 id="lista-title" class="bb-eyebrow">
               {labels.listed(listed.length, jobs.length)}
             </h2>
-            <ul class="bb-rows">
+            <ul class="bb-jobs">
               {listed.map((job) => (
                 <JobItem job={job} />
               ))}

@@ -1,0 +1,123 @@
+---
+/**
+ * One job opening: who posted it and when, all of its labels, and its text as the author wrote it on the
+ * issue, which is rendered as untrusted Markdown. The page points to the issue, where the opening is applied
+ * to and discussed.
+ */
+import type { GetStaticPaths } from 'astro'
+import { render } from 'astro:content'
+import Avatar from '../../components/Avatar.astro'
+import Icon from '../../components/Icon.astro'
+import PageCover from '../../components/PageCover.astro'
+import { jobs } from '../../content'
+import { plainText } from '../../content/markdown'
+import { day, excerpt, LOCALE, MAIN_ID, TEXT } from '../../content/site'
+import { breadcrumbs, organizationId, websiteId } from '../../content/structured-data'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+export const getStaticPaths = (async () =>
+  (await jobs()).map((job) => ({
+    params: { number: String(job.data.number) },
+    props: { job },
+  }))) satisfies GetStaticPaths
+
+const { job } = Astro.props
+const { data } = job
+const { Content } = await render(job)
+const labels = TEXT.jobs
+const origin = Astro.site ?? Astro.url.origin
+const path = `/vagas/${data.number}/`
+const author = data.author || labels.deleted
+const lede = labels.ledeOf(day(data.opened))
+/**
+ * The text of the opening as plain words, its comments, its HTML and the marks of its headings, quotes and
+ * rules left out.
+ */
+const words = plainText(
+  (job.body ?? '')
+    .replace(/<!--[\s\S]*?-->/g, '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/^\s*(#+|>+|[-*_]{3,})\s*/gm, ''),
+)
+// The title leads, since openings posted through the same platform often open on the same words.
+const description = excerpt(`${data.title}. ${words || lede}`)
+const terms = [...data.modality, ...data.level, ...data.contract]
+---
+
+<BaseLayout
+  title={labels.headlineOf(data.title, data.number)}
+  description={description}
+  path={path}
+  kind="article"
+  structuredData={{
+    '@graph': [
+      breadcrumbs(origin, [
+        { name: labels.title, path: '/vagas/' },
+        { name: data.title, path },
+      ]),
+      {
+        '@type': 'WebPage',
+        name: data.title,
+        description,
+        url: new URL(path, origin).href,
+        inLanguage: LOCALE,
+        datePublished: data.opened,
+        isBasedOn: data.url,
+        isPartOf: { '@id': websiteId(origin) },
+        publisher: { '@id': organizationId(origin) },
+      },
+    ],
+  }}
+>
+  <main id={MAIN_ID}>
+    <div data-pagefind-body>
+      <PageCover compact title={data.title} lede={lede} trail={[{ label: labels.title, href: '/vagas/' }]}>
+        <p class="bb-poster" data-pagefind-ignore>
+          <Avatar url={data.avatar} size={40} />
+          <span>
+            <span class="bb-poster__by">{labels.by}</span>
+            {
+              data.author ? (
+                <a href={`https://github.com/${data.author}`} target="_blank" rel="noopener noreferrer">
+                  @{data.author}
+                </a>
+              ) : (
+                <span>{author}</span>
+              )
+            }
+          </span>
+        </p>
+        {
+          terms.length + data.stack.length > 0 && (
+            <ul class="bb-chips bb-poster__tags">
+              {terms.map((term) => (
+                <li class="bb-chip bb-chip--strong">{term}</li>
+              ))}
+              {data.stack.map((term) => (
+                <li class="bb-chip">{term}</li>
+              ))}
+            </ul>
+          )
+        }
+        <div class="bb-actions" data-pagefind-ignore>
+          <a href={data.url} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
+            {labels.apply}
+            <Icon name="external" size={16} />
+          </a>
+          <a href="/vagas/" class="bb-button bb-button--ghost">{TEXT.home.allJobs}</a>
+        </div>
+      </PageCover>
+      <div class="bb-wrap bb-main">
+        {
+          job.body ? (
+            <article class="bb-article bb-md">
+              <Content />
+            </article>
+          ) : (
+            <p class="bb-empty">{labels.noBody}</p>
+          )
+        }
+      </div>
+    </div>
+  </main>
+</BaseLayout>

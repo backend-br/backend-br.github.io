@@ -830,49 +830,144 @@ a.bb-row:hover .bb-row__title {
   color: var(--color-accent);
 }
 
-/* The job openings: the day opened beside the title, and the labels under it. */
-.bb-job {
+/*
+ * The job openings: a grid of small cards, each one the link to the page of its opening. Every row takes the
+ * height of the tallest, so all cards share one size and none of their text is cut.
+ */
+.bb-jobs {
   display: grid;
-  gap: 0.5rem;
-  padding-block: 1.125rem;
+  grid-auto-rows: 1fr;
+  gap: 0.75rem;
 }
-@media (min-width: 48rem) {
-  .bb-job {
-    grid-template-columns: 9rem minmax(0, 1fr);
-    column-gap: 1.5rem;
+@media (min-width: 40rem) {
+  .bb-jobs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-.bb-job__day {
-  padding-block-start: 0.2rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--color-ink-coat);
+@media (min-width: 56rem) {
+  .bb-jobs {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
-.bb-job__main {
+@media (min-width: 72rem) {
+  .bb-jobs {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+.bb-job {
+  position: relative;
+  display: flex;
+  height: 100%;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-hair);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  transition:
+    border-color 150ms ease,
+    transform 150ms ease,
+    box-shadow 150ms ease;
+}
+.bb-job:hover,
+.bb-job:focus-within {
+  border-color: var(--color-accent);
+  box-shadow: var(--shadow-raised);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bb-job:hover {
+    transform: translateY(-2px);
+  }
+}
+.bb-job__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.bb-job__who {
   display: flex;
   min-width: 0;
   flex-direction: column;
-  gap: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  line-height: 1.4;
+  color: var(--color-ink-coat);
 }
-.bb-job__title {
-  font-weight: var(--font-weight-bold);
-  font-size: 1.0625rem;
-  line-height: 1.35;
-  color: var(--color-ink);
+.bb-job__author {
+  color: var(--color-ink-muted);
+  font-weight: var(--font-weight-demibold);
   overflow-wrap: anywhere;
 }
-/* The title reaches past its line so a single line still offers the 44 a finger aims at. */
-.bb-job__title a {
-  display: block;
-  padding-block: 0.6875rem;
-  margin-block: -0.6875rem;
+.bb-job__title {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--color-ink);
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+.bb-job:hover .bb-job__title a {
   text-decoration: underline;
-  text-decoration-color: var(--color-hair);
-  text-decoration-thickness: 1px;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--color-mark);
   text-underline-offset: 4px;
 }
-.bb-job__title a:hover {
-  text-decoration-color: var(--color-accent);
+/* The title is the link of the whole card, reaching over it so the card is one target. */
+.bb-job__title a::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius-lg);
+}
+.bb-job__title a:focus-visible {
+  outline: none;
+}
+.bb-job:has(.bb-job__title a:focus-visible) {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+/* The labels sit at the foot of the card, so the cards of a row line them up. */
+.bb-job__tags {
+  margin-block-start: auto;
+}
+.bb-avatar {
+  display: inline-block;
+  flex-shrink: 0;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-hair);
+  background: var(--color-surface-strong);
+}
+
+/* Who posted an opening, on its page, and every label it carries. */
+.bb-poster {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.bb-poster > span {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mono);
+  font-weight: var(--font-weight-bold);
+}
+.bb-poster__by {
+  font-size: var(--text-caption);
+  font-weight: normal;
+  color: var(--color-ink-coat);
+}
+.bb-poster a {
+  color: var(--color-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--color-mark);
+  text-underline-offset: 4px;
+}
+.bb-poster__tags {
+  max-width: 48rem;
 }
 .bb-chips {
   display: flex;
@@ -916,6 +1011,11 @@ a.bb-row:hover .bb-row__title {
 .bb-cover__title {
   font-size: clamp(2.25rem, 8vw, 3.75rem);
   overflow-wrap: anywhere;
+}
+.bb-cover__title--compact {
+  max-width: 48rem;
+  font-size: clamp(1.75rem, 5vw, 2.5rem);
+  line-height: 1.1;
 }
 .bb-cover__lede {
   max-width: 44rem;
@@ -968,36 +1068,11 @@ a.bb-row:hover .bb-row__title {
   color: var(--color-ink-muted);
 }
 
-/* ------------------------------------ filter ------------------------------------ */
-.bb-filter {
+/* ------------------------------------ listing ----------------------------------- */
+.bb-listing {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
-}
-.bb-filter__group {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.25rem 0.5rem;
-}
-.bb-filter__label {
-  min-width: 7.5rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--color-ink-coat);
-}
-.bb-filter a {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  padding-inline: 0.5rem;
-  color: var(--color-accent);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--text-small);
-  text-decoration: underline;
-  text-underline-offset: 3px;
 }
 
 /* ---------------------------------- challenge ----------------------------------- */

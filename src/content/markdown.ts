@@ -108,3 +108,102 @@ export function absoluteLinks(markdown: string, base: { blob: string; raw: strin
       return `${open}${resolve(target, true, base)}${close}`
     })
 }
+
+/**
+ * How code is colored, at build time in both themes, with the stylesheet picking the one in force. The high
+ * contrast editions are used because the comments of the plain ones fall to 3:1 on their own ground.
+ */
+export const SHIKI = {
+  themes: { light: 'github-light-high-contrast', dark: 'github-dark-high-contrast' },
+  defaultColor: false,
+} as const
+
+/** A node of the HTML tree a Markdown document becomes, reduced to what the plugins below read. */
+interface HtmlNode {
+  type: string
+  value?: string
+  tagName?: string
+  properties?: Record<string, unknown>
+  children?: HtmlNode[]
+}
+
+/** The addresses a link or an image written by anyone may carry: the web, mail and an anchor of the page. */
+const SAFE_URL = /^(https?:|mailto:|#)/i
+
+/**
+ * The rehype plugin for Markdown written by anyone, such as the text of an opening. It drops every piece of
+ * raw HTML, so only what Markdown itself writes is left, drops an address that is not safe to follow, and
+ * marks every link that leaves the site so it opens beside the page.
+ */
+export function rehypeUntrusted() {
+  const visit = (node: HtmlNode): void => {
+    if (node.children) {
+      node.children = node.children.filter((child) => child.type !== 'raw')
+    }
+    if (node.type === 'element' && node.properties) {
+      for (const key of ['href', 'src']) {
+        const value = node.properties[key]
+        if (value !== undefined && !SAFE_URL.test(String(value).trim())) {
+          delete node.properties[key]
+        }
+      }
+      if (node.tagName === 'a' && /^https?:/i.test(String(node.properties.href ?? ''))) {
+        node.properties = { ...node.properties, target: '_blank', rel: 'noopener noreferrer nofollow ugc' }
+      }
+    }
+    node.children?.forEach(visit)
+  }
+  return visit
+}
+
+/**
+ * The rehype plugin that fits the headings of a document written by anyone under the title of the page it
+ * is shown in. The first heading becomes a second level one, and none goes more than one level below the
+ * one before it, so the outline of the page never skips a level, however the author numbered it.
+ */
+export function rehypeOutline() {
+  let last = 1
+  const visit = (node: HtmlNode): void => {
+    const level = /^h([1-6])$/.exec(node.tagName ?? '')?.[1]
+    if (node.type === 'element' && level) {
+      last = Math.max(2, Math.min(Number(level), last + 1))
+      node.tagName = `h${last}`
+    }
+    node.children?.forEach(visit)
+  }
+  return (tree: HtmlNode): void => {
+    last = 1
+    visit(tree)
+  }
+}
+
+/** The elements whose text is read as lines of prose, where a new line is a break. */
+const PROSE = new Set(['p', 'li', 'td', 'th', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'a', 'strong', 'em', 'del'])
+
+/**
+ * The rehype plugin that keeps the line breaks of a text the way GitHub shows an issue, where a single new
+ * line inside a paragraph is a break rather than a space. Only the text of prose breaks: the space between
+ * blocks stays space, and code keeps its lines as they are.
+ */
+export function rehypeLineBreaks() {
+  const visit = (node: HtmlNode): void => {
+    if (!node.children) {
+      return
+    }
+    if (node.type === 'element' && PROSE.has(node.tagName ?? '')) {
+      node.children = node.children.flatMap((child) => {
+        if (child.type !== 'text' || !child.value?.trim() || !child.value.includes('\n')) {
+          return [child]
+        }
+        return child.value
+          .split('\n')
+          .flatMap((line, index): HtmlNode[] => [
+            ...(index > 0 ? [{ type: 'element', tagName: 'br', properties: {}, children: [] }] : []),
+            ...(line ? [{ type: 'text', value: line }] : []),
+          ])
+      })
+    }
+    node.children.forEach(visit)
+  }
+  return visit
+}
