@@ -2,6 +2,9 @@
  * The Brazilian open-source projects the `opensource-br` repository lists. Its README registers each
  * project as a row of the table under `## Projetos`: the name linking to the source code, the language,
  * and any other links, such as documentation or a site.
+ *
+ * The site presents only the projects that live on GitHub, ranked by their stars: a repository by its
+ * own, and a project linked to a whole account by the stars of every public repository the account has.
  */
 import { firstUrl, headingOf, type Link, links, sections, tableRows } from './markdown'
 
@@ -17,11 +20,6 @@ export interface Project {
   readonly source: string
   readonly language: string
   readonly links: readonly Link[]
-}
-
-export interface ProjectGroup {
-  readonly language: string
-  readonly projects: readonly Project[]
 }
 
 function sourceOf(url: string): string {
@@ -42,8 +40,10 @@ export function projects(readme: string): Project[] {
 }
 
 /** Answers the projects grouped by language, in the order each language first appears in the table. */
-export function byLanguage(list: readonly Project[]): ProjectGroup[] {
-  const groups = new Map<string, Project[]>()
+export function byLanguage<T extends Pick<Project, 'language'>>(
+  list: readonly T[],
+): { readonly language: string; readonly projects: readonly T[] }[] {
+  const groups = new Map<string, T[]>()
   for (const project of list) {
     groups.set(project.language, [...(groups.get(project.language) ?? []), project])
   }
@@ -61,4 +61,34 @@ export function languageAnchor(language: string): string {
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-|-$/g, '')
   return `linguagem-${slug}`
+}
+
+/** Where a project lives on GitHub: one repository, or an account whose public repositories make it up. */
+export type GitHubHome =
+  | { readonly kind: 'repository'; readonly owner: string; readonly name: string }
+  | { readonly kind: 'account'; readonly owner: string }
+
+/** Answers where on GitHub an address points, or null for an address outside it or deeper than a repository. */
+export function githubHome(url: string): GitHubHome | null {
+  const match = /^https?:\/\/(?:www\.)?github\.com\/([\w.-]+)(?:\/([\w.-]+))?\/?$/i.exec(url.trim())
+  const [, owner, name] = match ?? []
+  if (owner === undefined) {
+    return null
+  }
+  return name === undefined
+    ? { kind: 'account', owner }
+    : { kind: 'repository', owner, name: name.replace(/\.git$/, '') }
+}
+
+/**
+ * Answers the projects that live on GitHub, the most starred first and the order of the table between
+ * equals. A project whose stars are unknown, since GitHub has nothing at its address, is left out.
+ */
+export function byStars<T extends Project>(
+  list: readonly { project: T; stars: number | null }[],
+): (T & { stars: number })[] {
+  return list
+    .flatMap(({ project, stars }, index) => (stars === null ? [] : [{ ...project, stars, index }]))
+    .sort((a, b) => b.stars - a.stars || a.index - b.index)
+    .map(({ index: _, ...project }) => project as T & { stars: number })
 }

@@ -119,15 +119,13 @@ export const TEXT = {
   projects: {
     title: 'Projetos open-source',
     headline: 'Projetos open-source brasileiros',
-    lede: 'Projetos open-source brasileiros que a comunidade reúne em backend-br/opensource-br, com filtro por linguagem.',
+    lede: 'Projetos open-source brasileiros que a comunidade reúne em backend-br/opensource-br, dos mais estrelados aos menos, com filtro por linguagem.',
     count: (count: number) => plural(count, 'projeto', 'projetos'),
     add: 'Adicionar um projeto',
     addUrl: blobUrl('opensource-br', 'CONTRIBUTING.md'),
     list: 'Ver a lista no GitHub',
     languages: 'Filtrar por linguagem',
     all: 'Todas',
-    /** The name of a link of a project, such as Site de Securo, so each one says whose it is. */
-    linkOf: (label: string, project: string) => `${label} de ${project}`,
   },
   search: {
     title: 'Buscar nos desafios e nas vagas',

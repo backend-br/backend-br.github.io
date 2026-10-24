@@ -1,6 +1,6 @@
 /**
  * The content of the site in the order the pages present it: the repositories and the challenges as their
- * sources list them, the openings newest first, and the projects as the table of `opensource-br` holds them.
+ * sources list them, the openings newest first, and the projects the most starred first.
  */
 import { type CollectionEntry, getCollection } from 'astro:content'
 
