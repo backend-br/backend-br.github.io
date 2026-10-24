@@ -36,7 +36,10 @@ export const TEXT = {
     home: 'Início',
     /** The name of the brand link, which begins with the wordmark it shows so a voice command can name it. */
     homeLink: 'backend brasil, início',
-    search: 'Buscar nos desafios',
+    search: 'Buscar nos desafios e nas vagas',
+    /** The word on the search control of the bar, which the icon stands for where the bar is narrow. */
+    searchShort: 'Buscar',
+    menu: 'Menu',
     toTop: 'Voltar ao topo',
     github: 'Back-End Brasil no GitHub',
     crumbs: 'Você está aqui',
@@ -83,6 +86,9 @@ export const TEXT = {
     contribute: 'Enviar uma solução',
     contributing: blobUrl('desafios', 'CONTRIBUTING.md'),
     communitySolutions: 'Soluções da comunidade',
+    /** The mark of the first solution sent to a challenge. */
+    first: 'Primeira solução',
+    firstBy: 'Primeira solução por',
     noSolutions: 'Ninguém enviou uma solução para este desafio ainda. Siga o guia de contribuição e envie a primeira.',
   },
   jobs: {
@@ -113,20 +119,24 @@ export const TEXT = {
   projects: {
     title: 'Projetos open-source',
     headline: 'Projetos open-source brasileiros',
-    lede: 'Projetos open-source brasileiros que a comunidade reúne em backend-br/opensource-br, agrupados por linguagem.',
+    lede: 'Projetos open-source brasileiros que a comunidade reúne em backend-br/opensource-br, com filtro por linguagem.',
     count: (count: number) => plural(count, 'projeto', 'projetos'),
     add: 'Adicionar um projeto',
     addUrl: blobUrl('opensource-br', 'CONTRIBUTING.md'),
     list: 'Ver a lista no GitHub',
-    languages: 'Linguagens',
+    languages: 'Filtrar por linguagem',
+    all: 'Todas',
     /** The name of a link of a project, such as Site de Securo, so each one says whose it is. */
     linkOf: (label: string, project: string) => `${label} de ${project}`,
   },
   search: {
-    title: 'Buscar nos desafios',
-    lede: 'Procure um tema, uma tecnologia ou um requisito nos enunciados dos desafios.',
+    title: 'Buscar nos desafios e nas vagas',
+    lede: 'Procure um tema, uma tecnologia ou um requisito nos desafios e nas vagas abertas.',
     label: 'Termo de busca',
-    placeholder: 'Ex.: token, senha, redirecionamento',
+    placeholder: 'Ex.: token, Python, remoto',
+    close: 'Fechar a busca',
+    /** The keys that open the search from any page, shown beside the field. */
+    shortcut: 'Ctrl K',
     idle: 'Digite pelo menos duas letras.',
     loading: 'Buscando...',
     empty: 'Nada encontrado. Tente outra palavra.',

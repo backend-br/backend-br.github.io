@@ -7,7 +7,7 @@ import { challenges as allChallenges, figures as allFigures, jobs as allJobs, re
 import { MAIN_ID, SITE, TEXT } from '../content/site'
 import { identity } from '../content/structured-data'
 import BaseLayout from '../layouts/BaseLayout.astro'
-import ChallengeRow from './ChallengeRow.astro'
+import ChallengeCard from './ChallengeCard.astro'
 import Icon from './Icon.astro'
 import JobItem from './JobItem.astro'
 import Terminal from './Terminal.astro'
@@ -98,8 +98,8 @@ const origin = Astro.site ?? Astro.url.origin
           <h2 id="desafios-title" class="bb-display bb-section__title">{TEXT.home.challengesTitle}</h2>
           <p class="bb-section__lede">{TEXT.home.challengesLede}</p>
         </header>
-        <ul class="bb-rows">
-          {challenges.map((challenge) => <ChallengeRow challenge={challenge} />)}
+        <ul class="bb-cards bb-cards--wide">
+          {challenges.map((challenge) => <ChallengeCard challenge={challenge} />)}
         </ul>
       </section>
 
@@ -110,7 +110,7 @@ const origin = Astro.site ?? Astro.url.origin
         </header>
         {
           jobs.length > 0 ? (
-            <ul class="bb-jobs">
+            <ul class="bb-cards">
               {jobs.slice(0, LATEST_JOBS).map((job) => (
                 <JobItem job={job} />
               ))}

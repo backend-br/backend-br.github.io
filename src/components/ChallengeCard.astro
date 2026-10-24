@@ -1,0 +1,44 @@
+---
+/**
+ * One challenge in a list: its title and summary, who sent its first solution, and how many solutions in
+ * how many languages it has.
+ */
+import type { Challenge } from '../content'
+import { avatarOf } from '../content/catalog'
+import { TEXT } from '../content/site'
+import Avatar from './Avatar.astro'
+
+interface Props {
+  challenge: Challenge
+  /** The level of the title, which follows the heading of the list it sits in. */
+  level?: 'h2' | 'h3'
+}
+const { challenge, level: Heading = 'h3' } = Astro.props
+const { data } = challenge
+const labels = TEXT.challenges
+const first = data.solutions.find((solution) => solution.first)
+---
+
+<li class="bb-card">
+  <Heading class="bb-card__title"><a href={`/desafios/${data.slug}/`}>{data.title}</a></Heading>
+  <p class="bb-card__summary" title={data.summary}>{data.summary}</p>
+  <div class="bb-card__foot">
+    {
+      first && (
+        <p class="bb-first">
+          <Avatar url={avatarOf(first.owner)} size={32} />
+          <span class="bb-first__text">
+            <span class="bb-first__label">
+              <span aria-hidden="true">🥇</span> {labels.first}
+            </span>
+            <span class="bb-first__who">{first.owner}</span>
+          </span>
+        </p>
+      )
+    }
+    <ul class="bb-chips">
+      <li class="bb-chip">{labels.solutions(data.solutionCount)}</li>
+      {data.languages.length > 0 && <li class="bb-chip">{labels.languages(data.languages.length)}</li>}
+    </ul>
+  </div>
+</li>

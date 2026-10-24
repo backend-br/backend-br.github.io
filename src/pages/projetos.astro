@@ -1,15 +1,17 @@
 ---
 /**
- * The Brazilian open-source projects `opensource-br` lists, grouped by language in the order its table
- * holds them, with an index of the languages on top.
+ * The Brazilian open-source projects `opensource-br` lists, as one grid of cards ordered by language, the
+ * languages in the order its table holds them. A row of chips on top filters the grid by language, and a
+ * link to a language, such as `#python`, opens the page filtered by it.
  */
 import Icon from '../components/Icon.astro'
+import ProjectCard from '../components/ProjectCard.astro'
 import PageCover from '../components/PageCover.astro'
 import { projects as allProjects } from '../content'
 import { repositoryUrl } from '../content/catalog'
 import { byLanguage, languageAnchor as anchor, REPOSITORY } from '../content/projects'
 import { MAIN_ID, TEXT } from '../content/site'
-import { breadcrumbs, collection } from '../content/structured-data'
+import { breadcrumbs, collection, sourceCode } from '../content/structured-data'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
 const projects = await allProjects()
@@ -29,7 +31,16 @@ const origin = Astro.site ?? Astro.url.origin
       collection(
         origin,
         { path: '/projetos/', name: labels.headline, description: labels.lede },
-        projects.map((project) => ({ name: project.data.name, url: project.data.url })),
+        projects.map((project) => ({
+          name: project.data.name,
+          url: project.data.url,
+          item: sourceCode({
+            name: project.data.name,
+            url: project.data.url,
+            language: project.data.language,
+            ...(/^https?:\/\/(www\.)?github\.com\//.test(project.data.url) ? { owner: project.data.source.split('/')[0] } : {}),
+          }),
+        })),
       ),
     ],
   }}
@@ -51,58 +62,29 @@ const origin = Astro.site ?? Astro.url.origin
       </div>
     </PageCover>
     <div class="bb-wrap bb-main">
-      <nav aria-label={labels.languages}>
-        <ul class="bb-index">
-          {
-            groups.map((group) => (
-              <li>
-                <a href={`#${anchor(group.language)}`}>
-                  {group.language}
-                  <span>{group.projects.length}</span>
-                </a>
-              </li>
+      <div class="bb-filter" role="group" aria-label={labels.languages}>
+        <button type="button" data-filter="" aria-pressed="true">
+          {labels.all}
+          <span>{projects.length}</span>
+        </button>
+        {
+          [...groups]
+            .sort((a, b) => b.projects.length - a.projects.length)
+            .map((group) => (
+              <button type="button" data-filter={anchor(group.language)} aria-pressed="false">
+                {group.language}
+                <span>{group.projects.length}</span>
+              </button>
             ))
-          }
-        </ul>
-      </nav>
-      {
-        groups.map((group) => (
-          <section class="bb-group" id={anchor(group.language)} aria-labelledby={`${anchor(group.language)}-title`}>
-            <h2 id={`${anchor(group.language)}-title`} class="bb-display bb-group__title">
-              {group.language}
-              <span>{labels.count(group.projects.length)}</span>
-            </h2>
-            <ul class="bb-projects">
-              {group.projects.map((project) => (
-                <li class="bb-project">
-                  <h3 class="bb-project__name">
-                    <a href={project.url} target="_blank" rel="noopener noreferrer">
-                      {project.name}
-                    </a>
-                  </h3>
-                  <p class="bb-project__source">{project.source}</p>
-                  {project.links.length > 0 && (
-                    <ul class="bb-project__links">
-                      {project.links.map((link) => (
-                        <li>
-                          <a
-                            href={link.url}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label={labels.linkOf(link.label, project.name)}
-                          >
-                            {link.label}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </section>
-        ))
-      }
+        }
+      </div>
+      <ul class="bb-cards" data-project-list>
+        {groups.flatMap((group) => group.projects).map((project) => <ProjectCard project={project} level="h2" />)}
+      </ul>
     </div>
   </main>
 </BaseLayout>
+
+<script>
+  import '../scripts/project-filter.ts'
+</script>

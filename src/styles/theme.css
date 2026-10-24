@@ -268,21 +268,19 @@
   background: var(--color-surface);
 }
 .bb-bar__inner {
+  position: relative;
   display: grid;
   grid-template-columns: 1fr auto;
-  grid-template-areas:
-    'brand tools'
-    'nav nav';
+  grid-template-areas: 'brand tools';
   align-items: center;
   column-gap: 1rem;
-  padding-block: 0.5rem;
+  min-height: 4rem;
 }
 @media (min-width: 52rem) {
   .bb-bar__inner {
-    grid-template-columns: auto 1fr auto;
+    grid-template-columns: 1fr auto 1fr;
     grid-template-areas: 'brand nav tools';
     min-height: 4.5rem;
-    padding-block: 0;
   }
 }
 .bb-home {
@@ -324,50 +322,97 @@
 .bb-brand__word span + span {
   color: var(--color-accent);
 }
+/* The sections, a pill in the middle of the bar with the one the reader is in lit. */
 .bb-nav {
   grid-area: nav;
+  display: none;
+}
+@media (min-width: 52rem) {
+  .bb-nav {
+    display: block;
+  }
 }
 .bb-nav ul {
   display: flex;
-  gap: 0.25rem;
-  margin-inline: -0.75rem;
-}
-@media (min-width: 52rem) {
-  .bb-nav ul {
-    margin-inline: 1rem 0;
-  }
+  gap: 0.125rem;
+  padding: 0.25rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-hair);
+  background: var(--color-page);
 }
 .bb-nav a {
-  position: relative;
   display: inline-flex;
   align-items: center;
-  min-height: 2.75rem;
-  padding-inline: 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.875rem;
+  min-height: 2.5rem;
+  padding-inline: 1.125rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.9375rem;
   font-weight: var(--font-weight-demibold);
   color: var(--color-ink-muted);
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
 }
 .bb-nav a:hover {
   color: var(--color-ink);
+  background: var(--color-surface-strong);
 }
-.bb-nav a span {
-  color: var(--color-ink-coat);
+.bb-nav a[aria-current='page'],
+.bb-menu__panel a[aria-current='page'] {
+  color: var(--color-mark-ink);
+  background: var(--color-mark);
 }
-.bb-nav a[aria-current='page'] {
+/* Where the bar is narrow, the sections fold into a menu that opens as a panel below it. */
+.bb-menu {
+  display: block;
+}
+.bb-menu > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.bb-menu > summary::-webkit-details-marker {
+  display: none;
+}
+.bb-menu[open] > summary {
+  background: var(--color-surface-strong);
   color: var(--color-ink);
 }
-.bb-nav a[aria-current='page']::after {
-  content: '';
+@media (min-width: 52rem) {
+  .bb-menu {
+    display: none;
+  }
+}
+.bb-menu__panel {
   position: absolute;
-  inset-inline: 0.75rem;
-  inset-block-end: 0.5rem;
-  height: 0.3rem;
-  border-radius: var(--radius-pill);
-  background: var(--color-mark);
+  z-index: 20;
+  inset-inline: 0;
+  inset-block-start: 100%;
+  padding: 0.5rem 1rem 1rem;
+  border-block-end: 1px solid var(--color-hair);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-raised);
+}
+.bb-menu__panel ul {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.bb-menu__panel a {
+  display: flex;
+  align-items: center;
+  min-height: 3rem;
+  padding-inline: 1rem;
+  border-radius: var(--radius-md);
+  font-size: 1.125rem;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-ink);
+}
+.bb-menu__panel a:hover {
+  background: var(--color-surface-strong);
 }
 .bb-tools {
   grid-area: tools;
+  justify-self: end;
   display: flex;
   align-items: center;
   gap: 0.25rem;
@@ -383,6 +428,34 @@
 .bb-tool:hover {
   background: var(--color-surface-strong);
   color: var(--color-ink);
+}
+/* The search, which wears its word next to its icon where the bar has room for it. */
+.bb-tool--search span,
+.bb-tool--search kbd {
+  display: none;
+}
+@media (min-width: 64rem) {
+  .bb-tool--search {
+    width: auto;
+    gap: 0.5rem;
+    display: inline-flex;
+    padding-inline: 0.875rem 1rem;
+    border: 1px solid var(--color-hair);
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-demibold);
+  }
+  .bb-tool--search span {
+    display: inline;
+  }
+  .bb-tool--search kbd {
+    display: inline;
+    padding: 0.0625rem 0.375rem;
+    border-radius: 0.25rem;
+    border: 1px solid var(--color-hair);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    color: var(--color-ink-coat);
+  }
 }
 
 /* Theme control: a pill holding the two choices, with the theme in force lit. Hidden when scripting is
@@ -778,83 +851,33 @@
 }
 
 /* ------------------------------------- rows ------------------------------------- */
-.bb-rows {
-  display: flex;
-  flex-direction: column;
-  border-block-start: 1px solid var(--color-hair);
-}
-.bb-rows > li {
-  border-block-end: 1px solid var(--color-hair);
-}
-.bb-row {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: center;
-  gap: 1rem;
-  padding-block: 1.125rem;
-}
-a.bb-row:hover .bb-row__title {
-  text-decoration: underline;
-  text-decoration-thickness: 2px;
-  text-decoration-color: var(--color-mark);
-  text-underline-offset: 5px;
-}
-.bb-row__main {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 0.375rem;
-}
-.bb-row__title {
-  font-family: var(--font-display);
-  font-size: 1.5rem;
-  font-weight: var(--font-weight-black);
-  letter-spacing: -0.025em;
-  line-height: 1.15;
-  overflow-wrap: anywhere;
-}
-.bb-row__summary {
-  max-width: 48rem;
-  color: var(--color-ink-muted);
-  text-wrap: pretty;
-}
-.bb-row__meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 1rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  color: var(--color-ink-coat);
-}
-.bb-row__arrow {
-  color: var(--color-accent);
-}
-
-/*
- * The job openings: a grid of small cards, each one the link to the page of its opening. Every row takes the
- * height of the tallest, so all cards share one size and none of their text is cut.
- */
-.bb-jobs {
+.bb-cards {
   display: grid;
   grid-auto-rows: 1fr;
   gap: 0.75rem;
 }
 @media (min-width: 40rem) {
-  .bb-jobs {
+  .bb-cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 @media (min-width: 56rem) {
-  .bb-jobs {
+  .bb-cards {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 @media (min-width: 72rem) {
-  .bb-jobs {
+  .bb-cards {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
-.bb-job {
+/* Challenges carry a summary, so they get fewer and wider columns than openings and solutions. */
+@media (min-width: 72rem) {
+  .bb-cards--wide {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+.bb-card {
   position: relative;
   display: flex;
   height: 100%;
@@ -871,23 +894,23 @@ a.bb-row:hover .bb-row__title {
     transform 150ms ease,
     box-shadow 150ms ease;
 }
-.bb-job:hover,
-.bb-job:focus-within {
+.bb-card:hover,
+.bb-card:focus-within {
   border-color: var(--color-accent);
   box-shadow: var(--shadow-raised);
 }
 @media (prefers-reduced-motion: no-preference) {
-  .bb-job:hover {
+  .bb-card:hover {
     transform: translateY(-2px);
   }
 }
-.bb-job__head {
+.bb-card__head {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   min-width: 0;
 }
-.bb-job__who {
+.bb-card__who {
   display: flex;
   min-width: 0;
   flex-direction: column;
@@ -896,12 +919,12 @@ a.bb-row:hover .bb-row__title {
   line-height: 1.4;
   color: var(--color-ink-coat);
 }
-.bb-job__author {
+.bb-card__author {
   color: var(--color-ink-muted);
   font-weight: var(--font-weight-demibold);
   overflow-wrap: anywhere;
 }
-.bb-job__title {
+.bb-card__title {
   font-family: var(--font-display);
   font-weight: var(--font-weight-bold);
   font-size: 1rem;
@@ -911,28 +934,98 @@ a.bb-row:hover .bb-row__title {
   overflow-wrap: anywhere;
   text-wrap: pretty;
 }
-.bb-job:hover .bb-job__title a {
+.bb-card:hover .bb-card__title a {
   text-decoration: underline;
   text-decoration-thickness: 2px;
   text-decoration-color: var(--color-mark);
   text-underline-offset: 4px;
 }
 /* The title is the link of the whole card, reaching over it so the card is one target. */
-.bb-job__title a::after {
+.bb-card__title a::after {
   content: '';
   position: absolute;
   inset: 0;
   border-radius: var(--radius-lg);
 }
-.bb-job__title a:focus-visible {
+.bb-card__title a:focus-visible {
   outline: none;
 }
-.bb-job:has(.bb-job__title a:focus-visible) {
+.bb-card:has(.bb-card__title a:focus-visible) {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
+/* The summary keeps to four lines, so every card of the list has the same shape; the page holds all of it. */
+.bb-card__summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+  font-size: var(--text-small);
+  line-height: 1.55;
+  color: var(--color-ink-muted);
+  text-wrap: pretty;
+}
+/* The first solution sent, set apart from the rest of the card on a band of the mark color. */
+.bb-first {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  min-width: 0;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius-md);
+  border-inline-start: 3px solid var(--color-mark);
+  background: color-mix(in srgb, var(--color-mark) 14%, transparent);
+}
+.bb-first__text {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  line-height: 1.35;
+}
+.bb-first__label {
+  font-size: var(--text-small);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-ink);
+}
+.bb-first__who {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--color-ink-muted);
+  overflow-wrap: anywhere;
+}
+/* The first solution among the solutions: the mark around the card, and a badge on its top edge that takes
+   no room inside it, so it keeps the shape of every other card. */
+.bb-card--first {
+  border-color: var(--color-mark);
+  box-shadow:
+    inset 0 0 0 1px var(--color-mark),
+    var(--shadow-card);
+}
+.bb-badge {
+  position: absolute;
+  inset-block-start: -0.75rem;
+  inset-inline-end: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.625rem;
+  border-radius: 999px;
+  background: var(--color-mark);
+  color: var(--color-mark-ink);
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-bold);
+  box-shadow: var(--shadow-card);
+}
+/* What closes a card sits at its foot, so the cards of a row line it up. */
+.bb-card__foot {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  margin-block-start: auto;
+}
 /* The labels sit at the foot of the card, so the cards of a row line them up. */
-.bb-job__tags {
+.bb-card__tags {
   margin-block-start: auto;
 }
 .bb-avatar {
@@ -1079,154 +1172,71 @@ a.bb-row:hover .bb-row__title {
 .bb-article {
   max-width: 48rem;
 }
-.bb-solutions {
-  display: grid;
-  gap: 1rem;
-}
-@media (min-width: 40rem) {
-  .bb-solutions {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (min-width: 64rem) {
-  .bb-solutions {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-.bb-solutions > li {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 1rem 1.25rem;
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-hair);
-  background: var(--color-surface);
-}
-.bb-solutions h3 {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
-  font-family: var(--font-display);
-  font-weight: var(--font-weight-black);
-  font-size: 1.25rem;
-  letter-spacing: -0.02em;
-}
-.bb-solutions h3 span {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-weight: var(--font-weight-demibold);
-  color: var(--color-ink-coat);
-}
-.bb-solutions a,
-.bb-project__links a {
-  display: inline-flex;
-  align-items: center;
-  min-width: 2.75rem;
-  min-height: 2.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-accent);
-  overflow-wrap: anywhere;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
 
 /* ----------------------------------- projects ----------------------------------- */
-.bb-index {
-  display: flex;
+/* The language filter: chips that light the language shown. Hidden where no script runs to operate it. */
+.bb-filter {
+  display: none;
   flex-wrap: wrap;
-  gap: 0 0.25rem;
+  gap: 0.5rem;
+  margin-block-end: 1.5rem;
 }
-.bb-index a {
+:root[data-project-filter='on'] .bb-filter {
+  display: flex;
+}
+.bb-filter button {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  min-width: 2.75rem;
   gap: 0.375rem;
   min-height: 2.75rem;
-  padding-inline: 0.5rem;
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-weight: var(--font-weight-demibold);
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-.bb-index span {
-  color: var(--color-ink-coat);
-}
-.bb-group {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  scroll-margin-top: 1rem;
-}
-.bb-group__title {
-  display: flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  font-size: 1.75rem;
-}
-.bb-group__title span {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  font-weight: var(--font-weight-demibold);
-  letter-spacing: 0;
-  color: var(--color-ink-coat);
-}
-.bb-projects {
-  display: grid;
-  gap: 0.75rem;
-}
-@media (min-width: 40rem) {
-  .bb-projects {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (min-width: 64rem) {
-  .bb-projects {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
-.bb-project {
-  display: flex;
-  min-width: 0;
-  flex-direction: column;
-  gap: 0.125rem;
-  padding: 0.875rem 1.125rem;
-  border-radius: var(--radius-lg);
+  padding-inline: 1rem;
+  border-radius: var(--radius-pill);
   border: 1px solid var(--color-hair);
   background: var(--color-surface);
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-demibold);
+  color: var(--color-ink-muted);
+  cursor: pointer;
 }
-.bb-project__name a {
-  display: inline-flex;
-  align-items: center;
-  min-width: 2.75rem;
-  gap: 0.375rem;
-  min-height: 2.75rem;
-  font-weight: var(--font-weight-bold);
-  font-size: 1.0625rem;
+.bb-filter button:hover {
   color: var(--color-ink);
-  text-decoration: underline;
-  text-decoration-color: var(--color-hair);
-  text-underline-offset: 4px;
+  border-color: var(--color-accent);
 }
-.bb-project__name a:hover {
-  text-decoration-color: var(--color-accent);
-}
-.bb-project__source {
+.bb-filter button span {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   color: var(--color-ink-coat);
-  overflow-wrap: anywhere;
 }
-.bb-project__links {
+.bb-filter button[aria-pressed='true'] {
+  border-color: var(--color-mark);
+  background: var(--color-mark);
+  color: var(--color-mark-ink);
+}
+.bb-filter button[aria-pressed='true'] span {
+  color: var(--color-mark-ink);
+}
+.bb-card[hidden] {
+  display: none;
+}
+/* The other links of a project, which sit over the link of the card so they can be pressed on their own. */
+.bb-card__links {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 0 1rem;
+}
+.bb-card__links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 /* ------------------------------------- search ------------------------------------- */
@@ -1318,6 +1328,39 @@ a.bb-row:hover .bb-row__title {
   background: var(--color-mark);
   color: var(--color-mark-ink);
   border-radius: 2px;
+}
+
+/* The search as a dialog over the page, opened from the bar. */
+.bb-dialog {
+  width: min(44rem, calc(100% - 2rem));
+  max-height: min(40rem, calc(100% - 4rem));
+  margin: 4rem auto auto;
+  padding: 1rem 1.25rem 1.25rem;
+  overflow-y: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-hair);
+  background: var(--color-page);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-raised);
+}
+.bb-dialog::backdrop {
+  background: rgb(0 0 0 / 0.5);
+  backdrop-filter: blur(2px);
+}
+.bb-dialog__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-end: 0.5rem;
+}
+.bb-dialog__title {
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-bold);
+  font-size: 1.125rem;
+}
+.bb-dialog .bb-results {
+  margin-block-start: 1rem;
 }
 
 /* --------------------------------- not found ---------------------------------- */

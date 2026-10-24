@@ -1,0 +1,43 @@
+---
+/** The form of the search, its status and its results, which the search page and the dialog of the bar share. */
+import { TEXT } from '../content/site'
+import Icon from './Icon.astro'
+
+interface Props {
+  /** The id of the field, unique on the page. */
+  id: string
+  /** Whether the field takes the focus when the form appears. */
+  autofocus?: boolean
+}
+const { id, autofocus = false } = Astro.props
+const labels = TEXT.search
+---
+
+<form
+  class="bb-search"
+  role="search"
+  action="/busca/"
+  data-search
+  data-idle={labels.idle}
+  data-loading={labels.loading}
+  data-empty={labels.empty}
+  data-unavailable={labels.unavailable}
+  data-count={labels.count}
+>
+  <label for={id}>{labels.label}</label>
+  <div class="bb-search__field">
+    <Icon name="search" size={20} />
+    <input
+      id={id}
+      name="q"
+      type="search"
+      inputmode="search"
+      autocomplete="off"
+      spellcheck="false"
+      placeholder={labels.placeholder}
+      autofocus={autofocus}
+    />
+  </div>
+  <p class="bb-search__status" role="status" aria-live="polite" data-search-status>{labels.idle}</p>
+</form>
+<ol class="bb-results" data-search-results></ol>

@@ -6,7 +6,15 @@ import { unified } from '@astrojs/markdown-remark'
 import { defineCollection } from 'astro:content'
 import { z } from 'astro/zod'
 import { CATALOG } from './content/catalog'
-import { REPOSITORY as CHALLENGES, byLanguage, challengeIndex, problem, solutions } from './content/challenges'
+import {
+  REPOSITORY as CHALLENGES,
+  byLanguage,
+  challengeIndex,
+  firstSolution,
+  problem,
+  solutionCards,
+  solutions,
+} from './content/challenges'
 import { REPOSITORY as JOBS, openings } from './content/jobs'
 import { rehypeLineBreaks, rehypeOutline, rehypeUntrusted, SHIKI } from './content/markdown'
 import { REPOSITORY as PROJECTS, projects as projectList } from './content/projects'
@@ -52,11 +60,17 @@ const challenges = defineCollection({
             file(CHALLENGES, `${entry.slug}/PROBLEM.md`),
             file(CHALLENGES, `${entry.slug}/SOLUTIONS.md`),
           ])
-          return { entry, statement: problem(entry.slug, statement), solutions: solutions(list) }
+          const sent = solutions(list)
+          return {
+            entry,
+            statement: problem(entry.slug, statement),
+            solutions: sent,
+            cards: solutionCards(sent, firstSolution(list)),
+          }
         }),
       )
       store.clear()
-      for (const [order, { entry, statement, solutions: sent }] of read.entries()) {
+      for (const [order, { entry, statement, solutions: sent, cards }] of read.entries()) {
         store.set({
           id: entry.slug,
           data: {
@@ -66,6 +80,7 @@ const challenges = defineCollection({
             order,
             solutionCount: sent.length,
             languages: byLanguage(sent).map((group) => ({ ...group, repositories: [...group.repositories] })),
+            solutions: cards,
           },
           body: statement.body,
           rendered: await renderMarkdown(statement.body),
@@ -81,6 +96,15 @@ const challenges = defineCollection({
     order: z.number(),
     solutionCount: z.number(),
     languages: z.array(z.object({ language: z.string(), repositories: z.array(z.string()) })),
+    solutions: z.array(
+      z.object({
+        language: z.string(),
+        repository: z.string(),
+        owner: z.string(),
+        name: z.string(),
+        first: z.boolean(),
+      }),
+    ),
   }),
 })
 

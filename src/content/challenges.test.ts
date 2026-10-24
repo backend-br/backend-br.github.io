@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { byLanguage, challengeIndex, problem, solutions } from './challenges'
+import { byLanguage, challengeIndex, firstSolution, problem, solutionCards, solutions } from './challenges'
 
 const README = [
   '# Desafios',
@@ -42,6 +42,8 @@ const PROBLEM = [
 
 const SOLUTIONS = [
   '# Soluções - Encurtador de URLs',
+  '',
+  '🥇 Primeira solução: https://github.com/Bia/encurtador, enviada em 03/10/2018.',
   '',
   '| Linguagem    | Repositório                                  |',
   '|:-------------|:---------------------------------------------|',
@@ -144,5 +146,29 @@ describe('the solutions of a challenge', () => {
       },
       { language: 'Go', repositories: ['https://github.com/reisvitt/url-shortener-go'] },
     ])
+  })
+
+  it('reads the first solution from the line that names it, without the punctuation that follows the link', () => {
+    expect(firstSolution(SOLUTIONS)).toBe('https://github.com/Bia/encurtador')
+    expect(firstSolution('| `Go` | https://github.com/a/b | primeira solução |')).toBeNull()
+  })
+
+  it('presents the first solution ahead of the rest, which stay grouped by language', () => {
+    // Given the solutions and the first one, spelled in another case than its row
+    const cards = solutionCards(solutions(SOLUTIONS), firstSolution(SOLUTIONS))
+
+    // Then the first solution leads and is the only one marked, and every card knows its owner and name
+    expect(cards.map((card) => `${card.owner}/${card.name}`)).toEqual([
+      'bia/encurtador',
+      'ana/encurtador',
+      'caio/encurtador',
+      'reisvitt/url-shortener-go',
+    ])
+    expect(cards.filter((card) => card.first)).toHaveLength(1)
+    expect(cards[0]?.language).toBe('PHP')
+  })
+
+  it('marks no card when no line names the first solution', () => {
+    expect(solutionCards(solutions(SOLUTIONS), null).some((card) => card.first)).toBe(false)
   })
 })
