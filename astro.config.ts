@@ -1,6 +1,7 @@
 import { unified } from '@astrojs/markdown-remark'
 import tailwindcss from '@tailwindcss/vite'
 import { defineConfig } from 'astro/config'
+import { SHIKI } from './src/content/markdown'
 
 /** The module Vite imports its preload helper from, a virtual one it resolves on its own. */
 const PRELOAD_HELPER = '\0vite/preload-helper.js'
@@ -47,16 +48,9 @@ export default defineConfig({
   site: 'https://backend-br.github.io',
   trailingSlash: 'always',
   output: 'static',
-  /**
-   * Code is colored at build time in both themes, and the stylesheet picks the one in force. The high
-   * contrast editions are used because the comments of the plain ones fall to 3:1 on their own ground.
-   */
   markdown: {
     processor: unified({ rehypePlugins: [rehypeExternalLinks] }),
-    shikiConfig: {
-      themes: { light: 'github-light-high-contrast', dark: 'github-dark-high-contrast' },
-      defaultColor: false,
-    },
+    shikiConfig: SHIKI,
   },
   vite: {
     plugins: [tailwindcss(), importWithoutPreload()],

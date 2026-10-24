@@ -1,37 +1,42 @@
 ---
 /**
- * One job opening: the day it was opened, its title linking to the issue, and its labels, those that say
- * where, at which level and under which contract first, then the stack.
+ * One job opening as a card: who posted it and how long ago, its title linking to its page, and its labels,
+ * those that say where, at which level and under which contract before the stack.
  */
 import type { JobEntry } from '../content'
-import { day, TEXT } from '../content/site'
+import { day, since, TEXT } from '../content/site'
+import Avatar from './Avatar.astro'
 
 interface Props {
   job: JobEntry
 }
+
 const { data } = Astro.props.job
-const terms = [...data.modality, ...data.level, ...data.contract]
+const labels = [...data.modality, ...data.level, ...data.contract, ...data.stack]
 ---
 
 <li class="bb-job">
-  <p class="bb-job__day">
-    <span class="sr-only">{TEXT.jobs.opened} </span><time datetime={data.opened}>{day(data.opened)}</time>
-  </p>
-  <div class="bb-job__main">
-    <h3 class="bb-job__title">
-      <a href={data.url} target="_blank" rel="noopener noreferrer">{data.title}</a>
-    </h3>
-    {
-      terms.length + data.stack.length > 0 && (
-        <ul class="bb-chips">
-          {terms.map((term) => (
-            <li class="bb-chip bb-chip--strong">{term}</li>
-          ))}
-          {data.stack.map((term) => (
-            <li class="bb-chip">{term}</li>
-          ))}
-        </ul>
-      )
-    }
+  <div class="bb-job__head">
+    <Avatar url={data.avatar} size={28} />
+    <p class="bb-job__who">
+      <span class="bb-job__author">{data.author || TEXT.jobs.deleted}</span>
+      <span class="bb-job__when">
+        <span class="sr-only">{TEXT.jobs.opened} </span><time datetime={data.opened} title={day(data.opened)}
+          >{since(data.opened)}</time
+        >
+      </span>
+    </p>
   </div>
+  <h3 class="bb-job__title">
+    <a href={`/vagas/${data.number}/`}>{data.title}</a>
+  </h3>
+  {
+    labels.length > 0 && (
+      <ul class="bb-chips bb-job__tags">
+        {labels.map((term) => (
+          <li class="bb-chip">{term}</li>
+        ))}
+      </ul>
+    )
+  }
 </li>

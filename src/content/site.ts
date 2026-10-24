@@ -92,12 +92,22 @@ export const TEXT = {
     count: (count: number) => plural(count, 'vaga aberta', 'vagas abertas'),
     /** The heading of the list, which says when it holds only the newest of the openings. */
     listed: (shown: number, total: number) => (shown < total ? `As ${shown} mais recentes` : 'Mais recentes primeiro'),
-    opened: 'Aberta em',
+    opened: 'Aberta',
+    by: 'Publicada por',
+    deleted: 'conta removida',
+    /**
+     * The title of the page of an opening for search engines and link previews, cut so that, with its number
+     * and the name of the site after it, it stays within the 70 characters a result page shows whole. The
+     * number tells apart openings posted with the same title.
+     */
+    headlineOf: (title: string, number: number) =>
+      `${excerpt(title, 70 - ` · #${number} · ${SITE.name}`.length)} · #${number}`,
+    ledeOf: (when: string) => `Publicada em ${when}.`,
+    apply: 'Ver a vaga no GitHub',
+    noBody: 'Esta vaga não traz descrição. Veja a issue no GitHub para saber mais.',
     post: 'Anunciar uma vaga',
     postUrl: `${repositoryUrl('vagas')}#como-cadastrar-uma-vaga`,
     all: 'Ver todas no GitHub',
-    filter: 'Filtrar no GitHub',
-    facets: { modality: 'Modalidade', level: 'Nível', contract: 'Contratação' },
     empty: 'Nenhuma vaga aberta agora. Acompanhe o repositório backend-br/vagas no GitHub para saber da próxima.',
   },
   projects: {
@@ -135,6 +145,36 @@ export const TEXT = {
 /** Answers a day as the community reads it, such as 20 de out. de 2026. */
 export function day(instant: string | Date): string {
   return new Intl.DateTimeFormat(LOCALE, { dateStyle: 'medium', timeZone: TIME_ZONE }).format(new Date(instant))
+}
+
+/** The length of a day, in milliseconds. */
+const DAY = 86_400_000
+
+/**
+ * Answers how long ago a day was, the way a list of openings reads it: hoje, ontem, há 3 dias, há 2 semanas,
+ * and the day itself, such as 12 de set., once it is a month or more behind. Days are counted in the time
+ * zone of the site, so an opening posted late at night is not a day older than the community sees it.
+ */
+export function since(instant: string | Date, now: Date = new Date()): string {
+  const calendar = (date: Date): number =>
+    Date.parse(new Intl.DateTimeFormat('en-CA', { timeZone: TIME_ZONE }).format(date))
+  const days = Math.max(0, Math.round((calendar(now) - calendar(new Date(instant))) / DAY))
+  if (days === 0) {
+    return 'hoje'
+  }
+  if (days === 1) {
+    return 'ontem'
+  }
+  if (days < 7) {
+    return `há ${days} dias`
+  }
+  if (days < 30) {
+    const weeks = Math.floor(days / 7)
+    return `há ${weeks} ${weeks === 1 ? 'semana' : 'semanas'}`
+  }
+  return new Intl.DateTimeFormat(LOCALE, { day: 'numeric', month: 'short', timeZone: TIME_ZONE }).format(
+    new Date(instant),
+  )
 }
 
 /**

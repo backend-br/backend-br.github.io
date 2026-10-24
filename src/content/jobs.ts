@@ -18,6 +18,10 @@ export interface Issue {
   /** Present only on a pull request, which the API lists among the issues. */
   readonly pull_request?: unknown
   readonly labels: readonly { readonly name: string }[]
+  /** Who opened the issue, or null for an account GitHub has since deleted. */
+  readonly user: { readonly login: string; readonly avatar_url: string } | null
+  /** The text of the issue, in Markdown written by whoever opened it, or null when it has none. */
+  readonly body: string | null
 }
 
 /** A label of the repository as the GitHub REST API answers it. */
@@ -37,6 +41,12 @@ export interface Job {
   readonly level: readonly string[]
   readonly contract: readonly string[]
   readonly stack: readonly string[]
+  /** The login of who posted the opening, empty for an account GitHub has since deleted. */
+  readonly author: string
+  /** The address of the avatar of who posted the opening, empty with no account. */
+  readonly avatar: string
+  /** The text of the opening, as its author wrote it in Markdown. */
+  readonly body: string
 }
 
 /** The description the repository gives each kind of label, and the facet of an opening it fills. */
@@ -50,10 +60,18 @@ const FACETS: ReadonlyMap<string, Facet> = new Map([
 const INTERNAL = /^\[uso interno\]/i
 
 /**
- * The labels the triage of the repository puts on an opening, which say where it stands in the moderation
- * and nothing about the opening itself. They come without a description, so they are known by name.
+ * The labels the triage and the routines of the repository put on an opening, which say where it stands in
+ * the moderation, such as a broken link or a suggested format, and nothing about the opening itself. They come without a description, so they are known by name.
  */
-const TRIAGE: ReadonlySet<string> = new Set(['verificada', 'em-triagem', 'triagem-recusada', 'revisada'])
+const TRIAGE: ReadonlySet<string> = new Set([
+  'verificada',
+  'em-triagem',
+  'triagem-recusada',
+  'revisada',
+  'link-quebrado',
+  'formato-sugerido',
+  'aplicar-formato',
+])
 
 /** The label of an opening the triage refused, which the site does not list. */
 const REJECTED = 'triagem-recusada'
@@ -96,6 +114,9 @@ export function openings(issues: readonly Issue[], labels: readonly Label[]): Jo
         level: names('level'),
         contract: names('contract'),
         stack: names('stack'),
+        author: issue.user?.login ?? '',
+        avatar: issue.user?.avatar_url ?? '',
+        body: (issue.body ?? '').trim(),
       }
     })
     .sort((a, b) => b.opened.localeCompare(a.opened))

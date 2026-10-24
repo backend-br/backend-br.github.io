@@ -110,7 +110,7 @@ const origin = Astro.site ?? Astro.url.origin
         </header>
         {
           jobs.length > 0 ? (
-            <ul class="bb-rows">
+            <ul class="bb-jobs">
               {jobs.slice(0, LATEST_JOBS).map((job) => (
                 <JobItem job={job} />
               ))}

@@ -2,11 +2,13 @@
  * The content of the site, read from the repositories of Back-End Brasil on GitHub when the site is
  * built. Nothing is written here by hand: a repository that changes changes the site on the next build.
  */
+import { unified } from '@astrojs/markdown-remark'
 import { defineCollection } from 'astro:content'
 import { z } from 'astro/zod'
 import { CATALOG } from './content/catalog'
 import { REPOSITORY as CHALLENGES, byLanguage, challengeIndex, problem, solutions } from './content/challenges'
 import { REPOSITORY as JOBS, openings } from './content/jobs'
+import { rehypeLineBreaks, rehypeOutline, rehypeUntrusted, SHIKI } from './content/markdown'
 import { REPOSITORY as PROJECTS, projects as projectList } from './content/projects'
 import { catalogued } from './content/repositories'
 import { file, labels, openIssues, organizationRepositories } from './content/sources'
@@ -88,9 +90,16 @@ const jobs = defineCollection({
     load: async ({ store, logger }) => {
       const [issues, catalog] = await Promise.all([openIssues(JOBS), labels(JOBS)])
       const found = openings(issues, catalog)
+      // Anyone can open an issue, so its text is rendered as untrusted Markdown, never as the HTML it holds.
+      const renderer = await unified({
+        rehypePlugins: [rehypeUntrusted, rehypeOutline, rehypeLineBreaks],
+      }).createRenderer({
+        shikiConfig: SHIKI,
+      })
       store.clear()
-      for (const job of found) {
-        store.set({ id: String(job.number), data: { ...job } })
+      for (const { body, ...job } of found) {
+        const { code, metadata } = await renderer.render(body)
+        store.set({ id: String(job.number), data: job, body, rendered: { html: code, metadata } })
       }
       logger.info(`Read ${found.length} job openings.`)
     },
@@ -104,6 +113,8 @@ const jobs = defineCollection({
     level: z.array(z.string()),
     contract: z.array(z.string()),
     stack: z.array(z.string()),
+    author: z.string(),
+    avatar: z.string(),
   }),
 })
 

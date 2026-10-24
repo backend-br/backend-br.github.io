@@ -10,8 +10,10 @@ interface Props {
   lede: string
   /** The pages between the home and this one, each a link. */
   trail?: readonly { readonly label: string; readonly href: string }[]
+  /** Sets a long title, such as the one of an opening, smaller than the name of a section. */
+  compact?: boolean
 }
-const { title, lede, trail = [] } = Astro.props
+const { title, lede, trail = [], compact = false } = Astro.props
 ---
 
 <div class="bb-cover">
@@ -27,7 +29,7 @@ const { title, lede, trail = [] } = Astro.props
         ))
       }
     </nav>
-    <h1 class="bb-display bb-cover__title">{title}</h1>
+    <h1 class:list={['bb-display bb-cover__title', { 'bb-cover__title--compact': compact }]}>{title}</h1>
     <p class="bb-cover__lede">{lede}</p>
     <slot />
   </div>
