@@ -17,9 +17,9 @@ import {
 } from './content/challenges'
 import { REPOSITORY as JOBS, openings } from './content/jobs'
 import { rehypeLineBreaks, rehypeOutline, rehypeUntrusted, SHIKI } from './content/markdown'
-import { REPOSITORY as PROJECTS, projects as projectList } from './content/projects'
+import { byStars, githubHome, REPOSITORY as PROJECTS, projects as projectList } from './content/projects'
 import { catalogued } from './content/repositories'
-import { file, labels, openIssues, organizationRepositories } from './content/sources'
+import { accountStars, file, labels, openIssues, organizationRepositories, repositoryStars } from './content/sources'
 
 const repositories = defineCollection({
   loader: {
@@ -142,6 +142,9 @@ const jobs = defineCollection({
   }),
 })
 
+/** How many projects the build asks GitHub the stars of at once. */
+const STAR_BATCH = 10
+
 const projects = defineCollection({
   loader: {
     name: 'backend-br-projects',
@@ -150,11 +153,32 @@ const projects = defineCollection({
       if (found.length === 0) {
         throw new Error(`The README of ${PROJECTS} lists no project.`)
       }
-      store.clear()
-      for (const [order, project] of found.entries()) {
-        store.set({ id: `${order}-${project.source}`, data: { ...project, links: [...project.links], order } })
+      // The stars are read a few projects at a time, so the build does not flood the API.
+      const starred: { project: (typeof found)[number]; stars: number | null }[] = []
+      for (let start = 0; start < found.length; start += STAR_BATCH) {
+        const batch = found.slice(start, start + STAR_BATCH)
+        starred.push(
+          ...(await Promise.all(
+            batch.map(async (project) => {
+              const home = githubHome(project.url)
+              const stars =
+                home === null
+                  ? null
+                  : home.kind === 'repository'
+                    ? await repositoryStars(home.owner, home.name)
+                    : await accountStars(home.owner)
+              return { project, stars }
+            }),
+          )),
+        )
       }
-      logger.info(`Read ${found.length} projects.`)
+      const ranked = byStars(starred)
+      store.clear()
+      for (const [order, { name, url, source, language, stars }] of ranked.entries()) {
+        store.set({ id: `${order}-${source}`, data: { name, url, source, language, stars, order } })
+      }
+      const left = found.length - ranked.length
+      logger.info(`Read ${ranked.length} projects${left > 0 ? `, leaving out ${left} with nothing on GitHub` : ''}.`)
     },
   },
   schema: z.object({
@@ -162,7 +186,7 @@ const projects = defineCollection({
     url: z.string(),
     source: z.string(),
     language: z.string(),
-    links: z.array(z.object({ label: z.string(), url: z.string() })),
+    stars: z.number(),
     order: z.number(),
   }),
 })

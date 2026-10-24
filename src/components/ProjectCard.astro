@@ -1,57 +1,41 @@
 ---
 /**
- * One open-source project: who owns it on GitHub, its name linking to the source code, its other links,
- * such as documentation or a site, and its language. The language is also on the card as data, which the
- * filter of the page reads.
+ * One open-source project: who owns it on GitHub, its name, its language and its stars. The whole card
+ * leads to where the project lives on GitHub. The language is also on the card as data, which the filter
+ * of the page reads.
  */
+import type { ProjectEntry } from '../content'
 import { avatarOf } from '../content/catalog'
-import type { Project } from '../content/projects'
 import { languageAnchor } from '../content/projects'
-import { TEXT } from '../content/site'
+import { LOCALE, TEXT } from '../content/site'
 import Avatar from './Avatar.astro'
+import Icon from './Icon.astro'
 
 interface Props {
-  project: Project
+  project: ProjectEntry['data']
   /** The level of the name, which follows the heading of the list it sits in. */
   level?: 'h2' | 'h3'
 }
 const { project, level: Heading = 'h3' } = Astro.props
-const owner = /^https?:\/\/(www\.)?github\.com\//.test(project.url) ? (project.source.split('/')[0] ?? '') : ''
+const owner = project.source.split('/')[0] ?? ''
 ---
 
 <li class="bb-card" data-language={languageAnchor(project.language)}>
   <div class="bb-card__head">
-    <Avatar url={owner ? avatarOf(owner) : ''} size={28} />
+    <Avatar url={avatarOf(owner)} size={28} />
     <p class="bb-card__who">
-      <span class="bb-card__author">{owner || project.source}</span>
+      <span class="bb-card__author">{owner}</span>
     </p>
   </div>
   <Heading class="bb-card__title">
     <a href={project.url} target="_blank" rel="noopener noreferrer">{project.name}</a>
   </Heading>
-  {
-    project.links.length > 0 && (
-      <ul class="bb-card__links">
-        {project.links.map((link) => (
-          <li>
-            <a
-              href={link.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={TEXT.projects.linkOf(link.label, project.name)}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))}
-      </ul>
-    )
-  }
-  {
-    project.language && (
-      <ul class="bb-chips bb-card__tags">
-        <li class="bb-chip">{project.language}</li>
-      </ul>
-    )
-  }
+  <div class="bb-card__meta">
+    {project.language && <span class="bb-chip">{project.language}</span>}
+    <span class="bb-stars" title={TEXT.home.stars(project.stars)}>
+      <Icon name="star" size={14} />
+      <span class="sr-only">{TEXT.home.stars(project.stars)}</span>
+      <span aria-hidden="true">{new Intl.NumberFormat(LOCALE).format(project.stars)}</span>
+    </span>
+  </div>
 </li>

@@ -52,7 +52,7 @@ export const GET: APIRoute = async ({ site, url }) => {
     '',
     ...(await projects()).map(
       (project) =>
-        `- [${project.data.name}](${project.data.url})${project.data.language ? `: ${project.data.language}` : ''}`,
+        `- [${project.data.name}](${project.data.url}): ${[project.data.language, TEXT.home.stars(project.data.stars)].filter(Boolean).join(', ')}`,
     ),
     '',
   ]

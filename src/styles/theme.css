@@ -1219,24 +1219,26 @@
 .bb-card[hidden] {
   display: none;
 }
-/* The other links of a project, which sit over the link of the card so they can be pressed on their own. */
-.bb-card__links {
-  position: relative;
-  z-index: 1;
+/* The language and the stars of a project, at the foot of its card. */
+.bb-card__meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0 1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-block-start: auto;
 }
-.bb-card__links a {
+.bb-stars {
   display: inline-flex;
   align-items: center;
-  min-height: 2rem;
+  gap: 0.3125rem;
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--color-accent);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
+  font-size: var(--text-caption);
+  font-weight: var(--font-weight-demibold);
+  color: var(--color-ink-muted);
+}
+.bb-stars svg {
+  color: var(--color-mark);
+  fill: currentColor;
 }
 
 /* ------------------------------------- search ------------------------------------- */

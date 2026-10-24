@@ -1,7 +1,7 @@
 ---
 /**
- * The Brazilian open-source projects `opensource-br` lists, as one grid of cards ordered by language, the
- * languages in the order its table holds them. A row of chips on top filters the grid by language, and a
+ * The Brazilian open-source projects `opensource-br` lists that live on GitHub, as one grid of cards, the
+ * most starred first. A row of chips on top filters the grid by language, and a
  * link to a language, such as `#python`, opens the page filtered by it.
  */
 import Icon from '../components/Icon.astro'
@@ -79,7 +79,7 @@ const origin = Astro.site ?? Astro.url.origin
         }
       </div>
       <ul class="bb-cards" data-project-list>
-        {groups.flatMap((group) => group.projects).map((project) => <ProjectCard project={project} level="h2" />)}
+        {projects.map((project) => <ProjectCard project={project.data} level="h2" />)}
       </ul>
     </div>
   </main>
