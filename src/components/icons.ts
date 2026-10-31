@@ -1,7 +1,3 @@
-/**
- * The line icons of the site. They are decorative without exception: the label beside each one carries
- * the meaning, so every icon is drawn hidden from assistive tech.
- */
 export const ICONS = {
   search: '<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
   'arrow-up': '<path d="M12 19V5M5 12l7-7 7 7"/>',

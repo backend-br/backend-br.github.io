@@ -1,5 +1,3 @@
-# Container-first workflow. Every Node and pnpm command runs inside the node image, so nothing beyond Docker and
-# GNU Make is installed on the host. The package.json scripts are the single source of truth for what each target runs.
 
 SHELL := /bin/bash
 .ONESHELL:
@@ -30,7 +28,6 @@ NODE_ENV_VARS = \
 
 APP_RUN = docker run $(INTERACTIVE) --rm $(NODE_ENV_VARS) $(NODE_IMAGE) corepack pnpm
 
-# ─── Setup and run ───────────────────────────────────────────
 .PHONY: configure
 configure: ## @setup Install dependencies
 	@$(APP_RUN) install --frozen-lockfile
@@ -72,7 +69,6 @@ brand-images: ## @setup Draw the link-preview card and the icons into public/ fr
 	@docker run --rm -u $(HOST_USER) -e HOME=/tmp -v $(CURDIR):/app -w /app python:3.12-slim \
 		sh -c "pip install --quiet --no-cache-dir --user pillow==11.3.0 && python tools/brand-images.py"
 
-# ─── Testing ─────────────────────────────────────────────────
 .PHONY: tests
 tests: ## @test Run the unit tests
 	@$(APP_RUN) test
@@ -85,7 +81,6 @@ budgets: ## @test Check the script every built page ships against its budget (ru
 seo: ## @test Check the titles, previews, structured data and sitemap of every built page (run after build)
 	@$(APP_RUN) check:seo
 
-# ─── Code review ─────────────────────────────────────────────
 .PHONY: review
 review: ## @review Run the linter, the formatter check and the Astro and TypeScript checks
 	@$(APP_RUN) lint
@@ -95,7 +90,6 @@ review: ## @review Run the linter, the formatter check and the Astro and TypeScr
 fix-review: ## @review Apply the linter and formatter fixes
 	@$(APP_RUN) lint:fix
 
-# ─── Reports ─────────────────────────────────────────────────
 .PHONY: show-site
 show-site: ## @reports Open the development server in the browser
 	@$(OPEN_CMD) $(SITE_URL)
@@ -104,12 +98,10 @@ show-site: ## @reports Open the development server in the browser
 show-outdated: ## @reports Show outdated direct dependencies
 	@$(APP_RUN) outdated
 
-# ─── Maintenance ─────────────────────────────────────────────
 .PHONY: clean
 clean: ## @maintenance Remove dependencies and generated artifacts
 	@rm -rf node_modules dist .astro site
 
-# ─── Help ────────────────────────────────────────────────────
 .PHONY: help
 help: ## @help Display this help message
 	@echo "Usage: make [target]"

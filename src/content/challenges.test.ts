@@ -56,12 +56,8 @@ const SOLUTIONS = [
 
 describe('the challenges the README lists', () => {
   it('reads each linked statement once, in the order of the README', () => {
-    // Given a README that links two challenges, one of them twice
-
-    // When the challenges are read from it
     const index = challengeIndex(README)
 
-    // Then each challenge is listed once, under its folder and the title of its first link
     expect(index).toEqual([
       { slug: 'cryptography', title: 'Criptografia' },
       { slug: 'url-shortener', title: 'Encurtador de URLs' },
@@ -73,11 +69,6 @@ describe('the statement of a challenge', () => {
   const statement = problem('url-shortener', PROBLEM)
 
   it('takes the title from its heading and the summary from its first paragraph, as plain words', () => {
-    // Given the PROBLEM.md of a challenge
-
-    // When its statement is read
-
-    // Then the title and the summary come out as a reader sees them
     expect(statement.title).toBe('Encurtador de URLs')
     expect(statement.summary).toBe(
       'O seu desafio será implementar um serviço que permite encurtar URLs longas para torná-las mais compactas.',
@@ -85,22 +76,13 @@ describe('the statement of a challenge', () => {
   })
 
   it('keeps the rest of the statement and leaves out the section that points to the solutions', () => {
-    // Given the PROBLEM.md of a challenge
-
-    // When its statement is read
     const headings = statement.body.split('\n').filter((line) => line.startsWith('## '))
 
-    // Then the body opens after the summary and keeps every section but the solutions, a heading inside code included as code
     expect(statement.body.startsWith('Ele deve responder rápido')).toBe(true)
     expect(headings).toEqual(['## Exemplo', '## não é um título', '## Requisitos'])
   })
 
   it('makes links and images relative to the challenge absolute and keeps outside links', () => {
-    // Given a statement that links a file of its folder, shows an image of it and links an outside site
-
-    // When its statement is read
-
-    // Then the file is linked on GitHub, the image is read as it is served, and the outside link stays
     expect(statement.body).toContain(
       '[diagrama](https://github.com/backend-br/desafios/blob/HEAD/url-shortener/docs/fluxo.md)',
     )
@@ -113,12 +95,8 @@ describe('the statement of a challenge', () => {
 
 describe('the solutions of a challenge', () => {
   it('reads every row that names a repository, bare or linked, and skips a row without one', () => {
-    // Given a SOLUTIONS.md whose rows carry stray spaces and tabs, a linked repository and an empty one
-
-    // When its solutions are read
     const list = solutions(SOLUTIONS)
 
-    // Then each repository is read with its language and the empty row is left out
     expect(list).toEqual([
       { language: 'Go', repository: 'https://github.com/reisvitt/url-shortener-go' },
       { language: 'PHP', repository: 'https://github.com/ana/encurtador' },
@@ -128,13 +106,10 @@ describe('the solutions of a challenge', () => {
   })
 
   it('groups the spellings of one language under the one most rows use, the most solved language first', () => {
-    // Given solutions where PHP is spelled two ways
     const list = solutions(SOLUTIONS)
 
-    // When they are grouped by language
     const groups = byLanguage(list)
 
-    // Then PHP holds its three solutions under its most used spelling, ahead of Go
     expect(groups).toEqual([
       {
         language: 'PHP',
@@ -154,10 +129,8 @@ describe('the solutions of a challenge', () => {
   })
 
   it('presents the first solution ahead of the rest, which stay grouped by language', () => {
-    // Given the solutions and the first one, spelled in another case than its row
     const cards = solutionCards(solutions(SOLUTIONS), firstSolution(SOLUTIONS))
 
-    // Then the first solution leads and is the only one marked, and every card knows its owner and name
     expect(cards.map((card) => `${card.owner}/${card.name}`)).toEqual([
       'bia/encurtador',
       'ana/encurtador',

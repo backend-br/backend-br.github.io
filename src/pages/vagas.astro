@@ -1,8 +1,4 @@
 ---
-/**
- * The latest job openings of `vagas`, read again every day. The page lists the newest ones and leaves the
- * rest to GitHub, where every opening lives as an issue.
- */
 import Icon from '../components/Icon.astro'
 import JobItem from '../components/JobItem.astro'
 import PageCover from '../components/PageCover.astro'
@@ -13,7 +9,6 @@ import { MAIN_ID, TEXT } from '../content/site'
 import { breadcrumbs, collection } from '../content/structured-data'
 import BaseLayout from '../layouts/BaseLayout.astro'
 
-/** How many openings the page lists, the newest first, before pointing to GitHub for the rest. */
 const LISTED = 50
 
 const jobs = await allJobs()

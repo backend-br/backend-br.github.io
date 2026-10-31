@@ -1,7 +1,3 @@
-/**
- * The content of the site, read from the repositories of Back-End Brasil on GitHub when the site is
- * built. Nothing is written here by hand: a repository that changes changes the site on the next build.
- */
 import { unified } from '@astrojs/markdown-remark'
 import { defineCollection } from 'astro:content'
 import { z } from 'astro/zod'
@@ -114,7 +110,6 @@ const jobs = defineCollection({
     load: async ({ store, logger }) => {
       const [issues, catalog] = await Promise.all([openIssues(JOBS), labels(JOBS)])
       const found = openings(issues, catalog)
-      // Anyone can open an issue, so its text is rendered as untrusted Markdown, never as the HTML it holds.
       const renderer = await unified({
         rehypePlugins: [rehypeUntrusted, rehypeOutline, rehypeLineBreaks],
       }).createRenderer({
@@ -142,7 +137,6 @@ const jobs = defineCollection({
   }),
 })
 
-/** How many projects the build asks GitHub the stars of at once. */
 const STAR_BATCH = 10
 
 const projects = defineCollection({
@@ -153,7 +147,6 @@ const projects = defineCollection({
       if (found.length === 0) {
         throw new Error(`The README of ${PROJECTS} lists no project.`)
       }
-      // The stars are read a few projects at a time, so the build does not flood the API.
       const starred: { project: (typeof found)[number]; stars: number | null }[] = []
       for (let start = 0; start < found.length; start += STAR_BATCH) {
         const batch = found.slice(start, start + STAR_BATCH)

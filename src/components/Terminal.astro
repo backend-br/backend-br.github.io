@@ -1,18 +1,4 @@
 ---
-/**
- * The community answered in a terminal: `curl -i` asks the site for `/comunidade.json`, and the response
- * comes back with the figures of this build.
- *
- * The page is served with the whole session already printed, which is what a reader without scripts, a
- * crawler and a reader who asked for reduced motion get. Where motion is welcome, the session is replayed
- * in rounds while the terminal is in view: the command is typed, the response comes in line by line and
- * each figure counts up to its value. Every line keeps its place while it waits, and each animated text is
- * drawn over its final text, which reserves its room, so nothing moves around it.
- *
- * Only the figures are read aloud, as a list of names and values, each name a link to the page that lists
- * it. The command, the status, the header and the punctuation are drawn for the eye alone, and so is every
- * animated text, so a screen reader hears the final figures and nothing while a round plays.
- */
 import { TEXT } from '../content/site'
 
 interface Figure {
@@ -30,8 +16,6 @@ const labels = TEXT.home.response
 const command = `curl -i ${new URL(labels.path, Astro.site ?? Astro.url.origin).href}`
 ---
 
-{/* Marks the session for replay before it is painted, so the printed session never flashes before the
-    replay hides it. If the replay never starts, the mark is dropped and the printed session is shown. */}
 <script is:inline>
   try{var r=document.documentElement;matchMedia('(prefers-reduced-motion: reduce)').matches||(r.dataset.term='pending',setTimeout(function(){r.dataset.term==='pending'&&delete r.dataset.term},4e3))}catch(e){}
 </script>

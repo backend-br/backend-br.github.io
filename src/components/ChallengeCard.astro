@@ -1,8 +1,4 @@
 ---
-/**
- * One challenge in a list: its title and summary, who sent its first solution, and how many solutions in
- * how many languages it has.
- */
 import type { Challenge } from '../content'
 import { avatarOf } from '../content/catalog'
 import { TEXT } from '../content/site'
@@ -10,7 +6,6 @@ import Avatar from './Avatar.astro'
 
 interface Props {
   challenge: Challenge
-  /** The level of the title, which follows the heading of the list it sits in. */
   level?: 'h2' | 'h3'
 }
 const { challenge, level: Heading = 'h3' } = Astro.props

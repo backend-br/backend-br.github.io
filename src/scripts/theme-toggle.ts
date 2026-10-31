@@ -1,16 +1,7 @@
-/**
- * Theme control. A binary light and dark choice. With no explicit choice the theme follows the OS
- * (prefers-color-scheme) and keeps reacting to OS changes in real time. The first press persists an
- * explicit light or dark, and from then on the OS is ignored.
- *
- * The choice is a UI setting, so localStorage is the right home for it. A matching inline script in the
- * head of BaseLayout resolves the same key before first paint to avoid a flash.
- */
 type Theme = 'light' | 'dark'
 
 const KEY = 'backend-br:theme'
 
-/** The question the page asks the system while nobody chose a theme. */
 const SYSTEM_DARK = '(prefers-color-scheme: dark)'
 
 function isTheme(value: string | null | undefined): value is Theme {

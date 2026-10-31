@@ -1,12 +1,3 @@
-/**
- * What an opening posted through the issue form of `vagas` says in its fields, and the `JobPosting` that
- * search engines read from it. The form writes each field under a `###` heading named by its label, in
- * Portuguese or in English. The title follows the form too, `[Work model] Role - Company`.
- *
- * A `JobPosting` with a wrong company or place can cost the site its listing, so one is only made when
- * every field it needs is read for certain: the company from a title with a single separator, and the
- * country from a place that names Brazil or one of its states. Any other opening is left without one.
- */
 import type { Job } from './jobs'
 
 export type Field = 'description' | 'companyUrl' | 'contract' | 'workModel' | 'location'
@@ -19,10 +10,8 @@ const LABELS: Readonly<Record<Field, readonly string[]>> = {
   location: ['localização', 'location'],
 }
 
-/** What GitHub writes in a field the author left empty. */
 const NO_RESPONSE = '_No response_'
 
-/** Answers the fields an opening filled in the form, empty for an opening posted without it. */
 export function formFields(body: string): Partial<Record<Field, string>> {
   const fields: Partial<Record<Field, string>> = {}
   for (const part of body.split(/^###\s+/m).slice(1)) {
@@ -39,7 +28,6 @@ export function formFields(body: string): Partial<Record<Field, string>> {
 const REMOTE = new Set(['remoto', 'remote'])
 const ON_SITE = new Set(['híbrido', 'hybrid', 'presencial', 'on-site'])
 
-/** The kinds of contract of the form, as the `employmentType` of schema.org names them. */
 const EMPLOYMENT: ReadonlyMap<string, string> = new Map([
   ['clt', 'FULL_TIME'],
   ['pj', 'CONTRACTOR'],
@@ -51,7 +39,6 @@ const EMPLOYMENT: ReadonlyMap<string, string> = new Map([
 const BRAZIL = /\bbra[sz]il\b/i
 const STATES = /\b(AC|AL|AP|AM|BA|CE|DF|ES|GO|MA|MT|MS|MG|PA|PB|PR|PE|PI|RJ|RN|RS|RO|RR|SC|SP|SE|TO)\b/
 
-/** Answers the role and the company a title in the shape of the form names, or null for any other title. */
 export function roleAndCompany(title: string): { role: string; company: string } | null {
   const match = /^\s*\[[^\]]+\]\s*(.+)$/.exec(title)
   const parts = (match?.[1] ?? '').split(/\s+[-–—]\s+/)
@@ -62,10 +49,6 @@ export function roleAndCompany(title: string): { role: string; company: string }
   return { role, company }
 }
 
-/**
- * Answers the `JobPosting` of an opening, its description given as the HTML the page renders, or null when
- * the opening does not say for certain who hires, for what kind of work, and in which country.
- */
 export function jobPosting(
   job: Pick<Job, 'number' | 'title' | 'opened' | 'body'>,
   description: string,

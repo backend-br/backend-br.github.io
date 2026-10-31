@@ -1,8 +1,4 @@
 ---
-/**
- * The home: the wordmark of the community beside its figures answered in a terminal, then its
- * repositories, its challenges and the latest openings.
- */
 import { challenges as allChallenges, figures as allFigures, jobs as allJobs, repositories as allRepositories } from '../content'
 import { MAIN_ID, SITE, TEXT } from '../content/site'
 import { identity } from '../content/structured-data'
@@ -12,7 +8,6 @@ import Icon from './Icon.astro'
 import JobItem from './JobItem.astro'
 import Terminal from './Terminal.astro'
 
-/** How many of the latest openings the home shows before pointing to the page of all of them. */
 const LATEST_JOBS = 5
 
 const [repositories, challenges, jobs, read] = await Promise.all([

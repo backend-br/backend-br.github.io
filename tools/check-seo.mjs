@@ -1,15 +1,3 @@
-/**
- * The guard on what search engines and link previews read from every built page.
- *
- * Each page carries a title and a description of its own, in lengths a result page shows whole, the
- * language of the site, the Open Graph and Twitter tags of a link preview, one h1 and headings that never
- * skip a level, images with a text alternative and a size, and links that say where they lead. Its JSON-LD
- * parses and fits the page: the organization and the site on the home, the trail to the page everywhere
- * else, and a list that counts its own items. A page that asks to stay out of the index stays out of the
- * sitemap, and every other page is in it, which robots.txt points to.
- *
- * It reads `dist/`, so it runs after the build, prints every page and fails when any check does.
- */
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
@@ -17,7 +5,6 @@ const DIST = 'dist'
 const SITE = 'https://backend-br.github.io'
 const TITLE = { min: 10, max: 70 }
 const DESCRIPTION = { min: 50, max: 160 }
-/** Link texts that say nothing about where they lead. */
 const VAGUE = /^(clique aqui|aqui|saiba mais|leia mais|ver mais|mais|veja mais|link|ver no site)$/i
 
 function pages(directory) {
@@ -30,7 +17,6 @@ function pages(directory) {
   })
 }
 
-/** The entities the build escapes in attributes, decoded in one pass so `&amp;lt;` stays `&lt;`. */
 const ENTITIES = { '&amp;': '&', '&lt;': '<', '&gt;': '>', '&quot;': '"', '&#39;': "'" }
 
 function decode(text) {
@@ -77,7 +63,6 @@ function checkStructuredData(html, page, problems) {
           continue
         }
         list.forEach((item, index) => {
-          // An entry is linked by its url, or by the thing it holds, given as its address or in full.
           const held = typeof item.item === 'object' ? item.item : null
           const target = held?.url ?? item.item ?? item.url
           const name = held?.name ?? item.name

@@ -1,24 +1,10 @@
-/**
- * The guard on the script every page of the built site ships.
- *
- * A page loads the script inlined into it and every file its script tags name, along with what those
- * files import statically. Together that stays at or under 4,000 bytes uncompressed, counting 1 KB as
- * 1,000 B: the theme before first paint and the small enhancements every page carries fit, and anything
- * heavier is a sign that behavior crept onto a page that does not need it. A dynamic import is left
- * out, because it loads on demand, which is how the search index is fetched. Structured data is data the
- * browser never runs, so it is left out too.
- *
- * It reads `dist/`, so it runs after the build, prints every page and fails when any is over.
- */
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, relative } from 'node:path'
 
 const DIST = 'dist'
 const BUDGET = 4000
-/** The site is served at the root of its domain. */
 const BASE = '/'
 
-/** Lists every page of the site, leaving out the search index Pagefind writes beside it. */
 function pages(directory) {
   return readdirSync(directory).flatMap((name) => {
     const path = join(directory, name)
@@ -29,7 +15,6 @@ function pages(directory) {
   })
 }
 
-/** Answers the files a module loads statically, itself included, each counted once. */
 function moduleClosure(file, seen) {
   if (seen.has(file)) {
     return
@@ -41,7 +26,6 @@ function moduleClosure(file, seen) {
   }
 }
 
-/** Answers how many bytes of script one page ships. */
 function scriptBytes(page) {
   const html = readFileSync(page, 'utf8')
   const inline = [

@@ -1,10 +1,3 @@
-/**
- * Progressive enhancement for the language filter of the projects page.
- *
- * Without a script the page lists every project and the chips stay hidden. With one, pressing a chip
- * shows only the projects in its language and writes the language to the address, so the filtered page
- * can be shared; an address that already names a language, such as `#python`, opens filtered by it.
- */
 function init(): void {
   const list = document.querySelector<HTMLElement>('[data-project-list]')
   const chips = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')]

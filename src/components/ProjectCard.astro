@@ -1,9 +1,4 @@
 ---
-/**
- * One open-source project: who owns it on GitHub, its name, its language and its stars. The whole card
- * leads to where the project lives on GitHub. The language is also on the card as data, which the filter
- * of the page reads.
- */
 import type { ProjectEntry } from '../content'
 import { avatarOf } from '../content/catalog'
 import { languageAnchor } from '../content/projects'
@@ -13,7 +8,6 @@ import Icon from './Icon.astro'
 
 interface Props {
   project: ProjectEntry['data']
-  /** The level of the name, which follows the heading of the list it sits in. */
   level?: 'h2' | 'h3'
 }
 const { project, level: Heading = 'h3' } = Astro.props

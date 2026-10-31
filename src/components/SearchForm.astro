@@ -1,12 +1,9 @@
 ---
-/** The form of the search, its status and its results, which the search page and the dialog of the bar share. */
 import { TEXT } from '../content/site'
 import Icon from './Icon.astro'
 
 interface Props {
-  /** The id of the field, unique on the page. */
   id: string
-  /** Whether the field takes the focus when the form appears. */
   autofocus?: boolean
 }
 const { id, autofocus = false } = Astro.props

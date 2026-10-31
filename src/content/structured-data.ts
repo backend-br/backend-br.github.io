@@ -1,8 +1,3 @@
-/**
- * The schema.org nodes the pages publish as JSON-LD. The home describes the organization and the site,
- * and every other page points back to that site by its id, so search engines read one site whose pages
- * belong to it.
- */
 import { LOCALE, SITE, TEXT } from './site'
 
 export type Node = Record<string, unknown>
@@ -15,7 +10,6 @@ export function websiteId(origin: string | URL): string {
   return new URL('/#website', origin).href
 }
 
-/** Answers the trail from the home to a page, the home first and the page last. */
 export function breadcrumbs(
   origin: string | URL,
   trail: readonly { readonly name: string; readonly path: string }[],
@@ -32,14 +26,12 @@ export function breadcrumbs(
   }
 }
 
-/** A thing a list holds, named and linked, and described in full when the list can say what it is. */
 export interface ListEntry {
   readonly name: string
   readonly url: string
   readonly item?: Node
 }
 
-/** Answers a list, each entry in its order, as its node when it has one or by its name and link otherwise. */
 export function itemList(entries: readonly ListEntry[], name?: string): Node {
   return {
     '@type': 'ItemList',
@@ -53,7 +45,6 @@ export function itemList(entries: readonly ListEntry[], name?: string): Node {
   }
 }
 
-/** Answers a repository of source code, and who owns it when the address names a GitHub account. */
 export function sourceCode(code: {
   readonly name: string
   readonly url: string
@@ -74,7 +65,6 @@ export function sourceCode(code: {
   }
 }
 
-/** Answers a page that lists things, with the list itself, each item named and linked in its order. */
 export function collection(
   origin: string | URL,
   page: { readonly path: string; readonly name: string; readonly description: string },
@@ -91,7 +81,6 @@ export function collection(
   }
 }
 
-/** Answers the organization and the site, which the home publishes and every page points to. */
 export function identity(origin: string | URL, logo: string): Node[] {
   return [
     {
