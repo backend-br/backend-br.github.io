@@ -1,9 +1,4 @@
 ---
-/**
- * One job opening: who posted it and when, all of its labels, and its text as the author wrote it on the
- * issue, which is rendered as untrusted Markdown. The page points to the issue, where the opening is applied
- * to and discussed.
- */
 import type { GetStaticPaths } from 'astro'
 import { render } from 'astro:content'
 import Avatar from '../../components/Avatar.astro'
@@ -30,17 +25,12 @@ const origin = Astro.site ?? Astro.url.origin
 const path = `/vagas/${data.number}/`
 const author = data.author || labels.deleted
 const lede = labels.ledeOf(day(data.opened))
-/**
- * The text of the opening as plain words, its comments, its HTML and the marks of its headings, quotes and
- * rules left out. An opening posted through the form is described by its description field.
- */
 const words = plainText(
   (formFields(job.body ?? '').description ?? job.body ?? '')
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<[^>]+>/g, '')
     .replace(/^\s*(#+|>+|[-*_]{3,})\s*/gm, ''),
 )
-// The title leads, since openings posted through the same platform often open on the same words.
 const description = excerpt(`${data.title}. ${words || lede}`)
 const terms = [...data.modality, ...data.level, ...data.contract]
 const posting = jobPosting({ ...data, body: job.body ?? '' }, job.rendered?.html ?? description, new URL(path, origin).href)

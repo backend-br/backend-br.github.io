@@ -1,11 +1,4 @@
 ---
-/**
- * The theme control. A pill holding the two choices, sun and moon, with the theme in force lit.
- *
- * Both choices stay on screen, so the theme in force reads without a hover. The lit chip is drawn at 28
- * and the button around it is the 44 square a finger aims at. Which one is lit is settled by the script,
- * so the pill is hidden where no script runs and the page follows the system theme.
- */
 
 interface Props {
   theme: { readonly label: string; readonly light: string; readonly dark: string }

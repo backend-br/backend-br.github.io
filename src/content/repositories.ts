@@ -1,6 +1,5 @@
 import type { CatalogEntry, Page } from './catalog'
 
-/** A repository as the GitHub REST API lists it for an organization, reduced to what a card needs. */
 export interface ListedRepository {
   readonly name: string
   readonly description: string | null
@@ -18,11 +17,9 @@ export interface Repository {
 
 export interface Catalogued {
   readonly repositories: readonly Repository[]
-  /** The names of the catalog the organization does not list, renamed, removed or made private. */
   readonly missing: readonly string[]
 }
 
-/** Answers the repositories of the catalog, in its order, as the organization lists them on GitHub. */
 export function catalogued(catalog: readonly CatalogEntry[], listed: readonly ListedRepository[]): Catalogued {
   const byName = new Map(listed.map((repository) => [repository.name, repository]))
   const repositories = catalog.flatMap((entry) => {

@@ -9,16 +9,11 @@ import monoUrl from '../assets/fonts/jetbrains-mono-latin-variable.woff2?url'
 import '../styles/theme.css'
 
 interface Props {
-  /** Overrides the document title, for a page that is not the home. */
   title?: string
   description?: string
-  /** The address of this page from the root. `null` is a page with no address of its own, the 404. */
   path: string | null
-  /** What the page is to a link preview: the site, or one article of it. */
   kind?: 'website' | 'article'
-  /** Kept out of the index, for a page that is a tool rather than content. */
   noindex?: boolean
-  /** The schema.org description of the page, published as JSON-LD for search engines. */
   structuredData?: Record<string, unknown>
 }
 const { title, description, path, kind = 'website', noindex = false, structuredData } = Astro.props
@@ -28,7 +23,6 @@ const documentDescription = description ?? SITE.meta.description
 const origin = Astro.site ?? Astro.url.origin
 const canonical = path === null ? null : new URL(path, origin).href
 const ogImage = new URL('/og-image.png', origin).href
-/** Escapes `<` so nothing in the data can close the script element it is published in. */
 const jsonLd = structuredData
   ? JSON.stringify({ '@context': 'https://schema.org', ...structuredData }).replace(/</g, '\\u003c')
   : null
@@ -39,15 +33,10 @@ const jsonLd = structuredData
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    {/* The three faces the top of every page paints with, the wordmark of the home and the paths of the bar
-        being mono, fetched ahead of the stylesheet that names them. */}
     <link rel="preload" href={displayUrl} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={sansUrl} as="font" type="font/woff2" crossorigin />
     <link rel="preload" href={monoUrl} as="font" type="font/woff2" crossorigin />
     <meta name="theme-color" content="#eef2ef" data-light="#eef2ef" data-dark="#0d1b16" />
-    {/* Apply the saved theme before first paint so there is no flash. With no explicit choice it follows
-        the system, matching the no-JS baseline. Reads the same key as the theme control. It ships inlined
-        on every page and counts against the script budget, so it is written compact. */}
     <script is:inline>
       try{var c=localStorage.getItem('backend-br:theme'),d=c==='dark'||(c!=='light'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset.theme=d?'dark':'light';document.querySelector('meta[name="theme-color"]').content=d?'#0d1b16':'#eef2ef'}catch(e){}
     </script>
@@ -55,8 +44,6 @@ const jsonLd = structuredData
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <title>{documentTitle}</title>
     <meta name="description" content={documentDescription} />
-    {/* Proves to Google Search Console that the site is ours. Removing it loses the verification, and with
-        it the reports and the sitemap the console holds for the site. */}
     <meta name="google-site-verification" content="03NLy1Dxn_HS7c6jW_j9RBoZWjHsga-ipdeQoxqwfzY" />
     {canonical ? <link rel="canonical" href={canonical} /> : null}
     {canonical === null || noindex ? <meta name="robots" content="noindex" /> : null}
@@ -86,7 +73,6 @@ const jsonLd = structuredData
     <slot />
     <SiteFooter />
     <ToTop label={TEXT.nav.toTop} />
-    {/* The progressive-enhancement modules every page ships. The page renders complete without them. */}
     <script>
       import '../scripts/theme-toggle.ts'
       import '../scripts/to-top.ts'

@@ -1,16 +1,10 @@
 ---
-/**
- * The cover of an inner page: where it sits, its title and what it holds. The slot under the lede takes
- * what the page adds, such as its figures and its actions.
- */
 import { TEXT } from '../content/site'
 
 interface Props {
   title: string
   lede: string
-  /** The pages between the home and this one, each a link. */
   trail?: readonly { readonly label: string; readonly href: string }[]
-  /** Sets a long title, such as the one of an opening, smaller than the name of a section. */
   compact?: boolean
 }
 const { title, lede, trail = [], compact = false } = Astro.props
