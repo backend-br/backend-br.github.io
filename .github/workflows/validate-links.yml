@@ -50,7 +50,7 @@ jobs:
         name: Create issue
         uses: peter-evans/create-issue-from-file@fca9117c27cdc29c6c4db3b86c48e4115a786710 # v6.0.0
         with:
-          title: Link checker report
+          title: Relatório de links quebrados
           labels: 'report, automated-issue'
           content-filepath: ./lychee/out.md
 
