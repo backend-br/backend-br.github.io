@@ -100,6 +100,8 @@ export const TEXT = {
     empty: 'Nenhuma vaga aberta agora. Acompanhe o repositório backend-br/vagas no GitHub para saber da próxima.',
     feed: 'Vagas abertas em JSON',
     feedPath: '/vagas.json',
+    rss: 'Vagas abertas em RSS',
+    rssPath: '/vagas.xml',
   },
   talents: {
     title: 'Talentos',
