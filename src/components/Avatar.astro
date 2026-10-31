@@ -1,16 +1,10 @@
 ---
-/**
- * The avatar of who posted an opening, as GitHub serves it at the size it is drawn, twice over for dense
- * screens. An account GitHub deleted has no avatar, and its place is kept by a plain circle.
- */
 interface Props {
   url: string
-  /** The size the avatar is drawn at, in CSS pixels. */
   size: number
 }
 const { url, size } = Astro.props
 
-/** Answers the address of the avatar at a size, which GitHub reads from the `s` parameter. */
 function sized(address: string, pixels: number): string {
   const sized = new URL(address)
   sized.searchParams.set('s', String(pixels))

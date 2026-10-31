@@ -1,9 +1,4 @@
 ---
-/**
- * The Brazilian open-source projects `opensource-br` lists that live on GitHub, as one grid of cards, the
- * most starred first. A row of chips on top filters the grid by language, and a
- * link to a language, such as `#python`, opens the page filtered by it.
- */
 import Icon from '../components/Icon.astro'
 import ProjectCard from '../components/ProjectCard.astro'
 import PageCover from '../components/PageCover.astro'
@@ -18,7 +13,6 @@ const projects = await allProjects()
 const groups = byLanguage(projects.map((project) => project.data))
 const labels = TEXT.projects
 const origin = Astro.site ?? Astro.url.origin
-
 ---
 
 <BaseLayout

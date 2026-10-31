@@ -1,12 +1,3 @@
-/**
- * The search over the challenges and the openings, bound to a form wherever it sits: the search page,
- * or the dialog the bar opens on every page. It loads the Pagefind index on the first search, so a page
- * ships only the form, and it writes the results as plain links to the section that matched.
- *
- * On the search page the term follows into the address, which is what makes a search shareable, and
- * pressing enter submits the form the native way. In the dialog the results come as the reader types. The index exists only in the site the build produces. Under the
- * development server the import fails, and the box says so instead of failing silently.
- */
 interface PagefindResult {
   readonly url: string
   readonly excerpt: string
@@ -20,26 +11,16 @@ interface Pagefind {
   ) => Promise<{ readonly results: readonly { readonly data: () => Promise<PagefindResult> }[] } | null>
 }
 
-/** How many pages a search lists, each with the sections inside it that matched. */
 const MAX_PAGES = 8
 const MAX_SECTIONS = 3
 
 let pagefind: Promise<Pagefind> | undefined
 
-/** Loads the index once, from the folder Pagefind writes beside the site. */
 function loadPagefind(): Promise<Pagefind> {
   pagefind ??= import(/* @vite-ignore */ `${import.meta.env.BASE_URL.replace(/\/?$/, '/')}pagefind/pagefind.js`)
   return pagefind
 }
 
-/**
- * Answers one result as markup: the page, and under it the sections that matched, each linking to its
- * anchor.
- *
- * Everything in it comes from the index of the statements themselves: the titles are their headings, the
- * addresses are their pages, and the excerpts arrive from Pagefind already escaped, with the matched
- * words marked.
- */
 function resultItem(result: PagefindResult): string {
   const sections = (result.sub_results ?? []).filter((sub) => sub.url.includes('#')).slice(0, MAX_SECTIONS)
   const entries = sections.length > 0 ? sections : [{ url: result.url, title: '', excerpt: result.excerpt }]
@@ -49,7 +30,6 @@ function resultItem(result: PagefindResult): string {
   return `<li class="bb-result"><a class="bb-result__page" href="${result.url}">${result.meta.title ?? ''}</a><ul class="bb-result__sections">${links.join('')}</ul></li>`
 }
 
-/** Binds the search to the form inside a root, once, writing the term to the address when asked to. */
 export function bind(root: ParentNode, followAddress: boolean): void {
   const form = root.querySelector<HTMLFormElement>('[data-search]')
   const input = form?.querySelector('input')

@@ -4,11 +4,6 @@ import { rawUrl } from '../content/catalog'
 import { REPOSITORY as CHALLENGES } from '../content/challenges'
 import { SITE, TEXT } from '../content/site'
 
-/**
- * The index of the site for language models, in the llms.txt format: what Back-End Brasil is, its pages,
- * its figures as JSON, its repositories, every challenge with its page, the statement it is drawn from and
- * its first solution, every open job and every open-source project, as plain Markdown.
- */
 export const GET: APIRoute = async ({ site, url }) => {
   const origin = site ?? new URL(url.origin)
   const page = (path: string): string => new URL(path, origin).href

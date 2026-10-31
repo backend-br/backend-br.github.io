@@ -2,7 +2,6 @@ import type { APIRoute } from 'astro'
 import { figures } from '../content'
 import { TEXT } from '../content/site'
 
-/** The figures of the community as JSON, the response the terminal of the home asks for with `curl`. */
 export const GET: APIRoute = async () => {
   const read = await figures()
   const keys = TEXT.home.response.keys

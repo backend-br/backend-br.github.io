@@ -1,10 +1,3 @@
-/**
- * Progressive enhancement for the search. The link of the bar to the search page opens the search as a
- * dialog over the page instead, and so does Ctrl K or ⌘ K; a press outside the dialog closes it, as its
- * `closedby` asks. The search itself, and the index behind it, load the first time they are needed, so a
- * page that is never searched pays only for this. On the search page the form of the page is bound too,
- * following the term in the address.
- */
 const control = document.querySelector('[data-search-open]')
 const dialog = document.querySelector<HTMLDialogElement>('dialog[data-search-dialog]')
 const page = document.querySelector('main [data-search]')

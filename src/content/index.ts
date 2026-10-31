@@ -1,7 +1,3 @@
-/**
- * The content of the site in the order the pages present it: the repositories and the challenges as their
- * sources list them, the openings newest first, and the projects the most starred first.
- */
 import { type CollectionEntry, getCollection } from 'astro:content'
 
 export type RepositoryEntry = CollectionEntry<'repositories'>
@@ -25,12 +21,10 @@ export async function projects(): Promise<readonly ProjectEntry[]> {
   return (await getCollection('projects')).sort((a, b) => a.data.order - b.data.order)
 }
 
-/** The figures of the community this build read, which the home shows and `/comunidade.json` serves. */
 export interface Figures {
   readonly jobs: number
   readonly challenges: number
   readonly projects: number
-  /** The stars of every repository the home presents, added up. */
   readonly stars: number
 }
 

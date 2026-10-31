@@ -1,22 +1,6 @@
-/*
- * The theme of the site. Shared primitives on @theme, adaptive roles that swap between light and dark,
- * and component classes written against those roles.
- *
- * The look comes from the logo of the community: a capybara over the wordmark `backend <brasil>`, set in
- * a monospaced face, `backend` in yellow and `<brasil>` in a deep green. The yellow marks, the green acts,
- * and the brown of the capybara is the ink. The home opens on the community answered as an HTTP response,
- * the way a backend developer reads the world. Headings are set in Bricolage Grotesque, the text in IBM
- * Plex Sans, and the wordmark, the paths and every figure in JetBrains Mono.
- *
- * Both light and dark are first-class. An explicit choice from the theme control lands as data-theme on
- * the root (persisted, resolved before paint by the inline head script in BaseLayout), and with no choice
- * the theme follows prefers-color-scheme. Every pair of text and ground holds 4.5:1 in both modes, and the
- * ratio of each one is written beside its value.
- */
 
 @import 'tailwindcss';
 
-/* The three faces of the site, self-hosted, latin subset only, all variable. */
 @font-face {
   font-family: 'Bricolage Grotesque Variable';
   font-style: normal;
@@ -46,14 +30,11 @@
 }
 
 @theme {
-  /* The colors of the logo, which never adapt: the yellow of `backend`, the green of `<brasil>`, and the
-     outline and the coat of the capybara. */
   --color-logo-yellow: #fcd166;
   --color-logo-green: #065642;
   --color-logo-outline: #36291f;
   --color-logo-coat: #b48968;
 
-  /* Theme-adaptive roles. Values swap with the theme below. */
   --color-page: var(--page);
   --color-surface: var(--surface);
   --color-surface-strong: var(--surface-strong);
@@ -69,11 +50,10 @@
   --color-mark-ink: var(--mark-ink);
   --color-focus: var(--focus);
 
-  /* The response on the home, a terminal that keeps its deep green in both themes. */
   --color-terminal: var(--terminal);
-  --color-terminal-ink: #e8efe9; /* 12.6:1 on the terminal of the light theme, 16.1:1 on the dark */
-  --color-terminal-muted: #9fb7ab; /* 6.9:1 and 8.8:1 */
-  --color-terminal-key: #fcd166; /* 10.1:1 and 13:1 */
+  --color-terminal-ink: #e8efe9;
+  --color-terminal-muted: #9fb7ab;
+  --color-terminal-key: #fcd166;
 
   --font-display: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', -apple-system, 'Segoe UI', sans-serif;
   --font-sans: 'IBM Plex Sans Variable', 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -107,16 +87,16 @@
   --page: #eef2ef;
   --surface: #ffffff;
   --surface-strong: #e2e9e4;
-  --ink: #2b2019; /* 14:1 on the page */
-  --ink-muted: #5b4e43; /* 7.1:1 on the page, 6.5:1 on the strong surface */
-  --ink-coat: #8a5f3c; /* 4.9:1 on the page, 5.6:1 on the surface */
+  --ink: #2b2019;
+  --ink-muted: #5b4e43;
+  --ink-coat: #8a5f3c;
   --hair: #d3ddd6;
-  --accent: #065642; /* 7.7:1 on the page, 7:1 on the strong surface */
+  --accent: #065642;
   --action: #065642;
-  --action-ink: #ffffff; /* 8.7:1 on the action */
+  --action-ink: #ffffff;
   --action-hover: #04402f;
   --mark: #fcd166;
-  --mark-ink: #2b2019; /* 10.9:1 on the mark */
+  --mark-ink: #2b2019;
   --focus: #065642;
   --terminal: #0b2e24;
   color-scheme: light;
@@ -126,13 +106,13 @@
   --page: #0d1b16;
   --surface: #13251e;
   --surface-strong: #1a3128;
-  --ink: #f1ece4; /* 15.1:1 on the page */
-  --ink-muted: #b5c2ba; /* 9.6:1 on the page, 7.5:1 on the strong surface */
-  --ink-coat: #d6ae8a; /* 8.7:1 on the page, 7.8:1 on the surface */
+  --ink: #f1ece4;
+  --ink-muted: #b5c2ba;
+  --ink-coat: #d6ae8a;
   --hair: #274236;
-  --accent: #fcd166; /* 12.2:1 on the page, 9.6:1 on the strong surface */
+  --accent: #fcd166;
   --action: #fcd166;
-  --action-ink: #2b2019; /* 10.9:1 on the action */
+  --action-ink: #2b2019;
   --action-hover: #ffdd85;
   --mark: #fcd166;
   --mark-ink: #2b2019;
@@ -141,7 +121,6 @@
   color-scheme: dark;
 }
 
-/* No explicit choice (no JavaScript, or before the inline script runs): follow the system. */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']):not([data-theme='dark']) {
     --page: #0d1b16;
@@ -245,7 +224,6 @@
   }
 }
 
-/* ------------------------------------ type ------------------------------------ */
 .bb-display {
   font-family: var(--font-display);
   font-weight: var(--font-weight-black);
@@ -262,7 +240,6 @@
   color: var(--color-ink-coat);
 }
 
-/* ------------------------------------- bar ------------------------------------- */
 .bb-bar {
   border-block-end: 1px solid var(--color-hair);
   background: var(--color-surface);
@@ -322,7 +299,6 @@
 .bb-brand__word span + span {
   color: var(--color-accent);
 }
-/* The sections, a pill in the middle of the bar with the one the reader is in lit. */
 .bb-nav {
   grid-area: nav;
   display: none;
@@ -362,7 +338,6 @@
   color: var(--color-mark-ink);
   background: var(--color-mark);
 }
-/* Where the bar is narrow, the sections fold into a menu that opens as a panel below it. */
 .bb-menu {
   display: block;
 }
@@ -429,7 +404,6 @@
   background: var(--color-surface-strong);
   color: var(--color-ink);
 }
-/* The search, which wears its word next to its icon where the bar has room for it. */
 .bb-tool--search span,
 .bb-tool--search kbd {
   display: none;
@@ -458,8 +432,6 @@
   }
 }
 
-/* Theme control: a pill holding the two choices, with the theme in force lit. Hidden when scripting is
-   off, since the page then follows the system theme with no control to operate. */
 .theme-pill {
   display: inline-flex;
   gap: 0.125rem;
@@ -482,7 +454,6 @@
   color: var(--color-ink-muted);
   cursor: pointer;
 }
-/* The 44 square a finger aims at, reaching past the paint instead of growing it. */
 .theme-pill__choice::before {
   content: '';
   position: absolute;
@@ -505,7 +476,6 @@
   }
 }
 
-/* ----------------------------------- buttons ----------------------------------- */
 .bb-actions {
   display: flex;
   flex-wrap: wrap;
@@ -553,7 +523,6 @@
   text-decoration-thickness: 2px;
 }
 
-/* ------------------------------------- hero ------------------------------------- */
 .bb-hero {
   border-block-end: 1px solid var(--color-hair);
   background: linear-gradient(to bottom, var(--color-surface), var(--color-page));
@@ -577,7 +546,6 @@
   flex-direction: column;
   gap: 1.25rem;
 }
-/* The wordmark of the logo, set large: `backend` on the yellow it is drawn in, `<brasil>` in its green. */
 .bb-wordmark {
   display: flex;
   flex-direction: column;
@@ -607,8 +575,6 @@
   text-wrap: pretty;
 }
 
-/* The community answered in a terminal: the command, the status, the header, then the figures as JSON,
-   each key a link to the page that lists it. */
 .bb-term {
   display: flex;
   min-width: 0;
@@ -694,9 +660,6 @@
   background: var(--color-terminal-ink);
 }
 
-/* The replay. While the root carries the mark, each line waits unseen in its place, and each animated text
-   is drawn over its final text, which keeps its room but no ink. Dropping the mark shows the session as the
-   server printed it. */
 .bb-term__slot {
   position: relative;
 }
@@ -742,7 +705,6 @@
   }
 }
 
-/* ----------------------------------- sections ----------------------------------- */
 .bb-section {
   display: flex;
   flex-direction: column;
@@ -772,7 +734,6 @@
   text-wrap: pretty;
 }
 
-/* --------------------------------- repositories --------------------------------- */
 .bb-repos {
   display: grid;
   gap: 1rem;
@@ -820,7 +781,6 @@
   font-weight: var(--font-weight-black);
   color: var(--color-ink);
 }
-/* The name is the link of the whole card, reaching over it so the card is one target. */
 .bb-repo__name a::after {
   content: '';
   position: absolute;
@@ -842,7 +802,6 @@
   font-weight: var(--font-weight-demibold);
   color: var(--color-ink-coat);
 }
-/* The link to the page of the site rises above the link of the card, so both can be pressed. */
 .bb-repo__page {
   position: relative;
   z-index: 1;
@@ -850,7 +809,6 @@
   margin-block: -0.5rem;
 }
 
-/* ------------------------------------- rows ------------------------------------- */
 .bb-cards {
   display: grid;
   grid-auto-rows: 1fr;
@@ -871,7 +829,6 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
-/* Challenges carry a summary, so they get fewer and wider columns than openings and solutions. */
 @media (min-width: 72rem) {
   .bb-cards--wide {
     grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -940,7 +897,6 @@
   text-decoration-color: var(--color-mark);
   text-underline-offset: 4px;
 }
-/* The title is the link of the whole card, reaching over it so the card is one target. */
 .bb-card__title a::after {
   content: '';
   position: absolute;
@@ -954,7 +910,6 @@
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
 }
-/* The summary keeps to four lines, so every card of the list has the same shape; the page holds all of it. */
 .bb-card__summary {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -966,7 +921,6 @@
   color: var(--color-ink-muted);
   text-wrap: pretty;
 }
-/* The first solution sent, set apart from the rest of the card on a band of the mark color. */
 .bb-first {
   display: flex;
   align-items: center;
@@ -994,8 +948,6 @@
   color: var(--color-ink-muted);
   overflow-wrap: anywhere;
 }
-/* The first solution among the solutions: the mark around the card, and a badge on its top edge that takes
-   no room inside it, so it keeps the shape of every other card. */
 .bb-card--first {
   border-color: var(--color-mark);
   box-shadow:
@@ -1017,14 +969,12 @@
   font-weight: var(--font-weight-bold);
   box-shadow: var(--shadow-card);
 }
-/* What closes a card sits at its foot, so the cards of a row line it up. */
 .bb-card__foot {
   display: flex;
   flex-direction: column;
   gap: 0.625rem;
   margin-block-start: auto;
 }
-/* The labels sit at the foot of the card, so the cards of a row line them up. */
 .bb-card__tags {
   margin-block-start: auto;
 }
@@ -1036,7 +986,6 @@
   background: var(--color-surface-strong);
 }
 
-/* Who posted an opening, on its page, and every label it carries. */
 .bb-poster {
   display: flex;
   align-items: center;
@@ -1085,7 +1034,6 @@
   font-weight: var(--font-weight-demibold);
 }
 
-/* ------------------------------------ cover ------------------------------------- */
 .bb-cover {
   border-block-end: 1px solid var(--color-hair);
   background: var(--color-surface);
@@ -1161,20 +1109,16 @@
   color: var(--color-ink-muted);
 }
 
-/* ------------------------------------ listing ----------------------------------- */
 .bb-listing {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
 }
 
-/* ---------------------------------- challenge ----------------------------------- */
 .bb-article {
   max-width: 48rem;
 }
 
-/* ----------------------------------- projects ----------------------------------- */
-/* The language filter: chips that light the language shown. Hidden where no script runs to operate it. */
 .bb-filter {
   display: none;
   flex-wrap: wrap;
@@ -1219,7 +1163,6 @@
 .bb-card[hidden] {
   display: none;
 }
-/* The language and the stars of a project, at the foot of its card. */
 .bb-card__meta {
   display: flex;
   align-items: center;
@@ -1241,7 +1184,6 @@
   fill: currentColor;
 }
 
-/* ------------------------------------- search ------------------------------------- */
 .bb-search {
   display: flex;
   flex-direction: column;
@@ -1332,7 +1274,6 @@
   border-radius: 2px;
 }
 
-/* The search as a dialog over the page, opened from the bar. */
 .bb-dialog {
   width: min(44rem, calc(100% - 2rem));
   max-height: min(40rem, calc(100% - 4rem));
@@ -1365,7 +1306,6 @@
   margin-block-start: 1rem;
 }
 
-/* --------------------------------- not found ---------------------------------- */
 .bb-lost {
   display: flex;
   flex-direction: column;
@@ -1385,8 +1325,6 @@
   color: var(--color-mark-ink);
 }
 
-/* ------------------------------------ markdown ------------------------------------ */
-/* The Markdown of a statement, as the repository writes it. Only the elements the statements use are styled. */
 .bb-md {
   display: flex;
   min-width: 0;
@@ -1502,8 +1440,6 @@ code {
   font-size: 0.8em;
 }
 
-/* Code colored by Shiki in both themes at build time. Each token carries the color of each theme, and
-   the one in force is picked here, the same way the roles of the page are. */
 .astro-code {
   overflow-x: auto;
   padding: 1rem 1.125rem;
@@ -1536,7 +1472,6 @@ code {
   }
 }
 
-/* ------------------------------------- footer ------------------------------------- */
 .bb-footer {
   border-block-start: 1px solid var(--color-hair);
   background: var(--color-surface);
@@ -1547,7 +1482,6 @@ code {
   padding-block: 1.25rem;
 }
 
-/* ------------------------------------- to top ------------------------------------- */
 .bb-to-top {
   display: none;
 }

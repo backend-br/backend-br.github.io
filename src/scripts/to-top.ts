@@ -1,14 +1,5 @@
-/**
- * Progressive enhancement for the control that takes a reader back to the top of the page.
- *
- * The control is a link to the top of the document, which the browser follows on its own. This marks the
- * root so the stylesheet draws the control at all, shows it once the reader is most of a window down and
- * hides it again near the top, where it would cover the page for nothing. Pressing it also hands the
- * focus to the first link of the page, so a keyboard that went back up continues from the top.
- */
 const SHOWN = 'is-shown'
 
-/** How far down, in windows, the control appears. */
 const THRESHOLD = 0.75
 
 function init(): void {
