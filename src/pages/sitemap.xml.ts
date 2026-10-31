@@ -1,16 +1,18 @@
 import type { APIRoute } from 'astro'
-import { challenges, jobs } from '../content'
+import { challenges, jobs, talents } from '../content'
 
 export const GET: APIRoute = async ({ site, url }) => {
   const origin = site ?? new URL(url.origin)
   const openings = await jobs()
   const [newest] = openings
+  const [latest] = await talents()
   const entries = [
     { path: '/' },
     { path: '/desafios/' },
     ...(await challenges()).map((challenge) => ({ path: `/desafios/${challenge.data.slug}/` })),
     { path: '/vagas/', changed: newest?.data.opened.slice(0, 10) },
     ...openings.map((job) => ({ path: `/vagas/${job.data.number}/`, changed: job.data.opened.slice(0, 10) })),
+    { path: '/talentos/', changed: latest?.data.updated.slice(0, 10) },
     { path: '/projetos/' },
   ]
   const document = [

@@ -1,0 +1,65 @@
+---
+import type { TalentEntry } from '../content'
+import { day, excerpt, since, TEXT } from '../content/site'
+import { anchor } from '../content/talents'
+import Avatar from './Avatar.astro'
+
+interface Props {
+  talent: TalentEntry
+}
+
+const { data } = Astro.props.talent
+const labels = TEXT.talents
+const terms = [...data.level, ...data.contract, ...data.modality]
+const contacts: { url: string; label: string }[] = [
+  { url: data.linkedin, label: labels.linkedin },
+  { url: data.github, label: labels.github },
+  { url: data.portfolio, label: labels.portfolio },
+  { url: data.url, label: labels.profile },
+].flatMap((contact) => (contact.url === null ? [] : [{ url: contact.url, label: contact.label }]))
+---
+
+<li class="bb-card" id={anchor(data.number)}>
+  <div class="bb-card__head">
+    <Avatar url={data.avatar} size={28} />
+    <p class="bb-card__who">
+      <span class="bb-card__author">{data.location}</span>
+      <span class="bb-card__when">
+        <span class="sr-only">{labels.updated} </span><time datetime={data.updated} title={day(data.updated)}
+          >{since(data.updated)}</time
+        >
+      </span>
+    </p>
+  </div>
+  <h3 class="bb-card__title">{data.name}{data.role && ` · ${data.role}`}</h3>
+  {data.about && <p class="bb-card__summary">{excerpt(data.about, 280)}</p>}
+  <div class="bb-card__foot">
+    {
+      terms.length + data.stack.length > 0 && (
+        <ul class="bb-chips">
+          {terms.map((term) => (
+            <li class="bb-chip bb-chip--strong">{term}</li>
+          ))}
+          {data.stack.map((term) => (
+            <li class="bb-chip">{term}</li>
+          ))}
+        </ul>
+      )
+    }
+    <p class="bb-actions">
+      {
+        contacts.map((contact) => (
+          <a
+            href={contact.url}
+            target="_blank"
+            rel="noopener noreferrer nofollow"
+            class="bb-link"
+            aria-label={labels.contactOf(data.name, contact.label)}
+          >
+            {contact.label}
+          </a>
+        ))
+      }
+    </p>
+  </div>
+</li>

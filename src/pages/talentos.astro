@@ -1,0 +1,76 @@
+---
+import Icon from '../components/Icon.astro'
+import PageCover from '../components/PageCover.astro'
+import TalentItem from '../components/TalentItem.astro'
+import { talents as allTalents } from '../content'
+import { repositoryUrl } from '../content/catalog'
+import { MAIN_ID, TEXT } from '../content/site'
+import { breadcrumbs, collection } from '../content/structured-data'
+import { anchor, REPOSITORY } from '../content/talents'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const talents = await allTalents()
+const labels = TEXT.talents
+const origin = Astro.site ?? Astro.url.origin
+const issues = `${repositoryUrl(REPOSITORY)}/issues`
+const page = { path: '/talentos/', name: labels.headline, description: labels.lede }
+---
+
+<BaseLayout
+  title={labels.headline}
+  description={labels.lede}
+  path={page.path}
+  structuredData={{
+    '@graph': [
+      breadcrumbs(origin, [{ name: labels.title, path: page.path }]),
+      ...(talents.length > 0
+        ? [
+            collection(
+              origin,
+              page,
+              talents.map((talent) => ({
+                name: talent.data.name,
+                url: new URL(`${page.path}#${anchor(talent.data.number)}`, origin).href,
+              })),
+            ),
+          ]
+        : []),
+    ],
+  }}
+>
+  <main id={MAIN_ID}>
+    <PageCover title={labels.title} lede={labels.lede}>
+      <ul class="bb-facts">
+        <li>{labels.count(talents.length)}</li>
+      </ul>
+      <div class="bb-actions">
+        <a href={labels.postUrl} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
+          {labels.post}
+          <Icon name="external" size={16} />
+        </a>
+        <a href={issues} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
+          {labels.all}
+          <Icon name="external" size={16} />
+        </a>
+      </div>
+    </PageCover>
+    <div class="bb-wrap bb-main">
+      {
+        talents.length > 0 ? (
+          <section class="bb-listing" aria-labelledby="lista-title">
+            <h2 id="lista-title" class="bb-eyebrow">
+              {labels.listed}
+            </h2>
+            <ul class="bb-cards">
+              {talents.map((talent) => (
+                <TalentItem talent={talent} />
+              ))}
+            </ul>
+          </section>
+        ) : (
+          <p class="bb-empty">{labels.empty}</p>
+        )
+      }
+    </div>
+  </main>
+</BaseLayout>
