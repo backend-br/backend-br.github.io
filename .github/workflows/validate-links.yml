@@ -17,7 +17,7 @@ jobs:
     permissions:
       issues: write
       contents: read
-    uses: backend-br/.github/.github/workflows/validate-links.yml@main
+    uses: backend-br/.github/.github/workflows/validate-links.yml@9e4bf553947273dcb44ef6ca52df19ce048b2820
     with:
       build-site: true
       lychee-args: "--verbose --no-progress --root-dir ${{ github.workspace }}/dist './README.md' './dist/**/*.html'"
