@@ -23,6 +23,7 @@ export const GET: APIRoute = async ({ site, url }) => {
     '',
     `- [${TEXT.home.response.label}](${page(TEXT.home.response.path)}): JSON com ${Object.values(TEXT.home.response.keys).join(', ')}.`,
     `- [${TEXT.jobs.feed}](${page(TEXT.jobs.feedPath)}): JSON com as vagas abertas.`,
+    `- [${TEXT.jobs.rss}](${page(TEXT.jobs.rssPath)}): RSS com as 50 vagas abertas mais recentes.`,
     `- [${TEXT.talents.feed}](${page(TEXT.talents.feedPath)}): JSON com os perfis divulgados.`,
     '',
     '## Repositórios',

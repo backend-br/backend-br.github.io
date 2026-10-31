@@ -43,6 +43,7 @@ GitHub:
 | `/projetos` | A tabela da seção `Projetos` do `README.md` de `opensource-br`.                             |
 | `/comunidade.json` | Os números do terminal da home: vagas abertas, desafios, projetos e estrelas.     |
 | `/vagas.json` | As vagas abertas, com nível, regime, modelo de trabalho e tecnologias.                    |
+| `/vagas.xml` | RSS com as 50 vagas abertas mais recentes.                                               |
 | `/talentos.json` | Os perfis divulgados, com os mesmos campos das vagas e os links de contato.            |
 
 A leitura fica em `src/content/sources.ts`, e a interpretação de cada fonte fica em um módulo puro de

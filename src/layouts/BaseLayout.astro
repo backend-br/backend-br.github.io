@@ -65,6 +65,7 @@ const jsonLd = structuredData
     <meta name="twitter:image:alt" content={SITE.meta.image} />
     <link rel="sitemap" href="/sitemap.xml" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="Back-End Brasil para modelos de linguagem" />
+    <link rel="alternate" type="application/rss+xml" href={TEXT.jobs.rssPath} title={TEXT.jobs.rss} />
     {jsonLd ? <script type="application/ld+json" set:html={jsonLd} /> : null}
   </head>
   <body>
