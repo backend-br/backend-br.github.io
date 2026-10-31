@@ -7,6 +7,8 @@ SHELL := /bin/bash
 PROJECT_NAME := $(shell sed -n 's/^  "name": "\(.*\)",$$/\1/p' package.json)
 NODE_VERSION := $(shell cat .nvmrc)
 NODE_IMAGE   := node:$(NODE_VERSION)
+PNPM_VERSION := $(shell sed -n 's/^  "packageManager": "pnpm@\(.*\)",$$/\1/p' package.json)
+PNPM         := npx --yes pnpm@$(PNPM_VERSION)
 
 DEV_CONTAINER := $(PROJECT_NAME)-dev
 PORT          := 4321
@@ -19,14 +21,13 @@ OPEN_CMD    := $(shell command -v sensible-browser 2>/dev/null || command -v xdg
 NODE_ENV_VARS = \
 	-u $(HOST_USER) \
 	-e HOME=/tmp \
-	-e COREPACK_HOME=/tmp/corepack \
-	-e COREPACK_ENABLE_DOWNLOAD_PROMPT=0 \
+	-e CI=true \
 	-e ASTRO_TELEMETRY_DISABLED=1 \
 	-e GITHUB_TOKEN \
 	-e npm_config_store_dir=/tmp/pnpm-store \
 	-v $(CURDIR):/app -w /app
 
-APP_RUN = docker run $(INTERACTIVE) --rm $(NODE_ENV_VARS) $(NODE_IMAGE) corepack pnpm
+APP_RUN = docker run $(INTERACTIVE) --rm $(NODE_ENV_VARS) $(NODE_IMAGE) $(PNPM)
 
 .PHONY: configure
 configure: ## @setup Install dependencies
@@ -41,7 +42,7 @@ start: ## @setup Start the development server with live reload
 	@docker rm -f $(DEV_CONTAINER) > /dev/null 2>&1 || true
 	@docker run -d --rm --name $(DEV_CONTAINER) $(NODE_ENV_VARS) \
 		-p 127.0.0.1:$(PORT):$(PORT) \
-		$(NODE_IMAGE) corepack pnpm dev --host 0.0.0.0 --port $(PORT) > /dev/null
+		$(NODE_IMAGE) $(PNPM) dev --host 0.0.0.0 --port $(PORT) > /dev/null
 	@echo "Development server at $(SITE_URL)"
 
 .PHONY: stop
@@ -61,7 +62,7 @@ preview: ## @setup Serve the built site, search included, on the development por
 	@docker rm -f $(DEV_CONTAINER) > /dev/null 2>&1 || true
 	@docker run -d --rm --name $(DEV_CONTAINER) $(NODE_ENV_VARS) \
 		-p 127.0.0.1:$(PORT):$(PORT) \
-		$(NODE_IMAGE) corepack pnpm preview --host 0.0.0.0 --port $(PORT) > /dev/null
+		$(NODE_IMAGE) $(PNPM) preview --host 0.0.0.0 --port $(PORT) > /dev/null
 	@echo "Built site at $(SITE_URL)"
 
 .PHONY: brand-images

@@ -5,6 +5,7 @@ export interface Issue {
   readonly title: string
   readonly html_url: string
   readonly created_at: string
+  readonly updated_at?: string
   readonly locked: boolean
   readonly pull_request?: unknown
   readonly labels: readonly { readonly name: string }[]

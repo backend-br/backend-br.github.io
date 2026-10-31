@@ -1163,6 +1163,13 @@
 .bb-card[hidden] {
   display: none;
 }
+.bb-card:target {
+  scroll-margin-block-start: 6rem;
+  border-color: var(--color-mark);
+  box-shadow:
+    inset 0 0 0 1px var(--color-mark),
+    var(--shadow-card);
+}
 .bb-card__meta {
   display: flex;
   align-items: center;

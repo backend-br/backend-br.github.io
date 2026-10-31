@@ -15,6 +15,7 @@ import { REPOSITORY as JOBS, openings } from './content/jobs'
 import { rehypeLineBreaks, rehypeOutline, rehypeUntrusted, SHIKI } from './content/markdown'
 import { byStars, githubHome, REPOSITORY as PROJECTS, projects as projectList } from './content/projects'
 import { catalogued } from './content/repositories'
+import { REPOSITORY as TALENTS, talents as sharedTalents } from './content/talents'
 import { accountStars, file, labels, openIssues, organizationRepositories, repositoryStars } from './content/sources'
 
 const repositories = defineCollection({
@@ -137,6 +138,38 @@ const jobs = defineCollection({
   }),
 })
 
+const talents = defineCollection({
+  loader: {
+    name: 'backend-br-talents',
+    load: async ({ store, logger }) => {
+      const [issues, catalog] = await Promise.all([openIssues(TALENTS), labels(TALENTS)])
+      const found = sharedTalents(issues, catalog)
+      store.clear()
+      for (const talent of found) {
+        store.set({ id: String(talent.number), data: { ...talent } })
+      }
+      logger.info(`Read ${found.length} shared profiles.`)
+    },
+  },
+  schema: z.object({
+    number: z.number(),
+    name: z.string(),
+    role: z.string(),
+    about: z.string(),
+    location: z.string(),
+    url: z.string(),
+    updated: z.string(),
+    modality: z.array(z.string()),
+    level: z.array(z.string()),
+    contract: z.array(z.string()),
+    stack: z.array(z.string()),
+    linkedin: z.string().nullable(),
+    github: z.string().nullable(),
+    portfolio: z.string().nullable(),
+    avatar: z.string(),
+  }),
+})
+
 const STAR_BATCH = 10
 
 const projects = defineCollection({
@@ -184,4 +217,4 @@ const projects = defineCollection({
   }),
 })
 
-export const collections = { repositories, challenges, jobs, projects }
+export const collections = { repositories, challenges, jobs, projects, talents }

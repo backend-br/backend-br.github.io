@@ -4,6 +4,7 @@ export type RepositoryEntry = CollectionEntry<'repositories'>
 export type Challenge = CollectionEntry<'challenges'>
 export type JobEntry = CollectionEntry<'jobs'>
 export type ProjectEntry = CollectionEntry<'projects'>
+export type TalentEntry = CollectionEntry<'talents'>
 
 export async function repositories(): Promise<readonly RepositoryEntry[]> {
   return (await getCollection('repositories')).sort((a, b) => a.data.order - b.data.order)
@@ -15,6 +16,12 @@ export async function challenges(): Promise<readonly Challenge[]> {
 
 export async function jobs(): Promise<readonly JobEntry[]> {
   return (await getCollection('jobs')).sort((a, b) => b.data.opened.localeCompare(a.data.opened))
+}
+
+export async function talents(): Promise<readonly TalentEntry[]> {
+  return (await getCollection('talents')).sort(
+    (a, b) => b.data.updated.localeCompare(a.data.updated) || a.data.number - b.data.number,
+  )
 }
 
 export async function projects(): Promise<readonly ProjectEntry[]> {

@@ -39,8 +39,11 @@ GitHub:
 | `/`         | A descrição e as estrelas de cada repositório, pela API REST da organização.                |
 | `/desafios` | O `README.md` de `desafios`, e o `PROBLEM.md` e o `SOLUTIONS.md` de cada desafio listado.   |
 | `/vagas`    | As issues abertas de `vagas` e a descrição de cada label, pela API REST.                    |
+| `/talentos` | As issues abertas de `me-contrata` com os labels `verificado` e `divulgar-perfil`.          |
 | `/projetos` | A tabela da seção `Projetos` do `README.md` de `opensource-br`.                             |
 | `/comunidade.json` | Os números do terminal da home: vagas abertas, desafios, projetos e estrelas.     |
+| `/vagas.json` | As vagas abertas, com nível, regime, modelo de trabalho e tecnologias.                    |
+| `/talentos.json` | Os perfis divulgados, com os mesmos campos das vagas e os links de contato.            |
 
 A leitura fica em `src/content/sources.ts`, e a interpretação de cada fonte fica em um módulo puro de
 `src/content/`, coberto por testes. Uma requisição que falha interrompe o build, então o site publicado continua
