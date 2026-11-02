@@ -1,0 +1,14 @@
+---
+import { SYSTEM_ICONS, systemIcon } from './systems'
+
+interface Props {
+  system: string
+  size?: number
+}
+
+const { system, size = 18 } = Astro.props
+---
+
+<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" width={size} height={size} fill="currentColor">
+  <path d={SYSTEM_ICONS[systemIcon(system)]} />
+</svg>

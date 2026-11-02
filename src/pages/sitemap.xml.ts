@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro'
-import { challenges, openJobs, talents } from '../content'
+import { challenges, openJobs, talents, tutorials } from '../content'
 
 export const GET: APIRoute = async ({ site, url }) => {
   const origin = site ?? new URL(url.origin)
@@ -14,6 +14,8 @@ export const GET: APIRoute = async ({ site, url }) => {
     ...openings.map((job) => ({ path: `/vagas/${job.data.number}/`, changed: job.data.opened.slice(0, 10) })),
     { path: '/talentos/', changed: latest?.data.updated.slice(0, 10) },
     { path: '/projetos/' },
+    { path: '/tutoriais/' },
+    ...(await tutorials()).map((guide) => ({ path: `/tutoriais/${guide.data.tool}/${guide.data.systemSlug}/` })),
   ]
   const document = [
     '<?xml version="1.0" encoding="UTF-8"?>',

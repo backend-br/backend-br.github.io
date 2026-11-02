@@ -1,0 +1,28 @@
+---
+import type { TutorialEntry } from '../content'
+import { TEXT } from '../content/site'
+import SystemIcon from './SystemIcon.astro'
+
+interface Props {
+  guides: readonly TutorialEntry[]
+  current: string
+}
+
+const { guides, current } = Astro.props
+---
+
+{
+  guides.length > 1 && (
+    <nav class="bb-switch" aria-label={TEXT.tutorials.systems} data-pagefind-ignore>
+      {guides.map((guide) => (
+        <a
+          href={`/tutoriais/${guide.data.tool}/${guide.data.systemSlug}/`}
+          aria-current={guide.id === current ? 'page' : undefined}
+        >
+          <SystemIcon system={guide.data.system} />
+          {guide.data.system}
+        </a>
+      ))}
+    </nav>
+  )
+}

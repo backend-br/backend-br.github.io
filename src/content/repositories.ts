@@ -5,6 +5,7 @@ export interface ListedRepository {
   readonly description: string | null
   readonly html_url: string
   readonly stargazers_count: number
+  readonly language?: string | null
 }
 
 export interface Repository {

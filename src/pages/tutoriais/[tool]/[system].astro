@@ -1,0 +1,83 @@
+---
+import type { GetStaticPaths } from 'astro'
+import { render } from 'astro:content'
+import Icon from '../../../components/Icon.astro'
+import PageCover from '../../../components/PageCover.astro'
+import SystemSwitch from '../../../components/SystemSwitch.astro'
+import { tutorials } from '../../../content'
+import { blobUrl } from '../../../content/catalog'
+import { excerpt, LOCALE, MAIN_ID, TEXT } from '../../../content/site'
+import { breadcrumbs, organizationId, websiteId } from '../../../content/structured-data'
+import { REPOSITORY } from '../../../content/tutorials'
+import BaseLayout from '../../../layouts/BaseLayout.astro'
+
+export const getStaticPaths = (async () => {
+  const all = await tutorials()
+  return all.map((guide) => ({
+    params: { tool: guide.data.tool, system: guide.data.systemSlug },
+    props: { guide, siblings: all.filter((other) => other.data.tool === guide.data.tool) },
+  }))
+}) satisfies GetStaticPaths
+
+const { guide, siblings } = Astro.props
+const { data } = guide
+const { Content } = await render(guide)
+const labels = TEXT.tutorials
+const origin = Astro.site ?? Astro.url.origin
+const path = `/tutoriais/${data.tool}/${data.systemSlug}/`
+const description = excerpt(`${data.title}. ${data.summary || data.toolSummary}`)
+const source = blobUrl(REPOSITORY, data.path)
+---
+
+<BaseLayout
+  title={labels.headlineOf(data.title)}
+  description={description}
+  path={path}
+  kind="article"
+  structuredData={{
+    '@graph': [
+      breadcrumbs(origin, [
+        { name: labels.title, path: '/tutoriais/' },
+        { name: data.title, path },
+      ]),
+      {
+        '@type': 'HowTo',
+        name: data.title,
+        description,
+        url: new URL(path, origin).href,
+        inLanguage: LOCALE,
+        isBasedOn: source,
+        isPartOf: { '@id': websiteId(origin) },
+        publisher: { '@id': organizationId(origin) },
+      },
+    ],
+  }}
+>
+  <main id={MAIN_ID}>
+    <div data-pagefind-body>
+      <PageCover
+        compact
+        title={data.title}
+        lede={data.summary || data.toolSummary}
+        trail={[
+          { label: labels.title, href: '/tutoriais/' },
+          { label: data.toolName, href: `/tutoriais/#${data.tool}` },
+        ]}
+      >
+        <SystemSwitch guides={siblings} current={guide.id} />
+        <div class="bb-actions bb-actions--pair" data-pagefind-ignore>
+          <a href={source} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
+            {labels.source}
+            <Icon name="external" size={16} />
+          </a>
+          <a href="/tutoriais/" class="bb-button bb-button--ghost">{labels.all}</a>
+        </div>
+      </PageCover>
+      <div class="bb-wrap bb-main">
+        <article class="bb-article bb-md">
+          <Content />
+        </article>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

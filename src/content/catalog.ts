@@ -17,7 +17,7 @@ export const CATALOG: readonly CatalogEntry[] = [
   { name: 'desafios', page: { path: '/desafios/', label: 'Ver os desafios' } },
   { name: 'opensource-br', page: { path: '/projetos/', label: 'Ver os projetos' } },
   { name: 'forum' },
-  { name: 'como-instalar-xyz' },
+  { name: 'como-instalar-xyz', page: { path: '/tutoriais/', label: 'Ver os tutoriais' } },
   { name: 'me-contrata', page: { path: '/talentos/', label: 'Ver os talentos' } },
   { name: 'eventos' },
   { name: 'poste-mais' },

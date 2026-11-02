@@ -14,6 +14,7 @@ export const SECTIONS: readonly Section[] = [
   { path: '/vagas/', label: TEXT.jobs.title, icon: 'briefcase' },
   { path: '/talentos/', label: TEXT.talents.title, icon: 'users' },
   { path: '/projetos/', label: TEXT.projects.shortTitle, icon: 'star' },
+  { path: '/tutoriais/', label: TEXT.tutorials.title, icon: 'terminal' },
 ]
 
 export function sectionAt(path: string): Section {

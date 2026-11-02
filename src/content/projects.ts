@@ -1,10 +1,13 @@
 import { firstUrl, headingOf, type Link, links, plainText, sections, tableRows } from './markdown'
+import type { ListedRepository } from './repositories'
 
 const EMOJI_SHORTCODE = /:[a-z0-9_+-]+:/g
 
 export const REPOSITORY = 'opensource-br'
 
 const PROJECTS_SECTION = 'projetos'
+
+const DOCUMENTATION = 'Markdown'
 
 export interface Project {
   readonly name: string
@@ -28,6 +31,21 @@ export function projects(readme: string): Project[] {
     }
     return [{ name: link?.label ?? url, url, source: sourceOf(url), language: language.trim(), links: links(others) }]
   })
+}
+
+export function withOrganization(list: readonly Project[], listed: readonly ListedRepository[]): Project[] {
+  const known = new Set(list.map((project) => project.source.toLowerCase()))
+  const own = listed
+    .filter((repository) => !repository.name.startsWith('.'))
+    .map((repository) => ({
+      name: repository.name,
+      url: repository.html_url,
+      source: sourceOf(repository.html_url),
+      language: repository.language ?? DOCUMENTATION,
+      links: [],
+    }))
+    .filter((project) => !known.has(project.source.toLowerCase()))
+  return [...list, ...own]
 }
 
 export function byLanguage<T extends Pick<Project, 'language'>>(

@@ -1,5 +1,13 @@
 import { describe, expect, it } from 'vitest'
-import { byLanguage, byStars, githubHome, languageAnchor, plainDescription, projects } from './projects'
+import {
+  byLanguage,
+  byStars,
+  githubHome,
+  languageAnchor,
+  plainDescription,
+  projects,
+  withOrganization,
+} from './projects'
 
 const README = [
   '# Open-source BR',
@@ -151,5 +159,50 @@ describe('the description of a project', () => {
 
     // Then only the words are kept
     expect(read).toBe('Controle social | Sem atualizações em okfn')
+  })
+})
+
+describe('the projects of the organization', () => {
+  const repository = (name: string, language: string | null = null) => ({
+    name,
+    description: null,
+    html_url: `https://github.com/backend-br/${name}`,
+    stargazers_count: 1,
+    language,
+  })
+
+  it('adds the public repositories of the organization after the listed projects', () => {
+    // Given a listed project and two repositories of the organization
+    const listed = projects(README)
+    const own = [repository('vagas'), repository('backend-br.github.io', 'TypeScript')]
+
+    // When the organization is added
+    const all = withOrganization(listed, own)
+
+    // Then both repositories follow the list, a repository without a language as Markdown
+    expect(all.slice(listed.length).map((project) => [project.source, project.language])).toEqual([
+      ['backend-br/vagas', 'Markdown'],
+      ['backend-br/backend-br.github.io', 'TypeScript'],
+    ])
+  })
+
+  it('leaves out the configuration repository and a repository the list already has', () => {
+    // Given the configuration repository and a repository already in the list
+    const listed = [
+      {
+        name: 'Desafios',
+        url: 'https://github.com/backend-br/desafios',
+        source: 'backend-br/desafios',
+        language: 'Markdown',
+        links: [],
+      },
+    ]
+    const own = [repository('.github', 'JavaScript'), repository('desafios')]
+
+    // When the organization is added
+    const all = withOrganization(listed, own)
+
+    // Then nothing is added
+    expect(all).toEqual(listed)
   })
 })

@@ -1,0 +1,76 @@
+---
+import CoverActions from '../../components/CoverActions.astro'
+import PageCover from '../../components/PageCover.astro'
+import { sectionAt } from '../../components/sections'
+import ToolCard from '../../components/ToolCard.astro'
+import { repositoryLede, type TutorialEntry, tutorials as allTutorials } from '../../content'
+import { MAIN_ID, TEXT } from '../../content/site'
+import { breadcrumbs, collection } from '../../content/structured-data'
+import { REPOSITORY } from '../../content/tutorials'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+
+const guides = await allTutorials()
+const labels = TEXT.tutorials
+const lede = await repositoryLede(REPOSITORY, labels.lede)
+const description = `${lede} ${labels.count(guides.length)}.`
+const origin = Astro.site ?? Astro.url.origin
+const path = '/tutoriais/'
+
+const categories = new Map<string, Map<string, TutorialEntry[]>>()
+for (const guide of guides) {
+  const tools = categories.get(guide.data.category) ?? new Map<string, TutorialEntry[]>()
+  tools.set(guide.data.tool, [...(tools.get(guide.data.tool) ?? []), guide])
+  categories.set(guide.data.category, tools)
+}
+const anchorOf = (category: string): string =>
+  category
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '')
+---
+
+<BaseLayout
+  title={labels.headline}
+  description={description}
+  path={path}
+  structuredData={{
+    '@graph': [
+      breadcrumbs(origin, [{ name: labels.title, path }]),
+      collection(
+        origin,
+        { path, name: labels.headline, description },
+        guides.map((guide) => ({
+          name: guide.data.title,
+          url: new URL(`/tutoriais/${guide.data.tool}/${guide.data.systemSlug}/`, origin).href,
+        })),
+      ),
+    ],
+  }}
+>
+  <main id={MAIN_ID}>
+    <PageCover title={labels.title} lede={lede} icon={sectionAt(path).icon}>
+      <ul class="bb-facts">
+        <li>{labels.count(guides.length)}</li>
+      </ul>
+      <CoverActions label={labels.add} href={labels.addUrl} repository={REPOSITORY} />
+    </PageCover>
+    <div class="bb-wrap bb-main">
+      {
+        [...categories.entries()].map(([category, tools]) => (
+          <section class="bb-listing" aria-labelledby={anchorOf(category)}>
+            <h2 id={anchorOf(category)} class="bb-eyebrow">
+              {category}
+            </h2>
+            <ul class="bb-cards">
+              {[...tools.values()].map((group) => (
+                <ToolCard guides={group} />
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>

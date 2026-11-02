@@ -19,9 +19,19 @@ import {
   plainDescription,
   REPOSITORY as PROJECTS,
   projects as projectList,
+  withOrganization,
 } from './content/projects'
 import { catalogued } from './content/repositories'
 import { REPOSITORY as TALENTS, talents as sharedTalents } from './content/talents'
+import {
+  isToolIndex,
+  systemSlug,
+  toolIndex,
+  toolIndexPath,
+  toolPage,
+  REPOSITORY as TUTORIALS,
+  tutorial,
+} from './content/tutorials'
 import {
   accountFacts,
   closedIssues,
@@ -193,10 +203,11 @@ const projects = defineCollection({
   loader: {
     name: 'backend-br-projects',
     load: async ({ store, logger }) => {
-      const found = projectList(await file(PROJECTS, 'README.md'))
-      if (found.length === 0) {
+      const listed = projectList(await file(PROJECTS, 'README.md'))
+      if (listed.length === 0) {
         throw new Error(`The README of ${PROJECTS} lists no project.`)
       }
+      const found = withOrganization(listed, await organizationRepositories())
       const starred: { project: (typeof found)[number] & { description: string }; stars: number | null }[] = []
       for (let start = 0; start < found.length; start += STAR_BATCH) {
         const batch = found.slice(start, start + STAR_BATCH)
@@ -238,4 +249,72 @@ const projects = defineCollection({
   }),
 })
 
-export const collections = { repositories, challenges, jobs, projects, talents }
+const tutorials = defineCollection({
+  loader: {
+    name: 'backend-br-tutorials',
+    load: async ({ store, renderMarkdown, logger }) => {
+      const tools = toolIndex(await file(TUTORIALS, 'README.md'))
+      if (tools.length === 0) {
+        throw new Error(`The README of ${TUTORIALS} lists no tutorial.`)
+      }
+      const read = await Promise.all(
+        tools.map(async (tool) => {
+          const pages = await Promise.all(
+            tool.paths
+              .filter(isToolIndex)
+              .map(toolIndexPath)
+              .map(async (path) => toolPage(path, await file(TUTORIALS, path))),
+          )
+          const paths = [
+            ...new Set([...tool.paths.filter((path) => !isToolIndex(path)), ...pages.flatMap((page) => page.paths)]),
+          ]
+          const guides = await Promise.all(
+            paths.map(async (path) => ({ path, guide: tutorial(path, await file(TUTORIALS, path)) })),
+          )
+          return { tool, summary: pages.find((page) => page.summary !== '')?.summary ?? '', guides }
+        }),
+      )
+      store.clear()
+      let count = 0
+      for (const [toolOrder, { tool, summary, guides }] of read.entries()) {
+        for (const [order, { path, guide }] of guides.entries()) {
+          store.set({
+            id: `${tool.slug}/${systemSlug(guide.system)}`,
+            data: {
+              tool: tool.slug,
+              toolName: tool.name,
+              toolSummary: summary || guide.summary,
+              category: tool.category,
+              toolOrder,
+              order,
+              system: guide.system,
+              systemSlug: systemSlug(guide.system),
+              title: guide.title,
+              summary: guide.summary,
+              path,
+            },
+            body: guide.body,
+            rendered: await renderMarkdown(guide.body),
+          })
+          count++
+        }
+      }
+      logger.info(`Read ${count} tutorials of ${read.length} tools.`)
+    },
+  },
+  schema: z.object({
+    tool: z.string(),
+    toolName: z.string(),
+    toolSummary: z.string(),
+    category: z.string(),
+    toolOrder: z.number(),
+    order: z.number(),
+    system: z.string(),
+    systemSlug: z.string(),
+    title: z.string(),
+    summary: z.string(),
+    path: z.string(),
+  }),
+})
+
+export const collections = { repositories, challenges, jobs, projects, talents, tutorials }

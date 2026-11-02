@@ -75,7 +75,7 @@ export function resolve(target: string, image: boolean, base: { blob: string; ra
     return target
   }
   const path = target.replace(/^\.?\//, '')
-  return `${image ? base.raw : base.blob}/${path}`
+  return new URL(path, `${image ? base.raw : base.blob}/`).href
 }
 
 export function absoluteLinks(markdown: string, base: { blob: string; raw: string }): string {

@@ -1,0 +1,46 @@
+---
+import type { TutorialEntry } from '../content'
+import { repositoryUrl } from '../content/catalog'
+import { TEXT } from '../content/site'
+import { REPOSITORY } from '../content/tutorials'
+import EntryCard from './EntryCard.astro'
+import SystemIcon from './SystemIcon.astro'
+
+interface Props {
+  guides: readonly TutorialEntry[]
+}
+
+const { guides } = Astro.props
+const [first] = guides
+const tool = first?.data
+const pageOf = (guide: TutorialEntry): string => `/tutoriais/${guide.data.tool}/${guide.data.systemSlug}/`
+const directory = tool?.path.split('/').slice(0, 2).join('/') ?? ''
+---
+
+{
+  tool && first && (
+    <EntryCard
+      id={tool.tool}
+      title={tool.toolName}
+      {...(guides.length === 1 ? { href: pageOf(first) } : {})}
+      summary={tool.toolSummary}
+      compact
+      links={[{ url: `${repositoryUrl(REPOSITORY)}/tree/HEAD/${directory}`, label: TEXT.tutorials.sourceOf(tool.toolName), icon: 'github' }]}
+    >
+      <ul class="bb-systems" slot="foot">
+        {guides.map((guide) => (
+          <li>
+            <a
+              href={pageOf(guide)}
+              class="bb-system"
+              aria-label={guide.data.title}
+              title={guide.data.system}
+            >
+              <SystemIcon system={guide.data.system} />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </EntryCard>
+  )
+}

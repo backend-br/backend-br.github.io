@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro'
-import { challenges, openJobs, projects, repositories, repositoryLede } from '../content'
+import { challenges, openJobs, projects, repositories, repositoryLede, tutorials } from '../content'
 import { rawUrl } from '../content/catalog'
 import { REPOSITORY as CHALLENGES } from '../content/challenges'
 import { REPOSITORY as JOBS } from '../content/jobs'
@@ -27,6 +27,7 @@ export const GET: APIRoute = async ({ site, url }) => {
     `- [${TEXT.jobs.headline}](${page('/vagas/')}): ${jobsLede}`,
     `- [${TEXT.talents.headline}](${page('/talentos/')}): ${talentsLede}`,
     `- [${TEXT.projects.headline}](${page('/projetos/')}): ${projectsLede}`,
+    `- [${TEXT.tutorials.headline}](${page('/tutoriais/')}): ${TEXT.tutorials.lede}`,
     '',
     '## Dados',
     '',
@@ -61,6 +62,13 @@ export const GET: APIRoute = async ({ site, url }) => {
     ...(await projects()).map(
       (project) =>
         `- [${project.data.name}](${project.data.url}): ${[project.data.language, TEXT.home.stars(project.data.stars)].filter(Boolean).join(', ')}`,
+    ),
+    '',
+    '## Tutoriais de instalação',
+    '',
+    ...(await tutorials()).map(
+      (guide) =>
+        `- [${guide.data.title}](${page(`/tutoriais/${guide.data.tool}/${guide.data.systemSlug}/`)}): ${guide.data.summary}`,
     ),
     '',
   ]
