@@ -2,6 +2,7 @@
 import ChallengeCard from '../../components/ChallengeCard.astro'
 import CoverActions from '../../components/CoverActions.astro'
 import PageCover from '../../components/PageCover.astro'
+import { sectionAt } from '../../components/sections'
 import { challenges as allChallenges } from '../../content'
 import { REPOSITORY } from '../../content/challenges'
 import { MAIN_ID, TEXT } from '../../content/site'
@@ -44,7 +45,7 @@ const origin = Astro.site ?? Astro.url.origin
   }}
 >
   <main id={MAIN_ID}>
-    <PageCover title={labels.title} lede={labels.lede}>
+    <PageCover title={labels.title} lede={labels.lede} icon={sectionAt('/desafios/').icon}>
       <ul class="bb-facts">
         <li>{labels.count(challenges.length)}</li>
         <li>{labels.solutions(solutions)}</li>

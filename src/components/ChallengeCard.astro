@@ -3,7 +3,9 @@ import type { Challenge } from '../content'
 import { avatarOf, blobUrl } from '../content/catalog'
 import { REPOSITORY } from '../content/challenges'
 import { TEXT } from '../content/site'
+import Avatar from './Avatar.astro'
 import EntryCard from './EntryCard.astro'
+import Icon from './Icon.astro'
 
 interface Props {
   challenge: Challenge
@@ -17,14 +19,35 @@ const first = data.solutions.find((solution) => solution.first)
 ---
 
 <EntryCard
-  avatar={first ? avatarOf(first.owner) : ''}
-  {...(first ? { mark: '🥇' } : {})}
-  source={first ? first.owner : labels.noFirst}
-  meta={labels.solutions(data.solutionCount)}
   title={data.title}
+  subtitle={labels.solutions(data.solutionCount)}
   href={`/desafios/${data.slug}/`}
   level={level}
   summary={data.summary}
-  stack={data.languages.map((group) => group.language)}
   links={[{ url: blobUrl(REPOSITORY, `${data.slug}/PROBLEM.md`), label: labels.statement, icon: 'external' }]}
-/>
+>
+  {
+    first ? (
+      <a
+        href={first.repository}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        class="bb-first"
+        aria-label={labels.firstOf(first.owner, first.language)}
+      >
+        <Avatar url={avatarOf(first.owner)} size={36} />
+        <span class="bb-first__text">
+          <span class="bb-first__label">
+            <span aria-hidden="true">🥇</span> {labels.first}
+          </span>
+          <span class="bb-first__who">
+            {first.owner} · {first.language}
+          </span>
+        </span>
+        <Icon name="external" size={16} />
+      </a>
+    ) : (
+      <p class="bb-first bb-first--empty">{labels.noFirst}</p>
+    )
+  }
+</EntryCard>

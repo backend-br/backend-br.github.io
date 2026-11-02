@@ -3,16 +3,12 @@ import { SITE, TEXT } from '../content/site'
 import BrandMark from './BrandMark.astro'
 import Icon from './Icon.astro'
 import SearchForm from './SearchForm.astro'
+import { HOME, isCurrent, SECTIONS } from './sections'
 import ThemeToggle from './ThemeToggle.astro'
 
-const sections = [
-  { path: '/desafios/', label: 'Desafios' },
-  { path: '/vagas/', label: 'Vagas' },
-  { path: '/talentos/', label: 'Talentos' },
-  { path: '/projetos/', label: 'Projetos' },
-]
 const here = Astro.url.pathname
-const current = (path: string): 'page' | undefined => (here.startsWith(path) ? 'page' : undefined)
+const current = (section: (typeof SECTIONS)[number]): 'page' | undefined =>
+  isCurrent(section, here) ? 'page' : undefined
 ---
 
 <header class="bb-bar">
@@ -23,9 +19,10 @@ const current = (path: string): 'page' | undefined => (here.startsWith(path) ? '
     <nav class="bb-nav" aria-label={TEXT.nav.label}>
       <ul>
         {
-          sections.map((section) => (
+          SECTIONS.map((section) => (
             <li>
-              <a href={section.path} aria-current={current(section.path)}>
+              <a href={section.path} aria-current={current(section)}>
+                <Icon name={section.icon} size={18} />
                 {section.label}
               </a>
             </li>
@@ -57,27 +54,24 @@ const current = (path: string): 'page' | undefined => (here.startsWith(path) ? '
         <Icon name="github" size={18} />
       </a>
       <ThemeToggle theme={TEXT.theme} />
-      <details class="bb-menu">
-        <summary class="bb-tool" aria-label={TEXT.nav.menu} title={TEXT.nav.menu}>
-          <Icon name="menu" size={20} />
-        </summary>
-        <nav class="bb-menu__panel" aria-label={TEXT.nav.label}>
-          <ul>
-            {
-              sections.map((section) => (
-                <li>
-                  <a href={section.path} aria-current={current(section.path)}>
-                    {section.label}
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </nav>
-      </details>
     </div>
   </div>
 </header>
+
+<nav class="bb-tabbar" aria-label={TEXT.nav.label}>
+  <ul>
+    {
+      [HOME, ...SECTIONS].map((section) => (
+        <li>
+          <a href={section.path} aria-current={current(section)}>
+            <Icon name={section.icon} size={20} />
+            <span>{section.label}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
 
 <dialog class="bb-dialog" aria-label={TEXT.search.title} closedby="any" data-search-dialog>
   <div class="bb-dialog__head">

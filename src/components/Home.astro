@@ -72,15 +72,11 @@ const origin = Astro.site ?? Astro.url.origin
           <h2 id="desafios-title" class="bb-display bb-section__title">{TEXT.home.challengesTitle}</h2>
           <p class="bb-section__lede">{TEXT.home.challengesLede}</p>
         </header>
-        <ul class="bb-cards bb-cards--even">
-          {challenges.slice(0, LATEST).map((challenge) => (
+        <ul class="bb-cards bb-cards--wide">
+          {challenges.map((challenge) => (
             <ChallengeCard challenge={challenge} />
           ))}
         </ul>
-        <a href="/desafios/" class="bb-button bb-button--ghost bb-section__more">
-          {TEXT.home.allChallenges}
-          <Icon name="arrow-right" size={16} />
-        </a>
       </section>
 
       <section class="bb-section" aria-labelledby="vagas-title">

@@ -3,6 +3,7 @@ import CoverActions from '../components/CoverActions.astro'
 import Icon from '../components/Icon.astro'
 import JobItem from '../components/JobItem.astro'
 import PageCover from '../components/PageCover.astro'
+import { sectionAt } from '../components/sections'
 import { jobs as allJobs, openJobs } from '../content'
 import { repositoryUrl } from '../content/catalog'
 import { REPOSITORY } from '../content/jobs'
@@ -35,7 +36,7 @@ const issues = `${repositoryUrl(REPOSITORY)}/issues`
   }}
 >
   <main id={MAIN_ID}>
-    <PageCover title={labels.title} lede={labels.lede}>
+    <PageCover title={labels.title} lede={labels.lede} icon={sectionAt('/vagas/').icon}>
       <ul class="bb-facts">
         <li>{labels.count(open.length)}</li>
       </ul>

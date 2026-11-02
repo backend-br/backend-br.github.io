@@ -1,13 +1,16 @@
 ---
 import { TEXT } from '../content/site'
+import Icon from './Icon.astro'
+import type { IconName } from './icons'
 
 interface Props {
   title: string
   lede: string
   trail?: readonly { readonly label: string; readonly href: string }[]
   compact?: boolean
+  icon?: IconName
 }
-const { title, lede, trail = [], compact = false } = Astro.props
+const { title, lede, trail = [], compact = false, icon } = Astro.props
 ---
 
 <div class="bb-cover">
@@ -24,7 +27,16 @@ const { title, lede, trail = [], compact = false } = Astro.props
         </nav>
       )
     }
-    <h1 class:list={['bb-display bb-cover__title', { 'bb-cover__title--compact': compact }]}>{title}</h1>
+    <h1 class:list={['bb-display bb-cover__title', { 'bb-cover__title--compact': compact }]}>
+      {
+        icon && (
+          <span class="bb-cover__icon">
+            <Icon name={icon} size={28} />
+          </span>
+        )
+      }
+      {title}
+    </h1>
     <p class="bb-cover__lede">{lede}</p>
     <slot />
   </div>

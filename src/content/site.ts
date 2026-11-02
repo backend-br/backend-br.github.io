@@ -31,7 +31,6 @@ export const TEXT = {
     homeLink: 'backend brasil, início',
     search: 'Buscar nos desafios e nas vagas',
     searchShort: 'Buscar',
-    menu: 'Menu',
     toTop: 'Voltar ao topo',
     github: 'Back-End Brasil no GitHub',
     crumbs: 'Você está aqui',
@@ -64,7 +63,6 @@ export const TEXT = {
     jobsTitle: 'Vagas recentes',
     jobsLede: 'As vagas mais recentes publicadas como issues em backend-br/vagas.',
     allJobs: 'Ver todas as vagas',
-    allChallenges: 'Ver todos os desafios',
   },
   challenges: {
     title: 'Desafios',
@@ -80,6 +78,7 @@ export const TEXT = {
     communitySolutions: 'Soluções da comunidade',
     first: 'Primeira solução',
     noFirst: 'Aguardando a primeira solução',
+    firstOf: (owner: string, language: string) => `Primeira solução, de ${owner} em ${language}, no GitHub`,
     solutionKind: 'Solução',
     solutionOf: (owner: string) => `Solução de ${owner} no GitHub`,
     firstBy: 'Primeira solução por',
@@ -134,6 +133,7 @@ export const TEXT = {
   },
   projects: {
     title: 'Projetos open-source',
+    shortTitle: 'Projetos',
     headline: 'Projetos open-source brasileiros',
     lede: 'Projetos open-source brasileiros que a comunidade reúne em backend-br/opensource-br, dos mais estrelados aos menos, com filtro por linguagem.',
     count: (count: number) => plural(count, 'projeto', 'projetos'),

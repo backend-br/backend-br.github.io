@@ -2,6 +2,7 @@
 import CoverActions from '../components/CoverActions.astro'
 import ProjectCard from '../components/ProjectCard.astro'
 import PageCover from '../components/PageCover.astro'
+import { sectionAt } from '../components/sections'
 import { projects as allProjects } from '../content'
 import { byLanguage, languageAnchor as anchor, REPOSITORY } from '../content/projects'
 import { MAIN_ID, TEXT } from '../content/site'
@@ -39,7 +40,7 @@ const origin = Astro.site ?? Astro.url.origin
   }}
 >
   <main id={MAIN_ID}>
-    <PageCover title={labels.title} lede={labels.lede}>
+    <PageCover title={labels.title} lede={labels.lede} icon={sectionAt('/projetos/').icon}>
       <ul class="bb-facts">
         <li>{labels.count(projects.length)}</li>
       </ul>
