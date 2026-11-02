@@ -4,6 +4,7 @@ import { avatarOf } from '../content/catalog'
 import { languageAnchor } from '../content/projects'
 import { TEXT } from '../content/site'
 import EntryCard from './EntryCard.astro'
+import { languageColor } from './languages'
 
 interface Props {
   project: ProjectEntry['data']
@@ -23,6 +24,15 @@ const owner = project.source.split('/')[0] ?? ''
   href={project.url}
   summary={project.description}
   level={level}
-  stack={project.language ? [project.language] : []}
+  compact
   links={[{ url: project.url, label: TEXT.onGitHub(project.name), icon: 'github' }]}
-/>
+>
+  {
+    project.language && (
+      <p class="bb-language" slot="foot">
+        <span class="bb-language__dot" style={`--language: ${languageColor(project.language)}`} aria-hidden="true" />
+        {project.language}
+      </p>
+    )
+  }
+</EntryCard>

@@ -2,6 +2,7 @@
 import type { HTMLAttributes } from 'astro/types'
 import { day, excerpt, LOCALE, since, TEXT } from '../content/site'
 import Avatar from './Avatar.astro'
+import EntryChips from './EntryChips.astro'
 import Icon from './Icon.astro'
 import type { IconName } from './icons'
 
@@ -29,9 +30,8 @@ interface Props extends HTMLAttributes<'li'> {
   links: readonly EntryLink[]
   muted?: boolean
   highlight?: boolean
+  compact?: boolean
 }
-
-const MAX_CHIPS = 5
 
 const SUMMARY_LIMIT = 200
 
@@ -55,18 +55,16 @@ const {
   links,
   muted = false,
   highlight = false,
+  compact = false,
   class: className,
   ...attributes
 } = Astro.props
 const external = (url: string): boolean => /^https?:\/\//.test(url)
 const repeated = href !== undefined && links.some((link) => link.url === href)
-const chips = [...terms.map((term) => ({ term, strong: true })), ...stack.map((term) => ({ term, strong: false }))]
-const shown = chips.slice(0, MAX_CHIPS)
-const hidden = chips.slice(MAX_CHIPS).map((chip) => chip.term)
 ---
 
 <li
-  class:list={['bb-card', 'bb-entry', { 'bb-entry--muted': muted, 'bb-entry--highlight': highlight }, className]}
+  class:list={['bb-card', 'bb-entry', { 'bb-entry--muted': muted, 'bb-entry--highlight': highlight, 'bb-entry--compact': compact }, className]}
   {...attributes}
 >
   {
@@ -114,29 +112,13 @@ const hidden = chips.slice(MAX_CHIPS).map((chip) => chip.term)
     </Heading>
     {subtitle && <p class="bb-entry__subtitle">{subtitle}</p>}
     {summary !== undefined && <p class="bb-entry__summary">{excerpt(summary, SUMMARY_LIMIT)}</p>}
-    {
-      chips.length > 0 && (
-        <ul class="bb-chips bb-entry__chips">
-          {shown.map((chip) => (
-            <li class:list={['bb-chip', { 'bb-chip--strong': chip.strong }]}>{chip.term}</li>
-          ))}
-          {hidden.length > 0 && (
-            <li class="bb-chip" title={hidden.join(', ')}>
-              <span aria-hidden="true">+{hidden.length}</span>
-              <span class="sr-only">{hidden.join(', ')}</span>
-            </li>
-          )}
-        </ul>
-      )
-    }
+    {!compact && <EntryChips terms={terms} stack={stack} />}
     <slot />
   </div>
   <div class="bb-entry__foot">
-    {
-      kind && (
-        <span class="bb-entry__kind">{kind}</span>
-      )
-    }
+    {compact && <EntryChips terms={terms} stack={stack} />}
+    <slot name="foot" />
+    {kind && <span class="bb-entry__kind">{kind}</span>}
     {
       links.length > 0 && (
         <ul class="bb-entry__links">
