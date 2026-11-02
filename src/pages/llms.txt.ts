@@ -68,7 +68,7 @@ export const GET: APIRoute = async ({ site, url }) => {
     '',
     ...(await tutorials()).map(
       (guide) =>
-        `- [${guide.data.title}](${page(`/tutoriais/${guide.data.tool}/${guide.data.systemSlug}/`)}): ${guide.data.summary}`,
+        `- [${guide.data.title}](${page(`/tutoriais/${guide.data.tool}/${guide.data.systemSlug}/`)}): ${guide.data.toolSummary}`,
     ),
     '',
   ]

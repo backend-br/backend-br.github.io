@@ -29,6 +29,7 @@ import {
   toolIndex,
   toolIndexPath,
   toolPage,
+  toolReadmeOf,
   REPOSITORY as TUTORIALS,
   tutorial,
 } from './content/tutorials'
@@ -38,6 +39,7 @@ import {
   file,
   labels,
   openIssues,
+  optionalFile,
   organizationRepositories,
   repositoryFacts,
 } from './content/sources'
@@ -259,12 +261,17 @@ const tutorials = defineCollection({
       }
       const read = await Promise.all(
         tools.map(async (tool) => {
-          const pages = await Promise.all(
-            tool.paths
-              .filter(isToolIndex)
-              .map(toolIndexPath)
-              .map(async (path) => toolPage(path, await file(TUTORIALS, path))),
-          )
+          const indexes = [
+            ...new Set([...tool.paths.filter(isToolIndex).map(toolIndexPath), toolReadmeOf(tool.paths[0] ?? '')]),
+          ]
+          const pages = (
+            await Promise.all(
+              indexes.map(async (path) => {
+                const markdown = await optionalFile(TUTORIALS, path)
+                return markdown === null ? [] : [toolPage(path, markdown)]
+              }),
+            )
+          ).flat()
           const paths = [
             ...new Set([...tool.paths.filter((path) => !isToolIndex(path)), ...pages.flatMap((page) => page.paths)]),
           ]

@@ -1,5 +1,14 @@
 import { describe, expect, it } from 'vitest'
-import { isToolIndex, joined, systemSlug, toolIndex, toolIndexPath, toolPage, tutorial } from './tutorials'
+import {
+  isToolIndex,
+  joined,
+  systemSlug,
+  toolIndex,
+  toolIndexPath,
+  toolPage,
+  toolReadmeOf,
+  tutorial,
+} from './tutorials'
 
 const README = [
   '# Como instalar XYZ',
@@ -102,6 +111,19 @@ describe('the index of a tool', () => {
 
     // Then it is the README inside the folder
     expect(index).toBe('tutoriais/rust/README.md')
+  })
+})
+
+describe('the README of a tool', () => {
+  it('lives in the folder of the tool, whatever the depth of the tutorial', () => {
+    // Given a tutorial two levels under the tool folder
+    const path = 'tutoriais/ruby/linux.md'
+
+    // When the README of its tool is located
+    const readme = toolReadmeOf(path)
+
+    // Then it is the README of the tool folder
+    expect(readme).toBe('tutoriais/ruby/README.md')
   })
 })
 

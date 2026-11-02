@@ -66,6 +66,11 @@ export async function file(name: string, path: string): Promise<string> {
   return (await fetchOk(rawUrl(name, path))).text()
 }
 
+export async function optionalFile(name: string, path: string): Promise<string | null> {
+  const response = await fetchOk(rawUrl(name, path), {}, 'null')
+  return response === null ? null : response.text()
+}
+
 function found(path: string): Promise<Response | null> {
   return fetchOk(`${API}${path}`, apiHeaders(), 'null')
 }

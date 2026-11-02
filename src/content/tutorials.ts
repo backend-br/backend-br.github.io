@@ -64,6 +64,10 @@ export function isToolIndex(path: string): boolean {
   return path.endsWith(`/${README}`) || !path.endsWith('.md')
 }
 
+export function toolReadmeOf(path: string): string {
+  return `${path.split('/').slice(0, 2).join('/')}/${README}`
+}
+
 export function toolIndexPath(path: string): string {
   return path.endsWith('.md') ? path : `${path}/${README}`
 }

@@ -1085,33 +1085,43 @@ a.bb-first:focus-visible {
   border-color: var(--color-accent);
   color: var(--color-ink);
 }
+.bb-cover:has(+ .bb-switch) {
+  border-block-end: 0;
+}
 .bb-switch {
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 0.25rem;
-  padding: 0.25rem;
-  border-radius: var(--radius-md);
-  border: 1px solid var(--color-hair);
-  background: var(--color-page);
+  border-block-end: 1px solid var(--color-hair);
+  background: var(--color-surface);
+}
+.bb-switch ul {
+  display: flex;
+  gap: 1.75rem;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 .bb-switch a {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  height: var(--size-control);
-  padding-inline: 0.875rem;
-  border-radius: var(--radius-sm);
+  min-height: 3rem;
   font-size: var(--text-small);
   font-weight: var(--font-weight-demibold);
+  white-space: nowrap;
   color: var(--color-ink-muted);
+  transition: color var(--duration-micro) var(--ease-out-soft);
 }
-.bb-switch a:hover {
-  color: var(--color-ink);
-  background: var(--color-surface-strong);
-}
+.bb-switch a:hover,
 .bb-switch a[aria-current='page'] {
+  color: var(--color-ink);
+}
+.bb-switch a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: -1px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
   background: var(--color-mark);
-  color: var(--color-mark-ink);
 }
 .bb-system:focus-visible {
   outline: 3px solid var(--color-focus);
