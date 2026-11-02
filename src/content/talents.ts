@@ -5,6 +5,8 @@ export const REPOSITORY = 'me-contrata'
 
 export const SHARED: readonly string[] = ['verificado', 'divulgar-perfil']
 
+const REFUSED = 'triagem-recusada'
+
 const STATUS: ReadonlySet<string> = new Set([
   'verificado',
   'em-triagem',
@@ -44,6 +46,7 @@ export interface Talent {
   readonly linkedin: string | null
   readonly github: string | null
   readonly portfolio: string | null
+  readonly login: string
   readonly avatar: string
 }
 
@@ -72,13 +75,15 @@ export function talents(issues: readonly Issue[], labels: readonly Label[]): Tal
     facets.set(name, null)
   }
   return issues
-    .filter((issue) => issue.pull_request === undefined && !issue.locked)
+    .filter((issue) => issue.pull_request === undefined && !issue.locked && issue.state !== 'closed')
     .filter((issue) => SHARED.every((name) => issue.labels.some((label) => label.name === name)))
+    .filter((issue) => !issue.labels.some((label) => label.name === REFUSED))
     .map((issue) => {
       const fields = sections(issue.body ?? '')
       const names = (facet: Facet): string[] =>
         issue.labels.map((label) => label.name).filter((name) => (facets.has(name) ? facets.get(name) : null) === facet)
       const github = link(fields[HEADINGS.github], GITHUB)
+      const login = github ? (GITHUB.exec(github)?.[1] ?? '') : (issue.user?.login ?? '')
       return {
         number: issue.number,
         name: (fields[HEADINGS.name] ?? '').trim() || issue.title.trim(),
@@ -94,7 +99,8 @@ export function talents(issues: readonly Issue[], labels: readonly Label[]): Tal
         linkedin: link(fields[HEADINGS.linkedin], LINKEDIN),
         github,
         portfolio: link(fields[HEADINGS.portfolio], PORTFOLIO),
-        avatar: avatarOf(github ? (GITHUB.exec(github)?.[1] ?? '') : (issue.user?.login ?? '')),
+        login,
+        avatar: avatarOf(login),
       }
     })
     .sort((a, b) => b.updated.localeCompare(a.updated) || a.number - b.number)

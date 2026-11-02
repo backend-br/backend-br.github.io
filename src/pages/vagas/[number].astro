@@ -5,8 +5,7 @@ import Avatar from '../../components/Avatar.astro'
 import Icon from '../../components/Icon.astro'
 import PageCover from '../../components/PageCover.astro'
 import { jobs } from '../../content'
-import { plainText } from '../../content/markdown'
-import { formFields, jobPosting } from '../../content/posting'
+import { jobPosting, jobSummary } from '../../content/posting'
 import { day, excerpt, LOCALE, MAIN_ID, TEXT } from '../../content/site'
 import { breadcrumbs, organizationId, websiteId } from '../../content/structured-data'
 import BaseLayout from '../../layouts/BaseLayout.astro'
@@ -24,16 +23,13 @@ const labels = TEXT.jobs
 const origin = Astro.site ?? Astro.url.origin
 const path = `/vagas/${data.number}/`
 const author = data.author || labels.deleted
-const lede = labels.ledeOf(day(data.opened))
-const words = plainText(
-  (formFields(job.body ?? '').description ?? job.body ?? '')
-    .replace(/<!--[\s\S]*?-->/g, '')
-    .replace(/<[^>]+>/g, '')
-    .replace(/^\s*(#+|>+|[-*_]{3,})\s*/gm, ''),
-)
+const lede = data.open ? labels.ledeOf(day(data.opened)) : labels.closedLedeOf(day(data.opened))
+const words = jobSummary(job.body ?? '')
 const description = excerpt(`${data.title}. ${words || lede}`)
 const terms = [...data.modality, ...data.level, ...data.contract]
-const posting = jobPosting({ ...data, body: job.body ?? '' }, job.rendered?.html ?? description, new URL(path, origin).href)
+const posting = data.open
+  ? jobPosting({ ...data, body: job.body ?? '' }, job.rendered?.html ?? description, new URL(path, origin).href)
+  : null
 ---
 
 <BaseLayout
@@ -41,6 +37,7 @@ const posting = jobPosting({ ...data, body: job.body ?? '' }, job.rendered?.html
   description={description}
   path={path}
   kind="article"
+  noindex={!data.open}
   structuredData={{
     '@graph': [
       breadcrumbs(origin, [
@@ -63,7 +60,7 @@ const posting = jobPosting({ ...data, body: job.body ?? '' }, job.rendered?.html
   }}
 >
   <main id={MAIN_ID}>
-    <div data-pagefind-body>
+    <div {...(data.open ? { 'data-pagefind-body': '' } : { 'data-pagefind-ignore': 'all' })}>
       <PageCover compact title={data.title} lede={lede} trail={[{ label: labels.title, href: '/vagas/' }]}>
         <p class="bb-poster" data-pagefind-ignore>
           <Avatar url={data.avatar} size={40} />
@@ -92,7 +89,7 @@ const posting = jobPosting({ ...data, body: job.body ?? '' }, job.rendered?.html
             </ul>
           )
         }
-        <div class="bb-actions" data-pagefind-ignore>
+        <div class="bb-actions bb-actions--pair" data-pagefind-ignore>
           <a href={data.url} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
             {labels.apply}
             <Icon name="external" size={16} />

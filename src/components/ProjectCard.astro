@@ -2,34 +2,28 @@
 import type { ProjectEntry } from '../content'
 import { avatarOf } from '../content/catalog'
 import { languageAnchor } from '../content/projects'
-import { LOCALE, TEXT } from '../content/site'
-import Avatar from './Avatar.astro'
-import Icon from './Icon.astro'
+import { TEXT } from '../content/site'
+import EntryCard from './EntryCard.astro'
 
 interface Props {
   project: ProjectEntry['data']
   level?: 'h2' | 'h3'
 }
-const { project, level: Heading = 'h3' } = Astro.props
+
+const { project, level = 'h3' } = Astro.props
 const owner = project.source.split('/')[0] ?? ''
+const labels = TEXT.projects
 ---
 
-<li class="bb-card" data-language={languageAnchor(project.language)}>
-  <div class="bb-card__head">
-    <Avatar url={avatarOf(owner)} size={28} />
-    <p class="bb-card__who">
-      <span class="bb-card__author">{owner}</span>
-    </p>
-  </div>
-  <Heading class="bb-card__title">
-    <a href={project.url} target="_blank" rel="noopener noreferrer">{project.name}</a>
-  </Heading>
-  <div class="bb-card__meta">
-    {project.language && <span class="bb-chip">{project.language}</span>}
-    <span class="bb-stars" title={TEXT.home.stars(project.stars)}>
-      <Icon name="star" size={14} />
-      <span class="sr-only">{TEXT.home.stars(project.stars)}</span>
-      <span aria-hidden="true">{new Intl.NumberFormat(LOCALE).format(project.stars)}</span>
-    </span>
-  </div>
-</li>
+<EntryCard
+  data-language={languageAnchor(project.language)}
+  avatar={avatarOf(owner)}
+  source={owner}
+  stars={project.stars}
+  title={project.name}
+  href={project.url}
+  level={level}
+  stack={project.language ? [project.language] : []}
+  kind={labels.kind}
+  links={[{ url: project.url, label: TEXT.onGitHub(project.name), icon: 'github' }]}
+/>

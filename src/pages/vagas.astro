@@ -1,8 +1,9 @@
 ---
+import CoverActions from '../components/CoverActions.astro'
 import Icon from '../components/Icon.astro'
 import JobItem from '../components/JobItem.astro'
 import PageCover from '../components/PageCover.astro'
-import { jobs as allJobs } from '../content'
+import { jobs as allJobs, openJobs } from '../content'
 import { repositoryUrl } from '../content/catalog'
 import { REPOSITORY } from '../content/jobs'
 import { MAIN_ID, TEXT } from '../content/site'
@@ -11,7 +12,7 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
 const LISTED = 50
 
-const jobs = await allJobs()
+const [jobs, open] = await Promise.all([allJobs(), openJobs()])
 const listed = jobs.slice(0, LISTED)
 const labels = TEXT.jobs
 const origin = Astro.site ?? Astro.url.origin
@@ -28,7 +29,7 @@ const issues = `${repositoryUrl(REPOSITORY)}/issues`
       collection(
         origin,
         { path: '/vagas/', name: labels.headline, description: labels.lede },
-        listed.map((job) => ({ name: job.data.title, url: job.data.url })),
+        open.slice(0, LISTED).map((job) => ({ name: job.data.title, url: job.data.url })),
       ),
     ],
   }}
@@ -36,25 +37,17 @@ const issues = `${repositoryUrl(REPOSITORY)}/issues`
   <main id={MAIN_ID}>
     <PageCover title={labels.title} lede={labels.lede}>
       <ul class="bb-facts">
-        <li>{labels.count(jobs.length)}</li>
+        <li>{labels.count(open.length)}</li>
       </ul>
-      <div class="bb-actions">
-        <a href={labels.postUrl} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
-          {labels.post}
-          <Icon name="external" size={16} />
-        </a>
-        <a href={issues} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
-          {labels.all}
-          <Icon name="external" size={16} />
-        </a>
-      </div>
+      <CoverActions label={labels.post} href={labels.postUrl} repository={REPOSITORY} />
     </PageCover>
     <div class="bb-wrap bb-main">
+      {open.length === 0 && <p class="bb-empty">{labels.empty}</p>}
       {
-        jobs.length > 0 ? (
+        jobs.length > 0 && (
           <section class="bb-listing" aria-labelledby="lista-title">
             <h2 id="lista-title" class="bb-eyebrow">
-              {labels.listed(listed.length, jobs.length)}
+              {open.length > 0 ? labels.listed(listed.length, jobs.length) : labels.closedListed}
             </h2>
             <ul class="bb-cards">
               {listed.map((job) => (
@@ -62,13 +55,11 @@ const issues = `${repositoryUrl(REPOSITORY)}/issues`
               ))}
             </ul>
           </section>
-        ) : (
-          <p class="bb-empty">{labels.empty}</p>
         )
       }
       {
         jobs.length > LISTED && (
-          <a href={issues} target="_blank" rel="noopener noreferrer" class="bb-link">
+          <a href={issues} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost bb-section__more">
             {labels.all}
             <Icon name="external" size={16} />
           </a>

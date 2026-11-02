@@ -2,32 +2,24 @@
 import type { SolutionCard } from '../content/challenges'
 import { avatarOf } from '../content/catalog'
 import { TEXT } from '../content/site'
-import Avatar from './Avatar.astro'
+import EntryCard from './EntryCard.astro'
 
 interface Props {
   solution: SolutionCard
 }
+
 const { solution } = Astro.props
+const labels = TEXT.challenges
 ---
 
-<li class:list={['bb-card', { 'bb-card--first': solution.first }]}>
-  {
-    solution.first && (
-      <p class="bb-badge">
-        <span aria-hidden="true">🥇</span> {TEXT.challenges.first}
-      </p>
-    )
-  }
-  <div class="bb-card__head">
-    <Avatar url={avatarOf(solution.owner)} size={28} />
-    <p class="bb-card__who">
-      <span class="bb-card__author">{solution.owner}</span>
-    </p>
-  </div>
-  <h3 class="bb-card__title">
-    <a href={solution.repository} target="_blank" rel="noopener noreferrer">{solution.name}</a>
-  </h3>
-  <ul class="bb-chips bb-card__tags">
-    <li class="bb-chip">{solution.language}</li>
-  </ul>
-</li>
+<EntryCard
+  avatar={avatarOf(solution.owner)}
+  source={solution.owner}
+  {...(solution.first ? { meta: labels.first } : {})}
+  title={solution.name}
+  href={solution.repository}
+  stack={[solution.language]}
+  kind={labels.solutionKind}
+  links={[{ url: solution.repository, label: labels.solutionOf(solution.owner), icon: 'github' }]}
+  highlight={solution.first}
+/>

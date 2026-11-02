@@ -1,0 +1,23 @@
+---
+import { ORGANIZATION, repositoryUrl } from '../content/catalog'
+import Icon from './Icon.astro'
+
+interface Props {
+  label: string
+  href: string
+  repository: string
+}
+
+const { label, href, repository } = Astro.props
+---
+
+<div class="bb-actions bb-actions--pair">
+  <a href={href} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
+    {label}
+    <Icon name="external" size={16} />
+  </a>
+  <a href={repositoryUrl(repository)} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
+    <Icon name="github" size={16} />
+    {ORGANIZATION}/{repository}
+  </a>
+</div>

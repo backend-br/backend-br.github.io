@@ -1,9 +1,9 @@
 import type { APIRoute } from 'astro'
-import { jobs } from '../content'
+import { openJobs } from '../content'
 
 export const GET: APIRoute = async ({ site, url }) => {
   const origin = site ?? new URL(url.origin)
-  const body = (await jobs()).map(({ data }) => ({
+  const body = (await openJobs()).map(({ data }) => ({
     numero: data.number,
     titulo: data.title,
     nivel: data.level,

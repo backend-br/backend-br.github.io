@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import type { Job } from './jobs'
-import { formFields, jobPosting, roleAndCompany } from './posting'
+import { formFields, jobPosting, jobSummary, roleAndCompany } from './posting'
 
 const FORM = [
   '### Sobre a empresa',
@@ -38,6 +38,7 @@ function job(title: string, body: string): Job {
     title,
     url: 'https://github.com/backend-br/vagas/issues/7',
     opened: '2026-10-20T12:00:00Z',
+    open: true,
     modality: [],
     level: [],
     contract: [],
@@ -50,31 +51,93 @@ function job(title: string, body: string): Job {
 
 describe('the fields of the form', () => {
   it('reads each field by its label and leaves out the ones the author left empty', () => {
-    const fields = formFields(FORM)
+    // Given a form with one field left empty
+    const form = FORM
+
+    // When the fields are read
+    const fields = formFields(form)
+
+    // Then each filled field is read by its label and the empty one is left out
     expect(fields.description).toBe('Manter a API.')
     expect(fields.workModel).toBe('Remoto')
     expect(fields).not.toHaveProperty('salary')
-    expect(formFields('## Requisitos\n\nNode')).toEqual({})
+  })
+
+  it('reads no field from a text that is not the form', () => {
+    // Given a text without the form
+    const text = '## Requisitos\n\nNode'
+
+    // When the fields are read
+    const fields = formFields(text)
+
+    // Then there are none
+    expect(fields).toEqual({})
   })
 
   it('reads the role and the company only from a title with a single separator', () => {
-    expect(roleAndCompany('[Remoto] Dev Java Pleno - DB1/ANYMARKET')).toEqual({
+    // Given a title with a single separator
+    const title = '[Remoto] Dev Java Pleno - DB1/ANYMARKET'
+
+    // When the role and the company are read
+    const read = roleAndCompany(title)
+
+    // Then both are read
+    expect(read).toEqual({
       role: 'Dev Java Pleno',
       company: 'DB1/ANYMARKET',
     })
-    expect(roleAndCompany('[Híbrido] Dev - Programa - Rio de Janeiro - RJ')).toBeNull()
-    expect(roleAndCompany('Dev Java - Empresa')).toBeNull()
-    expect(roleAndCompany('[Remoto] Desenvolvedor(a) Back-end Pleno - NomeDaEmpresa')).toBeNull()
+  })
+
+  it.each([
+    ['[Híbrido] Dev - Programa - Rio de Janeiro - RJ'],
+    ['Dev Java - Empresa'],
+    ['[Remoto] Desenvolvedor(a) Back-end Pleno - NomeDaEmpresa'],
+  ])('reads neither the role nor the company from the title %j', (title) => {
+    // Given a title that is not a single-separator title
+    const text = title
+
+    // When the role and the company are read
+    const read = roleAndCompany(text)
+
+    // Then neither is read
+    expect(read).toBeNull()
+  })
+})
+
+describe('the summary of an opening', () => {
+  it('reads the description of the form as plain text', () => {
+    // Given a form whose description has a comment, a heading and links
+    const body =
+      '### Descrição da vaga\n\n<!-- dica -->\n## Sobre\n**Backend** em [Go](https://go.dev).\n\n### Localização\n\nRecife'
+
+    // When the summary is read
+    const summary = jobSummary(body)
+
+    // Then it is the description as plain text
+    expect(summary).toBe('Sobre Backend em Go.')
+  })
+
+  it('falls back to the whole text when there is no form', () => {
+    // Given a text with markup and no form
+    const body = 'Vaga <b>Java</b> remota.'
+
+    // When the summary is read
+    const summary = jobSummary(body)
+
+    // Then it is the whole text as plain text
+    expect(summary).toBe('Vaga Java remota.')
   })
 })
 
 describe('the JobPosting of an opening', () => {
   it('describes a remote opening open to Brazil, with its company and kinds of contract', () => {
-    const posting = jobPosting(
-      job('[Remoto] Dev Backend - Empresa', FORM),
-      '<p>Manter a API.</p>',
-      'https://x/vagas/7/',
-    )
+    // Given a remote opening with the full form
+    const opening = job('[Remoto] Dev Backend - Empresa', FORM)
+
+    // When the posting is made
+    const posting = jobPosting(opening, '<p>Manter a API.</p>', 'https://x/vagas/7/')
+
+    // Then it describes the remote opening, its company and contracts
     expect(posting).toMatchObject({
       '@type': 'JobPosting',
       title: 'Dev Backend',
@@ -87,15 +150,31 @@ describe('the JobPosting of an opening', () => {
   })
 
   it('places an on-site opening in the city its location names', () => {
+    // Given an on-site opening located in Curitiba
     const body = FORM.replace('Remoto', 'Presencial').replace(/Brasil$/, 'Curitiba - PR')
-    expect(jobPosting(job('[Presencial] Dev - Empresa', body), '', '')).toMatchObject({
+    const opening = job('[Presencial] Dev - Empresa', body)
+
+    // When the posting is made
+    const posting = jobPosting(opening, '', '')
+
+    // Then it is placed in that city
+    expect(posting).toMatchObject({
       jobLocation: { address: { addressLocality: 'Curitiba - PR', addressCountry: 'BR' } },
     })
   })
 
-  it('makes none when the country, the company or the form is not certain', () => {
-    expect(jobPosting(job('[Remoto] Dev - Empresa', FORM.replace(/Brasil$/, 'Remoto')), '', '')).toBeNull()
-    expect(jobPosting(job('[Remoto] Dev', FORM), '', '')).toBeNull()
-    expect(jobPosting(job('[Remoto] Dev - Empresa', '## Sobre\n\nTexto'), '', '')).toBeNull()
+  it.each([
+    ['the country', '[Remoto] Dev - Empresa', FORM.replace(/Brasil$/, 'Remoto')],
+    ['the company', '[Remoto] Dev', FORM],
+    ['the form', '[Remoto] Dev - Empresa', '## Sobre\n\nTexto'],
+  ])('makes none when %s is not certain', (_uncertain, title, body) => {
+    // Given an opening whose country, company or form is not certain
+    const opening = job(title, body)
+
+    // When the posting is made
+    const posting = jobPosting(opening, '', '')
+
+    // Then there is none
+    expect(posting).toBeNull()
   })
 })

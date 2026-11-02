@@ -1,4 +1,5 @@
 import type { Job } from './jobs'
+import { plainText } from './markdown'
 
 export type Field = 'description' | 'companyUrl' | 'contract' | 'workModel' | 'location'
 
@@ -23,6 +24,15 @@ export function formFields(body: string): Partial<Record<Field, string>> {
     }
   }
   return fields
+}
+
+export function jobSummary(body: string): string {
+  return plainText(
+    (formFields(body).description ?? body)
+      .replace(/<!--[\s\S]*?-->/g, '')
+      .replace(/<[^>]+>/g, '')
+      .replace(/^\s*(#+|>+|[-*_]{3,})\s*/gm, ''),
+  )
 }
 
 const REMOTE = new Set(['remoto', 'remote'])

@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro'
-import { challenges, jobs, projects, repositories } from '../content'
+import { challenges, openJobs, projects, repositories } from '../content'
 import { rawUrl } from '../content/catalog'
 import { REPOSITORY as CHALLENGES } from '../content/challenges'
 import { SITE, TEXT } from '../content/site'
@@ -42,7 +42,7 @@ export const GET: APIRoute = async ({ site, url }) => {
     '',
     '## Vagas abertas',
     '',
-    ...(await jobs()).map(
+    ...(await openJobs()).map(
       (job) =>
         `- [${job.data.title}](${page(`/vagas/${job.data.number}/`)}): aberta em ${job.data.opened.slice(0, 10)}.`,
     ),

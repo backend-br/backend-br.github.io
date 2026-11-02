@@ -24,6 +24,7 @@ function plural(count: number, one: string, many: string): string {
 export const TEXT = {
   skipLink: 'Pular para o conteúdo',
   theme: { label: 'Tema', light: 'Tema claro', dark: 'Tema escuro' },
+  onGitHub: (name: string) => `${name} no GitHub`,
   nav: {
     label: 'Seções',
     home: 'Início',
@@ -61,8 +62,9 @@ export const TEXT = {
     challengesLede:
       'Problemas de backend para resolver na linguagem que você quiser, ao lado das soluções que a comunidade já enviou.',
     jobsTitle: 'Vagas recentes',
-    jobsLede: 'As últimas vagas abertas como issues em backend-br/vagas.',
+    jobsLede: 'As vagas mais recentes publicadas como issues em backend-br/vagas.',
     allJobs: 'Ver todas as vagas',
+    allChallenges: 'Ver todos os desafios',
   },
   challenges: {
     title: 'Desafios',
@@ -77,6 +79,9 @@ export const TEXT = {
     contributing: blobUrl('desafios', 'CONTRIBUTING.md'),
     communitySolutions: 'Soluções da comunidade',
     first: 'Primeira solução',
+    noFirst: 'Aguardando a primeira solução',
+    solutionKind: 'Solução',
+    solutionOf: (owner: string) => `Solução de ${owner} no GitHub`,
     firstBy: 'Primeira solução por',
     noSolutions: 'Ninguém enviou uma solução para este desafio ainda. Siga o guia de contribuição e envie a primeira.',
   },
@@ -92,6 +97,10 @@ export const TEXT = {
     headlineOf: (title: string, number: number) =>
       `${excerpt(title, 70 - ` · #${number} · ${SITE.name}`.length)} · #${number}`,
     ledeOf: (when: string) => `Publicada em ${when}.`,
+    closedLedeOf: (when: string) => `Publicada em ${when}. Esta vaga já foi encerrada.`,
+    kind: 'Vaga',
+    closedKind: 'Vaga encerrada',
+    closedListed: 'Encerradas recentemente',
     apply: 'Ver a vaga no GitHub',
     noBody: 'Esta vaga não traz descrição. Veja a issue no GitHub para saber mais.',
     post: 'Anunciar uma vaga',
@@ -112,12 +121,12 @@ export const TEXT = {
     updated: 'Atualizado',
     post: 'Divulgar meu perfil',
     postUrl: `${repositoryUrl('me-contrata')}/issues/new/choose`,
-    all: 'Ver todos os perfis no GitHub',
     profile: 'Perfil no GitHub',
     linkedin: 'LinkedIn',
     github: 'GitHub',
     portfolio: 'Portfólio',
     contactOf: (name: string, channel: string) => `${channel} de ${name}`,
+    kind: 'Perfil',
     empty:
       'Nenhum perfil divulgado agora. Quem abre um perfil em backend-br/me-contrata pode marcar a opção de divulgação no formulário.',
     feed: 'Perfis divulgados em JSON',
@@ -129,8 +138,8 @@ export const TEXT = {
     lede: 'Projetos open-source brasileiros que a comunidade reúne em backend-br/opensource-br, dos mais estrelados aos menos, com filtro por linguagem.',
     count: (count: number) => plural(count, 'projeto', 'projetos'),
     add: 'Adicionar um projeto',
+    kind: 'Projeto',
     addUrl: blobUrl('opensource-br', 'CONTRIBUTING.md'),
-    list: 'Ver a lista no GitHub',
     languages: 'Filtrar por linguagem',
     all: 'Todas',
   },

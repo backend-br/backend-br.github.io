@@ -19,11 +19,13 @@ const LISTED: readonly ListedRepository[] = [
 
 describe('the repositories of the catalog', () => {
   it('reads each one as the organization lists it, in the order of the catalog, leaving out the rest', () => {
-    const { repositories } = catalogued(
-      [{ name: 'vagas', page: { path: '/vagas/', label: 'Ver as vagas' } }, { name: 'forum' }],
-      LISTED,
-    )
+    // Given a catalog of two repositories, one with a page, among the three the organization lists
+    const catalog = [{ name: 'vagas', page: { path: '/vagas/', label: 'Ver as vagas' } }, { name: 'forum' }]
 
+    // When the catalog is read
+    const { repositories } = catalogued(catalog, LISTED)
+
+    // Then each repository is read in the order of the catalog and the rest is left out
     expect(repositories).toEqual([
       {
         name: 'vagas',
@@ -43,8 +45,13 @@ describe('the repositories of the catalog', () => {
   })
 
   it('names every repository of the catalog the organization no longer lists', () => {
-    const { missing } = catalogued([{ name: 'forum' }, { name: 'eventos' }], LISTED)
+    // Given a catalog with a repository the organization does not list
+    const catalog = [{ name: 'forum' }, { name: 'eventos' }]
 
+    // When the catalog is read
+    const { missing } = catalogued(catalog, LISTED)
+
+    // Then the unlisted repository is named
     expect(missing).toEqual(['eventos'])
   })
 })

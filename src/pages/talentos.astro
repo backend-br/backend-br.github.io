@@ -1,9 +1,8 @@
 ---
-import Icon from '../components/Icon.astro'
+import CoverActions from '../components/CoverActions.astro'
 import PageCover from '../components/PageCover.astro'
 import TalentItem from '../components/TalentItem.astro'
 import { talents as allTalents } from '../content'
-import { repositoryUrl } from '../content/catalog'
 import { MAIN_ID, TEXT } from '../content/site'
 import { breadcrumbs, collection } from '../content/structured-data'
 import { anchor, REPOSITORY } from '../content/talents'
@@ -12,7 +11,6 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 const talents = await allTalents()
 const labels = TEXT.talents
 const origin = Astro.site ?? Astro.url.origin
-const issues = `${repositoryUrl(REPOSITORY)}/issues`
 const page = { path: '/talentos/', name: labels.headline, description: labels.lede }
 ---
 
@@ -43,16 +41,7 @@ const page = { path: '/talentos/', name: labels.headline, description: labels.le
       <ul class="bb-facts">
         <li>{labels.count(talents.length)}</li>
       </ul>
-      <div class="bb-actions">
-        <a href={labels.postUrl} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
-          {labels.post}
-          <Icon name="external" size={16} />
-        </a>
-        <a href={issues} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
-          {labels.all}
-          <Icon name="external" size={16} />
-        </a>
-      </div>
+      <CoverActions label={labels.post} href={labels.postUrl} repository={REPOSITORY} />
     </PageCover>
     <div class="bb-wrap bb-main">
       {

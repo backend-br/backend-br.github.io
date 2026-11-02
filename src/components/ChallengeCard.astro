@@ -1,39 +1,30 @@
 ---
 import type { Challenge } from '../content'
-import { avatarOf } from '../content/catalog'
+import { avatarOf, blobUrl } from '../content/catalog'
+import { REPOSITORY } from '../content/challenges'
 import { TEXT } from '../content/site'
-import Avatar from './Avatar.astro'
+import EntryCard from './EntryCard.astro'
 
 interface Props {
   challenge: Challenge
   level?: 'h2' | 'h3'
 }
-const { challenge, level: Heading = 'h3' } = Astro.props
+
+const { challenge, level = 'h3' } = Astro.props
 const { data } = challenge
 const labels = TEXT.challenges
 const first = data.solutions.find((solution) => solution.first)
 ---
 
-<li class="bb-card">
-  <Heading class="bb-card__title"><a href={`/desafios/${data.slug}/`}>{data.title}</a></Heading>
-  <p class="bb-card__summary" title={data.summary}>{data.summary}</p>
-  <div class="bb-card__foot">
-    {
-      first && (
-        <p class="bb-first">
-          <Avatar url={avatarOf(first.owner)} size={32} />
-          <span class="bb-first__text">
-            <span class="bb-first__label">
-              <span aria-hidden="true">🥇</span> {labels.first}
-            </span>
-            <span class="bb-first__who">{first.owner}</span>
-          </span>
-        </p>
-      )
-    }
-    <ul class="bb-chips">
-      <li class="bb-chip">{labels.solutions(data.solutionCount)}</li>
-      {data.languages.length > 0 && <li class="bb-chip">{labels.languages(data.languages.length)}</li>}
-    </ul>
-  </div>
-</li>
+<EntryCard
+  avatar={first ? avatarOf(first.owner) : ''}
+  {...(first ? { mark: '🥇' } : {})}
+  source={first ? first.owner : labels.noFirst}
+  meta={labels.solutions(data.solutionCount)}
+  title={data.title}
+  href={`/desafios/${data.slug}/`}
+  level={level}
+  summary={data.summary}
+  stack={data.languages.map((group) => group.language)}
+  links={[{ url: blobUrl(REPOSITORY, `${data.slug}/PROBLEM.md`), label: labels.statement, icon: 'external' }]}
+/>

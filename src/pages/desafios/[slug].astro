@@ -79,7 +79,7 @@ const description = excerpt(data.summary)
           <li>{labels.solutions(data.solutionCount)}</li>
           {data.languages.length > 0 && <li>{labels.languages(data.languages.length)}</li>}
         </ul>
-        <div class="bb-actions" data-pagefind-ignore>
+        <div class="bb-actions bb-actions--pair" data-pagefind-ignore>
           <a href={statement} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
             {labels.statement}
             <Icon name="external" size={16} />

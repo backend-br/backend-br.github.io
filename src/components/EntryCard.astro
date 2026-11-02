@@ -1,0 +1,151 @@
+---
+import type { HTMLAttributes } from 'astro/types'
+import { day, excerpt, LOCALE, since, TEXT } from '../content/site'
+import Avatar from './Avatar.astro'
+import Icon from './Icon.astro'
+import type { IconName } from './icons'
+
+export interface EntryLink {
+  readonly url: string
+  readonly label: string
+  readonly icon: IconName
+}
+
+interface Props extends HTMLAttributes<'li'> {
+  avatar: string
+  source: string
+  mark?: string
+  instant?: { readonly value: string; readonly label: string }
+  meta?: string
+  stars?: number
+  title: string
+  subtitle?: string
+  href?: string
+  level?: 'h2' | 'h3'
+  summary?: string
+  terms?: readonly string[]
+  stack?: readonly string[]
+  kind?: string
+  links: readonly EntryLink[]
+  muted?: boolean
+  highlight?: boolean
+}
+
+const MAX_CHIPS = 5
+
+const SUMMARY_LIMIT = 200
+
+const EXTERNAL = { target: '_blank', rel: 'noopener noreferrer nofollow' } as const
+
+const {
+  avatar,
+  source,
+  mark,
+  instant,
+  meta,
+  stars,
+  title,
+  subtitle,
+  href,
+  level: Heading = 'h3',
+  summary,
+  terms = [],
+  stack = [],
+  kind,
+  links,
+  muted = false,
+  highlight = false,
+  class: className,
+  ...attributes
+} = Astro.props
+const external = (url: string): boolean => /^https?:\/\//.test(url)
+const repeated = href !== undefined && links.some((link) => link.url === href)
+const chips = [...terms.map((term) => ({ term, strong: true })), ...stack.map((term) => ({ term, strong: false }))]
+const shown = chips.slice(0, MAX_CHIPS)
+const hidden = chips.slice(MAX_CHIPS).map((chip) => chip.term)
+---
+
+<li
+  class:list={['bb-card', 'bb-entry', { 'bb-entry--muted': muted, 'bb-entry--highlight': highlight }, className]}
+  {...attributes}
+>
+  <div class="bb-entry__band">
+    <p class="bb-entry__source">
+      <Avatar url={avatar} size={28} />
+      <span title={source}>
+        {mark && <span aria-hidden="true">{mark} </span>}
+        {source}
+      </span>
+    </p>
+    {
+      instant ? (
+        <p class="bb-entry__meta">
+          <span class="sr-only">{instant.label} </span>
+          <time datetime={instant.value} title={day(instant.value)}>
+            {since(instant.value)}
+          </time>
+        </p>
+      ) : stars !== undefined ? (
+        <p class="bb-entry__meta bb-entry__stars" title={TEXT.home.stars(stars)}>
+          <Icon name="star" size={14} />
+          <span class="sr-only">{TEXT.home.stars(stars)}</span>
+          <span aria-hidden="true">{new Intl.NumberFormat(LOCALE).format(stars)}</span>
+        </p>
+      ) : (
+        meta && <p class="bb-entry__meta">{meta}</p>
+      )
+    }
+  </div>
+  <div class="bb-entry__body">
+    <Heading class="bb-card__title bb-entry__title">
+      {
+        href ? (
+          <a href={href} {...(external(href) ? EXTERNAL : {})} {...(repeated ? { tabindex: -1 } : {})}>
+            {title}
+          </a>
+        ) : (
+          title
+        )
+      }
+    </Heading>
+    {subtitle && <p class="bb-entry__subtitle">{subtitle}</p>}
+    {summary !== undefined && <p class="bb-entry__summary">{excerpt(summary, SUMMARY_LIMIT)}</p>}
+    {
+      (chips.length > 0 || summary !== undefined) && (
+        <ul class="bb-chips bb-entry__chips" {...(chips.length === 0 ? { "aria-hidden": "true" } : {})}>
+          {shown.map((chip) => (
+            <li class:list={['bb-chip', { 'bb-chip--strong': chip.strong }]}>{chip.term}</li>
+          ))}
+          {hidden.length > 0 && (
+            <li class="bb-chip" title={hidden.join(', ')}>
+              <span aria-hidden="true">+{hidden.length}</span>
+              <span class="sr-only">{hidden.join(', ')}</span>
+            </li>
+          )}
+        </ul>
+      )
+    }
+  </div>
+  <div class="bb-entry__foot">
+    {kind && <span class="bb-entry__kind">{kind}</span>}
+    {
+      links.length > 0 && (
+        <ul class="bb-entry__links">
+          {links.map((link) => (
+            <li>
+              <a
+                href={link.url}
+                class="bb-entry__link"
+                aria-label={link.label}
+                title={link.label}
+                {...(external(link.url) ? EXTERNAL : {})}
+              >
+                <Icon name={link.icon} size={18} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</li>

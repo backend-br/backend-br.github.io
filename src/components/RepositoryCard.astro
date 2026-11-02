@@ -1,0 +1,26 @@
+---
+import type { RepositoryEntry } from '../content'
+import { avatarOf, ORGANIZATION } from '../content/catalog'
+import { TEXT } from '../content/site'
+import EntryCard, { type EntryLink } from './EntryCard.astro'
+
+interface Props {
+  repository: RepositoryEntry['data']
+}
+
+const { repository } = Astro.props
+const links: EntryLink[] = [
+  ...(repository.page ? [{ url: repository.page.path, label: repository.page.label, icon: 'arrow-right' as const }] : []),
+  { url: repository.url, label: TEXT.onGitHub(`${ORGANIZATION}/${repository.name}`), icon: 'github' },
+]
+---
+
+<EntryCard
+  avatar={avatarOf(ORGANIZATION)}
+  source={ORGANIZATION}
+  stars={repository.stars}
+  title={repository.name}
+  href={repository.url}
+  summary={repository.description}
+  links={links}
+/>

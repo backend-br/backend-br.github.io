@@ -12,17 +12,18 @@ const { title, lede, trail = [], compact = false } = Astro.props
 
 <div class="bb-cover">
   <div class="bb-wrap bb-cover__inner">
-    <nav aria-label={TEXT.nav.crumbs} class="bb-crumbs" data-pagefind-ignore>
-      <a href="/">{TEXT.nav.home}</a>
-      {
-        trail.map((step) => (
-          <>
-            <span aria-hidden="true">/</span>
-            <a href={step.href}>{step.label}</a>
-          </>
-        ))
-      }
-    </nav>
+    {
+      trail.length > 0 && (
+        <nav aria-label={TEXT.nav.crumbs} class="bb-crumbs" data-pagefind-ignore>
+          {trail.map((step, index) => (
+            <>
+              {index > 0 && <span aria-hidden="true">/</span>}
+              <a href={step.href}>{step.label}</a>
+            </>
+          ))}
+        </nav>
+      )
+    }
     <h1 class:list={['bb-display bb-cover__title', { 'bb-cover__title--compact': compact }]}>{title}</h1>
     <p class="bb-cover__lede">{lede}</p>
     <slot />

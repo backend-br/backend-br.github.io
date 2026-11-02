@@ -1,9 +1,8 @@
 ---
-import Icon from '../components/Icon.astro'
+import CoverActions from '../components/CoverActions.astro'
 import ProjectCard from '../components/ProjectCard.astro'
 import PageCover from '../components/PageCover.astro'
 import { projects as allProjects } from '../content'
-import { repositoryUrl } from '../content/catalog'
 import { byLanguage, languageAnchor as anchor, REPOSITORY } from '../content/projects'
 import { MAIN_ID, TEXT } from '../content/site'
 import { breadcrumbs, collection, sourceCode } from '../content/structured-data'
@@ -44,16 +43,7 @@ const origin = Astro.site ?? Astro.url.origin
       <ul class="bb-facts">
         <li>{labels.count(projects.length)}</li>
       </ul>
-      <div class="bb-actions">
-        <a href={labels.addUrl} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--primary">
-          {labels.add}
-          <Icon name="external" size={16} />
-        </a>
-        <a href={repositoryUrl(REPOSITORY)} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
-          {labels.list}
-          <Icon name="external" size={16} />
-        </a>
-      </div>
+      <CoverActions label={labels.add} href={labels.addUrl} repository={REPOSITORY} />
     </PageCover>
     <div class="bb-wrap bb-main">
       <div class="bb-filter" role="group" aria-label={labels.languages}>

@@ -1,8 +1,9 @@
 ---
 import type { TalentEntry } from '../content'
-import { day, excerpt, since, TEXT } from '../content/site'
+import { TEXT } from '../content/site'
 import { anchor } from '../content/talents'
-import Avatar from './Avatar.astro'
+import EntryCard from './EntryCard.astro'
+import type { IconName } from './icons'
 
 interface Props {
   talent: TalentEntry
@@ -10,56 +11,26 @@ interface Props {
 
 const { data } = Astro.props.talent
 const labels = TEXT.talents
-const terms = [...data.level, ...data.contract, ...data.modality]
-const contacts: { url: string; label: string }[] = [
-  { url: data.linkedin, label: labels.linkedin },
-  { url: data.github, label: labels.github },
-  { url: data.portfolio, label: labels.portfolio },
-  { url: data.url, label: labels.profile },
-].flatMap((contact) => (contact.url === null ? [] : [{ url: contact.url, label: contact.label }]))
+const channels: readonly { url: string | null; label: string; icon: IconName }[] = [
+  { url: data.linkedin, label: labels.linkedin, icon: 'linkedin' },
+  { url: data.github, label: labels.github, icon: 'github' },
+  { url: data.portfolio, label: labels.portfolio, icon: 'globe' },
+  { url: data.url, label: labels.profile, icon: 'external' },
+]
+const links = channels.flatMap(({ url, label, icon }) =>
+  url === null ? [] : [{ url, label: labels.contactOf(data.name, label), icon }],
+)
 ---
 
-<li class="bb-card" id={anchor(data.number)}>
-  <div class="bb-card__head">
-    <Avatar url={data.avatar} size={28} />
-    <p class="bb-card__who">
-      <span class="bb-card__author">{data.location}</span>
-      <span class="bb-card__when">
-        <span class="sr-only">{labels.updated} </span><time datetime={data.updated} title={day(data.updated)}
-          >{since(data.updated)}</time
-        >
-      </span>
-    </p>
-  </div>
-  <h3 class="bb-card__title">{data.name}{data.role && ` · ${data.role}`}</h3>
-  {data.about && <p class="bb-card__summary">{excerpt(data.about, 280)}</p>}
-  <div class="bb-card__foot">
-    {
-      terms.length + data.stack.length > 0 && (
-        <ul class="bb-chips">
-          {terms.map((term) => (
-            <li class="bb-chip bb-chip--strong">{term}</li>
-          ))}
-          {data.stack.map((term) => (
-            <li class="bb-chip">{term}</li>
-          ))}
-        </ul>
-      )
-    }
-    <p class="bb-actions">
-      {
-        contacts.map((contact) => (
-          <a
-            href={contact.url}
-            target="_blank"
-            rel="noopener noreferrer nofollow"
-            class="bb-link"
-            aria-label={labels.contactOf(data.name, contact.label)}
-          >
-            {contact.label}
-          </a>
-        ))
-      }
-    </p>
-  </div>
-</li>
+<EntryCard
+  id={anchor(data.number)}
+  avatar={data.avatar}
+  source={data.login || data.name}
+  instant={{ value: data.updated, label: labels.updated }}
+  title={data.name}
+  subtitle={data.role}
+  summary={data.about}
+  stack={[...data.stack, ...data.level, ...data.contract, ...data.modality]}
+  kind={labels.kind}
+  links={links}
+/>

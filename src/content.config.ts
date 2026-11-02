@@ -11,12 +11,20 @@ import {
   solutionCards,
   solutions,
 } from './content/challenges'
-import { REPOSITORY as JOBS, openings } from './content/jobs'
+import { REPOSITORY as JOBS, openings, shortlist } from './content/jobs'
 import { rehypeLineBreaks, rehypeOutline, rehypeUntrusted, SHIKI } from './content/markdown'
 import { byStars, githubHome, REPOSITORY as PROJECTS, projects as projectList } from './content/projects'
 import { catalogued } from './content/repositories'
 import { REPOSITORY as TALENTS, talents as sharedTalents } from './content/talents'
-import { accountStars, file, labels, openIssues, organizationRepositories, repositoryStars } from './content/sources'
+import {
+  accountStars,
+  closedIssues,
+  file,
+  labels,
+  openIssues,
+  organizationRepositories,
+  repositoryStars,
+} from './content/sources'
 
 const repositories = defineCollection({
   loader: {
@@ -109,8 +117,8 @@ const jobs = defineCollection({
   loader: {
     name: 'backend-br-jobs',
     load: async ({ store, logger }) => {
-      const [issues, catalog] = await Promise.all([openIssues(JOBS), labels(JOBS)])
-      const found = openings(issues, catalog)
+      const [open, closed, catalog] = await Promise.all([openIssues(JOBS), closedIssues(JOBS), labels(JOBS)])
+      const found = shortlist(openings([...open, ...closed], catalog))
       const renderer = await unified({
         rehypePlugins: [rehypeUntrusted, rehypeOutline, rehypeLineBreaks],
       }).createRenderer({
@@ -121,7 +129,8 @@ const jobs = defineCollection({
         const { code, metadata } = await renderer.render(body)
         store.set({ id: String(job.number), data: job, body, rendered: { html: code, metadata } })
       }
-      logger.info(`Read ${found.length} job openings.`)
+      const listedOpen = found.filter((job) => job.open).length
+      logger.info(`Read ${listedOpen} open jobs and ${found.length - listedOpen} recently closed ones.`)
     },
   },
   schema: z.object({
@@ -129,6 +138,7 @@ const jobs = defineCollection({
     title: z.string(),
     url: z.string(),
     opened: z.string(),
+    open: z.boolean(),
     modality: z.array(z.string()),
     level: z.array(z.string()),
     contract: z.array(z.string()),
@@ -166,6 +176,7 @@ const talents = defineCollection({
     linkedin: z.string().nullable(),
     github: z.string().nullable(),
     portfolio: z.string().nullable(),
+    login: z.string(),
     avatar: z.string(),
   }),
 })

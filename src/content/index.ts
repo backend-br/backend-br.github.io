@@ -1,4 +1,5 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
+import { byListing } from './jobs'
 
 export type RepositoryEntry = CollectionEntry<'repositories'>
 export type Challenge = CollectionEntry<'challenges'>
@@ -15,7 +16,11 @@ export async function challenges(): Promise<readonly Challenge[]> {
 }
 
 export async function jobs(): Promise<readonly JobEntry[]> {
-  return (await getCollection('jobs')).sort((a, b) => b.data.opened.localeCompare(a.data.opened))
+  return (await getCollection('jobs')).sort((a, b) => byListing(a.data, b.data))
+}
+
+export async function openJobs(): Promise<readonly JobEntry[]> {
+  return (await jobs()).filter((job) => job.data.open)
 }
 
 export async function talents(): Promise<readonly TalentEntry[]> {
@@ -36,7 +41,7 @@ export interface Figures {
 }
 
 export async function figures(): Promise<Figures> {
-  const [read, listed, open, registered] = await Promise.all([repositories(), challenges(), jobs(), projects()])
+  const [read, listed, open, registered] = await Promise.all([repositories(), challenges(), openJobs(), projects()])
   return {
     jobs: open.length,
     challenges: listed.length,

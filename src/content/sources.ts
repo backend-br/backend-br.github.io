@@ -32,9 +32,9 @@ function apiHeaders(): Record<string, string> {
   }
 }
 
-async function listing<T>(path: string): Promise<T[]> {
+async function listing<T>(path: string, pages = MAX_PAGES): Promise<T[]> {
   const items: T[] = []
-  for (let page = 1; page <= MAX_PAGES; page++) {
+  for (let page = 1; page <= pages; page++) {
     const separator = path.includes('?') ? '&' : '?'
     const response = await fetchOk(`${API}${path}${separator}per_page=100&page=${page}`, apiHeaders())
     const batch = (await response.json()) as T[]
@@ -52,6 +52,10 @@ export function organizationRepositories(): Promise<ListedRepository[]> {
 
 export function openIssues(name: string): Promise<Issue[]> {
   return listing<Issue>(`/repos/${ORGANIZATION}/${name}/issues?state=open&sort=created&direction=desc`)
+}
+
+export function closedIssues(name: string): Promise<Issue[]> {
+  return listing<Issue>(`/repos/${ORGANIZATION}/${name}/issues?state=closed&sort=created&direction=desc`, 1)
 }
 
 export function labels(name: string): Promise<Label[]> {

@@ -1,9 +1,8 @@
 ---
 import ChallengeCard from '../../components/ChallengeCard.astro'
-import Icon from '../../components/Icon.astro'
+import CoverActions from '../../components/CoverActions.astro'
 import PageCover from '../../components/PageCover.astro'
 import { challenges as allChallenges } from '../../content'
-import { repositoryUrl } from '../../content/catalog'
 import { REPOSITORY } from '../../content/challenges'
 import { MAIN_ID, TEXT } from '../../content/site'
 import { breadcrumbs, collection } from '../../content/structured-data'
@@ -50,16 +49,7 @@ const origin = Astro.site ?? Astro.url.origin
         <li>{labels.count(challenges.length)}</li>
         <li>{labels.solutions(solutions)}</li>
       </ul>
-      <div class="bb-actions">
-        <a href="/busca/" class="bb-button bb-button--primary">
-          <Icon name="search" size={18} />
-          {TEXT.search.title}
-        </a>
-        <a href={repositoryUrl(REPOSITORY)} target="_blank" rel="noopener noreferrer" class="bb-button bb-button--ghost">
-          backend-br/{REPOSITORY}
-          <Icon name="external" size={16} />
-        </a>
-      </div>
+      <CoverActions label={labels.contribute} href={labels.contributing} repository={REPOSITORY} />
     </PageCover>
     <div class="bb-wrap bb-main">
       <ul class="bb-cards bb-cards--wide">

@@ -56,8 +56,13 @@ const SOLUTIONS = [
 
 describe('the challenges the README lists', () => {
   it('reads each linked statement once, in the order of the README', () => {
-    const index = challengeIndex(README)
+    // Given a README that links a challenge twice
+    const readme = README
 
+    // When the challenge index is read
+    const index = challengeIndex(readme)
+
+    // Then each challenge is listed once, in the order of the README
     expect(index).toEqual([
       { slug: 'cryptography', title: 'Criptografia' },
       { slug: 'url-shortener', title: 'Encurtador de URLs' },
@@ -66,9 +71,14 @@ describe('the challenges the README lists', () => {
 })
 
 describe('the statement of a challenge', () => {
-  const statement = problem('url-shortener', PROBLEM)
-
   it('takes the title from its heading and the summary from its first paragraph, as plain words', () => {
+    // Given the statement of the URL shortener challenge
+    const slug = 'url-shortener'
+
+    // When the statement is read
+    const statement = problem(slug, PROBLEM)
+
+    // Then the title and the summary come out as plain words
     expect(statement.title).toBe('Encurtador de URLs')
     expect(statement.summary).toBe(
       'O seu desafio será implementar um serviço que permite encurtar URLs longas para torná-las mais compactas.',
@@ -76,13 +86,26 @@ describe('the statement of a challenge', () => {
   })
 
   it('keeps the rest of the statement and leaves out the section that points to the solutions', () => {
-    const headings = statement.body.split('\n').filter((line) => line.startsWith('## '))
+    // Given the statement of the URL shortener challenge
+    const slug = 'url-shortener'
 
+    // When the statement is read
+    const statement = problem(slug, PROBLEM)
+
+    // Then the body starts after the summary and has no solutions section
+    const headings = statement.body.split('\n').filter((line) => line.startsWith('## '))
     expect(statement.body.startsWith('Ele deve responder rápido')).toBe(true)
     expect(headings).toEqual(['## Exemplo', '## não é um título', '## Requisitos'])
   })
 
   it('makes links and images relative to the challenge absolute and keeps outside links', () => {
+    // Given the statement of the URL shortener challenge
+    const slug = 'url-shortener'
+
+    // When the statement is read
+    const statement = problem(slug, PROBLEM)
+
+    // Then relative links and images are absolute and outside links stay
     expect(statement.body).toContain(
       '[diagrama](https://github.com/backend-br/desafios/blob/HEAD/url-shortener/docs/fluxo.md)',
     )
@@ -95,8 +118,13 @@ describe('the statement of a challenge', () => {
 
 describe('the solutions of a challenge', () => {
   it('reads every row that names a repository, bare or linked, and skips a row without one', () => {
-    const list = solutions(SOLUTIONS)
+    // Given a solutions page with bare, linked and empty rows
+    const page = SOLUTIONS
 
+    // When the solutions are read
+    const list = solutions(page)
+
+    // Then only the rows with a repository are listed
     expect(list).toEqual([
       { language: 'Go', repository: 'https://github.com/reisvitt/url-shortener-go' },
       { language: 'PHP', repository: 'https://github.com/ana/encurtador' },
@@ -106,10 +134,13 @@ describe('the solutions of a challenge', () => {
   })
 
   it('groups the spellings of one language under the one most rows use, the most solved language first', () => {
+    // Given the solutions of the page
     const list = solutions(SOLUTIONS)
 
+    // When the solutions are grouped by language
     const groups = byLanguage(list)
 
+    // Then the spellings share one language and the most solved comes first
     expect(groups).toEqual([
       {
         language: 'PHP',
@@ -124,13 +155,36 @@ describe('the solutions of a challenge', () => {
   })
 
   it('reads the first solution from the line that names it, without the punctuation that follows the link', () => {
-    expect(firstSolution(SOLUTIONS)).toBe('https://github.com/Bia/encurtador')
-    expect(firstSolution('| `Go` | https://github.com/a/b | primeira solução |')).toBeNull()
+    // Given a solutions page with a line that names the first solution
+    const page = SOLUTIONS
+
+    // When the first solution is read
+    const first = firstSolution(page)
+
+    // Then it is the link without the punctuation after it
+    expect(first).toBe('https://github.com/Bia/encurtador')
+  })
+
+  it('reads no first solution from a row of the table', () => {
+    // Given a table row that only mentions a first solution
+    const page = '| `Go` | https://github.com/a/b | primeira solução |'
+
+    // When the first solution is read
+    const first = firstSolution(page)
+
+    // Then there is none
+    expect(first).toBeNull()
   })
 
   it('presents the first solution ahead of the rest, which stay grouped by language', () => {
-    const cards = solutionCards(solutions(SOLUTIONS), firstSolution(SOLUTIONS))
+    // Given the solutions of the page and the first solution
+    const list = solutions(SOLUTIONS)
+    const first = firstSolution(SOLUTIONS)
 
+    // When the cards are made
+    const cards = solutionCards(list, first)
+
+    // Then the first solution leads and the rest stay grouped by language
     expect(cards.map((card) => `${card.owner}/${card.name}`)).toEqual([
       'bia/encurtador',
       'ana/encurtador',
@@ -142,6 +196,13 @@ describe('the solutions of a challenge', () => {
   })
 
   it('marks no card when no line names the first solution', () => {
-    expect(solutionCards(solutions(SOLUTIONS), null).some((card) => card.first)).toBe(false)
+    // Given the solutions of the page and no first solution
+    const list = solutions(SOLUTIONS)
+
+    // When the cards are made
+    const cards = solutionCards(list, null)
+
+    // Then no card is marked
+    expect(cards.some((card) => card.first)).toBe(false)
   })
 })
