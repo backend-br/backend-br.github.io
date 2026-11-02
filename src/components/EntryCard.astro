@@ -26,7 +26,6 @@ interface Props extends HTMLAttributes<'li'> {
   terms?: readonly string[]
   stack?: readonly string[]
   kind?: string
-  kindIcon?: IconName
   links: readonly EntryLink[]
   muted?: boolean
   highlight?: boolean
@@ -53,7 +52,6 @@ const {
   terms = [],
   stack = [],
   kind,
-  kindIcon,
   links,
   muted = false,
   highlight = false,
@@ -136,10 +134,7 @@ const hidden = chips.slice(MAX_CHIPS).map((chip) => chip.term)
   <div class="bb-entry__foot">
     {
       kind && (
-        <span class="bb-entry__kind">
-          {kindIcon && <Icon name={kindIcon} size={14} />}
-          {kind}
-        </span>
+        <span class="bb-entry__kind">{kind}</span>
       )
     }
     {

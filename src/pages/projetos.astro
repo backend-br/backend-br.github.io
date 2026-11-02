@@ -49,16 +49,16 @@ const origin = Astro.site ?? Astro.url.origin
     <div class="bb-wrap bb-main">
       <div class="bb-filter" role="group" aria-label={labels.languages}>
         <button type="button" data-filter="" aria-pressed="true">
-          {labels.all}
-          <span>{projects.length}</span>
+          <span class="bb-filter__name">{labels.all}</span>
+          <span class="bb-filter__count">{projects.length}</span>
         </button>
         {
           [...groups]
             .sort((a, b) => b.projects.length - a.projects.length)
             .map((group) => (
               <button type="button" data-filter={anchor(group.language)} aria-pressed="false">
-                {group.language}
-                <span>{group.projects.length}</span>
+                <span class="bb-filter__name" title={group.language}>{group.language}</span>
+                <span class="bb-filter__count">{group.projects.length}</span>
               </button>
             ))
         }

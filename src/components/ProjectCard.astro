@@ -12,7 +12,6 @@ interface Props {
 
 const { project, level = 'h3' } = Astro.props
 const owner = project.source.split('/')[0] ?? ''
-const labels = TEXT.projects
 ---
 
 <EntryCard
@@ -24,7 +23,5 @@ const labels = TEXT.projects
   href={project.url}
   level={level}
   stack={project.language ? [project.language] : []}
-  kind={labels.kind}
-  kindIcon="star"
   links={[{ url: project.url, label: TEXT.onGitHub(project.name), icon: 'github' }]}
 />

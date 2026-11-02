@@ -21,8 +21,7 @@ const labels = TEXT.jobs
   summary={jobSummary(body ?? '')}
   terms={[...data.modality, ...data.level, ...data.contract]}
   stack={data.stack}
-  kind={data.open ? labels.kind : labels.closedKind}
-  kindIcon="briefcase"
+  {...(data.open ? {} : { kind: labels.closedKind })}
   links={[{ url: data.url, label: labels.apply, icon: 'external' }]}
   muted={!data.open}
 />
