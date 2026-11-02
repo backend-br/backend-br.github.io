@@ -140,6 +140,8 @@ export const TEXT = {
     all: 'Todos os tutoriais',
     sourceOf: (name: string) => `Tutoriais de ${name} no GitHub`,
     systems: 'Sistemas operacionais deste tutorial',
+    descriptionOf: (title: string, summary: string) =>
+      `${title}. ${summary} Requisitos, instalação passo a passo e como verificar.`,
   },
   projects: {
     title: 'Projetos open-source',

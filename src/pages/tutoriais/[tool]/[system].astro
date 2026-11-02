@@ -25,7 +25,7 @@ const { Content } = await render(guide)
 const labels = TEXT.tutorials
 const origin = Astro.site ?? Astro.url.origin
 const path = `/tutoriais/${data.tool}/${data.systemSlug}/`
-const description = excerpt(`${data.title}. ${data.toolSummary}`)
+const description = excerpt(labels.descriptionOf(data.title, data.toolSummary))
 const source = blobUrl(REPOSITORY, data.path)
 ---
 
