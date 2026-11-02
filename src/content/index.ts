@@ -11,6 +11,11 @@ export async function repositories(): Promise<readonly RepositoryEntry[]> {
   return (await getCollection('repositories')).sort((a, b) => a.data.order - b.data.order)
 }
 
+export async function repositoryLede(name: string, fallback: string): Promise<string> {
+  const found = (await repositories()).find((repository) => repository.data.name === name)
+  return found?.data.description || fallback
+}
+
 export async function challenges(): Promise<readonly Challenge[]> {
   return (await getCollection('challenges')).sort((a, b) => a.data.order - b.data.order)
 }

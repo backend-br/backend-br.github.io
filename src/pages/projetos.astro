@@ -3,7 +3,7 @@ import CoverActions from '../components/CoverActions.astro'
 import ProjectCard from '../components/ProjectCard.astro'
 import PageCover from '../components/PageCover.astro'
 import { sectionAt } from '../components/sections'
-import { projects as allProjects } from '../content'
+import { projects as allProjects, repositoryLede } from '../content'
 import { byLanguage, languageAnchor as anchor, REPOSITORY } from '../content/projects'
 import { MAIN_ID, TEXT } from '../content/site'
 import { breadcrumbs, collection, sourceCode } from '../content/structured-data'
@@ -12,19 +12,21 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 const projects = await allProjects()
 const groups = byLanguage(projects.map((project) => project.data))
 const labels = TEXT.projects
+const lede = await repositoryLede(REPOSITORY, labels.lede)
 const origin = Astro.site ?? Astro.url.origin
+const description = `${lede} ${labels.count(projects.length)}.`
 ---
 
 <BaseLayout
   title={labels.headline}
-  description={labels.lede}
+  description={description}
   path="/projetos/"
   structuredData={{
     '@graph': [
       breadcrumbs(origin, [{ name: labels.title, path: '/projetos/' }]),
       collection(
         origin,
-        { path: '/projetos/', name: labels.headline, description: labels.lede },
+        { path: '/projetos/', name: labels.headline, description },
         projects.map((project) => ({
           name: project.data.name,
           url: project.data.url,
@@ -40,7 +42,7 @@ const origin = Astro.site ?? Astro.url.origin
   }}
 >
   <main id={MAIN_ID}>
-    <PageCover title={labels.title} lede={labels.lede} icon={sectionAt('/projetos/').icon}>
+    <PageCover title={labels.title} lede={lede} icon={sectionAt('/projetos/').icon}>
       <ul class="bb-facts">
         <li>{labels.count(projects.length)}</li>
       </ul>

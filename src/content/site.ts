@@ -67,7 +67,7 @@ export const TEXT = {
   challenges: {
     title: 'Desafios',
     headline: 'Desafios de backend',
-    lede: 'Problemas de backend para resolver na linguagem que você quiser. Cada desafio traz o enunciado, os requisitos e as soluções que a comunidade já enviou.',
+    lede: 'Problemas de backend para resolver na linguagem que você quiser, com as soluções que a comunidade já enviou.',
     count: (count: number) => plural(count, 'desafio', 'desafios'),
     solutions: (count: number) => (count === 0 ? 'Nenhuma solução ainda' : plural(count, 'solução', 'soluções')),
     languages: (count: number) => plural(count, 'linguagem', 'linguagens'),
@@ -86,7 +86,7 @@ export const TEXT = {
   jobs: {
     title: 'Vagas',
     headline: 'Vagas de backend',
-    lede: 'Vagas de backend divulgadas como issues no repositório backend-br/vagas. Cada vaga leva à issue original no GitHub.',
+    lede: 'Vagas de backend divulgadas pela comunidade como issues no repositório backend-br/vagas.',
     count: (count: number) => plural(count, 'vaga aberta', 'vagas abertas'),
     listed: (shown: number, total: number) => (shown < total ? `As ${shown} mais recentes` : 'Mais recentes primeiro'),
     opened: 'Aberta',
@@ -112,7 +112,7 @@ export const TEXT = {
   talents: {
     title: 'Talentos',
     headline: 'Talentos de backend',
-    lede: 'Pessoas desenvolvedoras backend que pediram para divulgar o perfil em backend-br/me-contrata, com nível, regime, modelo de trabalho e tecnologias.',
+    lede: 'Pessoas desenvolvedoras backend que pediram para divulgar o perfil em backend-br/me-contrata.',
     count: (count: number) => plural(count, 'perfil divulgado', 'perfis divulgados'),
     listed: 'Atualizados mais recentemente primeiro',
     updated: 'Atualizado',
@@ -132,7 +132,7 @@ export const TEXT = {
     title: 'Projetos open-source',
     shortTitle: 'Projetos',
     headline: 'Projetos open-source brasileiros',
-    lede: 'Projetos open-source brasileiros que a comunidade reúne em backend-br/opensource-br, dos mais estrelados aos menos, com filtro por linguagem.',
+    lede: 'Projetos open-source brasileiros que a comunidade reúne em backend-br/opensource-br.',
     count: (count: number) => plural(count, 'projeto', 'projetos'),
     add: 'Adicionar um projeto',
     addUrl: blobUrl('opensource-br', 'CONTRIBUTING.md'),

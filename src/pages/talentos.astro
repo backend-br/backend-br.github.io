@@ -3,7 +3,7 @@ import CoverActions from '../components/CoverActions.astro'
 import PageCover from '../components/PageCover.astro'
 import { sectionAt } from '../components/sections'
 import TalentItem from '../components/TalentItem.astro'
-import { talents as allTalents } from '../content'
+import { repositoryLede, talents as allTalents } from '../content'
 import { MAIN_ID, TEXT } from '../content/site'
 import { breadcrumbs, collection } from '../content/structured-data'
 import { anchor, REPOSITORY } from '../content/talents'
@@ -11,13 +11,15 @@ import BaseLayout from '../layouts/BaseLayout.astro'
 
 const talents = await allTalents()
 const labels = TEXT.talents
+const lede = await repositoryLede(REPOSITORY, labels.lede)
 const origin = Astro.site ?? Astro.url.origin
-const page = { path: '/talentos/', name: labels.headline, description: labels.lede }
+const description = `${lede} ${labels.count(talents.length)}.`
+const page = { path: '/talentos/', name: labels.headline, description }
 ---
 
 <BaseLayout
   title={labels.headline}
-  description={labels.lede}
+  description={description}
   path={page.path}
   structuredData={{
     '@graph': [
@@ -38,7 +40,7 @@ const page = { path: '/talentos/', name: labels.headline, description: labels.le
   }}
 >
   <main id={MAIN_ID}>
-    <PageCover title={labels.title} lede={labels.lede} icon={sectionAt('/talentos/').icon}>
+    <PageCover title={labels.title} lede={lede} icon={sectionAt('/talentos/').icon}>
       <ul class="bb-facts">
         <li>{labels.count(talents.length)}</li>
       </ul>

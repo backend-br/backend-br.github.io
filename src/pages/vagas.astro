@@ -4,7 +4,7 @@ import Icon from '../components/Icon.astro'
 import JobItem from '../components/JobItem.astro'
 import PageCover from '../components/PageCover.astro'
 import { sectionAt } from '../components/sections'
-import { jobs as allJobs, openJobs } from '../content'
+import { jobs as allJobs, openJobs, repositoryLede } from '../content'
 import { repositoryUrl } from '../content/catalog'
 import { REPOSITORY } from '../content/jobs'
 import { MAIN_ID, TEXT } from '../content/site'
@@ -16,27 +16,29 @@ const LISTED = 50
 const [jobs, open] = await Promise.all([allJobs(), openJobs()])
 const listed = jobs.slice(0, LISTED)
 const labels = TEXT.jobs
+const lede = await repositoryLede(REPOSITORY, labels.lede)
 const origin = Astro.site ?? Astro.url.origin
 const issues = `${repositoryUrl(REPOSITORY)}/issues`
+const description = `${lede} ${labels.count(open.length)}.`
 ---
 
 <BaseLayout
   title={labels.headline}
-  description={labels.lede}
+  description={description}
   path="/vagas/"
   structuredData={{
     '@graph': [
       breadcrumbs(origin, [{ name: labels.title, path: '/vagas/' }]),
       collection(
         origin,
-        { path: '/vagas/', name: labels.headline, description: labels.lede },
+        { path: '/vagas/', name: labels.headline, description },
         open.slice(0, LISTED).map((job) => ({ name: job.data.title, url: job.data.url })),
       ),
     ],
   }}
 >
   <main id={MAIN_ID}>
-    <PageCover title={labels.title} lede={labels.lede} icon={sectionAt('/vagas/').icon}>
+    <PageCover title={labels.title} lede={lede} icon={sectionAt('/vagas/').icon}>
       <ul class="bb-facts">
         <li>{labels.count(open.length)}</li>
       </ul>
