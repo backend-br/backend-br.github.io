@@ -165,6 +165,18 @@ describe('the solutions of a challenge', () => {
     expect(first).toBe('https://github.com/Bia/encurtador')
   })
 
+  it('reads the first solution from a link named after the repository', () => {
+    // Given a line that names the first solution through a markdown link
+    const page =
+      '🥇 Primeira solução: [lucazpinheiro/loans-service](https://github.com/lucazpinheiro/loans-service), enviada em 02/09/2023.'
+
+    // When the first solution is read
+    const first = firstSolution(page)
+
+    // Then it is the address of the link
+    expect(first).toBe('https://github.com/lucazpinheiro/loans-service')
+  })
+
   it('reads no first solution from a row of the table', () => {
     // Given a table row that only mentions a first solution
     const page = '| `Go` | https://github.com/a/b | primeira solução |'
