@@ -9,6 +9,8 @@ const PROJECTS_SECTION = 'projetos'
 
 const DOCUMENTATION = 'Markdown'
 
+const LEFT_OUT: ReadonlySet<string> = new Set(['forum', 'poste-mais', 'backend-br.github.io'])
+
 export interface Project {
   readonly name: string
   readonly url: string
@@ -36,7 +38,7 @@ export function projects(readme: string): Project[] {
 export function withOrganization(list: readonly Project[], listed: readonly ListedRepository[]): Project[] {
   const known = new Set(list.map((project) => project.source.toLowerCase()))
   const own = listed
-    .filter((repository) => !repository.name.startsWith('.'))
+    .filter((repository) => !repository.name.startsWith('.') && !LEFT_OUT.has(repository.name))
     .map((repository) => ({
       name: repository.name,
       url: repository.html_url,

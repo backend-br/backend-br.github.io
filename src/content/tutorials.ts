@@ -132,6 +132,29 @@ export function tutorial(path: string, markdown: string): Tutorial {
   }
 }
 
+export function tutorialPage(tool: string, system: string): string {
+  return `/tutoriais/${tool}/${systemSlug(system)}/`
+}
+
+export function toolSection(tool: string): string {
+  return `/tutoriais/#${tool}`
+}
+
+export function withSiteLinks(body: string, routes: ReadonlyMap<string, string>): string {
+  const blob = blobUrl(REPOSITORY, '')
+  return body.replace(/\]\(([^)\s]+)\)/g, (link: string, target: string) => {
+    if (!target.startsWith(blob)) {
+      return link
+    }
+    const [path = '', anchor] = target.slice(blob.length).split('#')
+    const route = routes.get(path.replace(/\/(README\.md)?$/, ''))
+    if (route === undefined) {
+      return link
+    }
+    return `](${anchor && !route.includes('#') ? `${route}#${anchor}` : route})`
+  })
+}
+
 export function systemSlug(system: string): string {
   return system
     .normalize('NFD')

@@ -8,6 +8,7 @@ import {
   toolPage,
   toolReadmeOf,
   tutorial,
+  withSiteLinks,
 } from './tutorials'
 
 const README = [
@@ -189,5 +190,59 @@ describe('the paths and slugs', () => {
 
     // Then it is lower case and hyphenated
     expect(slug).toBe('arch-linux')
+  })
+})
+
+describe('the links between tutorials on the site', () => {
+  const routes = new Map([
+    ['tutoriais/java/linux/ubuntu.md', '/tutoriais/java/ubuntu/'],
+    ['tutoriais/java', '/tutoriais/#java'],
+  ])
+
+  it('points a link to another tutorial at its page on the site', () => {
+    // Given a body that links to the Java tutorial on GitHub
+    const body =
+      '- [Java](https://github.com/backend-br/como-instalar-xyz/blob/HEAD/tutoriais/java/linux/ubuntu.md) instalado.'
+
+    // When the links are pointed at the site
+    const linked = withSiteLinks(body, routes)
+
+    // Then the link opens the page of the tutorial
+    expect(linked).toBe('- [Java](/tutoriais/java/ubuntu/) instalado.')
+  })
+
+  it('points a link to the README of a tool at its section on the site', () => {
+    // Given a body that links to the README of a tool
+    const body = '[Java](https://github.com/backend-br/como-instalar-xyz/blob/HEAD/tutoriais/java/README.md)'
+
+    // When the links are pointed at the site
+    const linked = withSiteLinks(body, routes)
+
+    // Then the link opens the section of the tool
+    expect(linked).toBe('[Java](/tutoriais/#java)')
+  })
+
+  it('keeps the anchor of a tutorial link', () => {
+    // Given a link to a heading of a tutorial
+    const body =
+      '[Passo](https://github.com/backend-br/como-instalar-xyz/blob/HEAD/tutoriais/java/linux/ubuntu.md#verificação)'
+
+    // When the links are pointed at the site
+    const linked = withSiteLinks(body, routes)
+
+    // Then the anchor follows the page
+    expect(linked).toBe('[Passo](/tutoriais/java/ubuntu/#verificação)')
+  })
+
+  it('keeps links to files the site does not publish', () => {
+    // Given a link to a script in the repository and one to an outside site
+    const body =
+      '[script](https://github.com/backend-br/como-instalar-xyz/blob/HEAD/tutoriais/composer/linux/install.sh) [Docker](https://docs.docker.com/)'
+
+    // When the links are pointed at the site
+    const linked = withSiteLinks(body, routes)
+
+    // Then both stay as they were
+    expect(linked).toBe(body)
   })
 })

@@ -41,9 +41,12 @@ const source = blobUrl(REPOSITORY, data.path)
         { name: data.title, path },
       ]),
       {
-        '@type': 'HowTo',
+        '@type': 'TechArticle',
+        headline: data.title,
         name: data.title,
         description,
+        about: data.toolName,
+        proficiencyLevel: 'Beginner',
         url: new URL(path, origin).href,
         inLanguage: LOCALE,
         isBasedOn: source,

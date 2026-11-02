@@ -10,7 +10,7 @@ export const SITE = {
   meta: {
     title: 'Back-End Brasil · Comunidade brasileira de backend',
     description:
-      'A comunidade brasileira de pessoas desenvolvedoras backend: vagas, desafios, projetos open-source e fórum, em repositórios abertos no GitHub.',
+      'Comunidade brasileira de backend: vagas, desafios, talentos, projetos open-source e tutoriais de instalação, em repositórios abertos no GitHub.',
     image: 'A capivara da Back-End Brasil ao lado do nome da comunidade',
   },
 } as const
@@ -37,7 +37,7 @@ export const TEXT = {
   },
   home: {
     eyebrow: 'Comunidade brasileira de backend',
-    lede: 'Unimos pessoas desenvolvedoras backend, em qualquer nível de conhecimento, para discutir, trazer dúvidas e trocar experiências. Vagas, desafios e discussões ficam em aberto, nos repositórios da comunidade no GitHub.',
+    lede: 'Unimos pessoas desenvolvedoras backend, em qualquer nível de conhecimento, para discutir, trazer dúvidas e trocar experiências. Vagas, desafios, talentos, projetos e tutoriais ficam em aberto, nos repositórios da comunidade no GitHub.',
     solve: 'Resolver um desafio',
     jobs: 'Ver vagas',
     response: {
@@ -45,11 +45,20 @@ export const TEXT = {
       path: '/comunidade.json',
       status: 'HTTP/1.1 200 OK',
       type: 'content-type: application/json; charset=utf-8',
-      keys: { jobs: 'vagas_abertas', challenges: 'desafios', projects: 'projetos', stars: 'estrelas' },
+      keys: {
+        jobs: 'vagas_abertas',
+        challenges: 'desafios',
+        talents: 'talentos',
+        projects: 'projetos',
+        tutorials: 'tutoriais',
+        stars: 'estrelas',
+      },
       names: {
         jobs: 'Vagas abertas',
         challenges: 'Desafios',
+        talents: 'Talentos divulgados',
         projects: 'Projetos',
+        tutorials: 'Tutoriais de instalação',
         stars: 'Estrelas dos repositórios',
       },
     },

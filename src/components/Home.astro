@@ -21,7 +21,9 @@ const response = TEXT.home.response
 const figures = [
   { key: response.keys.jobs, label: response.names.jobs, value: read.jobs, href: '/vagas/' },
   { key: response.keys.challenges, label: response.names.challenges, value: read.challenges, href: '/desafios/' },
+  { key: response.keys.talents, label: response.names.talents, value: read.talents, href: '/talentos/' },
   { key: response.keys.projects, label: response.names.projects, value: read.projects, href: '/projetos/' },
+  { key: response.keys.tutorials, label: response.names.tutorials, value: read.tutorials, href: '/tutoriais/' },
   { key: response.keys.stars, label: response.names.stars, value: read.stars, href: '#repositorios' },
 ]
 const origin = Astro.site ?? Astro.url.origin

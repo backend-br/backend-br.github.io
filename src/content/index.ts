@@ -48,16 +48,27 @@ export async function projects(): Promise<readonly ProjectEntry[]> {
 export interface Figures {
   readonly jobs: number
   readonly challenges: number
+  readonly talents: number
   readonly projects: number
+  readonly tutorials: number
   readonly stars: number
 }
 
 export async function figures(): Promise<Figures> {
-  const [read, listed, open, registered] = await Promise.all([repositories(), challenges(), openJobs(), projects()])
+  const [read, listed, open, shared, registered, guides] = await Promise.all([
+    repositories(),
+    challenges(),
+    openJobs(),
+    talents(),
+    projects(),
+    tutorials(),
+  ])
   return {
     jobs: open.length,
     challenges: listed.length,
+    talents: shared.length,
     projects: registered.length,
+    tutorials: guides.length,
     stars: read.reduce((total, repository) => total + repository.data.stars, 0),
   }
 }

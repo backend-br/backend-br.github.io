@@ -174,7 +174,7 @@ describe('the projects of the organization', () => {
   it('adds the public repositories of the organization after the listed projects', () => {
     // Given a listed project and two repositories of the organization
     const listed = projects(README)
-    const own = [repository('vagas'), repository('backend-br.github.io', 'TypeScript')]
+    const own = [repository('vagas'), repository('como-instalar-xyz')]
 
     // When the organization is added
     const all = withOrganization(listed, own)
@@ -182,8 +182,19 @@ describe('the projects of the organization', () => {
     // Then both repositories follow the list, a repository without a language as Markdown
     expect(all.slice(listed.length).map((project) => [project.source, project.language])).toEqual([
       ['backend-br/vagas', 'Markdown'],
-      ['backend-br/backend-br.github.io', 'TypeScript'],
+      ['backend-br/como-instalar-xyz', 'Markdown'],
     ])
+  })
+
+  it('leaves out the forum, the blog list and the site', () => {
+    // Given the repositories the list leaves out
+    const own = [repository('forum'), repository('poste-mais'), repository('backend-br.github.io', 'TypeScript')]
+
+    // When the organization is added
+    const all = withOrganization([], own)
+
+    // Then none of them is added
+    expect(all).toEqual([])
   })
 
   it('leaves out the configuration repository and a repository the list already has', () => {

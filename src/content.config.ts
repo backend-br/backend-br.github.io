@@ -30,6 +30,9 @@ import {
   toolIndexPath,
   toolPage,
   toolReadmeOf,
+  toolSection,
+  tutorialPage,
+  withSiteLinks,
   REPOSITORY as TUTORIALS,
   tutorial,
 } from './content/tutorials'
@@ -281,6 +284,12 @@ const tutorials = defineCollection({
           return { tool, summary: pages.find((page) => page.summary !== '')?.summary ?? '', guides }
         }),
       )
+      const routes = new Map<string, string>(
+        read.flatMap(({ tool, guides }) => [
+          [toolReadmeOf(guides[0]?.path ?? '').replace(/\/README\.md$/, ''), toolSection(tool.slug)],
+          ...guides.map(({ path, guide }): [string, string] => [path, tutorialPage(tool.slug, guide.system)]),
+        ]),
+      )
       store.clear()
       let count = 0
       for (const [toolOrder, { tool, summary, guides }] of read.entries()) {
@@ -300,8 +309,8 @@ const tutorials = defineCollection({
               summary: guide.summary,
               path,
             },
-            body: guide.body,
-            rendered: await renderMarkdown(guide.body),
+            body: withSiteLinks(guide.body, routes),
+            rendered: await renderMarkdown(withSiteLinks(guide.body, routes)),
           })
           count++
         }

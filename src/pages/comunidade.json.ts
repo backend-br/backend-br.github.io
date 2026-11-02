@@ -8,7 +8,9 @@ export const GET: APIRoute = async () => {
   const body = {
     [keys.jobs]: read.jobs,
     [keys.challenges]: read.challenges,
+    [keys.talents]: read.talents,
     [keys.projects]: read.projects,
+    [keys.tutorials]: read.tutorials,
     [keys.stars]: read.stars,
   }
   return new Response(`${JSON.stringify(body, null, 2)}\n`, {
