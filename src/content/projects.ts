@@ -1,4 +1,6 @@
-import { firstUrl, headingOf, type Link, links, sections, tableRows } from './markdown'
+import { firstUrl, headingOf, type Link, links, plainText, sections, tableRows } from './markdown'
+
+const EMOJI_SHORTCODE = /:[a-z0-9_+-]+:/g
 
 export const REPOSITORY = 'opensource-br'
 
@@ -63,6 +65,10 @@ export function githubHome(url: string): GitHubHome | null {
   return name === undefined
     ? { kind: 'account', owner }
     : { kind: 'repository', owner, name: name.replace(/\.git$/, '') }
+}
+
+export function plainDescription(text: string): string {
+  return plainText(text.replace(EMOJI_SHORTCODE, ''))
 }
 
 export function byStars<T extends Project>(

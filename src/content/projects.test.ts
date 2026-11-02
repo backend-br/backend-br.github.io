@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { byLanguage, byStars, githubHome, languageAnchor, projects } from './projects'
+import { byLanguage, byStars, githubHome, languageAnchor, plainDescription, projects } from './projects'
 
 const README = [
   '# Open-source BR',
@@ -127,5 +127,29 @@ describe('where each project lives on GitHub, and its rank by stars', () => {
       ['HardInfo', 10],
       ['Validation', 10],
     ])
+  })
+})
+
+describe('the description of a project', () => {
+  it('drops the emoji shortcodes GitHub does not render', () => {
+    // Given a description that starts with an emoji shortcode
+    const text = ':house_with_garden: Dados relacionados aos municípios brasileiros'
+
+    // When the description is read
+    const read = plainDescription(text)
+
+    // Then the shortcode is gone
+    expect(read).toBe('Dados relacionados aos municípios brasileiros')
+  })
+
+  it('reads the markdown of the description as plain words', () => {
+    // Given a description with bold text and a link
+    const text = 'Controle social | **Sem atualizações** em [okfn](https://okfn.org.br)'
+
+    // When the description is read
+    const read = plainDescription(text)
+
+    // Then only the words are kept
+    expect(read).toBe('Controle social | Sem atualizações em okfn')
   })
 })

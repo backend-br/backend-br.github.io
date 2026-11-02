@@ -13,17 +13,23 @@ import {
 } from './content/challenges'
 import { REPOSITORY as JOBS, openings, shortlist } from './content/jobs'
 import { rehypeLineBreaks, rehypeOutline, rehypeUntrusted, SHIKI } from './content/markdown'
-import { byStars, githubHome, REPOSITORY as PROJECTS, projects as projectList } from './content/projects'
+import {
+  byStars,
+  githubHome,
+  plainDescription,
+  REPOSITORY as PROJECTS,
+  projects as projectList,
+} from './content/projects'
 import { catalogued } from './content/repositories'
 import { REPOSITORY as TALENTS, talents as sharedTalents } from './content/talents'
 import {
-  accountStars,
+  accountFacts,
   closedIssues,
   file,
   labels,
   openIssues,
   organizationRepositories,
-  repositoryStars,
+  repositoryFacts,
 } from './content/sources'
 
 const repositories = defineCollection({
@@ -191,28 +197,31 @@ const projects = defineCollection({
       if (found.length === 0) {
         throw new Error(`The README of ${PROJECTS} lists no project.`)
       }
-      const starred: { project: (typeof found)[number]; stars: number | null }[] = []
+      const starred: { project: (typeof found)[number] & { description: string }; stars: number | null }[] = []
       for (let start = 0; start < found.length; start += STAR_BATCH) {
         const batch = found.slice(start, start + STAR_BATCH)
         starred.push(
           ...(await Promise.all(
             batch.map(async (project) => {
               const home = githubHome(project.url)
-              const stars =
+              const facts =
                 home === null
                   ? null
                   : home.kind === 'repository'
-                    ? await repositoryStars(home.owner, home.name)
-                    : await accountStars(home.owner)
-              return { project, stars }
+                    ? await repositoryFacts(home.owner, home.name)
+                    : await accountFacts(home.owner)
+              return {
+                project: { ...project, description: plainDescription(facts?.description ?? '') },
+                stars: facts?.stars ?? null,
+              }
             }),
           )),
         )
       }
       const ranked = byStars(starred)
       store.clear()
-      for (const [order, { name, url, source, language, stars }] of ranked.entries()) {
-        store.set({ id: `${order}-${source}`, data: { name, url, source, language, stars, order } })
+      for (const [order, { name, url, source, language, description, stars }] of ranked.entries()) {
+        store.set({ id: `${order}-${source}`, data: { name, url, source, language, description, stars, order } })
       }
       const left = found.length - ranked.length
       logger.info(`Read ${ranked.length} projects${left > 0 ? `, leaving out ${left} with nothing on GitHub` : ''}.`)
@@ -223,6 +232,7 @@ const projects = defineCollection({
     url: z.string(),
     source: z.string(),
     language: z.string(),
+    description: z.string(),
     stars: z.number(),
     order: z.number(),
   }),

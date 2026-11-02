@@ -21,6 +21,7 @@ const owner = project.source.split('/')[0] ?? ''
   stars={project.stars}
   title={project.name}
   href={project.url}
+  summary={project.description}
   level={level}
   stack={project.language ? [project.language] : []}
   links={[{ url: project.url, label: TEXT.onGitHub(project.name), icon: 'github' }]}

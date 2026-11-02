@@ -70,15 +70,35 @@ function found(path: string): Promise<Response | null> {
   return fetchOk(`${API}${path}`, apiHeaders(), 'null')
 }
 
-export async function repositoryStars(owner: string, name: string): Promise<number | null> {
-  const response = await found(`/repos/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`)
-  return response === null ? null : ((await response.json()) as { stargazers_count: number }).stargazers_count
+export interface GitHubFacts {
+  readonly stars: number
+  readonly description: string
 }
 
-export async function accountStars(owner: string): Promise<number | null> {
-  if ((await found(`/users/${encodeURIComponent(owner)}`)) === null) {
+export async function repositoryFacts(owner: string, name: string): Promise<GitHubFacts | null> {
+  const response = await found(`/repos/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`)
+  if (response === null) {
     return null
   }
+  const repository = (await response.json()) as { stargazers_count: number; description: string | null }
+  return { stars: repository.stargazers_count, description: (repository.description ?? '').trim() }
+}
+
+async function organizationDescription(owner: string): Promise<string> {
+  const response = await found(`/orgs/${encodeURIComponent(owner)}`)
+  return response === null ? '' : (((await response.json()) as { description: string | null }).description ?? '')
+}
+
+export async function accountFacts(owner: string): Promise<GitHubFacts | null> {
+  const response = await found(`/users/${encodeURIComponent(owner)}`)
+  if (response === null) {
+    return null
+  }
+  const account = (await response.json()) as { type: string; bio: string | null }
   const owned = await listing<{ stargazers_count: number }>(`/users/${encodeURIComponent(owner)}/repos?type=owner`)
-  return owned.reduce((total, repository) => total + repository.stargazers_count, 0)
+  const description = account.bio ?? (account.type === 'Organization' ? await organizationDescription(owner) : '')
+  return {
+    stars: owned.reduce((total, repository) => total + repository.stargazers_count, 0),
+    description: description.trim(),
+  }
 }
