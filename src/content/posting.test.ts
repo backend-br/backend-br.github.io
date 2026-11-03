@@ -127,6 +127,18 @@ describe('the summary of an opening', () => {
     // Then it is the whole text as plain text
     expect(summary).toBe('Vaga Java remota.')
   })
+
+  it('leaves no tag behind when markup is nested to rebuild one after a single pass', () => {
+    // Given a text whose tags and comments rebuild a tag once the inner ones are taken out
+    const body = 'Vaga <scr<b>ipt>alert(1)</script> e <!<!-- x -->-- y --> remota.'
+
+    // When the summary is read
+    const summary = jobSummary(body)
+
+    // Then no angle bracket survives
+    expect(summary).not.toMatch(/[<>]/)
+    expect(summary).toBe('Vaga alert(1) e remota.')
+  })
 })
 
 describe('the JobPosting of an opening', () => {

@@ -26,13 +26,18 @@ export function formFields(body: string): Partial<Record<Field, string>> {
   return fields
 }
 
+function withoutMarkup(text: string): string {
+  let previous: string
+  let current = text
+  do {
+    previous = current
+    current = current.replace(/<!--[\s\S]*?-->/g, '').replace(/<[^<>]*>/g, '')
+  } while (current !== previous)
+  return current.replace(/[<>]/g, '')
+}
+
 export function jobSummary(body: string): string {
-  return plainText(
-    (formFields(body).description ?? body)
-      .replace(/<!--[\s\S]*?-->/g, '')
-      .replace(/<[^>]+>/g, '')
-      .replace(/^\s*(#+|>+|[-*_]{3,})\s*/gm, ''),
-  )
+  return plainText(withoutMarkup((formFields(body).description ?? body).replace(/^\s*(#+|>+|[-*_]{3,})\s*/gm, '')))
 }
 
 const REMOTE = new Set(['remoto', 'remote'])
