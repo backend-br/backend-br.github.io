@@ -26,14 +26,26 @@ export function formFields(body: string): Partial<Record<Field, string>> {
   return fields
 }
 
+/** Drops every HTML comment and tag in one scan, so no angle bracket, and so no rebuilt tag, survives. */
 function withoutMarkup(text: string): string {
-  let previous: string
-  let current = text
-  do {
-    previous = current
-    current = current.replace(/<!--[\s\S]*?-->/g, '').replace(/<[^<>]*>/g, '')
-  } while (current !== previous)
-  return current.replace(/[<>]/g, '')
+  let plain = ''
+  let index = 0
+  while (index < text.length) {
+    const character = text[index] ?? ''
+    if (character === '>') {
+      index++
+    } else if (character !== '<') {
+      plain += character
+      index++
+    } else if (text.startsWith('<!--', index)) {
+      const close = text.indexOf('-->', index + 4)
+      index = close === -1 ? text.length : close + 3
+    } else {
+      const close = text.indexOf('>', index + 1)
+      index = close === -1 ? index + 1 : close + 1
+    }
+  }
+  return plain
 }
 
 export function jobSummary(body: string): string {
