@@ -1,7 +1,7 @@
 import { unified } from '@astrojs/markdown-remark'
 import { defineCollection } from 'astro:content'
 import { z } from 'astro/zod'
-import { CATALOG } from './content/catalog'
+import { CATALOG, ORGANIZATION } from './content/catalog'
 import {
   REPOSITORY as CHALLENGES,
   byLanguage,
@@ -15,6 +15,7 @@ import { REPOSITORY as JOBS, openings, shortlist } from './content/jobs'
 import { rehypeLineBreaks, rehypeOutline, rehypeUntrusted, SHIKI } from './content/markdown'
 import {
   byStars,
+  type GitHubHome,
   githubHome,
   plainDescription,
   REPOSITORY as PROJECTS,
@@ -40,6 +41,7 @@ import {
   accountFacts,
   closedIssues,
   file,
+  type GitHubFacts,
   labels,
   openIssues,
   optionalFile,
@@ -204,6 +206,18 @@ const talents = defineCollection({
 
 const STAR_BATCH = 10
 
+/** Reads the stars and the description of a project, taking those of the organization from its listing. */
+function factsOf(home: GitHubHome | null, listed: ReadonlyMap<string, GitHubFacts>): Promise<GitHubFacts | null> {
+  if (home === null) {
+    return Promise.resolve(null)
+  }
+  if (home.kind === 'account') {
+    return accountFacts(home.owner)
+  }
+  const own = home.owner.toLowerCase() === ORGANIZATION ? listed.get(home.name.toLowerCase()) : undefined
+  return own === undefined ? repositoryFacts(home.owner, home.name) : Promise.resolve(own)
+}
+
 const projects = defineCollection({
   loader: {
     name: 'backend-br-projects',
@@ -212,20 +226,21 @@ const projects = defineCollection({
       if (listed.length === 0) {
         throw new Error(`The README of ${PROJECTS} lists no project.`)
       }
-      const found = withOrganization(listed, await organizationRepositories())
+      const organization = await organizationRepositories()
+      const found = withOrganization(listed, organization)
+      const listedFacts = new Map(
+        organization.map((repository): [string, GitHubFacts] => [
+          repository.name.toLowerCase(),
+          { stars: repository.stargazers_count, description: (repository.description ?? '').trim() },
+        ]),
+      )
       const starred: { project: (typeof found)[number] & { description: string }; stars: number | null }[] = []
       for (let start = 0; start < found.length; start += STAR_BATCH) {
         const batch = found.slice(start, start + STAR_BATCH)
         starred.push(
           ...(await Promise.all(
             batch.map(async (project) => {
-              const home = githubHome(project.url)
-              const facts =
-                home === null
-                  ? null
-                  : home.kind === 'repository'
-                    ? await repositoryFacts(home.owner, home.name)
-                    : await accountFacts(home.owner)
+              const facts = await factsOf(githubHome(project.url), listedFacts)
               return {
                 project: { ...project, description: plainDescription(facts?.description ?? '') },
                 stars: facts?.stars ?? null,

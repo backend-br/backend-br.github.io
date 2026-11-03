@@ -1,26 +1,22 @@
 import { ORGANIZATION, rawUrl } from './catalog'
+import { client, fileStore } from './http'
 import type { Issue, Label } from './jobs'
 import type { ListedRepository } from './repositories'
-
-declare const process: { readonly env: { readonly GITHUB_TOKEN?: string } }
 
 const API = 'https://api.github.com'
 
 const MAX_PAGES = 10
 
-async function fetchOk(url: string, headers?: Record<string, string>): Promise<Response>
-async function fetchOk(url: string, headers: Record<string, string>, missing: 'null'): Promise<Response | null>
-async function fetchOk(url: string, headers: Record<string, string> = {}, missing?: 'null'): Promise<Response | null> {
-  const response = await fetch(url, { headers })
-  if (missing === 'null' && response.status === 404) {
-    return null
+const CACHE = process.env.SOURCES_CACHE ?? 'node_modules/.cache/backend-br-sources'
+
+const get = client({ store: fileStore(CACHE) })
+
+async function required(url: string, headers?: Record<string, string>): Promise<string> {
+  const body = await get(url, headers)
+  if (body === null) {
+    throw new Error(`Reading ${url} answered 404.`)
   }
-  if (!response.ok) {
-    const remaining = response.headers.get('x-ratelimit-remaining')
-    const limit = remaining === '0' ? ' The API rate limit is spent: set GITHUB_TOKEN to raise it.' : ''
-    throw new Error(`Reading ${url} answered ${response.status}.${limit}`)
-  }
-  return response
+  return body
 }
 
 function apiHeaders(): Record<string, string> {
@@ -36,8 +32,7 @@ async function listing<T>(path: string, pages = MAX_PAGES): Promise<T[]> {
   const items: T[] = []
   for (let page = 1; page <= pages; page++) {
     const separator = path.includes('?') ? '&' : '?'
-    const response = await fetchOk(`${API}${path}${separator}per_page=100&page=${page}`, apiHeaders())
-    const batch = (await response.json()) as T[]
+    const batch = JSON.parse(await required(`${API}${path}${separator}per_page=100&page=${page}`, apiHeaders())) as T[]
     items.push(...batch)
     if (batch.length < 100) {
       break
@@ -62,17 +57,17 @@ export function labels(name: string): Promise<Label[]> {
   return listing<Label>(`/repos/${ORGANIZATION}/${name}/labels`)
 }
 
-export async function file(name: string, path: string): Promise<string> {
-  return (await fetchOk(rawUrl(name, path))).text()
+export function file(name: string, path: string): Promise<string> {
+  return required(rawUrl(name, path))
 }
 
-export async function optionalFile(name: string, path: string): Promise<string | null> {
-  const response = await fetchOk(rawUrl(name, path), {}, 'null')
-  return response === null ? null : response.text()
+export function optionalFile(name: string, path: string): Promise<string | null> {
+  return get(rawUrl(name, path))
 }
 
-function found(path: string): Promise<Response | null> {
-  return fetchOk(`${API}${path}`, apiHeaders(), 'null')
+async function found<T>(path: string): Promise<T | null> {
+  const body = await get(`${API}${path}`, apiHeaders())
+  return body === null ? null : (JSON.parse(body) as T)
 }
 
 export interface GitHubFacts {
@@ -81,25 +76,25 @@ export interface GitHubFacts {
 }
 
 export async function repositoryFacts(owner: string, name: string): Promise<GitHubFacts | null> {
-  const response = await found(`/repos/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`)
-  if (response === null) {
+  const repository = await found<{ stargazers_count: number; description: string | null }>(
+    `/repos/${encodeURIComponent(owner)}/${encodeURIComponent(name)}`,
+  )
+  if (repository === null) {
     return null
   }
-  const repository = (await response.json()) as { stargazers_count: number; description: string | null }
   return { stars: repository.stargazers_count, description: (repository.description ?? '').trim() }
 }
 
 async function organizationDescription(owner: string): Promise<string> {
-  const response = await found(`/orgs/${encodeURIComponent(owner)}`)
-  return response === null ? '' : (((await response.json()) as { description: string | null }).description ?? '')
+  const organization = await found<{ description: string | null }>(`/orgs/${encodeURIComponent(owner)}`)
+  return organization?.description ?? ''
 }
 
 export async function accountFacts(owner: string): Promise<GitHubFacts | null> {
-  const response = await found(`/users/${encodeURIComponent(owner)}`)
-  if (response === null) {
+  const account = await found<{ type: string; bio: string | null }>(`/users/${encodeURIComponent(owner)}`)
+  if (account === null) {
     return null
   }
-  const account = (await response.json()) as { type: string; bio: string | null }
   const owned = await listing<{ stargazers_count: number }>(`/users/${encodeURIComponent(owner)}/repos?type=owner`)
   const description = account.bio ?? (account.type === 'Organization' ? await organizationDescription(owner) : '')
   return {
