@@ -1,3 +1,4 @@
+accept = ["200..=204", "403", "429"]
 max_concurrency = 8
 max_retries = 5
 retry_wait_time = 5
