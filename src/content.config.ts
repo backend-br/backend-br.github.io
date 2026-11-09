@@ -11,6 +11,7 @@ import {
   solutionCards,
   solutions,
 } from './content/challenges'
+import { REPOSITORY as FORUM, topics as forumTopics } from './content/forum'
 import { REPOSITORY as JOBS, openings, shortlist } from './content/jobs'
 import { rehypeLineBreaks, rehypeOutline, rehypeUntrusted, SHIKI } from './content/markdown'
 import {
@@ -40,6 +41,7 @@ import {
 import {
   accountFacts,
   closedIssues,
+  discussions,
   file,
   type GitHubFacts,
   labels,
@@ -168,6 +170,37 @@ const jobs = defineCollection({
     stack: z.array(z.string()),
     author: z.string(),
     avatar: z.string(),
+  }),
+})
+
+const topics = defineCollection({
+  loader: {
+    name: 'backend-br-topics',
+    load: async ({ store, logger }) => {
+      const found = forumTopics(await discussions(FORUM))
+      store.clear()
+      for (const topic of found) {
+        store.set({ id: String(topic.number), data: { ...topic } })
+      }
+      logger.info(
+        `Read ${found.length} forum topics, ${found.filter((topic) => topic.highlight).length} asking for a highlight.`,
+      )
+    },
+  },
+  schema: z.object({
+    number: z.number(),
+    title: z.string(),
+    url: z.string(),
+    opened: z.string(),
+    open: z.boolean(),
+    expires: z.string().nullable(),
+    category: z.string(),
+    comments: z.number(),
+    answered: z.boolean(),
+    author: z.string(),
+    avatar: z.string(),
+    summary: z.string(),
+    highlight: z.object({ until: z.string().nullable(), link: z.string().nullable() }).nullable(),
   }),
 })
 
@@ -348,4 +381,4 @@ const tutorials = defineCollection({
   }),
 })
 
-export const collections = { repositories, challenges, jobs, projects, talents, tutorials }
+export const collections = { repositories, challenges, jobs, projects, talents, topics, tutorials }

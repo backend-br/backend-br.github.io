@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro'
 import { challenges, openJobs, projects, repositories, repositoryLede, tutorials } from '../content'
 import { rawUrl } from '../content/catalog'
 import { REPOSITORY as CHALLENGES } from '../content/challenges'
+import { REPOSITORY as FORUM } from '../content/forum'
 import { REPOSITORY as JOBS } from '../content/jobs'
 import { REPOSITORY as PROJECTS } from '../content/projects'
 import { SITE, TEXT } from '../content/site'
@@ -10,11 +11,12 @@ import { REPOSITORY as TALENTS } from '../content/talents'
 export const GET: APIRoute = async ({ site, url }) => {
   const origin = site ?? new URL(url.origin)
   const page = (path: string): string => new URL(path, origin).href
-  const [challengesLede, jobsLede, talentsLede, projectsLede] = await Promise.all([
+  const [challengesLede, jobsLede, talentsLede, projectsLede, forumLede] = await Promise.all([
     repositoryLede(CHALLENGES, TEXT.challenges.lede),
     repositoryLede(JOBS, TEXT.jobs.lede),
     repositoryLede(TALENTS, TEXT.talents.lede),
     repositoryLede(PROJECTS, TEXT.projects.lede),
+    repositoryLede(FORUM, TEXT.forum.lede),
   ])
   const lines = [
     `# ${SITE.name}`,
@@ -28,6 +30,7 @@ export const GET: APIRoute = async ({ site, url }) => {
     `- [${TEXT.talents.headline}](${page('/talentos/')}): ${talentsLede}`,
     `- [${TEXT.projects.headline}](${page('/projetos/')}): ${projectsLede}`,
     `- [${TEXT.tutorials.headline}](${page('/tutoriais/')}): ${TEXT.tutorials.lede}`,
+    `- [${TEXT.forum.headline}](${page('/forum/')}): ${forumLede}`,
     '',
     '## Dados',
     '',

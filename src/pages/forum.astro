@@ -1,0 +1,85 @@
+---
+import CoverActions from '../components/CoverActions.astro'
+import HighlightBand from '../components/HighlightBand.astro'
+import Icon from '../components/Icon.astro'
+import PageCover from '../components/PageCover.astro'
+import { sectionAt } from '../components/sections'
+import TopicItem from '../components/TopicItem.astro'
+import { highlights as allHighlights, repositoryLede, topics as allTopics } from '../content'
+import { listed, NEW_DISCUSSION, PATTERN, REPOSITORY } from '../content/forum'
+import { MAIN_ID, TEXT } from '../content/site'
+import { breadcrumbs, collection } from '../content/structured-data'
+import BaseLayout from '../layouts/BaseLayout.astro'
+
+const [topics, highlights] = await Promise.all([allTopics(), allHighlights()])
+const rest = listed(
+  topics.map((topic) => topic.data),
+  highlights.map((topic) => topic.data),
+  new Date(),
+)
+const shown = [...highlights.map((topic) => topic.data), ...rest]
+const labels = TEXT.forum
+const lede = await repositoryLede(REPOSITORY, labels.lede)
+const origin = Astro.site ?? Astro.url.origin
+const description = `${lede} ${labels.count(shown.length)}.`
+const page = { path: '/forum/', name: labels.headline, description }
+---
+
+<BaseLayout
+  title={labels.headline}
+  description={description}
+  path={page.path}
+  structuredData={{
+    '@graph': [
+      breadcrumbs(origin, [{ name: labels.title, path: page.path }]),
+      ...(shown.length > 0
+        ? [collection(origin, page, shown.map((topic) => ({ name: topic.title, url: topic.url })))]
+        : []),
+    ],
+  }}
+>
+  <main id={MAIN_ID}>
+    <PageCover title={labels.title} lede={lede} icon={sectionAt('/forum/').icon}>
+      <ul class="bb-facts">
+        <li>{labels.count(shown.length)}</li>
+      </ul>
+      <CoverActions label={labels.post} href={NEW_DISCUSSION} repository={REPOSITORY} />
+    </PageCover>
+    <div class="bb-wrap bb-main">
+      {
+        highlights.length > 0 && (
+          <section class="bb-listing" aria-labelledby="destaques-title">
+            <h2 id="destaques-title" class="bb-eyebrow">
+              {labels.highlights}
+            </h2>
+            <div class="bb-call__list">
+              {highlights.map((topic) => (
+                <HighlightBand topic={topic.data} id={`destaque-${topic.data.number}`} level="h3" />
+              ))}
+            </div>
+          </section>
+        )
+      }
+      {
+        rest.length > 0 ? (
+          <section class="bb-listing" aria-labelledby="lista-title">
+            <h2 id="lista-title" class="bb-eyebrow">
+              {labels.listed}
+            </h2>
+            <ul class="bb-cards">
+              {rest.map((topic) => (
+                <TopicItem topic={topic} />
+              ))}
+            </ul>
+          </section>
+        ) : (
+          highlights.length === 0 && <p class="bb-empty">{labels.empty}</p>
+        )
+      }
+      <a href={PATTERN} class="bb-button bb-button--ghost bb-section__more" target="_blank" rel="noopener noreferrer">
+        {labels.pattern}
+        <Icon name="external" size={16} />
+      </a>
+    </div>
+  </main>
+</BaseLayout>

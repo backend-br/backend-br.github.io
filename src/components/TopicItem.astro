@@ -1,0 +1,25 @@
+---
+import type { TopicEntry } from '../content'
+import { TEXT } from '../content/site'
+import EntryCard from './EntryCard.astro'
+
+interface Props {
+  topic: TopicEntry['data']
+  featured?: boolean
+}
+
+const { topic, featured = false } = Astro.props
+const labels = TEXT.forum
+---
+
+<EntryCard
+  avatar={topic.avatar}
+  source={topic.author}
+  instant={{ value: topic.opened, label: labels.opened }}
+  title={topic.title}
+  subtitle={[topic.category, labels.comments(topic.comments), ...(topic.answered ? [labels.answered] : [])].join(' · ')}
+  href={topic.url}
+  summary={topic.summary}
+  highlight={featured}
+  links={[{ url: topic.url, label: labels.discuss, icon: 'github' }]}
+/>

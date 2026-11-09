@@ -1,4 +1,5 @@
 import { type CollectionEntry, getCollection } from 'astro:content'
+import { dated, highlighted } from './forum'
 import { byListing } from './jobs'
 
 export type RepositoryEntry = CollectionEntry<'repositories'>
@@ -7,6 +8,7 @@ export type JobEntry = CollectionEntry<'jobs'>
 export type ProjectEntry = CollectionEntry<'projects'>
 export type TalentEntry = CollectionEntry<'talents'>
 export type TutorialEntry = CollectionEntry<'tutorials'>
+export type TopicEntry = CollectionEntry<'topics'>
 
 export async function repositories(): Promise<readonly RepositoryEntry[]> {
   return (await getCollection('repositories')).sort((a, b) => a.data.order - b.data.order)
@@ -71,4 +73,21 @@ export async function figures(): Promise<Figures> {
     tutorials: guides.length,
     stars: read.reduce((total, repository) => total + repository.data.stars, 0),
   }
+}
+
+export async function topics(): Promise<readonly TopicEntry[]> {
+  return (await getCollection('topics')).sort((a, b) => Date.parse(b.data.opened) - Date.parse(a.data.opened))
+}
+
+export async function highlights(now: Date = new Date()): Promise<readonly TopicEntry[]> {
+  const listed = await topics()
+  const byNumber = new Map(listed.map((topic) => [topic.data.number, topic]))
+  return highlighted(
+    listed.map((topic) => topic.data),
+    now,
+  ).flatMap((topic) => byNumber.get(topic.number) ?? [])
+}
+
+export async function datedHighlights(now: Date = new Date()): Promise<readonly TopicEntry[]> {
+  return (await highlights(now)).filter((topic) => dated([topic.data]).length > 0)
 }

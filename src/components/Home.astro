@@ -1,8 +1,15 @@
 ---
-import { challenges as allChallenges, figures as allFigures, jobs as allJobs, repositories as allRepositories } from '../content'
+import {
+  challenges as allChallenges,
+  figures as allFigures,
+  datedHighlights,
+  jobs as allJobs,
+  repositories as allRepositories,
+} from '../content'
 import { MAIN_ID, SITE, TEXT } from '../content/site'
 import { identity } from '../content/structured-data'
 import BaseLayout from '../layouts/BaseLayout.astro'
+import HighlightBand from './HighlightBand.astro'
 import ChallengeCard from './ChallengeCard.astro'
 import Icon from './Icon.astro'
 import JobItem from './JobItem.astro'
@@ -11,11 +18,12 @@ import Terminal from './Terminal.astro'
 
 const LATEST = 4
 
-const [repositories, challenges, jobs, read] = await Promise.all([
+const [repositories, challenges, jobs, read, highlights] = await Promise.all([
   allRepositories(),
   allChallenges(),
   allJobs(),
   allFigures(),
+  datedHighlights(),
 ])
 const response = TEXT.home.response
 const figures = [
@@ -55,6 +63,18 @@ const origin = Astro.site ?? Astro.url.origin
         <Terminal figures={figures} />
       </div>
     </section>
+
+    {
+      highlights.length > 0 && (
+        <section class="bb-call" aria-label={TEXT.forum.highlights}>
+          <div class="bb-wrap bb-call__list">
+            {highlights.map((topic) => (
+              <HighlightBand topic={topic.data} id={`destaque-${topic.data.number}`} />
+            ))}
+          </div>
+        </section>
+      )
+    }
 
     <div class="bb-wrap">
       <section class="bb-section" id="repositorios" aria-labelledby="repositorios-title">

@@ -1,4 +1,5 @@
 import { ORGANIZATION, rawUrl } from './catalog'
+import type { Discussion } from './forum'
 import { client, fileStore } from './http'
 import type { Issue, Label } from './jobs'
 import type { ListedRepository } from './repositories'
@@ -51,6 +52,10 @@ export function openIssues(name: string): Promise<Issue[]> {
 
 export function closedIssues(name: string): Promise<Issue[]> {
   return listing<Issue>(`/repos/${ORGANIZATION}/${name}/issues?state=closed&sort=created&direction=desc`, 1)
+}
+
+export function discussions(name: string): Promise<Discussion[]> {
+  return listing<Discussion>(`/repos/${ORGANIZATION}/${name}/discussions`)
 }
 
 export function labels(name: string): Promise<Label[]> {

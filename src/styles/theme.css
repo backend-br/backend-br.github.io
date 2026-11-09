@@ -394,6 +394,18 @@
   font-weight: var(--font-weight-demibold);
   color: var(--color-ink-muted);
 }
+.bb-tabbar a span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@media (max-width: 25.99rem) {
+  .bb-tabbar a {
+    font-size: 0.625rem;
+    letter-spacing: -0.02em;
+  }
+}
 .bb-tabbar a[aria-current='page'] {
   color: var(--color-accent);
 }
@@ -843,6 +855,103 @@
 .bb-card:has(.bb-card__title a:focus-visible) {
   outline: 3px solid var(--color-focus);
   outline-offset: 2px;
+}
+
+.bb-call {
+  padding-block: 2rem 0;
+}
+@media (min-width: 64rem) {
+  .bb-call {
+    padding-block: 3rem 0;
+  }
+}
+.bb-call__list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.bb-call__panel {
+  position: relative;
+  display: grid;
+  gap: 1.75rem;
+  padding: 1.5rem 1.25rem;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-hair);
+  border-inline-start: 6px solid var(--color-mark);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+@media (min-width: 40rem) {
+  .bb-call__panel {
+    padding: 2rem;
+  }
+}
+@media (min-width: 64rem) {
+  .bb-call__panel {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 3rem;
+    padding: 2.5rem 3rem;
+  }
+}
+.bb-call__words {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.bb-call__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.bb-call__title {
+  font-size: clamp(1.625rem, 4.5vw, 2.25rem);
+  overflow-wrap: anywhere;
+}
+.bb-call__by {
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  color: var(--color-ink-muted);
+}
+.bb-call__summary {
+  max-width: 44rem;
+  line-height: 1.6;
+  color: var(--color-ink-muted);
+  text-wrap: pretty;
+}
+.bb-call__side {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+.bb-call__facts {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 1rem 1.125rem;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-strong);
+  font-size: var(--text-small);
+}
+.bb-call__facts li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.625rem;
+}
+.bb-call__facts .bb-icon {
+  flex: none;
+  margin-block-start: 0.125rem;
+  color: var(--color-accent);
+}
+.bb-call__facts time {
+  font-weight: var(--font-weight-bold);
+}
+.bb-call__actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
 }
 
 .bb-section__more {

@@ -41,6 +41,7 @@ GitHub:
 | `/vagas`    | As issues abertas de `vagas` e a descrição de cada label, pela API REST.                    |
 | `/talentos` | As issues abertas de `me-contrata` com os labels `verificado` e `divulgar-perfil`.          |
 | `/projetos` | A tabela da seção `Projetos` do `README.md` de `opensource-br`.                             |
+| `/forum`    | As discussions abertas de `forum`, das mais recentes às mais antigas, com os destaques no topo. |
 | `/comunidade.json` | Os números do terminal da home: vagas abertas, desafios, projetos e estrelas.     |
 | `/vagas.json` | As vagas abertas, com nível, regime, modelo de trabalho e tecnologias.                    |
 | `/vagas.xml` | RSS com as 50 vagas abertas mais recentes.                                               |

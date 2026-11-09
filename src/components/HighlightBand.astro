@@ -1,0 +1,70 @@
+---
+import type { TopicEntry } from '../content'
+import { day, excerpt, TEXT } from '../content/site'
+import Icon from './Icon.astro'
+
+interface Props {
+  topic: TopicEntry['data']
+  id: string
+  level?: 'h2' | 'h3'
+}
+
+const SUMMARY_LIMIT = 360
+
+const { topic, id, level: Heading = 'h2' } = Astro.props
+const labels = TEXT.forum
+const highlight = topic.highlight
+const EXTERNAL = { target: '_blank', rel: 'noopener noreferrer nofollow' } as const
+---
+
+{
+  highlight && (
+    <article class="bb-call__panel" aria-labelledby={`${id}-title`}>
+      <div class="bb-call__words">
+        <p class="bb-eyebrow bb-call__eyebrow">
+          <Icon name="megaphone" size={14} />
+          {labels.highlight}
+        </p>
+        <Heading id={`${id}-title`} class="bb-display bb-call__title">
+          {topic.title}
+        </Heading>
+        <p class="bb-call__by">
+          {labels.by(topic.author)} · {topic.category}
+        </p>
+        <p class="bb-call__summary">{excerpt(topic.summary, SUMMARY_LIMIT)}</p>
+      </div>
+      <div class="bb-call__side">
+        <ul class="bb-call__facts">
+          {highlight.until && (
+            <li>
+              <Icon name="calendar" size={16} />
+              <span>
+                {labels.until} <time datetime={highlight.until}>{day(highlight.until)}</time>
+              </span>
+            </li>
+          )}
+          <li>
+            <Icon name="message" size={16} />
+            <span>{labels.comments(topic.comments)}</span>
+          </li>
+        </ul>
+        <div class="bb-actions bb-call__actions">
+          {highlight.link && (
+            <a href={highlight.link} class="bb-button bb-button--primary" {...EXTERNAL}>
+              {labels.open}
+              <Icon name="external" size={16} />
+            </a>
+          )}
+          <a
+            href={topic.url}
+            class:list={['bb-button', highlight.link ? 'bb-button--ghost' : 'bb-button--primary']}
+            {...EXTERNAL}
+          >
+            <Icon name="github" size={16} />
+            {labels.discuss}
+          </a>
+        </div>
+      </div>
+    </article>
+  )
+}
